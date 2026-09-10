@@ -11,6 +11,7 @@ raw_response para que el llamador (workflow.py) decida — este servicio
 no toca la base de datos.
 """
 
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -76,7 +77,17 @@ async def execute_prompt(approved_prompt: str) -> ExecutorResult:
 
 def _a_resultado(resultado_llm: NvidiaChatResult, model: str) -> ExecutorResult:
     bloque = extract_json_block(resultado_llm.content)
-    executor_response = ExecutorResponse.model_validate_json(bloque)
+    datos = json.loads(bloque)
+
+    # Algunos modelos (visto con mistral-nemotron) anidan la respuesta en un
+    # objeto en vez de aplanarla a texto como pide el system prompt, p. ej.
+    # {"response": {"ejemplo_basico": {...}, "ejemplo_avanzado": {...}}}.
+    # El contenido sigue siendo válido y útil: se aplana a texto legible en
+    # vez de descartar una respuesta real por no calzar el tipo exacto.
+    if isinstance(datos, dict) and isinstance(datos.get("response"), (dict, list)):
+        datos["response"] = json.dumps(datos["response"], indent=2, ensure_ascii=False)
+
+    executor_response = ExecutorResponse.model_validate(datos)
     return ExecutorResult(
         executor_response=executor_response,
         raw_response=resultado_llm.raw_response,
