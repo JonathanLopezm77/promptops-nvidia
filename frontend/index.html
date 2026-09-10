@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Laboratorio de PromptOps</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>LABORATORIO DE PROMPTOPS</h1>
+  <button id="btn-historial-toggle" class="btn btn-secondary">HISTORIAL</button>
+</header>
+
+<aside id="panel-historial" class="panel panel-historial" hidden>
+  <h2>Historial de ejecuciones</h2>
+  <div id="lista-historial" class="lista-historial"></div>
+</aside>
+
+<main>
+  <!-- Panel de entrada -->
+  <section id="panel-entrada" class="panel">
+    <h2>1. Prompt</h2>
+    <textarea id="input-prompt" placeholder="Introduce tu prompt..." rows="4"></textarea>
+    <button id="btn-iniciar" class="btn btn-primary">INICIAR</button>
+  </section>
+
+  <!-- Pipeline -->
+  <section id="panel-pipeline" class="panel" hidden>
+    <h2>Pipeline</h2>
+    <div id="prompt-original-run" class="prompt-original"></div>
+    <div class="pipeline">
+      <div class="pipeline-nodo" data-nodo="prompt">PROMPT</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="optimizer">OPTIMIZER</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="auditor">AUDITOR</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="gates">QUALITY GATES</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="human">HUMAN</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="executor">EXECUTOR</div>
+    </div>
+    <div id="estado-run" class="estado-run"></div>
+    <div id="error-run" class="error-banner" hidden></div>
+  </section>
+
+  <!-- Timeline -->
+  <section id="panel-timeline" class="panel" hidden>
+    <h2>Timeline</h2>
+    <ul id="lista-timeline" class="lista-timeline"></ul>
+  </section>
+
+  <!-- Iteraciones -->
+  <section id="panel-iteraciones" class="panel" hidden>
+    <h2>Iteraciones</h2>
+    <div id="lista-iteraciones"></div>
+  </section>
+
+  <!-- Auditoría -->
+  <section id="panel-auditoria" class="panel" hidden>
+    <h2>Auditoría</h2>
+    <div id="resumen-auditoria" class="resumen-auditoria"></div>
+    <div id="gates-auditoria" class="gates-grid"></div>
+    <details id="detalle-propiedades">
+      <summary>Ver las 21 propiedades evaluadas</summary>
+      <div id="propiedades-auditoria"></div>
+    </details>
+    <div id="recomendaciones-auditoria"></div>
+  </section>
+
+  <!-- Human in the loop -->
+  <section id="panel-humano" class="panel" hidden>
+    <h2>Decisión humana</h2>
+    <textarea id="input-feedback" placeholder="Feedback (para nueva iteración o rechazo)..." rows="2"></textarea>
+    <textarea id="input-edicion" placeholder="Prompt editado a mano (para EDITAR)..." rows="4" hidden></textarea>
+    <div class="botonera">
+      <button id="btn-aprobar" class="btn btn-primary">APROBAR</button>
+      <button id="btn-iterar" class="btn btn-secondary">NUEVA ITERACIÓN</button>
+      <button id="btn-editar-toggle" class="btn btn-secondary">EDITAR</button>
+      <button id="btn-editar-enviar" class="btn btn-secondary" hidden>ENVIAR EDICIÓN</button>
+      <button id="btn-rechazar" class="btn btn-danger">RECHAZAR</button>
+    </div>
+    <div class="botonera">
+      <button id="btn-auto-iterar" class="btn btn-secondary">AUTO-MEJORAR HASTA 90</button>
+    </div>
+    <p class="nota">
+      Repite NUEVA ITERACIÓN automáticamente (usando las recomendaciones reales
+      del Auditor) hasta llegar a 90/100 o agotar 5 intentos. Siempre se
+      detiene aquí: aprobar y ejecutar sigue siendo tu decisión.
+    </p>
+  </section>
+
+  <!-- Ejecución -->
+  <section id="panel-ejecucion" class="panel" hidden>
+    <h2>Ejecución</h2>
+    <button id="btn-ejecutar" class="btn btn-primary">EJECUTAR PROMPT APROBADO</button>
+  </section>
+
+  <!-- Respuesta final -->
+  <section id="panel-respuesta" class="panel" hidden>
+    <h2>Respuesta final</h2>
+    <div id="prompt-aprobado-respuesta" class="prompt-original"></div>
+    <div class="respuesta-contenedor">
+      <button id="btn-copiar-respuesta" class="btn-copiar" type="button" title="Copiar respuesta">⧉ Copiar</button>
+      <pre id="texto-respuesta"></pre>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
