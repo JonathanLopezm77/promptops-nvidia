@@ -75,17 +75,37 @@ async def execute_prompt(approved_prompt: str) -> ExecutorResult:
             ) from segundo_error
 
 
+def _aplanar_a_texto(valor: Any, nivel: int = 0) -> str:
+    """Convierte un dict/list anidado en texto plano legible, conservando
+    los saltos de línea REALES de cualquier string (p. ej. código), en vez
+    de volver a escaparlos como haría json.dumps."""
+    sangria = "  " * nivel
+    if isinstance(valor, dict):
+        partes = []
+        for clave, sub in valor.items():
+            if isinstance(sub, (dict, list)):
+                partes.append(f"{sangria}{clave}:")
+                partes.append(_aplanar_a_texto(sub, nivel + 1))
+            else:
+                partes.append(f"{sangria}{clave}:\n{sub}")
+        return "\n".join(partes)
+    if isinstance(valor, list):
+        return "\n".join(_aplanar_a_texto(item, nivel) for item in valor)
+    return str(valor)
+
+
 def _a_resultado(resultado_llm: NvidiaChatResult, model: str) -> ExecutorResult:
     bloque = extract_json_block(resultado_llm.content)
     datos = json.loads(bloque)
 
     # Algunos modelos (visto con mistral-nemotron) anidan la respuesta en un
     # objeto en vez de aplanarla a texto como pide el system prompt, p. ej.
-    # {"response": {"ejemplo_basico": {...}, "ejemplo_avanzado": {...}}}.
-    # El contenido sigue siendo válido y útil: se aplana a texto legible en
-    # vez de descartar una respuesta real por no calzar el tipo exacto.
+    # {"response": {"ejemplo_basico": {"codigo": "...", ...}, ...}}.
+    # Se aplana a texto plano de verdad (json.dumps escaparía los saltos de
+    # línea del código como "\n" literal, dejándolo inútil para copiar y
+    # pegar) en vez de descartar una respuesta real por no calzar el tipo.
     if isinstance(datos, dict) and isinstance(datos.get("response"), (dict, list)):
-        datos["response"] = json.dumps(datos["response"], indent=2, ensure_ascii=False)
+        datos["response"] = _aplanar_a_texto(datos["response"])
 
     executor_response = ExecutorResponse.model_validate(datos)
     return ExecutorResult(
