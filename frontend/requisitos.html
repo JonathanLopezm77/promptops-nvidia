@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ingeniería de Requisitos — PromptOps</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>INGENIERÍA DE REQUISITOS</h1>
+  <nav class="topbar-nav">
+    <a href="index.html" class="btn btn-secondary">PROMPTS</a>
+    <button id="btn-historial-toggle" class="btn btn-secondary">HISTORIAL</button>
+  </nav>
+</header>
+
+<aside id="panel-historial" class="panel panel-historial" hidden>
+  <h2>Historial de análisis</h2>
+  <div id="lista-historial" class="lista-historial"></div>
+</aside>
+
+<main>
+  <section id="panel-entrada" class="panel">
+    <h2>1. Requisito</h2>
+    <textarea id="input-requisito" rows="4"
+      placeholder="Ej.: El sistema debe ser rápido y fácil de usar para los clientes."></textarea>
+    <details>
+      <summary>Contexto del proyecto (opcional)</summary>
+      <textarea id="input-contexto" rows="3"
+        placeholder="Otros requisitos, reglas del negocio o restricciones conocidas. Se usa para evaluar consistencia y factibilidad."></textarea>
+    </details>
+    <button id="btn-analizar" class="btn btn-primary">ANALIZAR</button>
+  </section>
+
+  <section id="panel-pipeline" class="panel" hidden>
+    <h2>Pipeline</h2>
+    <div class="pipeline">
+      <div class="pipeline-nodo" data-nodo="entrada">REQUISITO ORIGINAL</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="evaluacion">EVALUACIÓN (10 CRITERIOS)</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="mejora">MEJORA</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="reevaluacion">REEVALUACIÓN</div>
+      <div class="pipeline-flecha">&darr;</div>
+      <div class="pipeline-nodo" data-nodo="resultado">RESULTADO</div>
+    </div>
+    <div id="estado-analisis" class="estado-run"></div>
+    <div id="error-analisis" class="error-banner" hidden></div>
+  </section>
+
+  <section id="panel-resultado" class="panel" hidden>
+    <h2>Diagnóstico</h2>
+    <div id="resumen-puntajes" class="resumen-puntajes"></div>
+    <div id="diagnostico-texto" class="prompt-original"></div>
+    <div id="tabla-criterios" class="tabla-criterios-contenedor"></div>
+    <div id="terminos-ambiguos"></div>
+  </section>
+
+  <section id="panel-preguntas" class="panel" hidden>
+    <h2>Preguntas de aclaración</h2>
+    <p class="nota">Falta información para completar el requisito sin inventar datos. Responde lo que sepas y se analizará de nuevo.</p>
+    <ol id="lista-preguntas" class="lista-simple"></ol>
+    <textarea id="input-respuestas" rows="3" placeholder="Tus respuestas..."></textarea>
+    <button id="btn-responder" class="btn btn-primary">RESPONDER Y REANALIZAR</button>
+  </section>
+
+  <section id="panel-mejorado" class="panel" hidden>
+    <h2>Requisito mejorado</h2>
+    <div class="iteracion-comparacion">
+      <div><span class="etiqueta">ORIGINAL</span><span id="texto-original"></span></div>
+      <div><span class="etiqueta">MEJORADO</span><span id="texto-mejorado"></span></div>
+    </div>
+    <div id="aviso-recomendacion" class="error-banner" hidden></div>
+    <div id="aviso-no-sustentados" class="error-banner" hidden></div>
+    <h3 class="subtitulo">Criterios de aceptación</h3>
+    <ul id="lista-criterios-aceptacion" class="lista-simple"></ul>
+    <div id="bloque-pendientes" hidden>
+      <h3 class="subtitulo">Pendiente de definir (no se inventó)</h3>
+      <ul id="lista-pendientes" class="lista-simple pendientes"></ul>
+    </div>
+    <details>
+      <summary>Cambios realizados e intención original</summary>
+      <ul id="lista-cambios" class="lista-simple"></ul>
+      <p id="texto-intencion" class="nota"></p>
+    </details>
+  </section>
+
+  <section id="panel-trazabilidad" class="panel" hidden>
+    <h2>Trazabilidad</h2>
+    <div id="datos-trazabilidad" class="trazabilidad"></div>
+  </section>
+</main>
+
+<script src="requisitos.js"></script>
+</body>
+</html>

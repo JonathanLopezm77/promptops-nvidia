@@ -419,3 +419,154 @@ summary {
   border-color: var(--accent);
   color: var(--accent);
 }
+
+/* Navegación entre pantallas */
+
+.topbar-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.topbar-nav .btn {
+  margin-top: 0;
+  text-decoration: none;
+}
+
+/* Ingeniería de Requisitos */
+
+.pipeline-nodo.omitido {
+  border-style: dashed;
+  color: var(--fg-dim);
+  opacity: 0.5;
+}
+
+.resumen-puntajes {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.resumen-puntajes .formula {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.tarjeta-puntaje {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.9rem;
+  min-width: 150px;
+  text-align: center;
+}
+
+.tarjeta-puntaje.alta { border-color: var(--accent); }
+.tarjeta-puntaje.baja { border-color: var(--warn); }
+
+.puntaje-grande {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.puntaje-grande span {
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+}
+
+.score-alto { color: var(--accent); }
+.score-medio { color: var(--warn); }
+.score-bajo { color: var(--danger); }
+
+.tabla-criterios-contenedor {
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.tabla-criterios {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.tabla-criterios th,
+.tabla-criterios td {
+  border-bottom: 1px dotted var(--border);
+  padding: 0.35rem 0.4rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabla-criterios th {
+  color: var(--fg-dim);
+  font-weight: normal;
+}
+
+.tabla-criterios td.num {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tabla-criterios .recomendacion {
+  color: var(--fg-dim);
+  margin-top: 0.2rem;
+}
+
+mark {
+  background: transparent;
+  color: var(--warn);
+  border-bottom: 1px dashed var(--warn);
+}
+
+mark.por-definir {
+  color: var(--danger);
+  border-bottom-color: var(--danger);
+}
+
+.subtitulo {
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0.9rem 0 0.3rem 0;
+}
+
+.lista-simple {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.82rem;
+}
+
+.lista-simple li {
+  margin-bottom: 0.25rem;
+}
+
+.lista-simple.pendientes li {
+  color: var(--danger);
+}
+
+.trazabilidad {
+  font-size: 0.78rem;
+}
+
+.trazabilidad > div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px dotted var(--border);
+  word-break: break-word;
+}
+
+.trazabilidad > div > span {
+  color: var(--fg-dim);
+}
+
+.trazabilidad a {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .trazabilidad > div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

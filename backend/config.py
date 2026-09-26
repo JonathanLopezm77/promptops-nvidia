@@ -38,6 +38,11 @@ class Settings(BaseModel):
     executor_model: str
     llm_timeout_seconds: int
     llm_max_retries: int
+    # Pide `response_format: {"type": "json_object"}` en las IAs de
+    # requisitos. Útil con modelos locales (Ollama) que a veces devuelven
+    # JSON mal formado; apagado por defecto porque no todos los modelos de
+    # NVIDIA aceptan el parámetro.
+    llm_json_mode: bool = False
 
     def __repr__(self) -> str:
         return (
@@ -48,7 +53,8 @@ class Settings(BaseModel):
             f"auditor_model={self.auditor_model!r}, "
             f"executor_model={self.executor_model!r}, "
             f"llm_timeout_seconds={self.llm_timeout_seconds}, "
-            f"llm_max_retries={self.llm_max_retries})"
+            f"llm_max_retries={self.llm_max_retries}, "
+            f"llm_json_mode={self.llm_json_mode})"
         )
 
     __str__ = __repr__
@@ -74,4 +80,5 @@ def get_settings() -> Settings:
         executor_model=os.environ["EXECUTOR_MODEL"],
         llm_timeout_seconds=int(os.environ.get("LLM_TIMEOUT_SECONDS", "60")),
         llm_max_retries=int(os.environ.get("LLM_MAX_RETRIES", "2")),
+        llm_json_mode=os.environ.get("LLM_JSON_MODE", "").strip().lower() in ("1", "true", "si", "sí"),
     )

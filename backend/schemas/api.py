@@ -6,9 +6,9 @@ construirlos directamente desde los modelos SQLAlchemy.
 
 import uuid
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, computed_field
 
 # ---------------------------------------------------------------------------
 # Request bodies
@@ -126,3 +126,94 @@ class TimelineEventOut(BaseModel):
 
     timestamp: datetime
     description: str
+
+
+# ---------------------------------------------------------------------------
+# Ingeniería de Requisitos (Parcial 1, Componente 1)
+# ---------------------------------------------------------------------------
+
+
+class CreateRequirementRequest(BaseModel):
+    requirement: str = Field(min_length=1)
+    project_context: str | None = None
+    input_mode: Literal["text", "voice"] = "text"
+    # Solo para input_mode = "voice": motor de STT, idioma, duración, etc.
+    stt_metadata: dict[str, Any] | None = None
+
+
+class ClarifyRequirementRequest(BaseModel):
+    answers: str = Field(min_length=1)
+
+
+class RequirementEvaluationOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    stage: str
+    evaluated_text: str
+    parse_ok: bool
+    global_score: int | None
+    is_high_quality: bool | None
+    criteria: list[dict[str, Any]] | None
+    ambiguous_terms: list[dict[str, Any]] | None
+    clarification_questions: list[str] | None
+    missing_information: list[str] | None
+    is_compound: bool | None
+    summary: str | None
+    raw_response: dict[str, Any]
+    model: str
+    prompt_tokens: int | None
+    completion_tokens: int | None
+    latency_ms: int | None
+    created_at: datetime
+
+
+class RequirementAnalysisOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    parent_id: uuid.UUID | None
+    status: str
+    created_at: datetime
+    finished_at: datetime | None
+    input_mode: str
+    original_requirement: str
+    evaluator_model: str
+    improver_model: str
+    error_message: str | None
+
+
+class RequirementAnalysisDetailOut(RequirementAnalysisOut):
+    """GET /api/requirements/{id}: todo lo necesario para mostrar y auditar
+    el análisis completo sin llamadas adicionales."""
+
+    stt_metadata: dict[str, Any] | None
+    project_context: str | None
+    clarifications: str | None
+    improvement_skipped: bool
+    improved_requirement: str | None
+    improvement: dict[str, Any] | None
+    improvement_raw: dict[str, Any] | None
+    improvement_tokens: int | None
+    improvement_latency_ms: int | None
+    evaluations: list[RequirementEvaluationOut] = []
+
+    @computed_field
+    @property
+    def score_delta(self) -> int | None:
+        """Puntaje del mejorado menos el del original (delta antes/después)."""
+        por_etapa = {e.stage: e for e in self.evaluations if e.parse_ok}
+        if "original" not in por_etapa or "improved" not in por_etapa:
+            return None
+        return por_etapa["improved"].global_score - por_etapa["original"].global_score
+
+    @computed_field
+    @property
+    def recommended_version(self) -> Literal["original", "improved"] | None:
+        """La mejora solo se recomienda si subió el puntaje: una versión
+        "mejorada" que puntúa igual o peor no debe reemplazar al original."""
+        if self.status != "COMPLETED":
+            return None
+        if self.score_delta is None or self.score_delta <= 0:
+            return "original"
+        return "improved"

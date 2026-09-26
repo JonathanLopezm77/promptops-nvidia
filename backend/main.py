@@ -2,12 +2,16 @@
 frontend servido como estáticos (sin build step, sin npm)."""
 
 import logging
+from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.exc import SQLAlchemyError
 
+from backend.database import engine
+from backend.routes.requirements import router as requirements_router
 from backend.routes.runs import router as runs_router
 from backend.services.nvidia_client import NvidiaClientError
 from backend.services.workflow import InvalidTransitionError
@@ -15,16 +19,43 @@ from backend.services.workflow import InvalidTransitionError
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("promptops")
 
-app = FastAPI(title="Laboratorio de PromptOps")
+_SCHEMA_REQUISITOS = Path(__file__).parent / "schema_requirements.sql"
+
+
+@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    # schema_requirements.sql es idempotente (IF NOT EXISTS). Aplicarlo al
+    # arrancar permite que las BD ya desplegadas (Render) reciban las
+    # tablas de requisitos sin ejecutar SQL a mano. schema.sql (las cinco
+    # tablas originales) se sigue aplicando manualmente, como antes.
+    try:
+        with engine.begin() as conn:
+            conn.exec_driver_sql(_SCHEMA_REQUISITOS.read_text(encoding="utf-8"))
+    except SQLAlchemyError:
+        logger.exception("No se pudo aplicar schema_requirements.sql al arrancar")
+    yield
+
+
+app = FastAPI(title="Laboratorio de PromptOps", lifespan=_lifespan)
 
 app.include_router(runs_router, prefix="/api")
+app.include_router(requirements_router, prefix="/api")
+
+
+def _mensaje_transicion(exc: InvalidTransitionError) -> str:
+    if exc.target_status == "CLARIFY":
+        return (
+            f"Solo se pueden responder las preguntas de un análisis COMPLETED "
+            f"(este está en {exc.current_status})."
+        )
+    return f"No se puede pasar de {exc.current_status} a {exc.target_status}."
 
 
 @app.exception_handler(InvalidTransitionError)
 async def _invalid_transition_handler(request: Request, exc: InvalidTransitionError) -> JSONResponse:
     return JSONResponse(
         status_code=409,
-        content={"detail": f"No se puede pasar de {exc.current_status} a {exc.target_status}."},
+        content={"detail": _mensaje_transicion(exc)},
     )
 
 
