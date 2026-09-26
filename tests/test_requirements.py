@@ -8,6 +8,7 @@
 """
 
 import json
+import re
 
 import pytest
 from pydantic import ValidationError
@@ -224,6 +225,34 @@ def test_sub_requisitos_en_lista_se_unen_en_un_texto():
         }
     )
     assert mejora.improved_requirement == "REQ-1: El sistema deberá A.\nREQ-2: El sistema deberá B."
+
+
+def _bloques_json(texto: str) -> list[str]:
+    """Bloques que empiezan con '{' en su propia línea y terminan con '}'."""
+    return re.findall(r"^\{\n.*?^\}$", texto, re.MULTILINE | re.DOTALL)
+
+
+def test_las_plantillas_de_los_system_prompts_son_json_valido():
+    # Un comentario "// ..." en la plantilla hizo que deepseek-v4-pro
+    # devolviera JSON inválido en Render: las plantillas deben ser copiables.
+    from backend.services.prompts.requirements_evaluator_system_prompt import (
+        REQUIREMENTS_EVALUATOR_SYSTEM_PROMPT,
+    )
+    from backend.services.prompts.requirements_improver_system_prompt import (
+        REQUIREMENTS_IMPROVER_SYSTEM_PROMPT,
+    )
+
+    evaluador = _bloques_json(REQUIREMENTS_EVALUATOR_SYSTEM_PROMPT)
+    assert len(evaluador) == 1
+    RequirementEvaluationResponse.model_validate_json(evaluador[0])
+
+    mejorador = _bloques_json(REQUIREMENTS_IMPROVER_SYSTEM_PROMPT)
+    assert len(mejorador) == 2  # el ejemplo y el formato de salida
+    for bloque in mejorador:
+        RequirementImprovementResponse.model_validate_json(bloque)
+
+    for prompt in (REQUIREMENTS_EVALUATOR_SYSTEM_PROMPT, REQUIREMENTS_IMPROVER_SYSTEM_PROMPT):
+        assert "//" not in prompt
 
 
 def test_texto_reevaluado_incluye_los_criterios_de_aceptacion():

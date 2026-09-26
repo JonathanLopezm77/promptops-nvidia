@@ -5,11 +5,38 @@ Parcial 1 (basados en ISO/IEC/IEEE 29148). La lista de criterios se genera
 desde `REQUIREMENT_CRITERIA` para que prompt y schema no puedan divergir.
 """
 
+import json
+
 from backend.schemas.requirements import REQUIREMENT_CRITERIA
 
 _LISTA_CRITERIOS = "\n".join(
     f'- "{clave}" ({nombre}): {pregunta}'
     for clave, (nombre, pregunta) in REQUIREMENT_CRITERIA.items()
+)
+
+# Plantilla completa y JSON válido, generada desde REQUIREMENT_CRITERIA.
+# Antes se usaba una entrada de ejemplo seguida de un comentario
+# "// ... los 10 criterios": deepseek-v4-pro (en Render) copió el
+# comentario literal y el JSON resultante era inválido.
+_PLANTILLA_JSON = json.dumps(
+    {
+        "criteria": [
+            {
+                "criterion": clave,
+                "score": 5,
+                "finding": f"hallazgo concreto sobre {nombre.lower()}, citando el texto",
+                "recommendation": "qué habría que cambiar, o cadena vacía",
+            }
+            for clave, (nombre, _) in REQUIREMENT_CRITERIA.items()
+        ],
+        "ambiguous_terms": [{"term": "rápido", "reason": "no define un tiempo medible"}],
+        "is_compound": False,
+        "missing_information": ["dato concreto que falta"],
+        "clarification_questions": ["pregunta concreta al stakeholder"],
+        "summary": "diagnóstico general en 1-3 frases",
+    },
+    ensure_ascii=False,
+    indent=2,
 )
 
 REQUIREMENTS_EVALUATOR_SYSTEM_PROMPT = f"""Eres un Ingeniero de Requisitos senior que audita la calidad de requisitos de software según ISO/IEC/IEEE 29148.
@@ -42,16 +69,6 @@ TU ÚNICA TAREA es EVALUAR el requisito que recibes. NO lo reescribas, NO propon
 12. Responde en español.
 
 ## Formato de salida
-Devuelve EXCLUSIVAMENTE un JSON válido, sin texto antes ni después, sin bloques de código, con esta forma:
-{{
-  "criteria": [
-    {{"criterion": "claridad", "score": 7, "finding": "...", "recommendation": "..."}}
-    // ... los 10 criterios, una entrada por clave, sin repetir
-  ],
-  "ambiguous_terms": [{{"term": "rápido", "reason": "no define un tiempo medible"}}],
-  "is_compound": false,
-  "missing_information": ["..."],
-  "clarification_questions": ["..."],
-  "summary": "diagnóstico general en 1-3 frases"
-}}
+Devuelve EXCLUSIVAMENTE un JSON válido (sin comentarios, sin texto antes ni después, sin bloques de código) con exactamente esta estructura. Reemplaza cada puntaje y cada texto por tu evaluación real; "criteria" debe tener las 10 entradas, en este orden:
+{_PLANTILLA_JSON}
 """
