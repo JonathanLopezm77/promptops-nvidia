@@ -1,0 +1,131 @@
+{
+  "id": "28d48c58-7b25-4b81-9d81-56fe2ecfe885",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:52:45.074113-05:00",
+  "finished_at": "2026-09-27T10:52:55.842813-05:00",
+  "input_mode": "text",
+  "original_requirement": "REQ-AUT-03 (origen: política de seguridad de la tienda en línea). El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos.\nCriterios de aceptación:\n1. Dado un cliente con 4 intentos fallidos consecutivos en los últimos 10 minutos, cuando falla el quinto intento, entonces la cuenta queda bloqueada y el sistema rechaza todo inicio de sesión de esa cuenta durante 15 minutos.\n2. Dado una cuenta bloqueada hace 15 minutos o más, cuando el cliente ingresa su contraseña correcta, entonces el inicio de sesión es exitoso.\n3. Dado un cliente con 4 intentos fallidos consecutivos, cuando inicia sesión correctamente, entonces el contador de intentos fallidos vuelve a 0.",
+  "evaluator_model": "nvidia/nemotron-3-super-120b-a12b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Tienda en línea. Los clientes registrados inician sesión con correo y contraseña. La política de seguridad exige bloqueo temporal de cuentas ante intentos fallidos repetidos.",
+  "clarifications": null,
+  "improvement_skipped": true,
+  "improved_requirement": null,
+  "improvement": null,
+  "improvement_raw": null,
+  "improvement_tokens": null,
+  "improvement_latency_ms": null,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "1a0cd601-3d12-4e73-b7f2-48c87ea7aa25",
+      "stage": "original",
+      "evaluated_text": "REQ-AUT-03 (origen: política de seguridad de la tienda en línea). El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos.\nCriterios de aceptación:\n1. Dado un cliente con 4 intentos fallidos consecutivos en los últimos 10 minutos, cuando falla el quinto intento, entonces la cuenta queda bloqueada y el sistema rechaza todo inicio de sesión de esa cuenta durante 15 minutos.\n2. Dado una cuenta bloqueada hace 15 minutos o más, cuando el cliente ingresa su contraseña correcta, entonces el inicio de sesión es exitoso.\n3. Dado un cliente con 4 intentos fallidos consecutivos, cuando inicia sesión correctamente, entonces el contador de intentos fallidos vuelve a 0.",
+      "parse_ok": true,
+      "global_score": 100,
+      "is_high_quality": true,
+      "criteria": [
+        {
+          "score": 10,
+          "finding": "El requisito es claro y no admite interpretaciones contradictorias: 'El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos'.",
+          "criterion": "claridad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Expresa con precisión el comportamiento: 5 intentos fallidos consecutivos dentro de 10 minutos provocan un bloqueo de 15 minutos. Los criterios de aceptación detallan condiciones y resultados esperados.",
+          "criterion": "especificidad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "El requisito describe una única regla de bloqueo tras un número específico de intentos fallidos en una ventana temporal definida. No combina requisitos independientes.",
+          "criterion": "atomicidad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Incluye toda la información necesaria: actor (cliente registrado), condición (5 intentos fallidos consecutivos en 10 minutos), acción (bloquear cuenta), duración (15 minutos), y criterios de aceptación que cubren casos de uso y recuperación.",
+          "criterion": "completitud",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "No hay contradicciones internas ni con el contexto del proyecto (tienda en línea con política de seguridad de bloqueo temporal). Los criterios de aceptación son consistentes entre sí y con el requisito principal.",
+          "criterion": "consistencia",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Es factible implementar un mecanismo de conteo de intentos fallidos con ventanas temporales y bloqueo de cuenta, estándar en sistemas de autenticación.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Permite verificacion objetiva mediante pruebas: se puede simular 4 intentos fallidos, luego un quinto y verificar el bloqueo; o esperar 15 minutos y verificar que el acceso se restablece con credenciales correctas.",
+          "criterion": "verificabilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Tiene un identificador único (REQ-AUT-03) y declara su origen (política de seguridad de la tienda en línea), lo que permite relacionarlo con necesidad, diseño, implementación y prueba.",
+          "criterion": "trazabilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "No contiene términos subjetivos o vagos. Todos los conceptos son medibles: 5 intentos, 10 minutos, 15 minutos, cuenta bloqueada, inicio de sesión exitoso/fallido.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": ""
+        },
+        {
+          "score": 10,
+          "finding": "Incluye tres criterios de aceptación explícitos, medibles y en formato Dado/Cuando/Entonces que definen claramente cuándo el requisito está satisfecho.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": ""
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [],
+      "missing_information": [],
+      "is_compound": false,
+      "summary": "El requisito REQ-AUT-03 es de alta calidad: claro, específico, atómico, completo, consistente, factible, verificable, trazable, libre de ambigüedades y con criterios de aceptación bien definidos. No requiere cambios.",
+      "raw_response": {
+        "id": "chatcmpl-5def287b-08df-4100-9530-3a6d7c502d34",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "usage": {
+          "total_tokens": 3339,
+          "prompt_tokens": 2430,
+          "completion_tokens": 909
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 10,\n      \"finding\": \"El requisito es claro y no admite interpretaciones contradictorias: 'El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos'.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 10,\n      \"finding\": \"Expresa con precisión el comportamiento: 5 intentos fallidos consecutivos dentro de 10 minutos provocan un bloqueo de 15 minutos. Los criterios de aceptación detallan condiciones y resultados esperados.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 10,\n      \"finding\": \"El requisito describe una única regla de bloqueo tras un número específico de intentos fallidos en una ventana temporal definida. No combina requisitos independientes.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 10,\n      \"finding\": \"Incluye toda la información necesaria: actor (cliente registrado), condición (5 intentos fallidos consecutivos en 10 minutos), acción (bloquear cuenta), duración (15 minutos), y criterios de aceptación que cubren casos de uso y recuperación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 10,\n      \"finding\": \"No hay contradicciones internas ni con el contexto del proyecto (tienda en línea con política de seguridad de bloqueo temporal). Los criterios de aceptación son consistentes entre sí y con el requisito principal.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 10,\n      \"finding\": \"Es factible implementar un mecanismo de conteo de intentos fallidos con ventanas temporales y bloqueo de cuenta, estándar en sistemas de autenticación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 10,\n      \"finding\": \"Permite verificacion objetiva mediante pruebas: se puede simular 4 intentos fallidos, luego un quinto y verificar el bloqueo; o esperar 15 minutos y verificar que el acceso se restablece con credenciales correctas.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 10,\n      \"finding\": \"Tiene un identificador único (REQ-AUT-03) y declara su origen (política de seguridad de la tienda en línea), lo que permite relacionarlo con necesidad, diseño, implementación y prueba.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 10,\n      \"finding\": \"No contiene términos subjetivos o vagos. Todos los conceptos son medibles: 5 intentos, 10 minutos, 15 minutos, cuenta bloqueada, inicio de sesión exitoso/fallido.\",\n      \"recommendation\": \"\",\n      \"ambiguous_terms\": []\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 10,\n      \"finding\": \"Incluye tres criterios de aceptación explícitos, medibles y en formato Dado/Cuando/Entonces que definen claramente cuándo el requisito está satisfecho.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [],\n  \"clarification_questions\": [],\n  \"summary\": \"El requisito REQ-AUT-03 es de alta calidad: claro, específico, atómico, completo, consistente, factible, verificable, trazable, libre de ambigüedades y con criterios de aceptación bien definidos. No requiere cambios.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790524365,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "prompt_tokens": 2430,
+      "completion_tokens": 909,
+      "latency_ms": 10185,
+      "created_at": "2026-09-27T10:52:55.840623-05:00"
+    }
+  ],
+  "score_delta": null,
+  "recommended_version": "original"
+}

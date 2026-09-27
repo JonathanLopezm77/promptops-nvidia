@@ -1,0 +1,135 @@
+{
+  "id": "2f3047fb-aeb4-4235-805b-94811f73cc2e",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:34:49.073672-05:00",
+  "finished_at": "2026-09-27T10:36:40.677430-05:00",
+  "input_mode": "text",
+  "original_requirement": "REQ-AUT-03 (origen: política de seguridad de la tienda en línea). El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos.\nCriterios de aceptación:\n1. Dado un cliente con 4 intentos fallidos consecutivos en los últimos 10 minutos, cuando falla el quinto intento, entonces la cuenta queda bloqueada y el sistema rechaza todo inicio de sesión de esa cuenta durante 15 minutos.\n2. Dado una cuenta bloqueada hace 15 minutos o más, cuando el cliente ingresa su contraseña correcta, entonces el inicio de sesión es exitoso.\n3. Dado un cliente con 4 intentos fallidos consecutivos, cuando inicia sesión correctamente, entonces el contador de intentos fallidos vuelve a 0.",
+  "evaluator_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Tienda en línea. Los clientes registrados inician sesión con correo y contraseña. La política de seguridad exige bloqueo temporal de cuentas ante intentos fallidos repetidos.",
+  "clarifications": null,
+  "improvement_skipped": true,
+  "improved_requirement": null,
+  "improvement": null,
+  "improvement_raw": null,
+  "improvement_tokens": null,
+  "improvement_latency_ms": null,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "d66c140b-4e21-424a-b2a6-45d1c757cd9f",
+      "stage": "original",
+      "evaluated_text": "REQ-AUT-03 (origen: política de seguridad de la tienda en línea). El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos.\nCriterios de aceptación:\n1. Dado un cliente con 4 intentos fallidos consecutivos en los últimos 10 minutos, cuando falla el quinto intento, entonces la cuenta queda bloqueada y el sistema rechaza todo inicio de sesión de esa cuenta durante 15 minutos.\n2. Dado una cuenta bloqueada hace 15 minutos o más, cuando el cliente ingresa su contraseña correcta, entonces el inicio de sesión es exitoso.\n3. Dado un cliente con 4 intentos fallidos consecutivos, cuando inicia sesión correctamente, entonces el contador de intentos fallidos vuelve a 0.",
+      "parse_ok": true,
+      "global_score": 90,
+      "is_high_quality": true,
+      "criteria": [
+        {
+          "score": 9,
+          "finding": "El requisito especifica claramente la condición (5 intentos fallidos consecutivos en 10 minutos), la acción (bloqueo de 15 minutos) y al actor (cliente registrado). El texto es directo y sin interpretaciones contradictorias.",
+          "criterion": "claridad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "Expresa con precisión el comportamiento: cantidad de intentos (5), ventana temporal (10 minutos), duración del bloqueo (15 minutos) y la condición de bloqueo tras intentos fallidos consecutivos. Los criterios de aceptación afirman el comportamiento exacto.",
+          "criterion": "especificidad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "El requisito está expresado como una única condición compuesta por umbral y ventana temporal, pero cumple la regla de atomicidad al no mezclar tipos de comportamiento independientes.",
+          "criterion": "atomicidad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "El requisito incluye toda la información necesaria: umbral de intentos, ventana temporal, duración del bloqueo y comportamiento posterior. No falta ningún dato esencial para su desarrollo.",
+          "criterion": "completitud",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "El requisito es interno y no contradice a los tres criterios de aceptación proporcionados. No hay conflictos con reglas conocidas del proyecto.",
+          "criterion": "consistencia",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "El bloqueo temporal de 15 minutos y el conteo de intentos son características técnicas estándar y fácilmente implementables en cualquier sistema de autenticación.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "Permite comprobar objetivamente si se cumplen las condiciones: contar intentos fallidos dentro de ventana de 10 minutos, verificar bloqueo activo y contar tiempo desde bloqueo hasta liberación.",
+          "criterion": "verificabilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "El identificador REQ-AUT-03 vincula el requisito con la política de seguridad y permite relacionarlo con diseño, código y pruebas. Los criterios de aceptación facilitan su trazabilidad hacia casos de prueba.",
+          "criterion": "trazabilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "No hay términos subjetivos ni vagos como \"rápido\" o \"fácil\". Todos los valores (5 intentos, 10 minutos, 15 minutos) son cuantificables y precisos.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": ""
+        },
+        {
+          "score": 9,
+          "finding": "Los tres criterios de aceptación están bien definidos con estructura Dado/Cuando/Entonces y condiciones medibles claras. Permiten determinar de forma verificable cuándo el requisito está satisfecho.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": ""
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [],
+      "missing_information": [],
+      "is_compound": false,
+      "summary": "El requisito cumple plenamente con los 10 criterios ISO/IEC/IEEE 29148. Está claro, específico, atómico, completo, consistente, factible, verificable, trazable, ambiguo-gratis y con criterios de aceptación medibles.",
+      "raw_response": {
+        "id": "chatcmpl-8803d072-ac67-4675-8e20-fee446e164a0",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 3936,
+          "prompt_tokens": 3069,
+          "completion_tokens": 867,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 2176
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 9,\n      \"finding\": \"El requisito especifica claramente la condición (5 intentos fallidos consecutivos en 10 minutos), la acción (bloqueo de 15 minutos) y al actor (cliente registrado). El texto es directo y sin interpretaciones contradictorias.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 9,\n      \"finding\": \"Expresa con precisión el comportamiento: cantidad de intentos (5), ventana temporal (10 minutos), duración del bloqueo (15 minutos) y la condición de bloqueo tras intentos fallidos consecutivos. Los criterios de aceptación afirman el comportamiento exacto.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"El requisito está expresado como una única condición compuesta por umbral y ventana temporal, pero cumple la regla de atomicidad al no mezclar tipos de comportamiento independientes.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 9,\n      \"finding\": \"El requisito incluye toda la información necesaria: umbral de intentos, ventana temporal, duración del bloqueo y comportamiento posterior. No falta ningún dato esencial para su desarrollo.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 9,\n      \"finding\": \"El requisito es interno y no contradice a los tres criterios de aceptación proporcionados. No hay conflictos con reglas conocidas del proyecto.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 9,\n      \"finding\": \"El bloqueo temporal de 15 minutos y el conteo de intentos son características técnicas estándar y fácilmente implementables en cualquier sistema de autenticación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 9,\n      \"finding\": \"Permite comprobar objetivamente si se cumplen las condiciones: contar intentos fallidos dentro de ventana de 10 minutos, verificar bloqueo activo y contar tiempo desde bloqueo hasta liberación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 9,\n      \"finding\": \"El identificador REQ-AUT-03 vincula el requisito con la política de seguridad y permite relacionarlo con diseño, código y pruebas. Los criterios de aceptación facilitan su trazabilidad hacia casos de prueba.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 9,\n      \"finding\": \"No hay términos subjetivos ni vagos como \\\"rápido\\\" o \\\"fácil\\\". Todos los valores (5 intentos, 10 minutos, 15 minutos) son cuantificables y precisos.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 9,\n      \"finding\": \"Los tres criterios de aceptación están bien definidos con estructura Dado/Cuando/Entonces y condiciones medibles claras. Permiten determinar de forma verificable cuándo el requisito está satisfecho.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [],\n  \"clarification_questions\": [],\n  \"summary\": \"El requisito cumple plenamente con los 10 criterios ISO/IEC/IEEE 29148. Está claro, específico, atómico, completo, consistente, factible, verificable, trazable, ambiguo-gratis y con criterios de aceptación medibles.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523372,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 3069,
+      "completion_tokens": 867,
+      "latency_ms": 109781,
+      "created_at": "2026-09-27T10:36:40.676261-05:00"
+    }
+  ],
+  "score_delta": null,
+  "recommended_version": "original"
+}

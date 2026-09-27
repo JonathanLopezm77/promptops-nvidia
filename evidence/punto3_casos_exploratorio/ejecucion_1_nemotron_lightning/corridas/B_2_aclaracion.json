@@ -1,0 +1,322 @@
+{
+  "id": "16e48201-b16d-4832-8865-a75b070cb6e3",
+  "parent_id": "a4711797-feb3-4dd7-a853-0311ea96a84a",
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:37:11.944841-05:00",
+  "finished_at": "2026-09-27T10:41:54.972504-05:00",
+  "input_mode": "text",
+  "original_requirement": "El sistema debe permitir a los clientes buscar productos de forma rápida y sencilla, mostrando resultados relevantes.",
+  "evaluator_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Tienda en línea de artículos deportivos con catálogo público. Los clientes pueden comprar como invitados o con una cuenta registrada.",
+  "clarifications": "La búsqueda se hace desde un único cuadro de texto visible en la parte superior de todas las páginas y busca por nombre, marca y categoría del producto. Los resultados deben mostrarse en máximo 2 segundos con un catálogo de hasta 20000 productos. 'Relevantes' significa que el texto buscado aparece en el nombre, la marca o la categoría; primero se muestran las coincidencias en el nombre y luego las demás, ordenadas por unidades vendidas. 'Sencilla' significa que no hace falta iniciar sesión ni usar filtros para buscar. Aplica a clientes registrados e invitados.",
+  "improvement_skipped": false,
+  "improved_requirement": "REQ-1: El cliente (registrado o invitado) podrá buscar productos ingresando texto en un único cuadro de búsqueda visible en la parte superior de todas las páginas, sin necesidad de iniciar sesión ni aplicar filtros.\nREQ-2: El sistema deberá buscar el texto ingresado en el nombre, la marca y la categoría de los productos del catálogo.\nREQ-3: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de 2 segundos con un catálogo de hasta 20.000 productos.\nREQ-4: El sistema deberá ordenar los resultados mostrando primero los productos cuyo nombre coincide con el texto buscado, y luego los que coinciden en marca o categoría; dentro de cada grupo, los productos se ordenarán por unidades vendidas de mayor a menor.",
+  "improvement": {
+    "changes": [
+      "Se separó el requisito en cuatro sub-requisitos (REQ-1 a REQ-4) para lograr atomicidad: acceso a la búsqueda, alcance de campos, rendimiento y ordenación (hallazgo de Atomicidad).",
+      "Se sustituyó 'rápida' por la condición medible 'máximo 2 segundos con un catálogo de hasta 20.000 productos', según la aclaración del stakeholder (Claridad, Verificabilidad, Ausencia de ambigüedad).",
+      "Se sustituyó 'sencilla' por 'sin necesidad de iniciar sesión ni aplicar filtros', según la aclaración del stakeholder (Ausencia de ambigüedad).",
+      "Se sustituyó 'relevantes' por un criterio de coincidencia (nombre, marca o categoría) y una regla de ordenación explícita (nombre primero, luego por unidades vendidas) (Especificidad, Ausencia de ambigüedad).",
+      "Se explicitó que el requisito aplica a clientes registrados e invitados, según la aclaración del stakeholder (Completitud).",
+      "Se añadieron criterios de aceptación verificables en formato Dado/Cuando/Entonces derivados directamente del requisito (Criterios de aceptación).",
+      "Se asignaron identificadores únicos a los sub-requisitos para facilitar la trazabilidad (Trazabilidad)."
+    ],
+    "pending_items": [],
+    "unsupported_retry": false,
+    "unsupported_values": [],
+    "acceptance_criteria": [
+      "Dado un cliente invitado o registrado en cualquier página del sitio, cuando ve la parte superior de la página, entonces encuentra el cuadro de texto de búsqueda visible.",
+      "Dado un cliente que no ha iniciado sesión, cuando ingresa un texto en el cuadro de búsqueda y ejecuta la búsqueda sin aplicar filtros, entonces el sistema le muestra resultados sin solicitarle inicio de sesión.",
+      "Dado un texto ingresado en el cuadro de búsqueda, cuando se ejecuta la búsqueda, entonces los resultados incluyen únicamente productos cuyo nombre, marca o categoría contienen el texto buscado.",
+      "Dado un catálogo de hasta 20.000 productos, cuando se ejecuta una búsqueda, entonces los resultados se muestran en un tiempo menor o igual a 2 segundos.",
+      "Dado un conjunto de resultados, cuando se muestran, entonces aparecen primero las coincidencias en el nombre del producto y después las coincidencias en marca o categoría.",
+      "Dado un grupo de resultados del mismo tipo de coincidencia, cuando se muestran, entonces están ordenados por unidades vendidas de mayor a menor."
+    ],
+    "intent_preservation": "Se mantiene la intención original de que cualquier cliente pueda buscar productos del catálogo de manera ágil y sin barreras, obteniendo resultados pertinentes. Todas las precisiones provienen de las aclaraciones del stakeholder, sin agregar funcionalidades ni reglas no declaradas."
+  },
+  "improvement_raw": {
+    "id": "chatcmpl-c70da154-67c0-4ff9-a48b-9c748883860c",
+    "model": "moonshotai/kimi-k3",
+    "usage": {
+      "total_tokens": 3951,
+      "prompt_tokens": 2947,
+      "completion_tokens": 1004,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 14
+      }
+    },
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"improved_requirement\": \"REQ-1: El cliente (registrado o invitado) podrá buscar productos ingresando texto en un único cuadro de búsqueda visible en la parte superior de todas las páginas, sin necesidad de iniciar sesión ni aplicar filtros.\\nREQ-2: El sistema deberá buscar el texto ingresado en el nombre, la marca y la categoría de los productos del catálogo.\\nREQ-3: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de 2 segundos con un catálogo de hasta 20.000 productos.\\nREQ-4: El sistema deberá ordenar los resultados mostrando primero los productos cuyo nombre coincide con el texto buscado, y luego los que coinciden en marca o categoría; dentro de cada grupo, los productos se ordenarán por unidades vendidas de mayor a menor.\",\n  \"acceptance_criteria\": [\n    \"Dado un cliente invitado o registrado en cualquier página del sitio, cuando ve la parte superior de la página, entonces encuentra el cuadro de texto de búsqueda visible.\",\n    \"Dado un cliente que no ha iniciado sesión, cuando ingresa un texto en el cuadro de búsqueda y ejecuta la búsqueda sin aplicar filtros, entonces el sistema le muestra resultados sin solicitarle inicio de sesión.\",\n    \"Dado un texto ingresado en el cuadro de búsqueda, cuando se ejecuta la búsqueda, entonces los resultados incluyen únicamente productos cuyo nombre, marca o categoría contienen el texto buscado.\",\n    \"Dado un catálogo de hasta 20.000 productos, cuando se ejecuta una búsqueda, entonces los resultados se muestran en un tiempo menor o igual a 2 segundos.\",\n    \"Dado un conjunto de resultados, cuando se muestran, entonces aparecen primero las coincidencias en el nombre del producto y después las coincidencias en marca o categoría.\",\n    \"Dado un grupo de resultados del mismo tipo de coincidencia, cuando se muestran, entonces están ordenados por unidades vendidas de mayor a menor.\"\n  ],\n  \"changes\": [\n    \"Se separó el requisito en cuatro sub-requisitos (REQ-1 a REQ-4) para lograr atomicidad: acceso a la búsqueda, alcance de campos, rendimiento y ordenación (hallazgo de Atomicidad).\",\n    \"Se sustituyó 'rápida' por la condición medible 'máximo 2 segundos con un catálogo de hasta 20.000 productos', según la aclaración del stakeholder (Claridad, Verificabilidad, Ausencia de ambigüedad).\",\n    \"Se sustituyó 'sencilla' por 'sin necesidad de iniciar sesión ni aplicar filtros', según la aclaración del stakeholder (Ausencia de ambigüedad).\",\n    \"Se sustituyó 'relevantes' por un criterio de coincidencia (nombre, marca o categoría) y una regla de ordenación explícita (nombre primero, luego por unidades vendidas) (Especificidad, Ausencia de ambigüedad).\",\n    \"Se explicitó que el requisito aplica a clientes registrados e invitados, según la aclaración del stakeholder (Completitud).\",\n    \"Se añadieron criterios de aceptación verificables en formato Dado/Cuando/Entonces derivados directamente del requisito (Criterios de aceptación).\",\n    \"Se asignaron identificadores únicos a los sub-requisitos para facilitar la trazabilidad (Trazabilidad).\"\n  ],\n  \"pending_items\": [],\n  \"intent_preservation\": \"Se mantiene la intención original de que cualquier cliente pueda buscar productos del catálogo de manera ágil y sin barreras, obteniendo resultados pertinentes. Todas las precisiones provienen de las aclaraciones del stakeholder, sin agregar funcionalidades ni reglas no declaradas.\"\n}",
+          "refusal": null,
+          "reasoning_content": "All info provided by stakeholder. Produce improved requirement."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "created": 1790523614
+  },
+  "improvement_tokens": 3951,
+  "improvement_latency_ms": 41291,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "b36403a2-8874-43a7-8637-2205d38ae0b2",
+      "stage": "original",
+      "evaluated_text": "El sistema debe permitir a los clientes buscar productos de forma rápida y sencilla, mostrando resultados relevantes.",
+      "parse_ok": true,
+      "global_score": 47,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 6,
+          "finding": "El requisito usa adjetivos subjetivos 'rápido' y 'sencilla' sin definir umbrales ni condiciones. Se entiende la intención general pero carece de precisión sobre qué define 'rápido' o 'sencilla' en este contexto.",
+          "criterion": "claridad",
+          "recommendation": "Definir 'rápido' con un tiempo máximo de respuesta (p. ej., menos de 2 segundos) y 'sencilla' especificando que no requiere autenticación ni filtros previos."
+        },
+        {
+          "score": 4,
+          "finding": "Expresa el comportamiento general de búsqueda pero no detalla cómo se determina la relevancia más allá de 'texto en nombre/marca/categoría'. No especifica el orden de más allá de 'relevantes', la acción de iniciar búsqueda ni el formato de los resultados.",
+          "criterion": "especificidad",
+          "recommendation": "Especificar el algoritmo de búsqueda (coincidencia en nombre/marca/categoría), el orden de resultados (coincidencias en nombre primero, luego por unidades vendidas) y el umbral de tiempo."
+        },
+        {
+          "score": 5,
+          "finding": "El texto combina tres ideas: permitir búsqueda, mostrar resultados relevantes y la forma 'rápido y sencilla'. No mezcla requisitos independientes distintos, pero la ambigüedad de los adjetivos hace que parezca un requisito compuesto.",
+          "criterion": "atomicidad",
+          "recommendation": "Desglosar en requisitos separados: 1) Capacidad de búsqueda por nombre/marca/categoría. 2) Tiempo máximo de respuesta. 3) Visualización de resultados sin requisitos previos."
+        },
+        {
+          "score": 4,
+          "finding": "Falta información sobre el actor que inicia la búsqueda (cliente vs. invitado), las condiciones de disparo ( qué dispara la búsqueda), los campos buscables exactos y el umbral de tiempo para 'rápido'. No especifica si la búsqueda requiere aperturas de sesión.",
+          "criterion": "completitud",
+          "recommendation": "Aclarar si la búsqueda aplica a ambos tipos de cliente, definir los campos buscables y establecer un tiempo máximo de respuesta."
+        },
+        {
+          "score": 7,
+          "finding": "No hay contradicciones internas con el texto entregado. El adjetivo 'sencilla' se alinea con la aclaración de que no requiere login, lo cual es coherente. No choca con reglas conocidas del proyecto.",
+          "criterion": "consistencia",
+          "recommendation": ""
+        },
+        {
+          "score": 8,
+          "finding": "Resulta factible dadas las aclaraciones del stakeholder sobre catálogos de hasta 20.000 productos y tiempos de 2 segundos. La tecnología actual soporta búsquedas indexadas que cumplen estos requisitos.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 3,
+          "finding": "No es verificable objetivamente porque 'rápido' y 'sencilla' no tienen umbrales medibles. No se pueden establecer pruebas de paso/fallo sin definir qué tiempo o condiciones constituyen 'rápido' o 'sencilla'.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir criterios de aceptación medibles: tiempo máximo de respuesta y condiciones bajo las cuales se considera que la búsqueda es 'sencilla' (sin login, sin filtros)."
+        },
+        {
+          "score": 5,
+          "finding": "No hay un identificador único declarado en el requisito en sí. No se relaciona con una necesidad de negocio específica ni con un diseño previo en el texto. Podría asignársele un ID para trazabilidad, pero no lo tiene actualmente.",
+          "criterion": "trazabilidad",
+          "recommendation": "Asignar un identificador único (p. ej., REQ-Search-01) y vincularlo a la necesidad de búsqueda de productos del catálogo."
+        },
+        {
+          "score": 3,
+          "finding": "Términos ambiguos detectados: 'rápido' (sin tiempo definido), 'sencilla' (subjetivo), 'relevantes' (sin criterio de ordenación medible). Estos términos permiten interpretaciones contradictorias sobre qué comportamiento entregar.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Sustituir términos vagos por condiciones medibles: 'tiempo de respuesta menor a 2 segundos', 'resultados sin requerir autenticación'."
+        },
+        {
+          "score": 2,
+          "finding": "No hay criterios de aceptación explícitos ni condiciones medibles de las que derivarlos. El requisito solo describe una intención general sin definir cuándo está satisfecho.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Añadir criterios de aceptación con condiciones medibles: tiempo máximo de 2 segundos, resultados mostrados en orden nombre/marca/categoría, sin requerir login para iniciar búsqueda."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "rápido",
+          "reason": "no define un tiempo medible"
+        },
+        {
+          "term": "sencilla",
+          "reason": "no especifica condiciones ni requisitos previos definidos"
+        },
+        {
+          "term": "relevantes",
+          "reason": "carece de criterio de ordenación o umbral de coincidencia definido"
+        }
+      ],
+      "clarification_questions": [
+        "¿Cuál es el tiempo máximo de respuesta aceptable para que la búsqueda se considere rápida?",
+        "¿La búsqueda 'sencilla' implica que no se requiere ninguna acción del cliente (sin login, sin crear cuenta) antes de ver resultados?",
+        "¿Se deben mostrar exclusivamente coincidencias en el nombre de primer nivel, o también incluye coincidencias en marca y categoría ordenadas después?",
+        "¿Existe un número mínimo de caracteres o patrón de búsqueda para activar la sugerencia/resultado?"
+      ],
+      "missing_information": [
+        "tiempo máximo de respuesta para considerar la búsqueda 'rápida'",
+        "condiciones exactas que definen 'sencilla' (ausencia de login/filtros)",
+        "criterio de ordenación exacto para resultados 'relevantes' más allá de la intención general",
+        "campos exactos buscables y su peso en el algoritmo"
+      ],
+      "is_compound": true,
+      "summary": "El requisito expresa una intención clara pero incumple los criterios de especificidad, verificabilidad y criterios de aceptación por el uso de adjetivos subjetivos ('rápido', 'sencilla', 'relevantes') sin definiciones medibles. Es compuesto en su redacción actual y falta información sobre tiempos, condiciones de usabilidad y criterios de ordenación. Los puntajes reflejan una partially compliance: se entiende la necesidad pero no está lo suficientemente preciso para desarrollo y prueba sin aclaraciones adicionales.",
+      "raw_response": {
+        "id": "chatcmpl-065df0d9-6b6c-44ed-b161-2f52a5a96d05",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 4013,
+          "prompt_tokens": 2389,
+          "completion_tokens": 1624,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 2176
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"El requisito usa adjetivos subjetivos 'rápido' y 'sencilla' sin definir umbrales ni condiciones. Se entiende la intención general pero carece de precisión sobre qué define 'rápido' o 'sencilla' en este contexto.\",\n      \"recommendation\": \"Definir 'rápido' con un tiempo máximo de respuesta (p. ej., menos de 2 segundos) y 'sencilla' especificando que no requiere autenticación ni filtros previos.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 4,\n      \"finding\": \"Expresa el comportamiento general de búsqueda pero no detalla cómo se determina la relevancia más allá de 'texto en nombre/marca/categoría'. No especifica el orden de más allá de 'relevantes', la acción de iniciar búsqueda ni el formato de los resultados.\",\n      \"recommendation\": \"Especificar el algoritmo de búsqueda (coincidencia en nombre/marca/categoría), el orden de resultados (coincidencias en nombre primero, luego por unidades vendidas) y el umbral de tiempo.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 5,\n      \"finding\": \"El texto combina tres ideas: permitir búsqueda, mostrar resultados relevantes y la forma 'rápido y sencilla'. No mezcla requisitos independientes distintos, pero la ambigüedad de los adjetivos hace que parezca un requisito compuesto.\"\n      ,\n      \"recommendation\": \"Desglosar en requisitos separados: 1) Capacidad de búsqueda por nombre/marca/categoría. 2) Tiempo máximo de respuesta. 3) Visualización de resultados sin requisitos previos.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 4,\n      \"finding\": \"Falta información sobre el actor que inicia la búsqueda (cliente vs. invitado), las condiciones de disparo ( qué dispara la búsqueda), los campos buscables exactos y el umbral de tiempo para 'rápido'. No especifica si la búsqueda requiere aperturas de sesión.\",\n      \"recommendation\": \"Aclarar si la búsqueda aplica a ambos tipos de cliente, definir los campos buscables y establecer un tiempo máximo de respuesta.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 7,\n      \"finding\": \"No hay contradicciones internas con el texto entregado. El adjetivo 'sencilla' se alinea con la aclaración de que no requiere login, lo cual es coherente. No choca con reglas conocidas del proyecto.\"\n      ,\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Resulta factible dadas las aclaraciones del stakeholder sobre catálogos de hasta 20.000 productos y tiempos de 2 segundos. La tecnología actual soporta búsquedas indexadas que cumplen estos requisitos.\"\n      ,\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 3,\n      \"finding\": \"No es verificable objetivamente porque 'rápido' y 'sencilla' no tienen umbrales medibles. No se pueden establecer pruebas de paso/fallo sin definir qué tiempo o condiciones constituyen 'rápido' o 'sencilla'.\"\n      ,\n      \"recommendation\": \"Definir criterios de aceptación medibles: tiempo máximo de respuesta y condiciones bajo las cuales se considera que la búsqueda es 'sencilla' (sin login, sin filtros).\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 5,\n      \"finding\": \"No hay un identificador único declarado en el requisito en sí. No se relaciona con una necesidad de negocio específica ni con un diseño previo en el texto. Podría asignársele un ID para trazabilidad, pero no lo tiene actualmente.\"\n      ,\n      \"recommendation\": \"Asignar un identificador único (p. ej., REQ-Search-01) y vincularlo a la necesidad de búsqueda de productos del catálogo.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 3,\n      \"finding\": \"Términos ambiguos detectados: 'rápido' (sin tiempo definido), 'sencilla' (subjetivo), 'relevantes' (sin criterio de ordenación medible). Estos términos permiten interpretaciones contradictorias sobre qué comportamiento entregar.\"\n      ,\n      \"recommendation\": \"Sustituir términos vagos por condiciones medibles: 'tiempo de respuesta menor a 2 segundos', 'resultados sin requerir autenticación'.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 2,\n      \"finding\": \"No hay criterios de aceptación explícitos ni condiciones medibles de las que derivarlos. El requisito solo describe una intención general sin definir cuándo está satisfecho.\",\n      \"recommendation\": \"Añadir criterios de aceptación con condiciones medibles: tiempo máximo de 2 segundos, resultados mostrados en orden nombre/marca/categoría, sin requerir login para iniciar búsqueda.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"no define un tiempo medible\"\n    },\n    {\n      \"term\": \"sencilla\",\n      \"reason\": \"no especifica condiciones ni requisitos previos definidos\"\n    },\n    {\n      \"term\": \"relevantes\",\n      \"reason\": \"carece de criterio de ordenación o umbral de coincidencia definido\"\n    }\n  ],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"tiempo máximo de respuesta para considerar la búsqueda 'rápida'\",\n    \"condiciones exactas que definen 'sencilla' (ausencia de login/filtros)\",\n    \"criterio de ordenación exacto para resultados 'relevantes' más allá de la intención general\",\n    \"campos exactos buscables y su peso en el algoritmo\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el tiempo máximo de respuesta aceptable para que la búsqueda se considere rápida?\",\n    \"¿La búsqueda 'sencilla' implica que no se requiere ninguna acción del cliente (sin login, sin crear cuenta) antes de ver resultados?\",\n    \"¿Se deben mostrar exclusivamente coincidencias en el nombre de primer nivel, o también incluye coincidencias en marca y categoría ordenadas después?\",\n    \"¿Existe un número mínimo de caracteres o patrón de búsqueda para activar la sugerencia/resultado?\"\n  ],\n  \"summary\": \"El requisito expresa una intención clara pero incumple los criterios de especificidad, verificabilidad y criterios de aceptación por el uso de adjetivos subjetivos ('rápido', 'sencilla', 'relevantes') sin definiciones medibles. Es compuesto en su redacción actual y falta información sobre tiempos, condiciones de usabilidad y criterios de ordenación. Los puntajes reflejan una partially compliance: se entiende la necesidad pero no está lo suficientemente preciso para desarrollo y prueba sin aclaraciones adicionales.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523430,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2389,
+      "completion_tokens": 1624,
+      "latency_ms": 176502,
+      "created_at": "2026-09-27T10:40:08.453838-05:00"
+    },
+    {
+      "id": "5e0c6b0a-c3ac-4e31-9389-3e14f4aaf574",
+      "stage": "improved",
+      "evaluated_text": "REQ-1: El cliente (registrado o invitado) podrá buscar productos ingresando texto en un único cuadro de búsqueda visible en la parte superior de todas las páginas, sin necesidad de iniciar sesión ni aplicar filtros.\nREQ-2: El sistema deberá buscar el texto ingresado en el nombre, la marca y la categoría de los productos del catálogo.\nREQ-3: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de 2 segundos con un catálogo de hasta 20.000 productos.\nREQ-4: El sistema deberá ordenar los resultados mostrando primero los productos cuyo nombre coincide con el texto buscado, y luego los que coinciden en marca o categoría; dentro de cada grupo, los productos se ordenarán por unidades vendidas de mayor a menor.\n\nCriterios de aceptación:\n- Dado un cliente invitado o registrado en cualquier página del sitio, cuando ve la parte superior de la página, entonces encuentra el cuadro de texto de búsqueda visible.\n- Dado un cliente que no ha iniciado sesión, cuando ingresa un texto en el cuadro de búsqueda y ejecuta la búsqueda sin aplicar filtros, entonces el sistema le muestra resultados sin solicitarle inicio de sesión.\n- Dado un texto ingresado en el cuadro de búsqueda, cuando se ejecuta la búsqueda, entonces los resultados incluyen únicamente productos cuyo nombre, marca o categoría contienen el texto buscado.\n- Dado un catálogo de hasta 20.000 productos, cuando se ejecuta una búsqueda, entonces los resultados se muestran en un tiempo menor o igual a 2 segundos.\n- Dado un conjunto de resultados, cuando se muestran, entonces aparecen primero las coincidencias en el nombre del producto y después las coincidencias en marca o categoría.\n- Dado un grupo de resultados del mismo tipo de coincidencia, cuando se muestran, entonces están ordenados por unidades vendidas de mayor a menor.",
+      "parse_ok": true,
+      "global_score": 73,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 8,
+          "finding": "El requisito expresa claramente el comportamiento principal (búsqueda de productos mediante texto) y su ubicación (cuadro superior de todas las páginas). Sin embargo, el final 'sin necesidad de iniciar sesión ni aplicar filtros' introduce una ambigüedad sobre la condición de desencadenante, ya que contrasta parcialmente con REQ-2 y las ACLARACIONES.",
+          "criterion": "claridad",
+          "recommendation": ""
+        },
+        {
+          "score": 7,
+          "finding": "Especifica el campo de búsqueda (texto), el actor (cliente registrado o invitado) y la acción (buscar productos). Sigue siendo algo general sobre qué tan exacto debe ser el matching, aunque REQ-2 y las ACLARACIONES definen que es 'contiene' (substring).",
+          "criterion": "especificidad",
+          "recommendation": ""
+        },
+        {
+          "score": 6,
+          "finding": "El requisito combina la definición del componente UI (cuadro de búsqueda visible en la parte superior) con la condición de uso (cliente registrado o invitado) y la restricción de interacción (sin login ni filtros). Mezcla dos ideas: dónde está y bajo qué condiciones se permite usarlo.",
+          "criterion": "atomicidad",
+          "recommendation": "Considerar separar la definición del componente de búsqueda de las condiciones de uso asociadas para mayor claridad atómica."
+        },
+        {
+          "score": 7,
+          "finding": "Cubre el actor, la acción y el resultado esperado (búsqueda de productos). Falta precisión sobre qué sucede si el texto no coincide con nada (resultado vacío) y si el cuadro es operable con Enter o requiere un botón de acción explícito.",
+          "criterion": "completitud",
+          "recommendation": "Añadir comportamiento ante búsquedas sin coincidencias y modalidad de activación (Enter vs botón)."
+        },
+        {
+          "score": 9,
+          "finding": "Es totalmente coherente con REQ-2, REQ-3, REQ-4 y las ACLARACIONES DEL STAKEHOLDER. No hay contradicciones internas ni con el contexto del proyecto. El único posible cruce es con el final 'sin necesidad de iniciar sesión', que se alinea con el objetivo de búsqueda universal para invitados y registrados.",
+          "criterion": "consistencia",
+          "recommendation": ""
+        },
+        {
+          "score": 8,
+          "finding": "Es factible de implementarse con tecnologías de indexación y búsqueda estándar (p. ej., ElasticSearch o búsqueda en base de datos optimizada). El límite de 20.000 productos y el umbral de 2 segundos son realistas para un catálogo estático o de lectura frecuente.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 7,
+          "finding": "Es verificable objetivamente si el cuadro aparece en la parte superior de todas las páginas y si el tiempo de respuesta es ≤ 2s con 20.000 registros. Es menos verificable el cumplimiento estricto de 'sin necesidad de iniciar sesión' sin definir un caso de prueba queForce login y verifique que el cuadro sigue habilitado, aunque la ACLARACIÓN lo aclara como búsqueda pública.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir casos de prueba que verifiquen el comportamiento con cliente invitado y registrado para el mismo estado de la UI."
+        },
+        {
+          "score": 8,
+          "finding": "Lleva identificador REQ-1, lo que permite su relación con diseño, implementación y pruebas. Declara claramente al actor (cliente registrado o invitado) y la necesidad de búsqueda universal, cumpliendo con el rastro de requisitos hacia actores y diseños de interfaz.",
+          "criterion": "trazabilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 5,
+          "finding": "No hay términos subjetivos explícitos no definidos, pero la frase 'sin necesidad de iniciar sesión ni aplicar filtros' es una condición condicional. No define qué pasa si el usuario aplica un filtro manualmente o si el sistema debería desactivar automáticamente los filtros previos. Esto es un requisito negativo mal delimitado.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Definir el comportamiento cuando el usuario ya tiene filtros aplicados o si el sistema los limpia al iniciar la búsqueda."
+        },
+        {
+          "score": 8,
+          "finding": "Los criterios de aceptación listados cubren los puntos clave: visibilidad del cuadro, funcionamiento sin login, matching de texto en nombre/marca/categoría, límite de tiempo de 2s, ordenamiento por tipo de coincidencia y luego por unidades vendidas. Están bien estructurados y son verificables.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": ""
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [
+        "¿Se debe presionar Enter o hacer clic en un botón para iniciar la búsqueda, o la búsqueda se dispara automáticamente al perder el foco o al escribir?",
+        "¿Qué mensaje o estado se muestra al usuario cuando el texto buscado no coincide con ningún producto en el catálogo?",
+        "Si el usuario ya tiene filtros aplicados en la vista actual, ¿el sistema los limpia automáticamente al iniciar una búsqueda o conserva el estado previo?"
+      ],
+      "missing_information": [
+        "Comportamiento ante búsquedas que no retornan resultados (mostrar mensaje, lista vacía, etc.)",
+        "Modalidad de activación: si el usuario debe presionar Enter o si la búsqueda se dispara automáticamente, o si existe un botón de acción explícito",
+        "Definición exacta del comportamiento cuando el usuario ya tiene filtros aplicados y realiza una nueva búsqueda"
+      ],
+      "is_compound": true,
+      "summary": "REQ-1 es un requisito coherente y específico sobre la ubicación y actor de la funcionalidad de búsqueda, pero es compuesto al mezclar la definición del componente UI con condiciones de uso. Falta definir comportamientos edge cases (sin resultados, activación y estado de filtros), lo que baja ligeramente la completitud y la verificabilidad, aunque no compromete la factibilidad ni la consistencia.",
+      "raw_response": {
+        "id": "chatcmpl-9c3cf19f-511a-4a52-b6b3-413bd0ed393a",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 4219,
+          "prompt_tokens": 2768,
+          "completion_tokens": 1451
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 8,\n      \"finding\": \"El requisito expresa claramente el comportamiento principal (búsqueda de productos mediante texto) y su ubicación (cuadro superior de todas las páginas). Sin embargo, el final 'sin necesidad de iniciar sesión ni aplicar filtros' introduce una ambigüedad sobre la condición de desencadenante, ya que contrasta parcialmente con REQ-2 y las ACLARACIONES.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 7,\n      \"finding\": \"Especifica el campo de búsqueda (texto), el actor (cliente registrado o invitado) y la acción (buscar productos). Sigue siendo algo general sobre qué tan exacto debe ser el matching, aunque REQ-2 y las ACLARACIONES definen que es 'contiene' (substring).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 6,\n      \"finding\": \"El requisito combina la definición del componente UI (cuadro de búsqueda visible en la parte superior) con la condición de uso (cliente registrado o invitado) y la restricción de interacción (sin login ni filtros). Mezcla dos ideas: dónde está y bajo qué condiciones se permite usarlo.\",\n      \"recommendation\": \"Considerar separar la definición del componente de búsqueda de las condiciones de uso asociadas para mayor claridad atómica.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 7,\n      \"finding\": \"Cubre el actor, la acción y el resultado esperado (búsqueda de productos). Falta precisión sobre qué sucede si el texto no coincide con nada (resultado vacío) y si el cuadro es operable con Enter o requiere un botón de acción explícito.\",\n      \"recommendation\": \"Añadir comportamiento ante búsquedas sin coincidencias y modalidad de activación (Enter vs botón).\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 9,\n      \"finding\": \"Es totalmente coherente con REQ-2, REQ-3, REQ-4 y las ACLARACIONES DEL STAKEHOLDER. No hay contradicciones internas ni con el contexto del proyecto. El único posible cruce es con el final 'sin necesidad de iniciar sesión', que se alinea con el objetivo de búsqueda universal para invitados y registrados.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Es factible de implementarse con tecnologías de indexación y búsqueda estándar (p. ej., ElasticSearch o búsqueda en base de datos optimizada). El límite de 20.000 productos y el umbral de 2 segundos son realistas para un catálogo estático o de lectura frecuente.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 7,\n      \"finding\": \"Es verificable objetivamente si el cuadro aparece en la parte superior de todas las páginas y si el tiempo de respuesta es ≤ 2s con 20.000 registros. Es menos verificable el cumplimiento estricto de 'sin necesidad de iniciar sesión' sin definir un caso de prueba queForce login y verifique que el cuadro sigue habilitado, aunque la ACLARACIÓN lo aclara como búsqueda pública.\",\n      \"recommendation\": \"Definir casos de prueba que verifiquen el comportamiento con cliente invitado y registrado para el mismo estado de la UI.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"Lleva identificador REQ-1, lo que permite su relación con diseño, implementación y pruebas. Declara claramente al actor (cliente registrado o invitado) y la necesidad de búsqueda universal, cumpliendo con el rastro de requisitos hacia actores y diseños de interfaz.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"No hay términos subjetivos explícitos no definidos, pero la frase 'sin necesidad de iniciar sesión ni aplicar filtros' es una condición condicional. No define qué pasa si el usuario aplica un filtro manualmente o si el sistema debería desactivar automáticamente los filtros previos. Esto es un requisito negativo mal delimitado.\",\n      \"recommendation\": \"Definir el comportamiento cuando el usuario ya tiene filtros aplicados o si el sistema los limpia al iniciar la búsqueda.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 8,\n      \"finding\": \"Los criterios de aceptación listados cubren los puntos clave: visibilidad del cuadro, funcionamiento sin login, matching de texto en nombre/marca/categoría, límite de tiempo de 2s, ordenamiento por tipo de coincidencia y luego por unidades vendidas. Están bien estructurados y son verificables.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"Comportamiento ante búsquedas que no retornan resultados (mostrar mensaje, lista vacía, etc.)\",\n    \"Modalidad de activación: si el usuario debe presionar Enter o si la búsqueda se dispara automáticamente, o si existe un botón de acción explícito\",\n    \"Definición exacta del comportamiento cuando el usuario ya tiene filtros aplicados y realiza una nueva búsqueda\"\n  ],\n  \"clarification_questions\": [\n    \"¿Se debe presionar Enter o hacer clic en un botón para iniciar la búsqueda, o la búsqueda se dispara automáticamente al perder el foco o al escribir?\",\n    \"¿Qué mensaje o estado se muestra al usuario cuando el texto buscado no coincide con ningún producto en el catálogo?\",\n    \"Si el usuario ya tiene filtros aplicados en la vista actual, ¿el sistema los limpia automáticamente al iniciar una búsqueda o conserva el estado previo?\"\n  ],\n  \"summary\": \"REQ-1 es un requisito coherente y específico sobre la ubicación y actor de la funcionalidad de búsqueda, pero es compuesto al mezclar la definición del componente UI con condiciones de uso. Falta definir comportamientos edge cases (sin resultados, activación y estado de filtros), lo que baja ligeramente la completitud y la verificabilidad, aunque no compromete la factibilidad ni la consistencia.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523648,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2768,
+      "completion_tokens": 1451,
+      "latency_ms": 65219,
+      "created_at": "2026-09-27T10:41:54.971226-05:00"
+    }
+  ],
+  "score_delta": 26,
+  "recommended_version": "improved"
+}

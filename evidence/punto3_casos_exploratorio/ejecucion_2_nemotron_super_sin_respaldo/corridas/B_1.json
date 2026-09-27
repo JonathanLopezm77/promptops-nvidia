@@ -1,0 +1,328 @@
+{
+  "id": "c8cad16b-d737-419a-a097-f4b62466c414",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:52:45.093612-05:00",
+  "finished_at": "2026-09-27T10:55:27.501230-05:00",
+  "input_mode": "text",
+  "original_requirement": "El sistema debe permitir a los clientes buscar productos de forma rápida y sencilla, mostrando resultados relevantes.",
+  "evaluator_model": "nvidia/nemotron-3-super-120b-a12b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Tienda en línea de artículos deportivos con catálogo público. Los clientes pueden comprar como invitados o con una cuenta registrada.",
+  "clarifications": null,
+  "improvement_skipped": false,
+  "improved_requirement": "[POR DEFINIR: identificador único del requisito]-A: El sistema deberá permitir a los clientes (invitados o registrados) buscar productos del catálogo ingresando un término de búsqueda sobre los campos [POR DEFINIR: campos de producto sobre los que se puede buscar, ej. nombre, marca, categoría].\n[POR DEFINIR: identificador único del requisito]-B: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta] desde que el cliente envía la consulta.\n[POR DEFINIR: identificador único del requisito]-C: El sistema deberá presentar los resultados ordenados según [POR DEFINIR: criterio objetivo de relevancia, ej. coincidencia con el término, popularidad, disponibilidad de stock].\n[POR DEFINIR: identificador único del requisito]-D: La interfaz de búsqueda deberá permitir al cliente acceder a los resultados en un máximo de [POR DEFINIR: número máximo de pasos o interacciones] desde la página donde se encuentre.\nVinculación: Como cliente, quiero encontrar productos fácilmente para comprar más rápido.",
+  "improvement": {
+    "changes": [
+      "Se eliminaron los consecutivos numéricos de los identificadores, que no constaban en el requisito ni en las aclaraciones, y se reemplazaron por un marcador de identificador pendiente de asignar.",
+      "Se mantuvo la vinculación a una necesidad de usuario (Trazabilidad: 5/10).",
+      "Se conserva la separación en sub-requisitos para medir de forma independiente la búsqueda, el tiempo de respuesta, la relevancia y la sencillez (Atomicidad / Verificabilidad: 4/10).",
+      "Se reemplazó 'rápida' por un tiempo de respuesta máximo medible, cuyo valor debe definir el stakeholder (Ausencia de ambigüedad: 4/10).",
+      "Se reemplazó 'sencilla' por un número máximo de pasos o interacciones, cuyo valor debe definirse (Ausencia de ambigüedad: 4/10).",
+      "Se reemplazó 'resultados relevantes' por un criterio objetivo de ordenamiento, sin asumir uno concreto (Especificidad: 5/10).",
+      "Se solicitó la definición de los campos sobre los que se busca y no se asumieron como obligatorios (Completitud: 5/10).",
+      "Se agregaron criterios de aceptación en formato Dado/Cuando/Entonces (Criterios de aceptación: 3/10)."
+    ],
+    "pending_items": [
+      "Identificador único del requisito (incluida su numeración interna)",
+      "Umbral de tiempo máximo de respuesta de la búsqueda",
+      "Número máximo de pasos o interacciones para considerar la búsqueda sencilla",
+      "Campos de producto sobre los que se puede realizar la búsqueda",
+      "Criterio objetivo de relevancia para ordenar los resultados",
+      "Formato de presentación de los resultados (datos mostrados por producto)"
+    ],
+    "unsupported_retry": true,
+    "unsupported_values": [],
+    "acceptance_criteria": [
+      "Dado un cliente en la tienda en línea, cuando ingresa un término en el campo de búsqueda y lo envía, entonces el sistema muestra resultados obtenidos de los campos [POR DEFINIR: campos de búsqueda] en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta].",
+      "Dado un término de búsqueda con productos coincidentes, cuando el sistema muestra los resultados, entonces estos aparecen ordenados según [POR DEFINIR: criterio de relevancia].",
+      "Dado un cliente en cualquier página del catálogo, cuando desea buscar un producto, entonces puede iniciar y ejecutar la búsqueda en un máximo de [POR DEFINIR: número máximo de pasos o interacciones]."
+    ],
+    "intent_preservation": "Se mantiene intacta la intención original: que los clientes puedan buscar productos en la tienda de manera ágil y obtener resultados útiles. Solo se convirtieron los términos vagos en condiciones medibles, dejando los valores concretos y el identificador como pendientes del stakeholder."
+  },
+  "improvement_raw": {
+    "id": "chatcmpl-e057a678-7599-4923-b85b-377a17e0b95c",
+    "model": "moonshotai/kimi-k3",
+    "usage": {
+      "total_tokens": 4841,
+      "prompt_tokens": 3633,
+      "completion_tokens": 1208,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 74
+      }
+    },
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"improved_requirement\": \"[POR DEFINIR: identificador único del requisito]-A: El sistema deberá permitir a los clientes (invitados o registrados) buscar productos del catálogo ingresando un término de búsqueda sobre los campos [POR DEFINIR: campos de producto sobre los que se puede buscar, ej. nombre, marca, categoría].\\n[POR DEFINIR: identificador único del requisito]-B: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta] desde que el cliente envía la consulta.\\n[POR DEFINIR: identificador único del requisito]-C: El sistema deberá presentar los resultados ordenados según [POR DEFINIR: criterio objetivo de relevancia, ej. coincidencia con el término, popularidad, disponibilidad de stock].\\n[POR DEFINIR: identificador único del requisito]-D: La interfaz de búsqueda deberá permitir al cliente acceder a los resultados en un máximo de [POR DEFINIR: número máximo de pasos o interacciones] desde la página donde se encuentre.\\nVinculación: Como cliente, quiero encontrar productos fácilmente para comprar más rápido.\",\n  \"acceptance_criteria\": [\n    \"Dado un cliente en la tienda en línea, cuando ingresa un término en el campo de búsqueda y lo envía, entonces el sistema muestra resultados obtenidos de los campos [POR DEFINIR: campos de búsqueda] en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta].\",\n    \"Dado un término de búsqueda con productos coincidentes, cuando el sistema muestra los resultados, entonces estos aparecen ordenados según [POR DEFINIR: criterio de relevancia].\",\n    \"Dado un cliente en cualquier página del catálogo, cuando desea buscar un producto, entonces puede iniciar y ejecutar la búsqueda en un máximo de [POR DEFINIR: número máximo de pasos o interacciones].\"\n  ],\n  \"changes\": [\n    \"Se eliminaron los consecutivos numéricos de los identificadores, que no constaban en el requisito ni en las aclaraciones, y se reemplazaron por un marcador de identificador pendiente de asignar.\",\n    \"Se mantuvo la vinculación a una necesidad de usuario (Trazabilidad: 5/10).\",\n    \"Se conserva la separación en sub-requisitos para medir de forma independiente la búsqueda, el tiempo de respuesta, la relevancia y la sencillez (Atomicidad / Verificabilidad: 4/10).\",\n    \"Se reemplazó 'rápida' por un tiempo de respuesta máximo medible, cuyo valor debe definir el stakeholder (Ausencia de ambigüedad: 4/10).\",\n    \"Se reemplazó 'sencilla' por un número máximo de pasos o interacciones, cuyo valor debe definirse (Ausencia de ambigüedad: 4/10).\",\n    \"Se reemplazó 'resultados relevantes' por un criterio objetivo de ordenamiento, sin asumir uno concreto (Especificidad: 5/10).\",\n    \"Se solicitó la definición de los campos sobre los que se busca y no se asumieron como obligatorios (Completitud: 5/10).\",\n    \"Se agregaron criterios de aceptación en formato Dado/Cuando/Entonces (Criterios de aceptación: 3/10).\"\n  ],\n  \"pending_items\": [\n    \"Identificador único del requisito (incluida su numeración interna)\",\n    \"Umbral de tiempo máximo de respuesta de la búsqueda\",\n    \"Número máximo de pasos o interacciones para considerar la búsqueda sencilla\",\n    \"Campos de producto sobre los que se puede realizar la búsqueda\",\n    \"Criterio objetivo de relevancia para ordenar los resultados\",\n    \"Formato de presentación de los resultados (datos mostrados por producto)\"\n  ],\n  \"intent_preservation\": \"Se mantiene intacta la intención original: que los clientes puedan buscar productos en la tienda de manera ágil y obtener resultados útiles. Solo se convirtieron los términos vagos en condiciones medibles, dejando los valores concretos y el identificador como pendientes del stakeholder.\"\n}",
+          "refusal": null,
+          "reasoning_content": "User claims \"01, 02, 03, 04\" are invented—but those are just requirement identifiers, not data. Still, comply: replace with [POR DEFINIR: identificador único]. Actually numeric sub-requirement IDs like REQ-1 are in the system's own example... but the user insists. Just comply."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "created": 1790524452
+  },
+  "improvement_tokens": 8377,
+  "improvement_latency_ms": 112924,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "24d388a4-b66c-4e17-8959-448723beb719",
+      "stage": "original",
+      "evaluated_text": "El sistema debe permitir a los clientes buscar productos de forma rápida y sencilla, mostrando resultados relevantes.",
+      "parse_ok": true,
+      "global_score": 57,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 6,
+          "finding": "El texto permite entender la idea general, pero 'buscar productos de forma rápida y sencilla' deja espacio a interpretaciones sobre qué se considera rápido y sencillo.",
+          "criterion": "claridad",
+          "recommendation": "Definir qué se entiende por 'rápido' y 'sencillo' en términos medibles o observables."
+        },
+        {
+          "score": 5,
+          "finding": "No se especifica cómo se realiza la búsqueda (por nombre, categoría, atributos), ni qué se entiende por 'resultados relevantes'.",
+          "criterion": "especificidad",
+          "recommendation": "Especificar los campos de búsqueda permitidos y los criterios de relevancia (por ejemplo, coincidencia de texto, popularidad, stock disponible)."
+        },
+        {
+          "score": 8,
+          "finding": "El requisito expresa una única funcionalidad principal: permitir la búsqueda de productos. Aunque incluye dos características (rápida y sencilla), están estrechamente ligadas al mismo objetivo.",
+          "criterion": "atomicidad",
+          "recommendation": "No se requiere cambio, pero se podría separar si se quisiera medir rapidez y sencillez de forma independiente."
+        },
+        {
+          "score": 5,
+          "finding": "Faltan detalles esenciales: qué atributos de producto se pueden buscar, cómo se determina la relevancia, y qué formato tienen los resultados mostrados.",
+          "criterion": "completitud",
+          "recommendation": "Agregar información sobre los campos de búsqueda (nombre, marca, categoría, etc.), algoritmo de relevancia básico, y formato de presentación de resultados."
+        },
+        {
+          "score": 9,
+          "finding": "No hay contradicciones internas ni con el contexto del proyecto (tienda en línea de artículos deportivos).",
+          "criterion": "consistencia",
+          "recommendation": ""
+        },
+        {
+          "score": 8,
+          "finding": "Permitir búsqueda de productos es factible en una tienda en línea; no se mencionan restricciones técnicas que lo impidan.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 4,
+          "finding": "No se puede verificar objetivamente si la búsqueda es 'rápida', 'sencilla' o si muestra 'resultados relevantes' sin criterios medibles.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir umbrales de tiempo para 'rápido', pasos o interacciones para 'sencillo', y métricas de relevancia (por ejemplo, tasa de clics en primeros resultados)."
+        },
+        {
+          "score": 5,
+          "finding": "No se incluye un identificador único ni se vincula explícitamente a una necesidad de usuario o objetivo de negocio.",
+          "criterion": "trazabilidad",
+          "recommendation": "Agregar un identificador (ej. REQ-BUS-01) y vincularlo a una historia de usuario o necesidad (ej. 'Como cliente, quiero encontrar productos fácilmente para comprar más rápido')."
+        },
+        {
+          "score": 4,
+          "finding": "Contiene términos ambiguos: 'rápido' (¿cuánto tiempo máximo?), 'sencillo' (¿cuántos pasos?, ¿interfaz?), 'relevantes' (¿según qué criterio?).",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Reemplazar términos subjetivos por criterios medibles o observables."
+        },
+        {
+          "score": 3,
+          "finding": "No se incluyen criterios de aceptación explícitos ni condiciones medibles que permitan determinar cuándo el requisito está satisfecho.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Agregar criterios de aceptación claros, como: 'La búsqueda devuelve resultados en menos de 2 segundos', 'El usuario encuentra el producto deseado en máximo 3 intentos', o 'Al menos el 80% de los resultados mostrados contienen la consulta en el nombre o descripción'."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "rápido",
+          "reason": "no define un tiempo medible"
+        },
+        {
+          "term": "sencillo",
+          "reason": "no especifica cuántos pasos o interacciones se consideran sencillos"
+        },
+        {
+          "term": "relevantes",
+          "reason": "no establece criterios objetivos para determinar la relevancia de los resultados"
+        }
+      ],
+      "clarification_questions": [
+        "¿Qué se considera un tiempo máximo aceptable para que la búsqueda sea percibida como 'rápida' por el cliente?",
+        "¿Cuántos pasos o interacciones (por ejemplo, teclas pulsadas, selecciones) se consideran máximos para una búsqueda 'sencilla'?",
+        "¿En qué atributos de los productos (nombre, descripción, marca, categoría, etc.) debe poder buscarse el cliente?",
+        "¿Qué criterio debe usarse para determinar si un resultado es 'relevante' (por ejemplo, coincidencia de texto, popularidad, historial de compras, stock disponible)?",
+        "¿Se requiere un identificador único para este requisito y debe vincularse a una historia de usuario específica?"
+      ],
+      "missing_information": [
+        "umbral de tiempo máximo para considerar la búsqueda 'rápida'",
+        "número máximo de pasos o interacciones para considerar la interfaz 'sencilla'",
+        "campos de producto sobre los que se puede realizar la búsqueda (nombre, marca, categoría, etc.)",
+        "criterio objetivo para determinar qué resultados son 'relevantes'",
+        "identificador único del requisito",
+        "vinculación a una necesidad de usuario o historia de usuario"
+      ],
+      "is_compound": false,
+      "summary": "El requisito expresa una intención clara pero carece de especificidad, criterios medibles y detalles necesarios para su implementación y verificación. Contiene términos ambiguos que impiden una evaluación objetiva y carece de criterios de aceptación. Se necesita definir claramente qué se entiende por 'rápido', 'sencillo' y 'relevantes', así como agregar información esencial para hacer el requisito verificable y trazable.",
+      "raw_response": {
+        "id": "chatcmpl-ce9fccb5-7da7-4c53-a75f-654cff641bf5",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "usage": {
+          "total_tokens": 3702,
+          "prompt_tokens": 2250,
+          "completion_tokens": 1452
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"El texto permite entender la idea general, pero 'buscar productos de forma rápida y sencilla' deja espacio a interpretaciones sobre qué se considera rápido y sencillo.\",\n      \"recommendation\": \"Definir qué se entiende por 'rápido' y 'sencillo' en términos medibles o observables.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 5,\n      \"finding\": \"No se especifica cómo se realiza la búsqueda (por nombre, categoría, atributos), ni qué se entiende por 'resultados relevantes'.\",\n      \"recommendation\": \"Especificar los campos de búsqueda permitidos y los criterios de relevancia (por ejemplo, coincidencia de texto, popularidad, stock disponible).\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 8,\n      \"finding\": \"El requisito expresa una única funcionalidad principal: permitir la búsqueda de productos. Aunque incluye dos características (rápida y sencilla), están estrechamente ligadas al mismo objetivo.\",\n      \"recommendation\": \"No se requiere cambio, pero se podría separar si se quisiera medir rapidez y sencillez de forma independiente.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 5,\n      \"finding\": \"Faltan detalles esenciales: qué atributos de producto se pueden buscar, cómo se determina la relevancia, y qué formato tienen los resultados mostrados.\",\n      \"recommendation\": \"Agregar información sobre los campos de búsqueda (nombre, marca, categoría, etc.), algoritmo de relevancia básico, y formato de presentación de resultados.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 9,\n      \"finding\": \"No hay contradicciones internas ni con el contexto del proyecto (tienda en línea de artículos deportivos).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Permitir búsqueda de productos es factible en una tienda en línea; no se mencionan restricciones técnicas que lo impidan.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 4,\n      \"finding\": \"No se puede verificar objetivamente si la búsqueda es 'rápida', 'sencilla' o si muestra 'resultados relevantes' sin criterios medibles.\",\n      \"recommendation\": \"Definir umbrales de tiempo para 'rápido', pasos o interacciones para 'sencillo', y métricas de relevancia (por ejemplo, tasa de clics en primeros resultados).\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 5,\n      \"finding\": \"No se incluye un identificador único ni se vincula explícitamente a una necesidad de usuario o objetivo de negocio.\",\n      \"recommendation\": \"Agregar un identificador (ej. REQ-BUS-01) y vincularlo a una historia de usuario o necesidad (ej. 'Como cliente, quiero encontrar productos fácilmente para comprar más rápido').\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 4,\n      \"finding\": \"Contiene términos ambiguos: 'rápido' (¿cuánto tiempo máximo?), 'sencillo' (¿cuántos pasos?, ¿interfaz?), 'relevantes' (¿según qué criterio?).\",\n      \"recommendation\": \"Reemplazar términos subjetivos por criterios medibles o observables.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 3,\n      \"finding\": \"No se incluyen criterios de aceptación explícitos ni condiciones medibles que permitan determinar cuándo el requisito está satisfecho.\",\n      \"recommendation\": \"Agregar criterios de aceptación claros, como: 'La búsqueda devuelve resultados en menos de 2 segundos', 'El usuario encuentra el producto deseado en máximo 3 intentos', o 'Al menos el 80% de los resultados mostrados contienen la consulta en el nombre o descripción'.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"no define un tiempo medible\"\n    },\n    {\n      \"term\": \"sencillo\",\n      \"reason\": \"no especifica cuántos pasos o interacciones se consideran sencillos\"\n    },\n    {\n      \"term\": \"relevantes\",\n      \"reason\": \"no establece criterios objetivos para determinar la relevancia de los resultados\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"umbral de tiempo máximo para considerar la búsqueda 'rápida'\",\n    \"número máximo de pasos o interacciones para considerar la interfaz 'sencilla'\",\n    \"campos de producto sobre los que se puede realizar la búsqueda (nombre, marca, categoría, etc.)\",\n    \"criterio objetivo para determinar qué resultados son 'relevantes'\",\n    \"identificador único del requisito\",\n    \"vinculación a una necesidad de usuario o historia de usuario\"\n  ],\n  \"clarification_questions\": [\n    \"¿Qué se considera un tiempo máximo aceptable para que la búsqueda sea percibida como 'rápida' por el cliente?\",\n    \"¿Cuántos pasos o interacciones (por ejemplo, teclas pulsadas, selecciones) se consideran máximos para una búsqueda 'sencilla'?\",\n    \"¿En qué atributos de los productos (nombre, descripción, marca, categoría, etc.) debe poder buscarse el cliente?\",\n    \"¿Qué criterio debe usarse para determinar si un resultado es 'relevante' (por ejemplo, coincidencia de texto, popularidad, historial de compras, stock disponible)?\",\n    \"¿Se requiere un identificador único para este requisito y debe vincularse a una historia de usuario específica?\"\n  ],\n  \"summary\": \"El requisito expresa una intención clara pero carece de especificidad, criterios medibles y detalles necesarios para su implementación y verificación. Contiene términos ambiguos que impiden una evaluación objetiva y carece de criterios de aceptación. Se necesita definir claramente qué se entiende por 'rápido', 'sencillo' y 'relevantes', así como agregar información esencial para hacer el requisito verificable y trazable.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790524365,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "prompt_tokens": 2250,
+      "completion_tokens": 1452,
+      "latency_ms": 13554,
+      "created_at": "2026-09-27T10:53:00.621190-05:00"
+    },
+    {
+      "id": "eeffdb1c-75f1-4782-ae2f-16e090e5d599",
+      "stage": "improved",
+      "evaluated_text": "[POR DEFINIR: identificador único del requisito]-A: El sistema deberá permitir a los clientes (invitados o registrados) buscar productos del catálogo ingresando un término de búsqueda sobre los campos [POR DEFINIR: campos de producto sobre los que se puede buscar, ej. nombre, marca, categoría].\n[POR DEFINIR: identificador único del requisito]-B: El sistema deberá mostrar los resultados de la búsqueda en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta] desde que el cliente envía la consulta.\n[POR DEFINIR: identificador único del requisito]-C: El sistema deberá presentar los resultados ordenados según [POR DEFINIR: criterio objetivo de relevancia, ej. coincidencia con el término, popularidad, disponibilidad de stock].\n[POR DEFINIR: identificador único del requisito]-D: La interfaz de búsqueda deberá permitir al cliente acceder a los resultados en un máximo de [POR DEFINIR: número máximo de pasos o interacciones] desde la página donde se encuentre.\nVinculación: Como cliente, quiero encontrar productos fácilmente para comprar más rápido.\n\nCriterios de aceptación:\n- Dado un cliente en la tienda en línea, cuando ingresa un término en el campo de búsqueda y lo envía, entonces el sistema muestra resultados obtenidos de los campos [POR DEFINIR: campos de búsqueda] en un tiempo máximo de [POR DEFINIR: umbral de tiempo de respuesta].\n- Dado un término de búsqueda con productos coincidentes, cuando el sistema muestra los resultados, entonces estos aparecen ordenados según [POR DEFINIR: criterio de relevancia].\n- Dado un cliente en cualquier página del catálogo, cuando desea buscar un producto, entonces puede iniciar y ejecutar la búsqueda en un máximo de [POR DEFINIR: número máximo de pasos o interacciones].",
+      "parse_ok": true,
+      "global_score": 62,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 7,
+          "finding": "El requisito es claro en su intención general: permitir buscar productos con filtros definidos, tiempo de respuesta, ordenación y acceso en pocos pasos. Sin embargo, los marcadores [POR DEFINIR] generan incertidumbre sobre los valores específicos, aunque no provocan ambigüedad en el comportamiento esperado.",
+          "criterion": "claridad",
+          "recommendation": "Definir los valores pendientes en los marcadores [POR DEFINIR] para eliminar incertidumbre operativa."
+        },
+        {
+          "score": 6,
+          "finding": "El requisito especifica quién (clientes invitados o registrados), qué (buscar productos), cómo (ingresando un término), y condiciones de salida (resultados, tiempo, orden, pasos). Pero falta especificar los campos de búsqueda, el umbral de tiempo, el criterio de relevancia y el número máximo de pasos, los cuales están marcados como [POR DEFINIR].",
+          "criterion": "especificidad",
+          "recommendation": "Especificar los valores concretos para los campos de búsqueda, umbral de tiempo, criterio de relevancia y número máximo de pasos."
+        },
+        {
+          "score": 3,
+          "finding": "El requisito está dividido en cuatro sub-requisitos (A, B, C, D) vinculados por identificadores separados ([POR DEFINIR: identificador único del requisito]-A, -B, -C, -D), cada uno expresando una funcionalidad distinta: búsqueda, tiempo de respuesta, ordenación y acceso en pocos pasos. Esto viola la atomicidad al combinar múltiples requisitos independientes en una sola entidad.",
+          "criterion": "atomicidad",
+          "recommendation": "Separar cada sub-requisito (A, B, C, D) en requisitos independientes con identificadores únicos propios."
+        },
+        {
+          "score": 5,
+          "finding": "El requisito describe la funcionalidad de búsqueda pero deja pendientes definir elementos esenciales: campos de producto sobre los que se puede buscar, umbral de tiempo de respuesta, criterio objetivo de relevancia y número máximo de pasos o interacciones. Estos están explícitamente marcados como [POR DEFINIR], lo que indica información faltante necesaria para desarrollo y prueba.",
+          "criterion": "completitud",
+          "recommendation": "Completar la definición de los campos de búsqueda, umbral de tiempo, criterio de relevancia y número máximo de pasos actualmente marcados como [POR DEFINIR]."
+        },
+        {
+          "score": 8,
+          "finding": "No se detectan contradicciones internas en el texto del requisito. Los sub-requisitos A, B, C y D son coherentes entre sí y con el contexto del proyecto (tienda en línea de artículos deportivos). La vinculación como historia de usuario ('Como cliente, quiero encontrar productos fácilmente para comprar más rápido') es consistente con los requisitos funcionales expresados.",
+          "criterion": "consistencia",
+          "recommendation": "No se requiere cambio; el requisito es interno y contextualente consistente."
+        },
+        {
+          "score": 8,
+          "finding": "Dado el contexto de una tienda en línea de artículos deportivos, las funcionalidades descritas (búsqueda por campos, tiempo de respuesta acotado, ordenamiento de resultados, límite de pasos en interfaz) son técnicamente factibles con tecnologías estándar. Los marcadores [POR DEFINIR] no afectan la factibilidad inherente, solo la precisión de la implementación.",
+          "criterion": "factibilidad",
+          "recommendation": "No se requiere cambio; la factibilidad depende de definir los valores pendientes, pero no hay impedimentos técnicos aparentes."
+        },
+        {
+          "score": 6,
+          "finding": "El requisito incluye una estructura verificable mediante los criterios de aceptación en formato Dado/Cuándo/Entonces. Sin embargo, como estos criterios también contienen marcadores [POR DEFINIR] (campos de búsqueda, umbral de tiempo, criterio de relevancia, número de pasos), no es posible verificar objetivamente el cumplimiento hasta que esos valores se definan.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir los valores pendientes en los criterios de aceptación para permitir una verificabilidad plena."
+        },
+        {
+          "score": 6,
+          "finding": "El requisito incluye identificadores únicos en forma de [POR DEFINIR: identificador único del requisito]-A, -B, -C, -D, lo que permitiría trazabilidad una vez definidos. Vincula claramente al rol de cliente y a la necesidad de buscar productos. Sin embargo, como los identificadores están pendientes de definición, no pueden usarse actualmente para trazabilidad efectiva hacia diseño, código o pruebas.",
+          "criterion": "trazabilidad",
+          "recommendation": "Definir los identificadores únicos reales para cada sub-requisito para habilitar trazabilidad completa."
+        },
+        {
+          "score": 8,
+          "finding": "No se detectan términos subjetivos o vagos como 'rápido', 'fácil', 'adecuado' o 'intuitivo' en el texto del requisito. Los marcadores [POR DEFINIR] no son ambiguos, sino lugares explícitos para datos pendientes. El lenguaje usado es preciso y condicional.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "No se requiere cambio; no hay términos ambigüos presentes."
+        },
+        {
+          "score": 5,
+          "finding": "Los criterios de aceptación están presentes y siguen el formato Dado/Cuándo/Entonces, lo que permite derivar condiciones verificables. Sin embargo, contienen marcadores [POR DEFINIR] para campos de búsqueda, umbral de tiempo, criterio de relevancia y número de pasos, lo que impide determinar de forma verificable cuándo el requisito está satisfecho hasta que esos valores se definan.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Reemplazar los marcadores [POR DEFINIR] en los criterios de aceptación con valores concretos para permitir una evaluación verificable."
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [
+        "¿Sobre qué campos del producto (ej. nombre, marca, categoría, descripción) se podrá realizar la búsqueda?",
+        "¿Cuál es el tiempo máximo permitido (en segundos o milisegundos) para mostrar los resultados de la búsqueda después de que el cliente envía la consulta?",
+        "¿Según qué criterio objetivo (ej. coincidencia exacta, popularidad, disponibilidad de stock, fecha de lanzamiento) se deben ordenar los resultados de búsqueda?",
+        "¿Cuál es el número máximo permitido de pasos o interacciones (ej. clics, pantallas) que un cliente debería realizar desde cualquier página del catálogo para acceder a los resultados de búsqueda?"
+      ],
+      "missing_information": [
+        "campos de producto sobre los que se puede buscar",
+        "umbral de tiempo de respuesta",
+        "criterio objetivo de relevancia",
+        "número máximo de pasos o interacciones"
+      ],
+      "is_compound": true,
+      "summary": "El requisito expresa claramente la necesidad de búsqueda en una tienda en línea, pero está compuesto por múltiples sub-requisitos no atómicos y depende de varios datos pendientes de definición. Una vez resueltos los marcadores [POR DEFINIR] y separados los sub-requisitos, podría alcanzar altos niveles de calidad.",
+      "raw_response": {
+        "id": "chatcmpl-14dfd6c2-4b33-4c6a-955b-150c4f8defa9",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "usage": {
+          "total_tokens": 4361,
+          "prompt_tokens": 2641,
+          "completion_tokens": 1720
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 7,\n      \"finding\": \"El requisito es claro en su intención general: permitir buscar productos con filtros definidos, tiempo de respuesta, ordenación y acceso en pocos pasos. Sin embargo, los marcadores [POR DEFINIR] generan incertidumbre sobre los valores específicos, aunque no provocan ambigüedad en el comportamiento esperado.\",\n      \"recommendation\": \"Definir los valores pendientes en los marcadores [POR DEFINIR] para eliminar incertidumbre operativa.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 6,\n      \"finding\": \"El requisito especifica quién (clientes invitados o registrados), qué (buscar productos), cómo (ingresando un término), y condiciones de salida (resultados, tiempo, orden, pasos). Pero falta especificar los campos de búsqueda, el umbral de tiempo, el criterio de relevancia y el número máximo de pasos, los cuales están marcados como [POR DEFINIR].\",\n      \"recommendation\": \"Especificar los valores concretos para los campos de búsqueda, umbral de tiempo, criterio de relevancia y número máximo de pasos.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 3,\n      \"finding\": \"El requisito está dividido en cuatro sub-requisitos (A, B, C, D) vinculados por identificadores separados ([POR DEFINIR: identificador único del requisito]-A, -B, -C, -D), cada uno expresando una funcionalidad distinta: búsqueda, tiempo de respuesta, ordenación y acceso en pocos pasos. Esto viola la atomicidad al combinar múltiples requisitos independientes en una sola entidad.\",\n      \"recommendation\": \"Separar cada sub-requisito (A, B, C, D) en requisitos independientes con identificadores únicos propios.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 5,\n      \"finding\": \"El requisito describe la funcionalidad de búsqueda pero deja pendientes definir elementos esenciales: campos de producto sobre los que se puede buscar, umbral de tiempo de respuesta, criterio objetivo de relevancia y número máximo de pasos o interacciones. Estos están explícitamente marcados como [POR DEFINIR], lo que indica información faltante necesaria para desarrollo y prueba.\",\n      \"recommendation\": \"Completar la definición de los campos de búsqueda, umbral de tiempo, criterio de relevancia y número máximo de pasos actualmente marcados como [POR DEFINIR].\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"No se detectan contradicciones internas en el texto del requisito. Los sub-requisitos A, B, C y D son coherentes entre sí y con el contexto del proyecto (tienda en línea de artículos deportivos). La vinculación como historia de usuario ('Como cliente, quiero encontrar productos fácilmente para comprar más rápido') es consistente con los requisitos funcionales expresados.\",\n      \"recommendation\": \"No se requiere cambio; el requisito es interno y contextualente consistente.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Dado el contexto de una tienda en línea de artículos deportivos, las funcionalidades descritas (búsqueda por campos, tiempo de respuesta acotado, ordenamiento de resultados, límite de pasos en interfaz) son técnicamente factibles con tecnologías estándar. Los marcadores [POR DEFINIR] no afectan la factibilidad inherente, solo la precisión de la implementación.\",\n      \"recommendation\": \"No se requiere cambio; la factibilidad depende de definir los valores pendientes, pero no hay impedimentos técnicos aparentes.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 6,\n      \"finding\": \"El requisito incluye una estructura verificable mediante los criterios de aceptación en formato Dado/Cuándo/Entonces. Sin embargo, como estos criterios también contienen marcadores [POR DEFINIR] (campos de búsqueda, umbral de tiempo, criterio de relevancia, número de pasos), no es posible verificar objetivamente el cumplimiento hasta que esos valores se definan.\",\n      \"recommendation\": \"Definir los valores pendientes en los criterios de aceptación para permitir una verificabilidad plena.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 6,\n      \"finding\": \"El requisito incluye identificadores únicos en forma de [POR DEFINIR: identificador único del requisito]-A, -B, -C, -D, lo que permitiría trazabilidad una vez definidos. Vincula claramente al rol de cliente y a la necesidad de buscar productos. Sin embargo, como los identificadores están pendientes de definición, no pueden usarse actualmente para trazabilidad efectiva hacia diseño, código o pruebas.\",\n      \"recommendation\": \"Definir los identificadores únicos reales para cada sub-requisito para habilitar trazabilidad completa.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 8,\n      \"finding\": \"No se detectan términos subjetivos o vagos como 'rápido', 'fácil', 'adecuado' o 'intuitivo' en el texto del requisito. Los marcadores [POR DEFINIR] no son ambiguos, sino lugares explícitos para datos pendientes. El lenguaje usado es preciso y condicional.\",\n      \"recommendation\": \"No se requiere cambio; no hay términos ambigüos presentes.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 5,\n      \"finding\": \"Los criterios de aceptación están presentes y siguen el formato Dado/Cuándo/Entonces, lo que permite derivar condiciones verificables. Sin embargo, contienen marcadores [POR DEFINIR] para campos de búsqueda, umbral de tiempo, criterio de relevancia y número de pasos, lo que impide determinar de forma verificable cuándo el requisito está satisfecho hasta que esos valores se definan.\",\n      \"recommendation\": \"Reemplazar los marcadores [POR DEFINIR] en los criterios de aceptación con valores concretos para permitir una evaluación verificable.\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"campos de producto sobre los que se puede buscar\",\n    \"umbral de tiempo de respuesta\",\n    \"criterio objetivo de relevancia\",\n    \"número máximo de pasos o interacciones\"\n  ],\n  \"clarification_questions\": [\n    \"¿Sobre qué campos del producto (ej. nombre, marca, categoría, descripción) se podrá realizar la búsqueda?\",\n    \"¿Cuál es el tiempo máximo permitido (en segundos o milisegundos) para mostrar los resultados de la búsqueda después de que el cliente envía la consulta?\",\n    \"¿Según qué criterio objetivo (ej. coincidencia exacta, popularidad, disponibilidad de stock, fecha de lanzamiento) se deben ordenar los resultados de búsqueda?\",\n    \"¿Cuál es el número máximo permitido de pasos o interacciones (ej. clics, pantallas) que un cliente debería realizar desde cualquier página del catálogo para acceder a los resultados de búsqueda?\"\n  ],\n  \"summary\": \"El requisito expresa claramente la necesidad de búsqueda en una tienda en línea, pero está compuesto por múltiples sub-requisitos no atómicos y depende de varios datos pendientes de definición. Una vez resueltos los marcadores [POR DEFINIR] y separados los sub-requisitos, podría alcanzar altos niveles de calidad.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790524492,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "prompt_tokens": 2641,
+      "completion_tokens": 1720,
+      "latency_ms": 33948,
+      "created_at": "2026-09-27T10:55:27.499123-05:00"
+    }
+  ],
+  "score_delta": 5,
+  "recommended_version": "improved"
+}

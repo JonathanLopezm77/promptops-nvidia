@@ -1,0 +1,157 @@
+{
+  "id": "8e6b4e22-d7b5-475a-9f18-b19e08675247",
+  "parent_id": null,
+  "status": "ERROR",
+  "created_at": "2026-09-27T10:34:49.091017-05:00",
+  "finished_at": "2026-09-27T10:41:21.605950-05:00",
+  "input_mode": "text",
+  "original_requirement": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+  "evaluator_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": "Error del Mejorador al llamar a NVIDIA: NVIDIA respondió 200 pero 'message.content' está vacío.",
+  "stt_metadata": null,
+  "project_context": "Sistema de ventas para una cadena de tiendas. Los gerentes consultan reportes desde la web.",
+  "clarifications": null,
+  "improvement_skipped": false,
+  "improved_requirement": null,
+  "improvement": null,
+  "improvement_raw": null,
+  "improvement_tokens": null,
+  "improvement_latency_ms": null,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "e904b688-ecf7-41c5-855d-9484ccc40667",
+      "stage": "original",
+      "evaluated_text": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+      "parse_ok": true,
+      "global_score": 32,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 3,
+          "finding": "El requisito contiene una contradicción interna: 'generarse automáticamente' y 'solo cuando el gerente los solicite manualmente' son mutuamente excluyentes. El sistema no puede ser simultáneamente totalmente automático y depender de una solicitud manual para iniciar el proceso.",
+          "criterion": "claridad",
+          "recommendation": "Definir si la generación es automática programada o si el gerente inicia un proceso de reporte bajo demanda."
+        },
+        {
+          "score": 4,
+          "finding": "Se especifica la frecuencia (diaria) y el actor (gerente), pero no qué datos concretos se consideran 'necesarios'. Queda abierto qué métricas, rangos de fechas o formatos deben incluirse.",
+          "criterion": "especificidad",
+          "recommendation": "Enumerar explícitamente los campos o datos mínimos que deben incluirse en cada reporte."
+        },
+        {
+          "score": 2,
+          "finding": "El texto combina dos ideas independentes: la programación automática diaria y la condición de solicitud manual del gerente. Mezclan el modo de desencadenamiento con la frecuencia, lo que dificulta evaluarlos por separado.",
+          "criterion": "atomicidad",
+          "recommendation": "Separar el requisito en dos: uno que defina la generación automática programada y otro que defina la opción de solicitud manual bajo demanda."
+        },
+        {
+          "score": 3,
+          "finding": "Falta especificar los datos exactos que deben incluirse ('necesarios' es un término vago). No hay definición de formato, frecuencia exacta ni condiciones de error o fallback si la automatización falla.",
+          "criterion": "completitud",
+          "recommendation": "Definir los datos mínimos obligatorios y el formato de salida esperado."
+        },
+        {
+          "score": 3,
+          "finding": "Contradicción entre la generación automática y la solicitud manual. Además, el contexto indica que los gerentes consultan reportes desde la web, lo cual choca con la idea de que los reportes 'deben generarse' solo bajo solicitud, sin clarificar si la web los muestra automáticamente o requiere una acción.",
+          "criterion": "consistencia",
+          "recommendation": "Alinear el modo de desencadenamiento con el canal de consulta (web) y eliminar la contradicción entre automático y manual."
+        },
+        {
+          "score": 6,
+          "finding": "Técnicamente factible generar reportes diarios y permitir solicitudes manuales, pero la contradicción interna y la falta de definición de datos dificultan estimar el esfuerzo real.",
+          "criterion": "factibilidad",
+          "recommendation": "Clarificar el modelo de desencadenamiento antes de estimar la factibilidad técnica."
+        },
+        {
+          "score": 3,
+          "finding": "No es posible verificar objetivamente el cumplimiento porque 'necesarios' no tiene criterio medible y la contradicción entre automático y manual genera dos escenarios de prueba distintos sin definir cuál es el esperado.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir criterios de aceptación medibles (fechas, formatos, datos mínimos) y aclarar el modo de generación."
+        },
+        {
+          "score": 4,
+          "finding": "No hay un identificador único ni una necesidad de origen explícita declarada en el requisito. El contexto indica que los gerentes consultan reportes desde la web, lo que permite asociar el requisito a una necesidad de usuario, pero el texto no lo vincula formalmente.",
+          "criterion": "trazabilidad",
+          "recommendation": "Asignar un identificador único (p. ej., REQ-001) y enunciar la necesidad del usuario (p. ej., 'Como gerente, necesito un reporte diario automático...') para facilitar su trazabilidad."
+        },
+        {
+          "score": 2,
+          "finding": "Términos ambigüos: 'necesarios' (no define qué datos), 'automáticamente' (no especifica el mecanismo ni la hora del día), 'solicitar manualmente' (no define el canal ni el disparador exacto).",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Sustituir los términos vagos por valores o condiciones medibles."
+        },
+        {
+          "score": 2,
+          "finding": "No hay criterios de aceptación explícitos ni condiciones medibles para determinar cuándo el requisito está satisfecho. 'Cada día' y 'necesarios' no son verificables sin definiciones adicionales.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Definir criterios de aceptación con estructura Dado/Cuando/Entonces, incluyendo datos específicos, horarios y formatos de salida."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "necesarios",
+          "reason": "no define qué datos o métricas se deben incluir en el reporte"
+        },
+        {
+          "term": "automáticamente",
+          "reason": "no especifica el mecanismo de disparo ni la hora del día"
+        },
+        {
+          "term": "solicitar manualmente",
+          "reason": "no define el canal, el disparador ni la acción exacta que realiza el gerente"
+        }
+      ],
+      "clarification_questions": [
+        "¿Los reportes se generan automáticamente a una hora fija cada día, o el gerente los inicia bajo demanda? Clarificar si es uno u otro escenario, o si ambos modos deben coexistir.",
+        "¿Cuáles son los datos o campos mínimos que deben incluirse en los reportes de ventas? Solicitar una lista concreta de métricas, rangos de fechas y formatos.",
+        "¿Cómo solicita el gerente el reporte manualmente? (p. ej., botón en la web, API, correo electrónico) y qué disparador activa esa acción."
+      ],
+      "missing_information": [
+        "Definición de los datos o campos mínimos que deben incluirse en cada reporte",
+        "Hora exacta o mecanismo de la generación automática diaria",
+        "Canal y acción concreta para la solicitud manual del gerente",
+        "Formato de salida esperado (JSON, PDF, CSV, etc.)"
+      ],
+      "is_compound": true,
+      "summary": "El requisito presenta contradicción interna entre generación automática y solicitud manual, usa términos vagos ('necesarios', 'automáticamente', 'solicitar manualmente') y falta definición de datos concretos. Se recomienda separar el modo de desencadenamiento y especificar los campos obligatorios y formato de salida para lograr claridad y verificabilidad.",
+      "raw_response": {
+        "id": "chatcmpl-cf4cc50a-3d50-4edc-a1f0-b189c6722795",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 3808,
+          "prompt_tokens": 2256,
+          "completion_tokens": 1552,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 2176
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 3,\n      \"finding\": \"El requisito contiene una contradicción interna: 'generarse automáticamente' y 'solo cuando el gerente los solicite manualmente' son mutuamente excluyentes. El sistema no puede ser simultáneamente totalmente automático y depender de una solicitud manual para iniciar el proceso.\",\n      \"recommendation\": \"Definir si la generación es automática programada o si el gerente inicia un proceso de reporte bajo demanda.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 4,\n      \"finding\": \"Se especifica la frecuencia (diaria) y el actor (gerente), pero no qué datos concretos se consideran 'necesarios'. Queda abierto qué métricas, rangos de fechas o formatos deben incluirse.\",\n      \"recommendation\": \"Enumerar explícitamente los campos o datos mínimos que deben incluirse en cada reporte.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 2,\n      \"finding\": \"El texto combina dos ideas independentes: la programación automática diaria y la condición de solicitud manual del gerente. Mezclan el modo de desencadenamiento con la frecuencia, lo que dificulta evaluarlos por separado.\",\n      \"recommendation\": \"Separar el requisito en dos: uno que defina la generación automática programada y otro que defina la opción de solicitud manual bajo demanda.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 3,\n      \"finding\": \"Falta especificar los datos exactos que deben incluirse ('necesarios' es un término vago). No hay definición de formato, frecuencia exacta ni condiciones de error o fallback si la automatización falla.\",\n      \"recommendation\": \"Definir los datos mínimos obligatorios y el formato de salida esperado.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 3,\n      \"finding\": \"Contradicción entre la generación automática y la solicitud manual. Además, el contexto indica que los gerentes consultan reportes desde la web, lo cual choca con la idea de que los reportes 'deben generarse' solo bajo solicitud, sin clarificar si la web los muestra automáticamente o requiere una acción.\",\n      \"recommendation\": \"Alinear el modo de desencadenamiento con el canal de consulta (web) y eliminar la contradicción entre automático y manual.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 6,\n      \"finding\": \"Técnicamente factible generar reportes diarios y permitir solicitudes manuales, pero la contradicción interna y la falta de definición de datos dificultan estimar el esfuerzo real.\",\n      \"recommendation\": \"Clarificar el modelo de desencadenamiento antes de estimar la factibilidad técnica.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 3,\n      \"finding\": \"No es posible verificar objetivamente el cumplimiento porque 'necesarios' no tiene criterio medible y la contradicción entre automático y manual genera dos escenarios de prueba distintos sin definir cuál es el esperado.\",\n      \"recommendation\": \"Definir criterios de aceptación medibles (fechas, formatos, datos mínimos) y aclarar el modo de generación.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 4,\n      \"finding\": \"No hay un identificador único ni una necesidad de origen explícita declarada en el requisito. El contexto indica que los gerentes consultan reportes desde la web, lo que permite asociar el requisito a una necesidad de usuario, pero el texto no lo vincula formalmente.\",\n      \"recommendation\": \"Asignar un identificador único (p. ej., REQ-001) y enunciar la necesidad del usuario (p. ej., 'Como gerente, necesito un reporte diario automático...') para facilitar su trazabilidad.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 2,\n      \"finding\": \"Términos ambigüos: 'necesarios' (no define qué datos), 'automáticamente' (no especifica el mecanismo ni la hora del día), 'solicitar manualmente' (no define el canal ni el disparador exacto).\",\n      \"recommendation\": \"Sustituir los términos vagos por valores o condiciones medibles.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 2,\n      \"finding\": \"No hay criterios de aceptación explícitos ni condiciones medibles para determinar cuándo el requisito está satisfecho. 'Cada día' y 'necesarios' no son verificables sin definiciones adicionales.\",\n      \"recommendation\": \"Definir criterios de aceptación con estructura Dado/Cuando/Entonces, incluyendo datos específicos, horarios y formatos de salida.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"necesarios\",\n      \"reason\": \"no define qué datos o métricas se deben incluir en el reporte\"\n    },\n    {\n      \"term\": \"automáticamente\",\n      \"reason\": \"no especifica el mecanismo de disparo ni la hora del día\"\n    },\n    {\n      \"term\": \"solicitar manualmente\",\n      \"reason\": \"no define el canal, el disparador ni la acción exacta que realiza el gerente\"\n    }\n  ],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"Definición de los datos o campos mínimos que deben incluirse en cada reporte\",\n    \"Hora exacta o mecanismo de la generación automática diaria\",\n    \"Canal y acción concreta para la solicitud manual del gerente\",\n    \"Formato de salida esperado (JSON, PDF, CSV, etc.)\"\n  ],\n  \"clarification_questions\": [\n    \"¿Los reportes se generan automáticamente a una hora fija cada día, o el gerente los inicia bajo demanda? Clarificar si es uno u otro escenario, o si ambos modos deben coexistir.\",\n    \"¿Cuáles son los datos o campos mínimos que deben incluirse en los reportes de ventas? Solicitar una lista concreta de métricas, rangos de fechas y formatos.\",\n    \"¿Cómo solicita el gerente el reporte manualmente? (p. ej., botón en la web, API, correo electrónico) y qué disparador activa esa acción.\"\n  ],\n  \"summary\": \"El requisito presenta contradicción interna entre generación automática y solicitud manual, usa términos vagos ('necesarios', 'automáticamente', 'solicitar manualmente') y falta definición de datos concretos. Se recomienda separar el modo de desencadenamiento y especificar los campos obligatorios y formato de salida para lograr claridad y verificabilidad.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523470,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2256,
+      "completion_tokens": 1552,
+      "latency_ms": 352412,
+      "created_at": "2026-09-27T10:40:41.739687-05:00"
+    }
+  ],
+  "score_delta": null,
+  "recommended_version": null
+}

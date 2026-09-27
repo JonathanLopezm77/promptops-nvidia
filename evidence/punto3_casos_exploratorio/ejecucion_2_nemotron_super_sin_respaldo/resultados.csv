@@ -1,0 +1,10 @@
+caso,corrida,analysis_id,estado,input_mode,evaluador,mejorador,puntaje_original,alta_calidad,puntaje_mejorado,delta,version_recomendada,terminos_ambiguos,preguntas,pendientes,valores_sin_respaldo,latencia_total_s,tokens_evaluacion_original,mejorador_respaldo_desde,puntaje_final_tras_aclarar,respaldo_en_aclaracion_desde,verificaciones_requeridas_ok,verificaciones_requeridas,cumple
+A,1,28d48c58-7b25-4b81-9d81-56fe2ecfe885,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,100,True,,,original,0,0,0,0,10.2,3339,,,,4,4,True
+A,2,a87eef01-19ca-4fde-a291-d8b5a9e7bfa1,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,91,True,,,original,0,2,0,0,11.7,3483,,,,4,4,True
+A,3,3495e028-a315-425a-bd3c-6334e54486c2,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,92,True,,,original,0,1,0,0,12.5,3584,,,,4,4,True
+B,1,c8cad16b-d737-419a-a097-f4b62466c414,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,57,False,62,5,improved,3,5,6,0,160.4,3702,,88,,8,8,True
+B,2,e74916d5-1102-4c41-b96c-499296a87544,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,55,False,62,7,improved,3,4,5,0,115.2,3743,,64,,7,8,False
+B,3,da7fedc2-c211-49c5-8e16-65b6febc425f,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,54,False,56,2,improved,3,5,5,0,261.8,3821,,65,,7,8,False
+C,1,e28a090f-e3de-489a-afde-a35a34075e0b,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,34,False,43,9,improved,1,4,4,0,117.6,3869,,,,7,7,True
+C,2,a66c987a-c914-4c76-a74f-59459b0e36d8,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,31,False,34,3,improved,4,4,5,0,87.6,4036,,,,7,7,True
+C,3,96f2be4e-b7f1-418a-a0b6-16e0517b77a6,COMPLETED,text,nvidia/nemotron-3-super-120b-a12b,moonshotai/kimi-k3,40,False,52,12,improved,1,4,4,0,81.6,3607,,,,7,7,True

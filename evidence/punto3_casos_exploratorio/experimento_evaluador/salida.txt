@@ -1,0 +1,21 @@
+### nvidia/nemotron-3.5-lightning-30b-a3b
+  B_2:  38 ->  31 (delta -7)  tiempos 142s/66s  marca POR DEFINIR como ambiguo: False
+        atom 4->5  claridad 3->2  ambig 3->5  complet 3->1  CA 2->1  consist 6->6
+  B_3:  29 ->  23 (delta -6)  tiempos 142s/104s  marca POR DEFINIR como ambiguo: False
+        atom 4->2  claridad 3->3  ambig 2->1  complet 2->1  CA 1->1  consist 5->5
+  C_2:  47 ->  27 (delta -20)  tiempos 87s/72s  marca POR DEFINIR como ambiguo: False
+        atom 4->3  claridad 4->3  ambig 4->2  complet 4->2  CA 3->2  consist 6->3
+
+### nvidia/nemotron-3-super-120b-a12b
+  B_2:  55 ->  73 (delta +18)  tiempos 16s/13s  marca POR DEFINIR como ambiguo: False
+        atom 8->9  claridad 7->9  ambig 3->8  complet 4->5  CA 3->5  consist 8->9
+  B_3:  45 ->  69 (delta +24)  tiempos 24s/18s  marca POR DEFINIR como ambiguo: False
+        atom 6->9  claridad 5->8  ambig 3->7  complet 4->5  CA 2->6  consist 8->8
+  C_2:  29 ->  36 (delta +7)  tiempos 16s/21s  marca POR DEFINIR como ambiguo: False
+        atom 3->8  claridad 2->3  ambig 3->4  complet 3->2  CA 2->2  consist 2->2
+
+### moonshotai/kimi-k3
+  B_2: FALLO orig=('NvidiaEmptyResponseError', "NVIDIA respondió 200 sin 'choices' en el cuerpo.") mej=('NvidiaEmptyResponseError', "NVIDIA respondió 200 sin 'choices' en el cuerpo.")
+  B_3: FALLO orig=('NvidiaEmptyResponseError', "NVIDIA respondió 200 sin 'choices' en el cuerpo.") mej=(False, {'claridad': 7, 'especificidad': 4, 'atomicidad': 9, 'completitud': 3, 'consistencia': 8, 'factibilidad': 8, 'verificabilidad': 4, 'trazabilidad': 7, 'ausencia_ambiguedad': 7, 'criterios_aceptacion': 4})
+  C_2:  31 ->  65 (delta +34)  tiempos 96s/86s  marca POR DEFINIR como ambiguo: False
+        atom 4->9  claridad 3->7  ambig 2->9  complet 2->3  CA 2->6  consist 2->5

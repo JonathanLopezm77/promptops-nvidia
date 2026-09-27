@@ -1,0 +1,358 @@
+{
+  "id": "49d07f7d-d8c0-44f8-b2aa-079561af7ab9",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:34:49.064313-05:00",
+  "finished_at": "2026-09-27T10:42:04.800487-05:00",
+  "input_mode": "text",
+  "original_requirement": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+  "evaluator_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Sistema de ventas para una cadena de tiendas. Los gerentes consultan reportes desde la web.",
+  "clarifications": null,
+  "improvement_skipped": false,
+  "improved_requirement": "REQ-1: El sistema deberá generar los reportes de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación exclusiva bajo solicitud manual del gerente].\nREQ-2: Si la generación es diaria, el sistema deberá ejecutarla a la hora [POR DEFINIR: hora exacta y zona horaria].\nREQ-3: Si la generación es bajo solicitud manual, el gerente podrá solicitar el reporte desde [POR DEFINIR: canal o mecanismo de solicitud].\nREQ-4: El reporte de ventas generado deberá incluir [POR DEFINIR: lista de campos/datos que debe contener el reporte] en formato [POR DEFINIR: formato de salida del reporte].",
+  "improvement": {
+    "changes": [
+      "Se dividió el requisito en cuatro sub-requisitos atómicos (generación, horario, solicitud manual y contenido), atendiendo el hallazgo de atomicidad.",
+      "No se eligió entre 'automático cada día' y 'solo cuando el gerente lo solicite': es una contradicción interna que debe resolver el stakeholder, por lo que queda marcada sin resolución.",
+      "Se reemplazó 'cada día' por la exigencia de una hora exacta y zona horaria marcadas como [POR DEFINIR], atendiendo el hallazgo de ambigüedad temporal.",
+      "Se reemplazó 'datos necesarios' por una lista de campos marcada como [POR DEFINIR], ya que el requisito no especifica qué datos incluir, atendiendo los hallazgos de especificidad y verificabilidad.",
+      "Se añadió la necesidad de definir canal de solicitud y formato de salida como pendientes, ya que el contexto menciona consulta web pero no lo confirma para este requisito, por lo que no se asume.",
+      "Se agregaron identificadores REQ-1 a REQ-4 para mejorar la trazabilidad."
+    ],
+    "pending_items": [
+      "Resolver contradicción: ¿la generación es automática diaria (y el gerente solo consulta/descarga) o exclusivamente bajo solicitud manual del gerente?",
+      "Hora exacta y zona horaria de la generación diaria (si aplica)",
+      "Canal o mecanismo de solicitud manual del gerente",
+      "Lista completa de campos/datos que debe incluir el reporte de ventas",
+      "Formato de salida del reporte (PDF, CSV, vista web, etc.)"
+    ],
+    "unsupported_retry": false,
+    "unsupported_values": [],
+    "acceptance_criteria": [
+      "Dado que se cumple la condición de generación [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente], cuando el sistema procesa la generación, entonces el reporte de ventas queda disponible para el gerente.",
+      "Dado que el gerente solicita un reporte, cuando accede a través de [POR DEFINIR: canal de solicitud/consulta], entonces obtiene el reporte de ventas correspondiente.",
+      "Dado un reporte de ventas generado, cuando el gerente lo abre, entonces contiene [POR DEFINIR: lista de campos/datos obligatorios] en formato [POR DEFINIR: formato de salida]."
+    ],
+    "intent_preservation": "Se mantiene la necesidad de que existan reportes de ventas disponibles para el gerente con la información que requiere, sin decidir por él si el gatillo es automático o manual ni inventar qué datos debe contener el reporte."
+  },
+  "improvement_raw": {
+    "id": "chatcmpl-c6139008-ab4e-4894-b6bb-d21a244c7f3c",
+    "model": "moonshotai/kimi-k3",
+    "usage": {
+      "total_tokens": 3768,
+      "prompt_tokens": 2858,
+      "completion_tokens": 910,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 26
+      }
+    },
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"improved_requirement\": \"REQ-1: El sistema deberá generar los reportes de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación exclusiva bajo solicitud manual del gerente].\\nREQ-2: Si la generación es diaria, el sistema deberá ejecutarla a la hora [POR DEFINIR: hora exacta y zona horaria].\\nREQ-3: Si la generación es bajo solicitud manual, el gerente podrá solicitar el reporte desde [POR DEFINIR: canal o mecanismo de solicitud].\\nREQ-4: El reporte de ventas generado deberá incluir [POR DEFINIR: lista de campos/datos que debe contener el reporte] en formato [POR DEFINIR: formato de salida del reporte].\",\n  \"acceptance_criteria\": [\n    \"Dado que se cumple la condición de generación [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente], cuando el sistema procesa la generación, entonces el reporte de ventas queda disponible para el gerente.\",\n    \"Dado que el gerente solicita un reporte, cuando accede a través de [POR DEFINIR: canal de solicitud/consulta], entonces obtiene el reporte de ventas correspondiente.\",\n    \"Dado un reporte de ventas generado, cuando el gerente lo abre, entonces contiene [POR DEFINIR: lista de campos/datos obligatorios] en formato [POR DEFINIR: formato de salida].\"\n  ],\n  \"changes\": [\n    \"Se dividió el requisito en cuatro sub-requisitos atómicos (generación, horario, solicitud manual y contenido), atendiendo el hallazgo de atomicidad.\",\n    \"No se eligió entre 'automático cada día' y 'solo cuando el gerente lo solicite': es una contradicción interna que debe resolver el stakeholder, por lo que queda marcada sin resolución.\",\n    \"Se reemplazó 'cada día' por la exigencia de una hora exacta y zona horaria marcadas como [POR DEFINIR], atendiendo el hallazgo de ambigüedad temporal.\",\n    \"Se reemplazó 'datos necesarios' por una lista de campos marcada como [POR DEFINIR], ya que el requisito no especifica qué datos incluir, atendiendo los hallazgos de especificidad y verificabilidad.\",\n    \"Se añadió la necesidad de definir canal de solicitud y formato de salida como pendientes, ya que el contexto menciona consulta web pero no lo confirma para este requisito, por lo que no se asume.\",\n    \"Se agregaron identificadores REQ-1 a REQ-4 para mejorar la trazabilidad.\"\n  ],\n  \"pending_items\": [\n    \"Resolver contradicción: ¿la generación es automática diaria (y el gerente solo consulta/descarga) o exclusivamente bajo solicitud manual del gerente?\",\n    \"Hora exacta y zona horaria de la generación diaria (si aplica)\",\n    \"Canal o mecanismo de solicitud manual del gerente\",\n    \"Lista completa de campos/datos que debe incluir el reporte de ventas\",\n    \"Formato de salida del reporte (PDF, CSV, vista web, etc.)\"\n  ],\n  \"intent_preservation\": \"Se mantiene la necesidad de que existan reportes de ventas disponibles para el gerente con la información que requiere, sin decidir por él si el gatillo es automático o manual ni inventar qué datos debe contener el reporte.\"\n}",
+          "refusal": null,
+          "reasoning_content": "Follow the example closely. Contradiction manual vs automatic → preserve both with [POR DEFINIR]."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "created": 1790523392
+  },
+  "improvement_tokens": 3768,
+  "improvement_latency_ms": 74624,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "da1bc04c-6289-4295-8b57-de95ebcfdf6d",
+      "stage": "original",
+      "evaluated_text": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+      "parse_ok": true,
+      "global_score": 28,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 3,
+          "finding": "El requisito mezcla dos condiciones contradictorias o superpuestas: 'generarse automáticamente cada día' y 'solo cuando el gerente los solicite manualmente'. Queda sin qué grado de automatización se aplica si hay solicitud manual, generando ambigüedad sobre el gatillo real.",
+          "criterion": "claridad",
+          "recommendation": "Definir claramente si el gatillo es exclusivo la solicitud manual, o si la generación diaria es automática y el gerente la consulta/descarga manualmente."
+        },
+        {
+          "score": 4,
+          "finding": "Se menciona 'datos necesarios' sin precisar qué datos ni formato. No se especifica el alcance de los datos (qué campos, rangos, filtros) ni la estructura del reporte.",
+          "criterion": "especificidad",
+          "recommendation": "Definir los datos concretos a incluir (p. ej., ventas totales, unidades por producto, región) y el formato de salida."
+        },
+        {
+          "score": 2,
+          "finding": "El requisito es compuesto: combina la frecuencia (diaria), el gatillo (solicitud manual) y el contenido (datos necesarios). Mezcla tres comportamientos independientes en una sola oración.",
+          "criterion": "atomicidad",
+          "recommendation": "Dividir en requisitos atómicos separados: uno para la frecuencia, otro para el gatillo, y otro para el contenido mínimo."
+        },
+        {
+          "score": 2,
+          "finding": "Falta información esencial para desarrollar y probar: qué datos conforman 'los datos necesarios', con qué frecuencia exacta se ejecuta 'cada día' (hora exacta), y si la solicitud manual invalida la generación automática o es el único gatillo.",
+          "criterion": "completitud",
+          "recommendation": "Especificar los campos de datos, la hora exacta de generación diaria y la lógica del gatillo manual vs automático."
+        },
+        {
+          "score": 3,
+          "finding": "Contradicción interna: 'generarse automáticamente cada día' implica un gatilo temporal recurrente, mientras que 'solo cuando el gerente los solicite manualmente' implica un gatilo humano. Los dos no pueden ser la única fuente de generación sin una lógica de combinación que no se especifica. Además, el contexto indica que los gerentes consultan reportes desde la web, lo cual sugiere una consulta bajo su criterio, no necesariamente una generación sobrerreglada.",
+          "criterion": "consistencia",
+          "recommendation": "Aclarar la lógica de gatillo: si la generación es automática diaria y el gerente la consulta, o si la generación ocurre exclusivamente bajo solicitud manual. Eliminar la contradicción entre 'automático cada día' y 'solo manual'."
+        },
+        {
+          "score": 5,
+          "finding": "Desde el punto de vista técnico, generar reportes diarios y bajo solicitud es factible con los sistemas actuales. No hay restricciones técnicas declaradas que lo hagan imposible.",
+          "criterion": "factibilidad",
+          "recommendation": ""
+        },
+        {
+          "score": 2,
+          "finding": "No hay forma objetiva de verificar si el reporte se generó 'cada día' bajo las condiciones mezcladas, ni qué datos se consideran 'necesarios'. Faltan umbrales de tiempo, condiciones lógicas y lista de campos para poder comprobar el cumplimiento.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir horarios exactos, condiciones de gatillo y la lista completa de campos/datos obligatorios en el reporte."
+        },
+        {
+          "score": 4,
+          "finding": "No se asigna un identificador único ni se declara el actor/necesidad de origen explícita. El contexto menciona que los gerentes consultan reportes desde la web, lo que permite relacionarlo con roles de usuario, pero el requisio en sí no tiene etiqueta ni origen claro.",
+          "criterion": "trazabilidad",
+          "recommendation": "Añadir un identificador (p. ej., REQ-XX) y enunciar el actor origen (p. ej., 'Solicitud del gerente de tienda')."
+        },
+        {
+          "score": 2,
+          "finding": "Términos ambiguos detectados: 'cada día' (no especifica hora ni zona horaria), 'datos necesarios' (vago y sujeto a interpretación), 'generarse automáticamente' (no define si es bajo gatilo, schedule o evento), 'solicite manualmente' (no define canal o frecuencia máxima de solicitud).",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Sustituir los términos vagos por valores o condiciones medibles (p. ej., 'a las 06:00 UTC', 'ventas del día anterior', 'formato PDF/CSV con X campos')."
+        },
+        {
+          "score": 1,
+          "finding": "No hay criterios de aceptación explícitos ni condiciones medibles de las que derivarlos. No se especifica cuándo el requisito está satisfecho (¿qué reportes se generaron?, ¿qué datos incluyen?, ¿bajo qué condiciones exactas?).",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Definir criterios de aceptación con estructura Dado/Cuando/Entonces y condiciones medibles (p. ej., 'El sistema genera un reporte CSV con 15 campos a las 06:00 UTC cada día; el gerente puede descargar el reporte desde la web bajo solicitud')."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "cada día",
+          "reason": "no especifica hora, zona horaria ni frecuencia exacta dentro del día"
+        },
+        {
+          "term": "datos necesarios",
+          "reason": "concepto vago sin lista de campos ni criterios de inclusión"
+        },
+        {
+          "term": "generarse automáticamente",
+          "reason": "no define gatilo (schedule, evento, manual) ni comportamiento al interactuar con solicitud humana"
+        },
+        {
+          "term": "solicite manualmente",
+          "reason": "no especifica canal, mecanismo ni si invalida la generación automática previa"
+        }
+      ],
+      "clarification_questions": [
+        "¿La generación diaria es automática con horario fijo, o solo se genera bajo solicitud manual del gerente?",
+        "¿Cuáles son exactamente los datos/campos que deben incluirse en el reporte de ventas?",
+        "¿El gerente solicita el reporte a través de la interfaz web, un correo electrónico o otro canal?",
+        "¿Se debe respetar una hora específica del día para la generación automática, o es bajo demanda continua?"
+      ],
+      "missing_information": [
+        "hora exacta y zona horaria para la generación diaria",
+        "lista completa de campos/datos que conforman 'los datos necesarios'",
+        "lógica clara entre gatillo automático diario y solicitud manual (si son exclusivos o combinados)",
+        "formato de salida del reporte y canal de solicitud manual"
+      ],
+      "is_compound": true,
+      "summary": "El requisito es compuesto y contradictorio al mezclar generación automática diaria con solicitud manual exclusiva. Faltan definiciones de datos, horarios y lógica de gatillo. No hay criterios de aceptación medibles. Es necesario dividir el requisito en partes atómicas y especificar condiciones concretas.",
+      "raw_response": {
+        "id": "chatcmpl-314df8bd-84fb-4dbc-935f-2a8687c2f5f8",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 5860,
+          "prompt_tokens": 4136,
+          "completion_tokens": 1724,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 2176
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 3,\n      \"finding\": \"El requisito mezcla dos condiciones contradictorias o superpuestas: 'generarse automáticamente cada día' y 'solo cuando el gerente los solicite manualmente'. Queda sin qué grado de automatización se aplica si hay solicitud manual, generando ambigüedad sobre el gatillo real.\",\n      \"recommendation\": \"Definir claramente si el gatillo es exclusivo la solicitud manual, o si la generación diaria es automática y el gerente la consulta/descarga manualmente.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 4,\n      \"finding\": \"Se menciona 'datos necesarios' sin precisar qué datos ni formato. No se especifica el alcance de los datos (qué campos, rangos, filtros) ni la estructura del reporte.\",\n      \"recommendation\": \"Definir los datos concretos a incluir (p. ej., ventas totales, unidades por producto, región) y el formato de salida.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 2,\n      \"finding\": \"El requisito es compuesto: combina la frecuencia (diaria), el gatillo (solicitud manual) y el contenido (datos necesarios). Mezcla tres comportamientos independientes en una sola oración.\",\n      \"recommendation\": \"Dividir en requisitos atómicos separados: uno para la frecuencia, otro para el gatillo, y otro para el contenido mínimo.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 2,\n      \"finding\": \"Falta información esencial para desarrollar y probar: qué datos conforman 'los datos necesarios', con qué frecuencia exacta se ejecuta 'cada día' (hora exacta), y si la solicitud manual invalida la generación automática o es el único gatillo.\",\n      \"recommendation\": \"Especificar los campos de datos, la hora exacta de generación diaria y la lógica del gatillo manual vs automático.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 3,\n      \"finding\": \"Contradicción interna: 'generarse automáticamente cada día' implica un gatilo temporal recurrente, mientras que 'solo cuando el gerente los solicite manualmente' implica un gatilo humano. Los dos no pueden ser la única fuente de generación sin una lógica de combinación que no se especifica. Además, el contexto indica que los gerentes consultan reportes desde la web, lo cual sugiere una consulta bajo su criterio, no necesariamente una generación sobrerreglada.\",\n      \"recommendation\": \"Aclarar la lógica de gatillo: si la generación es automática diaria y el gerente la consulta, o si la generación ocurre exclusivamente bajo solicitud manual. Eliminar la contradicción entre 'automático cada día' y 'solo manual'.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 5,\n      \"finding\": \"Desde el punto de vista técnico, generar reportes diarios y bajo solicitud es factible con los sistemas actuales. No hay restricciones técnicas declaradas que lo hagan imposible.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 2,\n      \"finding\": \"No hay forma objetiva de verificar si el reporte se generó 'cada día' bajo las condiciones mezcladas, ni qué datos se consideran 'necesarios'. Faltan umbrales de tiempo, condiciones lógicas y lista de campos para poder comprobar el cumplimiento.\",\n      \"recommendation\": \"Definir horarios exactos, condiciones de gatillo y la lista completa de campos/datos obligatorios en el reporte.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 4,\n      \"finding\": \"No se asigna un identificador único ni se declara el actor/necesidad de origen explícita. El contexto menciona que los gerentes consultan reportes desde la web, lo que permite relacionarlo con roles de usuario, pero el requisio en sí no tiene etiqueta ni origen claro.\",\n      \"recommendation\": \"Añadir un identificador (p. ej., REQ-XX) y enunciar el actor origen (p. ej., 'Solicitud del gerente de tienda').\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 2,\n      \"finding\": \"Términos ambiguos detectados: 'cada día' (no especifica hora ni zona horaria), 'datos necesarios' (vago y sujeto a interpretación), 'generarse automáticamente' (no define si es bajo gatilo, schedule o evento), 'solicite manualmente' (no define canal o frecuencia máxima de solicitud).\",\n      \"recommendation\": \"Sustituir los términos vagos por valores o condiciones medibles (p. ej., 'a las 06:00 UTC', 'ventas del día anterior', 'formato PDF/CSV con X campos').\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 1,\n      \"finding\": \"No hay criterios de aceptación explícitos ni condiciones medibles de las que derivarlos. No se especifica cuándo el requisito está satisfecho (¿qué reportes se generaron?, ¿qué datos incluyen?, ¿bajo qué condiciones exactas?).\",\n      \"recommendation\": \"Definir criterios de aceptación con estructura Dado/Cuando/Entonces y condiciones medibles (p. ej., 'El sistema genera un reporte CSV con 15 campos a las 06:00 UTC cada día; el gerente puede descargar el reporte desde la web bajo solicitud').\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"cada día\",\n      \"reason\": \"no especifica hora, zona horaria ni frecuencia exacta dentro del día\"\n    },\n    {\n      \"term\": \"datos necesarios\",\n      \"reason\": \"concepto vago sin lista de campos ni criterios de inclusión\"\n    },\n    {\n      \"term\": \"generarse automáticamente\",\n      \"reason\": \"no define gatilo (schedule, evento, manual) ni comportamiento al interactuar con solicitud humana\"\n    },\n    {\n      \"term\": \"solicite manualmente\",\n      \"reason\": \"no especifica canal, mecanismo ni si invalida la generación automática previa\"\n    }\n  ],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"hora exacta y zona horaria para la generación diaria\",\n    \"lista completa de campos/datos que conforman 'los datos necesarios'\",\n    \"lógica clara entre gatillo automático diario y solicitud manual (si son exclusivos o combinados)\",\n    \"formato de salida del reporte y canal de solicitud manual\"\n  ],\n  \"clarification_questions\": [\n    \"¿La generación diaria es automática con horario fijo, o solo se genera bajo solicitud manual del gerente?\",\n    \"¿Cuáles son exactamente los datos/campos que deben incluirse en el reporte de ventas?\",\n    \"¿El gerente solicita el reporte a través de la interfaz web, un correo electrónico o otro canal?\",\n    \"¿Se debe respetar una hora específica del día para la generación automática, o es bajo demanda continua?\"\n  ],\n  \"summary\": \"El requisito es compuesto y contradictorio al mezclar generación automática diaria con solicitud manual exclusiva. Faltan definiciones de datos, horarios y lógica de gatillo. No hay criterios de aceptación medibles. Es necesario dividir el requisito en partes atómicas y especificar condiciones concretas.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523333,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 4136,
+      "completion_tokens": 1724,
+      "latency_ms": 95080,
+      "created_at": "2026-09-27T10:36:24.647756-05:00"
+    },
+    {
+      "id": "70715bc6-c6fe-454e-a95e-317645dbbb90",
+      "stage": "improved",
+      "evaluated_text": "REQ-1: El sistema deberá generar los reportes de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación exclusiva bajo solicitud manual del gerente].\nREQ-2: Si la generación es diaria, el sistema deberá ejecutarla a la hora [POR DEFINIR: hora exacta y zona horaria].\nREQ-3: Si la generación es bajo solicitud manual, el gerente podrá solicitar el reporte desde [POR DEFINIR: canal o mecanismo de solicitud].\nREQ-4: El reporte de ventas generado deberá incluir [POR DEFINIR: lista de campos/datos que debe contener el reporte] en formato [POR DEFINIR: formato de salida del reporte].\n\nCriterios de aceptación:\n- Dado que se cumple la condición de generación [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente], cuando el sistema procesa la generación, entonces el reporte de ventas queda disponible para el gerente.\n- Dado que el gerente solicita un reporte, cuando accede a través de [POR DEFINIR: canal de solicitud/consulta], entonces obtiene el reporte de ventas correspondiente.\n- Dado un reporte de ventas generado, cuando el gerente lo abre, entonces contiene [POR DEFINIR: lista de campos/datos obligatorios] en formato [POR DEFINIR: formato de salida].",
+      "parse_ok": true,
+      "global_score": 19,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 2,
+          "finding": "El requisito REQ-1 contiene una contradicción explícita en su marcador [POR DEFINIR: resolver contradicción entre generación automática diaria y generación exclusiva bajo solicitud manual del gerente]. No se especifica si el sistema debe generar reportes automáticamente cada día, solo cuando el gerente lo solicite, o ambas cosas. Esta ambigüedad interna afecta la claridad.",
+          "criterion": "claridad",
+          "recommendation": "Definir si la generación es automática diaria, bajo solicitud manual, o ambos escenarios con una lógica clara."
+        },
+        {
+          "score": 1,
+          "finding": "Los requisitos REQ-2, REQ-3 y REQ-4 contienen marcadores [POR DEFINIR] que dejan huecos críticos: la hora exacta, la zona horaria, el canal o mecanismo de solicitud, la lista de campos/datos y el formato de salida. Sin estos datos, el requisito no expresa un comportamiento preciso.",
+          "criterion": "especificidad",
+          "recommendation": "Sustituir cada [POR DEFINIR] por valores o decisiones tomadas; si aún no están definidos, el requisito está incompleto y no puede evaluarse con especificidad."
+        },
+        {
+          "score": 5,
+          "finding": "Cada requisito (REQ-1 a REQ-4) expresa una idea independiente sin mezclar varios comportamientos en una sola oración. REQ-1 es atómico en su estructura a pesar de la contradicción interna; REQ-2, REQ-3 y REQ-4 son sencillos y no compuestos.",
+          "criterion": "atomicidad",
+          "recommendation": ""
+        },
+        {
+          "score": 1,
+          "finding": "Los requisitos presentan múltiples marcadores [POR DEFINIR] que dejan información esencial sin definir: el gatillo de generación, la hora, la zona horaria, el canal de solicitud, la lista de campos y el formato. Faltan datos críticos para desarrollar y probar el comportamiento.",
+          "criterion": "completitud",
+          "recommendation": "Definir todos los marcadores [POR DEFINIR] antes de proceder al desarrollo."
+        },
+        {
+          "score": 2,
+          "finding": "Existe una contradicción explícita en REQ-1 entre 'generación automática diaria' y 'generación exclusiva bajo solicitud manual del gerente'. Además, los criterios de aceptación mencionan 'condición de generación [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente]', lo que refuerza la inconsistencia al no definir cuál es la regla real. El contexto del proyecto (gerentes consultan desde la web) no resuelve esta contradicción.",
+          "criterion": "consistencia",
+          "recommendation": "Resolver la contradicción en REQ-1: decidir si la generación es automática, manual o híbrida, y eliminar la alternativa excluyente no elegida."
+        },
+        {
+          "score": 3,
+          "finding": "El requisito es factible en términos técnicos (un sistema de generación de reportes puede programarse a una hora o activarse manualmente), pero la imposibilidad de evaluarla sin definir la hora, la zona horaria y el gatillo (automático vs. manual) reduce la puntuación a 3. La factibilidad depende de definiciones que hoy son [POR DEFINIR].",
+          "criterion": "factibilidad",
+          "recommendation": "Definir el gatillo de generación y la hora/zona horaria para confirmar la factibilidad técnica."
+        },
+        {
+          "score": 1,
+          "finding": "No es posible verificar objetivamente el cumplimiento porque los criterios de aceptación y los propios requisitos contienen marcadores [POR DEFINIR]. No hay condiciones medibles (horas exactas, canales, listas de campos, formatos) que permitan comprobar si el requisito está satisfecho.",
+          "criterion": "verificabilidad",
+          "recommendation": "Sustituir todos los [POR DEFINIR] por valores o condiciones observables; sin ello, el requisito no es verificable."
+        },
+        {
+          "score": 2,
+          "finding": "Los requisitos tienen identificadores (REQ-1 a REQ-4), lo que cumple parcialmente el criterio de trazabilidad por identificador. Sin embargo, no declaran explícitamente el actor de origen ni la necesidad de negocio que los justifica, lo que dificulta relacionarlos con diseño, código y pruebas en ausencia de contexto adicional.",
+          "criterion": "trazabilidad",
+          "recommendation": "Añadir un campo de trazabilidad que especifique la necesidad o usuario origen si el proceso lo requiere."
+        },
+        {
+          "score": 1,
+          "finding": "Se detectan numerosos términos vagos o subjetivos provocados por los marcadores [POR DEFINIR]: 'hora exacta', 'zona horaria', 'canal o mecanismo de solicitud', 'lista de campos/datos', 'formato de salida'. Además, REQ-1 contiene la contradicción entre 'automática diaria' y 'exclusiva bajo solicitud manual'. Estos términos no tienen definición concreta en el texto.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Definir cada término marcado como [POR DEFINIR] y resolver la contradicción de REQ-1 para eliminar ambigüedades."
+        },
+        {
+          "score": 1,
+          "finding": "Los criterios de aceptación contienen marcadores [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente], [POR DEFINIR: canal de solicitud/consulta], [POR DEFINIR: lista de campos/datos obligatorios] y [POR DEFINIR: formato de salida]. Al no estar definidos, no permiten determinar de forma verificable cuándo el requisito está satisfecho. Según la regla 4, el puntaje no puede superar 4, y dado que los criterios están incompletos, el score es 1.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Completar todos los marcadores [POR DEFINIR] en los criterios de aceptación para que sean medibles y verificables."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "generación automática diaria",
+          "reason": "contradice con 'generación exclusiva bajo solicitud manual del gerente' en REQ-1"
+        },
+        {
+          "term": "hora exacta",
+          "reason": "no especifica el valor numérico ni el formato de hora"
+        },
+        {
+          "term": "zona horaria",
+          "reason": "no definida en el requisito"
+        },
+        {
+          "term": "canal o mecanismo de solicitud",
+          "reason": "no especifica cómo solicitará el gerente el reporte (web, API, email, etc.)"
+        },
+        {
+          "term": "lista de campos/datos",
+          "reason": "no lista qué campos debe contener el reporte"
+        },
+        {
+          "term": "formato de salida del reporte",
+          "reason": "no especifica el formato (PDF, CSV, Excel, HTML, etc.)"
+        }
+      ],
+      "clarification_questions": [
+        "¿Es la generación de reportes automática diaria, bajo solicitud manual del gerente, o ambos escenarios?",
+        "Si es automática, ¿a qué hora exacta y en qué zona horaria debe ejecutarse?",
+        "Si es bajo solicitud manual, ¿a través de qué canal o mecanismo accederá el gerente (por ejemplo, menú en la web, botón de solicitud, API)?",
+        "¿Qué campos o datos obligatorios deben incluirse en cada reporte de ventas?",
+        "¿En qué formato debe entregarse el reporte (PDF, CSV, Excel, HTML)?"
+      ],
+      "missing_information": [
+        "Definición del gatillo de generación: ¿es automática diaria, bajo solicitud manual o ambas?",
+        "Hora exacta de ejecución diaria",
+        "Zona horaria para la ejecución",
+        "Canal o mecanismo de solicitud manual para el gerente",
+        "Lista de campos/datos obligatorios que debe incluir el reporte",
+        "Formato de salida del reporte (PDF, CSV, Excel, HTML)"
+      ],
+      "is_compound": false,
+      "summary": "Los requisitos REQ-1 a REQ-4 presentan múltiples deficiencias críticas debidas a marcadores [POR DEFINIR] sin resolver y una contradicción interna en REQ-1 entre la generación automática y la manual. La claridad, especificidad, completitud, consistencia, verificabilidad, ausencia de ambigüedad y criterios de aceptación puntúan entre 1 y 2 sobre 10, ya que no es posible desarrollar ni probar sin definir la hora, el gatillo, el canal, los campos y el formato. Se requiere definir todos los [POR DEFINIR] y resolver la contradicción de REQ-1 antes de continuar.",
+      "raw_response": {
+        "id": "chatcmpl-ddff2a47-7a5c-4d67-8786-1b9715332002",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 4634,
+          "prompt_tokens": 2544,
+          "completion_tokens": 2090
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 2,\n      \"finding\": \"El requisito REQ-1 contiene una contradicción explícita en su marcador [POR DEFINIR: resolver contradicción entre generación automática diaria y generación exclusiva bajo solicitud manual del gerente]. No se especifica si el sistema debe generar reportes automáticamente cada día, solo cuando el gerente lo solicite, o ambas cosas. Esta ambigüedad interna afecta la claridad.\",\n      \"recommendation\": \"Definir si la generación es automática diaria, bajo solicitud manual, o ambos escenarios con una lógica clara.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 1,\n      \"finding\": \"Los requisitos REQ-2, REQ-3 y REQ-4 contienen marcadores [POR DEFINIR] que dejan huecos críticos: la hora exacta, la zona horaria, el canal o mecanismo de solicitud, la lista de campos/datos y el formato de salida. Sin estos datos, el requisito no expresa un comportamiento preciso.\",\n      \"recommendation\": \"Sustituir cada [POR DEFINIR] por valores o decisiones tomadas; si aún no están definidos, el requisito está incompleto y no puede evaluarse con especificidad.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 5,\n      \"finding\": \"Cada requisito (REQ-1 a REQ-4) expresa una idea independiente sin mezclar varios comportamientos en una sola oración. REQ-1 es atómico en su estructura a pesar de la contradicción interna; REQ-2, REQ-3 y REQ-4 son sencillos y no compuestos.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 1,\n      \"finding\": \"Los requisitos presentan múltiples marcadores [POR DEFINIR] que dejan información esencial sin definir: el gatillo de generación, la hora, la zona horaria, el canal de solicitud, la lista de campos y el formato. Faltan datos críticos para desarrollar y probar el comportamiento.\",\n      \"recommendation\": \"Definir todos los marcadores [POR DEFINIR] antes de proceder al desarrollo.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 2,\n      \"finding\": \"Existe una contradicción explícita en REQ-1 entre 'generación automática diaria' y 'generación exclusiva bajo solicitud manual del gerente'. Además, los criterios de aceptación mencionan 'condición de generación [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente]', lo que refuerza la inconsistencia al no definir cuál es la regla real. El contexto del proyecto (gerentes consultan desde la web) no resuelve esta contradicción.\",\n      \"recommendation\": \"Resolver la contradicción en REQ-1: decidir si la generación es automática, manual o híbrida, y eliminar la alternativa excluyente no elegida.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 3,\n      \"finding\": \"El requisito es factible en términos técnicos (un sistema de generación de reportes puede programarse a una hora o activarse manualmente), pero la imposibilidad de evaluarla sin definir la hora, la zona horaria y el gatillo (automático vs. manual) reduce la puntuación a 3. La factibilidad depende de definiciones que hoy son [POR DEFINIR].\",\n      \"recommendation\": \"Definir el gatillo de generación y la hora/zona horaria para confirmar la factibilidad técnica.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 1,\n      \"finding\": \"No es posible verificar objetivamente el cumplimiento porque los criterios de aceptación y los propios requisitos contienen marcadores [POR DEFINIR]. No hay condiciones medibles (horas exactas, canales, listas de campos, formatos) que permitan comprobar si el requisito está satisfecho.\",\n      \"recommendation\": \"Sustituir todos los [POR DEFINIR] por valores o condiciones observables; sin ello, el requisito no es verificable.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 2,\n      \"finding\": \"Los requisitos tienen identificadores (REQ-1 a REQ-4), lo que cumple parcialmente el criterio de trazabilidad por identificador. Sin embargo, no declaran explícitamente el actor de origen ni la necesidad de negocio que los justifica, lo que dificulta relacionarlos con diseño, código y pruebas en ausencia de contexto adicional.\",\n      \"recommendation\": \"Añadir un campo de trazabilidad que especifique la necesidad o usuario origen si el proceso lo requiere.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 1,\n      \"finding\": \"Se detectan numerosos términos vagos o subjetivos provocados por los marcadores [POR DEFINIR]: 'hora exacta', 'zona horaria', 'canal o mecanismo de solicitud', 'lista de campos/datos', 'formato de salida'. Además, REQ-1 contiene la contradicción entre 'automática diaria' y 'exclusiva bajo solicitud manual'. Estos términos no tienen definición concreta en el texto.\",\n      \"recommendation\": \"Definir cada término marcado como [POR DEFINIR] y resolver la contradicción de REQ-1 para eliminar ambigüedades.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 1,\n      \"finding\": \"Los criterios de aceptación contienen marcadores [POR DEFINIR: gatillo automático diario a hora definida o solicitud manual del gerente], [POR DEFINIR: canal de solicitud/consulta], [POR DEFINIR: lista de campos/datos obligatorios] y [POR DEFINIR: formato de salida]. Al no estar definidos, no permiten determinar de forma verificable cuándo el requisito está satisfecho. Según la regla 4, el puntaje no puede superar 4, y dado que los criterios están incompletos, el score es 1.\",\n      \"recommendation\": \"Completar todos los marcadores [POR DEFINIR] en los criterios de aceptación para que sean medibles y verificables.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"generación automática diaria\",\n      \"reason\": \"contradice con 'generación exclusiva bajo solicitud manual del gerente' en REQ-1\"\n    },\n    {\n      \"term\": \"hora exacta\",\n      \"reason\": \"no especifica el valor numérico ni el formato de hora\"\n    },\n    {\n      \"term\": \"zona horaria\",\n      \"reason\": \"no definida en el requisito\"\n    },\n    {\n      \"term\": \"canal o mecanismo de solicitud\",\n      \"reason\": \"no especifica cómo solicitará el gerente el reporte (web, API, email, etc.)\"\n    },\n    {\n      \"term\": \"lista de campos/datos\",\n      \"reason\": \"no lista qué campos debe contener el reporte\"\n    },\n    {\n      \"term\": \"formato de salida del reporte\",\n      \"reason\": \"no especifica el formato (PDF, CSV, Excel, HTML, etc.)\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Definición del gatillo de generación: ¿es automática diaria, bajo solicitud manual o ambas?\",\n    \"Hora exacta de ejecución diaria\",\n    \"Zona horaria para la ejecución\",\n    \"Canal o mecanismo de solicitud manual para el gerente\",\n    \"Lista de campos/datos obligatorios que debe incluir el reporte\",\n    \"Formato de salida del reporte (PDF, CSV, Excel, HTML)\"\n  ],\n  \"clarification_questions\": [\n    \"¿Es la generación de reportes automática diaria, bajo solicitud manual del gerente, o ambos escenarios?\",\n    \"Si es automática, ¿a qué hora exacta y en qué zona horaria debe ejecutarse?\",\n    \"Si es bajo solicitud manual, ¿a través de qué canal o mecanismo accederá el gerente (por ejemplo, menú en la web, botón de solicitud, API)?\",\n    \"¿Qué campos o datos obligatorios deben incluirse en cada reporte de ventas?\",\n    \"¿En qué formato debe entregarse el reporte (PDF, CSV, Excel, HTML)?\"\n\n  ],\n  \"summary\": \"Los requisitos REQ-1 a REQ-4 presentan múltiples deficiencias críticas debidas a marcadores [POR DEFINIR] sin resolver y una contradicción interna en REQ-1 entre la generación automática y la manual. La claridad, especificidad, completitud, consistencia, verificabilidad, ausencia de ambigüedad y criterios de aceptación puntúan entre 1 y 2 sobre 10, ya que no es posible desarrollar ni probar sin definir la hora, el gatillo, el canal, los campos y el formato. Se requiere definir todos los [POR DEFINIR] y resolver la contradicción de REQ-1 antes de continuar.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790523639,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2544,
+      "completion_tokens": 2090,
+      "latency_ms": 265520,
+      "created_at": "2026-09-27T10:42:04.798675-05:00"
+    }
+  ],
+  "score_delta": -9,
+  "recommended_version": "original"
+}

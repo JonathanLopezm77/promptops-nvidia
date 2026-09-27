@@ -1,0 +1,9 @@
+caso,corrida,analysis_id,estado,input_mode,evaluador,mejorador,puntaje_original,alta_calidad,puntaje_mejorado,delta,version_recomendada,terminos_ambiguos,preguntas,pendientes,valores_sin_respaldo,latencia_total_s,tokens_evaluacion_original,puntaje_final_tras_aclarar,verificaciones_requeridas_ok,verificaciones_requeridas,cumple
+A,1,32fb1b60-f208-4303-aaf4-cc324b48d8c4,ERROR,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,,,,,,,,0,0,392.8,,,0,2,False
+A,2,017f0278-2eb0-4fa0-8047-923bbab0bd3c,COMPLETED,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,82,True,,,original,0,1,0,0,28.0,3529,,4,4,True
+A,3,2f3047fb-aeb4-4235-805b-94811f73cc2e,COMPLETED,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,90,True,,,original,0,0,0,0,109.8,3936,,4,4,True
+B,1,05c212f3-e247-4802-9c5a-c5fdb7e3fa77,ERROR,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,28,False,,,,3,5,0,0,37.8,3761,,4,6,False
+B,2,a4711797-feb3-4dd7-a853-0311ea96a84a,COMPLETED,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,31,False,27,-4,original,3,5,5,0,141.7,3551,73,7,8,False
+B,3,e2366eb6-5995-40b8-8216-77f6b9a672fc,COMPLETED,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,39,False,34,-5,original,3,4,7,0,395.6,3780,,5,6,False
+C,2,49d07f7d-d8c0-44f8-b2aa-079561af7ab9,COMPLETED,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,28,False,19,-9,original,4,4,5,0,435.2,5860,,7,7,True
+C,3,8e6b4e22-d7b5-475a-9f18-b19e08675247,ERROR,text,nvidia/nemotron-3.5-lightning-30b-a3b,moonshotai/kimi-k3,32,False,,,,3,3,0,0,352.4,3808,,4,7,False

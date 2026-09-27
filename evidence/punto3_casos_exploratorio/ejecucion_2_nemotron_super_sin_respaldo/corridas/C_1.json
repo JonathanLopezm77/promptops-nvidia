@@ -1,0 +1,312 @@
+{
+  "id": "e28a090f-e3de-489a-afde-a35a34075e0b",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T10:52:45.083261-05:00",
+  "finished_at": "2026-09-27T10:54:43.510275-05:00",
+  "input_mode": "text",
+  "original_requirement": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+  "evaluator_model": "nvidia/nemotron-3-super-120b-a12b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": null,
+  "project_context": "Sistema de ventas para una cadena de tiendas. Los gerentes consultan reportes desde la web.",
+  "clarifications": null,
+  "improvement_skipped": false,
+  "improved_requirement": "REQ-1: El sistema deberá generar el reporte de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación solo cuando el gerente lo solicite manualmente].\nREQ-2: El gerente podrá acceder al reporte de ventas generado desde la web [POR DEFINIR: mecanismo exacto de acceso: descarga, visualización en pantalla, etc.].\nREQ-3: El reporte de ventas deberá incluir [POR DEFINIR: lista de datos que debe contener, p. ej.: ventas totales, por tienda, por producto] y cubrirá el período [POR DEFINIR: alcance temporal del reporte].",
+  "improvement": {
+    "changes": [
+      "Se separó el requisito en tres sub-requisitos (generación, acceso del gerente y contenido) para cumplir atomicidad, atendiendo el hallazgo de requisito compuesto.",
+      "No se eligió entre 'automático cada día' y 'solo cuando el gerente lo solicite': es una contradicción explícita (consistencia 2/10) que debe resolver el stakeholder; se registró como pendiente.",
+      "Se reemplazó el término ambiguo 'datos necesarios' por un marcador de lista de datos, ya que no hay información para concretarlo (ambigüedad y especificidad).",
+      "Se hizo explícito al actor (gerente) y el canal web indicado en el contexto, mejorando claridad y trazabilidad, sin asumir el mecanismo exacto de acceso.",
+      "Se agregaron identificadores (REQ-1, REQ-2, REQ-3) y criterios de aceptación verificables condicionados a los datos pendientes (trazabilidad y criterios de aceptación)."
+    ],
+    "pending_items": [
+      "Resolver la contradicción: generación automática diaria vs. generación solo bajo solicitud manual del gerente (¿o generación automática diaria con liberación/descarga manual?)",
+      "Mecanismo exacto de acceso al reporte desde la web (visualización, descarga, notificación)",
+      "Lista de datos que debe incluir el reporte (ventas totales, por tienda, por producto, etc.)",
+      "Período que cubre cada reporte (día anterior, día en curso, rango seleccionable)"
+    ],
+    "unsupported_retry": false,
+    "unsupported_values": [],
+    "acceptance_criteria": [
+      "Dado que se cumple [POR DEFINIR: condición de generación: diaria automática o solicitud manual del gerente], cuando el sistema genera el reporte de ventas, entonces el reporte queda disponible para el gerente.",
+      "Dado que el gerente accede desde la web, cuando solicita o consulta el reporte de ventas, entonces el sistema le muestra o entrega el reporte por [POR DEFINIR: mecanismo de acceso].",
+      "Dado un reporte de ventas generado, cuando el gerente lo revisa, entonces contiene [POR DEFINIR: lista de datos] correspondientes al período [POR DEFINIR: alcance temporal]."
+    ],
+    "intent_preservation": "Se mantiene la intención de que los gerentes dispongan de reportes de ventas a través de la web con la información que necesitan, sin imponer una modalidad de generación ni un contenido que el stakeholder no ha definido todavía."
+  },
+  "improvement_raw": {
+    "id": "chatcmpl-102a801f-a105-4429-9413-f25897e649c6",
+    "model": "moonshotai/kimi-k3",
+    "usage": {
+      "total_tokens": 3596,
+      "prompt_tokens": 2744,
+      "completion_tokens": 852,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 14
+      }
+    },
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"improved_requirement\": \"REQ-1: El sistema deberá generar el reporte de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación solo cuando el gerente lo solicite manualmente].\\nREQ-2: El gerente podrá acceder al reporte de ventas generado desde la web [POR DEFINIR: mecanismo exacto de acceso: descarga, visualización en pantalla, etc.].\\nREQ-3: El reporte de ventas deberá incluir [POR DEFINIR: lista de datos que debe contener, p. ej.: ventas totales, por tienda, por producto] y cubrirá el período [POR DEFINIR: alcance temporal del reporte].\",\n  \"acceptance_criteria\": [\n    \"Dado que se cumple [POR DEFINIR: condición de generación: diaria automática o solicitud manual del gerente], cuando el sistema genera el reporte de ventas, entonces el reporte queda disponible para el gerente.\",\n    \"Dado que el gerente accede desde la web, cuando solicita o consulta el reporte de ventas, entonces el sistema le muestra o entrega el reporte por [POR DEFINIR: mecanismo de acceso].\",\n    \"Dado un reporte de ventas generado, cuando el gerente lo revisa, entonces contiene [POR DEFINIR: lista de datos] correspondientes al período [POR DEFINIR: alcance temporal].\"\n  ],\n  \"changes\": [\n    \"Se separó el requisito en tres sub-requisitos (generación, acceso del gerente y contenido) para cumplir atomicidad, atendiendo el hallazgo de requisito compuesto.\",\n    \"No se eligió entre 'automático cada día' y 'solo cuando el gerente lo solicite': es una contradicción explícita (consistencia 2/10) que debe resolver el stakeholder; se registró como pendiente.\",\n    \"Se reemplazó el término ambiguo 'datos necesarios' por un marcador de lista de datos, ya que no hay información para concretarlo (ambigüedad y especificidad).\",\n    \"Se hizo explícito al actor (gerente) y el canal web indicado en el contexto, mejorando claridad y trazabilidad, sin asumir el mecanismo exacto de acceso.\",\n    \"Se agregaron identificadores (REQ-1, REQ-2, REQ-3) y criterios de aceptación verificables condicionados a los datos pendientes (trazabilidad y criterios de aceptación).\"\n  ],\n  \"pending_items\": [\n    \"Resolver la contradicción: generación automática diaria vs. generación solo bajo solicitud manual del gerente (¿o generación automática diaria con liberación/descarga manual?)\",\n    \"Mecanismo exacto de acceso al reporte desde la web (visualización, descarga, notificación)\",\n    \"Lista de datos que debe incluir el reporte (ventas totales, por tienda, por producto, etc.)\",\n    \"Período que cubre cada reporte (día anterior, día en curso, rango seleccionable)\"\n  ],\n  \"intent_preservation\": \"Se mantiene la intención de que los gerentes dispongan de reportes de ventas a través de la web con la información que necesitan, sin imponer una modalidad de generación ni un contenido que el stakeholder no ha definido todavía.\"\n}",
+          "refusal": null,
+          "reasoning_content": "Aplicar el ejemplo casi directo."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "created": 1790524429
+  },
+  "improvement_tokens": 3596,
+  "improvement_latency_ms": 91871,
+  "tts_log": [],
+  "evaluations": [
+    {
+      "id": "e3c5d863-7a7e-4641-a3b6-d19cc6558e4e",
+      "stage": "original",
+      "evaluated_text": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+      "parse_ok": true,
+      "global_score": 34,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 4,
+          "finding": "El requisito presenta una contradicción: 'deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente' es contradictorio porque 'automáticamente cada día' y 'solo cuando el gerente los solicite manualmente' no pueden ser ciertos simultáneamente.",
+          "criterion": "claridad",
+          "recommendation": "Resolver la contradicción definiendo claramente si la generación es automática, manual o condicionada a un evento específico."
+        },
+        {
+          "score": 4,
+          "finding": "El requisito no especifica qué se entiende por 'datos necesarios', ni el formato, ni el alcance de los datos de ventas que deben incluirse en el reporte.",
+          "criterion": "especificidad",
+          "recommendation": "Definir qué datos específicos deben incluirse en el reporte (por ejemplo: ventas totales, por producto, por tienda, etc.) y su formato."
+        },
+        {
+          "score": 3,
+          "finding": "El requisito combina múltiples ideas independientes: (1) generación automática diaria, (2) dependencia de solicitud manual del gerente, (3) inclusión de datos necesarios. Estas son condiciones lógicamente conflictivas y no pueden considerarse como un único requisito atómico.",
+          "criterion": "atomicidad",
+          "recommendation": "Separar en requisitos distintos: uno para la condición de generación (automática vs. manual) y otro para el contenido del reporte."
+        },
+        {
+          "score": 3,
+          "finding": "Faltan datos esenciales: qué se entiende por 'datos necesarios', cómo se dispara exactamente la generación (¿al solicitar, o se programa y se libera al solicitar?), y qué significa 'cada día' en relación con la solicitud manual.",
+          "criterion": "completitud",
+          "recommendation": "Especificar el contenido exacto del reporte, el mecanismo de generación (programado o bajo demanda), y la relación entre la periodicidad y la solicitud manual."
+        },
+        {
+          "score": 2,
+          "finding": "Contradicción interna explícita: 'generarse automáticamente cada día' y 'solo cuando el gerente los solicite manualmente' son mutuamente excluyentes. No pueden ocurrir ambas al mismo tiempo bajo la misma condición.",
+          "criterion": "consistencia",
+          "recommendation": "Corregir la contradicción eligiendo una única modalidad: automática programada, manual bajo demanda, o automática pero solo liberada tras solicitud manual (si ese es el intención)."
+        },
+        {
+          "score": 5,
+          "finding": "Dado el contexto de un sistema de ventas web para una cadena de tiendas, es factible generar reportes de ventas automáticamente o bajo demanda. Sin embargo, la contradicción impide determinar qué exactamente construir.",
+          "criterion": "factibilidad",
+          "recommendation": "Resolver la contradicción para definir un comportamiento claro y factible (por ejemplo: generación bajo demanda del gerente, con datos precalculados diariamente)."
+        },
+        {
+          "score": 3,
+          "finding": "No se puede verificar objetivamente si el requisito se cumple debido a la contradicción y la vaguedad de 'datos necesarios'. No hay criterio observable para confirmar si se generó 'automáticamente cada día' o 'solo cuando se solicitó manualmente'.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir un comportamiento no contradictorio y medible (ej: 'El sistema genera un reporte de ventas diario a las 00:00 y lo pone a disposición del gerente para descarga manual mediante solicitud en la interfaz web')."
+        },
+        {
+          "score": 4,
+          "finding": "El requisito no incluye un identificador único (como REQ-1) ni menciona explícitamente al actor (gerente) como origen de la necesidad, lo que dificulta relacionarlo con diseño, código y pruebas. Aunque el contexto menciona a los gerentes, no está vinculado explícitamente en el texto del requisito.",
+          "criterion": "trazabilidad",
+          "recommendation": "Agregar un identificador único y vincular explícitamente al actor y la necesidad (por ejemplo: 'REQ-10: Como gerente, quiero solicitar manualmente un reporte de ventas para consultarlo en la web')."
+        },
+        {
+          "score": 4,
+          "finding": "El término 'datos necesarios' es ambiguo y subjetivo: no define qué datos son considerados necesarios, lo que permite interpretaciones variadas.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Reemplazar 'datos necesarios' por una lista específica de datos (por ejemplo: 'fecha, tienda, producto, cantidad vendida, ingreso total')."
+        },
+        {
+          "score": 2,
+          "finding": "No se incluyen criterios de aceptación explícitos ni condiciones medibles que permitan determinar cuándo el requisito está satisfecho. La contradicción y la vaguedad impiden derivar criterios verificables.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Definir criterios de aceptación claros y medibles, como: 'Cuando el gerente solicita un reporte de ventas mediante la interfaz web, el sistema entrega un reporte que incluye [lista específica de datos] y corresponde al día anterior'."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "datos necesarios",
+          "reason": "no especifica qué datos se requieren, permitiendo interpretaciones subjetivas"
+        }
+      ],
+      "clarification_questions": [
+        "¿El reporte se debe generar automáticamente todos los días y estar disponible para que el gerente lo descargue manualmente cuando lo desee?",
+        "¿O el reporte solo se genera en el momento en que el gerente lo solicita manualmente?",
+        "¿Qué datos específicos se consideran 'necesarios' en el reporte de ventas?",
+        "¿El reporte debe incluir datos del día en curso, del día anterior, o acumulados?"
+      ],
+      "missing_information": [
+        "qué datos específicos deben incluirse en el reporte",
+        "cómo se resuelve la contradicción entre generación automática diaria y solicitud manual",
+        "qué evento o condición desencadena exactamente la generación del reporte",
+        "formato y canal de entrega del reporte (se asume web, pero no se especifica cómo se accede)"
+      ],
+      "is_compound": true,
+      "summary": "El requisito contiene una contradicción crítica entre generación automática diaria y dependencia de solicitud manual, lo que lo hace incomprensible y no verificable. Además, falta especificar el contenido del reporte y carece de identificador y criterios de aceptación. Se requiere aclarar la intención real antes de poder proceder con el desarrollo.",
+      "raw_response": {
+        "id": "chatcmpl-f0daac93-2888-47cc-9fde-032b884e32be",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "usage": {
+          "total_tokens": 3869,
+          "prompt_tokens": 2256,
+          "completion_tokens": 1613
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 4,\n      \"finding\": \"El requisito presenta una contradicción: 'deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente' es contradictorio porque 'automáticamente cada día' y 'solo cuando el gerente los solicite manualmente' no pueden ser ciertos simultáneamente.\",\n      \"recommendation\": \"Resolver la contradicción definiendo claramente si la generación es automática, manual o condicionada a un evento específico.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 4,\n      \"finding\": \"El requisito no especifica qué se entiende por 'datos necesarios', ni el formato, ni el alcance de los datos de ventas que deben incluirse en el reporte.\",\n      \"recommendation\": \"Definir qué datos específicos deben incluirse en el reporte (por ejemplo: ventas totales, por producto, por tienda, etc.) y su formato.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 3,\n      \"finding\": \"El requisito combina múltiples ideas independientes: (1) generación automática diaria, (2) dependencia de solicitud manual del gerente, (3) inclusión de datos necesarios. Estas son condiciones lógicamente conflictivas y no pueden considerarse como un único requisito atómico.\",\n      \"recommendation\": \"Separar en requisitos distintos: uno para la condición de generación (automática vs. manual) y otro para el contenido del reporte.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 3,\n      \"finding\": \"Faltan datos esenciales: qué se entiende por 'datos necesarios', cómo se dispara exactamente la generación (¿al solicitar, o se programa y se libera al solicitar?), y qué significa 'cada día' en relación con la solicitud manual.\",\n      \"recommendation\": \"Especificar el contenido exacto del reporte, el mecanismo de generación (programado o bajo demanda), y la relación entre la periodicidad y la solicitud manual.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 2,\n      \"finding\": \"Contradicción interna explícita: 'generarse automáticamente cada día' y 'solo cuando el gerente los solicite manualmente' son mutuamente excluyentes. No pueden ocurrir ambas al mismo tiempo bajo la misma condición.\",\n      \"recommendation\": \"Corregir la contradicción eligiendo una única modalidad: automática programada, manual bajo demanda, o automática pero solo liberada tras solicitud manual (si ese es el intención).\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 5,\n      \"finding\": \"Dado el contexto de un sistema de ventas web para una cadena de tiendas, es factible generar reportes de ventas automáticamente o bajo demanda. Sin embargo, la contradicción impide determinar qué exactamente construir.\",\n      \"recommendation\": \"Resolver la contradicción para definir un comportamiento claro y factible (por ejemplo: generación bajo demanda del gerente, con datos precalculados diariamente).\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 3,\n      \"finding\": \"No se puede verificar objetivamente si el requisito se cumple debido a la contradicción y la vaguedad de 'datos necesarios'. No hay criterio observable para confirmar si se generó 'automáticamente cada día' o 'solo cuando se solicitó manualmente'.\",\n      \"recommendation\": \"Definir un comportamiento no contradictorio y medible (ej: 'El sistema genera un reporte de ventas diario a las 00:00 y lo pone a disposición del gerente para descarga manual mediante solicitud en la interfaz web').\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 4,\n      \"finding\": \"El requisito no incluye un identificador único (como REQ-1) ni menciona explícitamente al actor (gerente) como origen de la necesidad, lo que dificulta relacionarlo con diseño, código y pruebas. Aunque el contexto menciona a los gerentes, no está vinculado explícitamente en el texto del requisito.\",\n      \"recommendation\": \"Agregar un identificador único y vincular explícitamente al actor y la necesidad (por ejemplo: 'REQ-10: Como gerente, quiero solicitar manualmente un reporte de ventas para consultarlo en la web').\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 4,\n      \"finding\": \"El término 'datos necesarios' es ambiguo y subjetivo: no define qué datos son considerados necesarios, lo que permite interpretaciones variadas.\",\n      \"recommendation\": \"Reemplazar 'datos necesarios' por una lista específica de datos (por ejemplo: 'fecha, tienda, producto, cantidad vendida, ingreso total').\",\n      \"ambiguous_terms\": [\n        {\n          \"term\": \"datos necesarios\",\n          \"reason\": \"no especifica qué datos se requieren, permitiendo interpretaciones subjetivas\"\n        }\n      ]\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 2,\n      \"finding\": \"No se incluyen criterios de aceptación explícitos ni condiciones medibles que permitan determinar cuándo el requisito está satisfecho. La contradicción y la vaguedad impiden derivar criterios verificables.\",\n      \"recommendation\": \"Definir criterios de aceptación claros y medibles, como: 'Cuando el gerente solicita un reporte de ventas mediante la interfaz web, el sistema entrega un reporte que incluye [lista específica de datos] y corresponde al día anterior'.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"datos necesarios\",\n      \"reason\": \"no especifica qué datos se requieren, permitiendo interpretaciones subjetivas\"\n    }\n  ],\n  \"is_compound\": true,\n  \"missing_information\": [\n    \"qué datos específicos deben incluirse en el reporte\",\n    \"cómo se resuelve la contradicción entre generación automática diaria y solicitud manual\",\n    \"qué evento o condición desencadena exactamente la generación del reporte\",\n    \"formato y canal de entrega del reporte (se asume web, pero no se especifica cómo se accede)\"\n  ],\n  \"clarification_questions\": [\n    \"¿El reporte se debe generar automáticamente todos los días y estar disponible para que el gerente lo descargue manualmente cuando lo desee?\",\n    \"¿O el reporte solo se genera en el momento en que el gerente lo solicita manualmente?\",\n    \"¿Qué datos específicos se consideran 'necesarios' en el reporte de ventas?\",\n    \"¿El reporte debe incluir datos del día en curso, del día anterior, o acumulados?\"\n  ],\n  \"summary\": \"El requisito contiene una contradicción crítica entre generación automática diaria y dependencia de solicitud manual, lo que lo hace incomprensible y no verificable. Además, falta especificar el contenido del reporte y carece de identificador y criterios de aceptación. Se requiere aclarar la intención real antes de poder proceder con el desarrollo.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790524365,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "prompt_tokens": 2256,
+      "completion_tokens": 1613,
+      "latency_ms": 14966,
+      "created_at": "2026-09-27T10:53:00.854218-05:00"
+    },
+    {
+      "id": "a3542838-ff22-4e56-b36a-f8853fb204f3",
+      "stage": "improved",
+      "evaluated_text": "REQ-1: El sistema deberá generar el reporte de ventas [POR DEFINIR: resolver contradicción entre generación automática diaria y generación solo cuando el gerente lo solicite manualmente].\nREQ-2: El gerente podrá acceder al reporte de ventas generado desde la web [POR DEFINIR: mecanismo exacto de acceso: descarga, visualización en pantalla, etc.].\nREQ-3: El reporte de ventas deberá incluir [POR DEFINIR: lista de datos que debe contener, p. ej.: ventas totales, por tienda, por producto] y cubrirá el período [POR DEFINIR: alcance temporal del reporte].\n\nCriterios de aceptación:\n- Dado que se cumple [POR DEFINIR: condición de generación: diaria automática o solicitud manual del gerente], cuando el sistema genera el reporte de ventas, entonces el reporte queda disponible para el gerente.\n- Dado que el gerente accede desde la web, cuando solicita o consulta el reporte de ventas, entonces el sistema le muestra o entrega el reporte por [POR DEFINIR: mecanismo de acceso].\n- Dado un reporte de ventas generado, cuando el gerente lo revisa, entonces contiene [POR DEFINIR: lista de datos] correspondientes al período [POR DEFINIR: alcance temporal].",
+      "parse_ok": true,
+      "global_score": 43,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 4,
+          "finding": "El requisito REQ-1 contiene una contradicción explícita entre generación automática diaria y generación solo cuando el gerente lo solicite manualmente, lo que impide una comprensión clara del comportamiento esperado.",
+          "criterion": "claridad",
+          "recommendation": "Resolver la contradicción definiendo claramente cuál es la condición de generación válida."
+        },
+        {
+          "score": 3,
+          "finding": "El requisito REQ-1 no especifica si la generación es automática, manual o ambas; REQ-2 no define el mecanismo de acceso web; REQ-3 no lista los datos específicos ni el alcance temporal del reporte.",
+          "criterion": "especificidad",
+          "recommendation": "Especificar la condición de generación, el mecanismo de acceso web, la lista de datos a incluir y el período cubierto por el reporte."
+        },
+        {
+          "score": 7,
+          "finding": "Cada requisito (REQ-1, REQ-2, REQ-3) expresa un solo comportamiento: generación del reporte, acceso al reporte y contenido del reporte, respectivamente, aunque REQ-1 contiene una contradicción interna.",
+          "criterion": "atomicidad",
+          "recommendation": "Separar REQ-1 en dos requisitos distintos si se pretende cubrir ambos escenarios, o definir una única condición de generación."
+        },
+        {
+          "score": 3,
+          "finding": "Falta información esencial: condición de generación del reporte (automática/diaria o manual), mecanismo de acceso web (descarga/visualización), lista de datos a incluir y alcance temporal del reporte.",
+          "criterion": "completitud",
+          "recommendation": "Completar los elementos marcados como [POR DEFINIR] con valores específicos para permitir el desarrollo y prueba."
+        },
+        {
+          "score": 2,
+          "finding": "REQ-1 presenta una contradicción interna explícita: 'generación automática diaria' vs 'generación solo cuando el gerente lo solicite manualmente'. Esto es una contradicción directa no resuelta.",
+          "criterion": "consistencia",
+          "recommendation": "Eliminar la contradicción definiendo una única condición de generación válida (automática, manual o ambas con reglas claras)."
+        },
+        {
+          "score": 6,
+          "finding": "Con los elementos ya definidos (sistema de ventas, acceso web por gerentes), es factible generar y entregar un reporte, pero la falta de definición de la condición de generación y mecanismo de acceso dificulta la estimación de esfuerzo.",
+          "criterion": "factibilidad",
+          "recommendation": "Definir la condición de generación y mecanismo de acceso para permitir una evaluación factible de implementación."
+        },
+        {
+          "score": 4,
+          "finding": "Los criterios de aceptación tienen estructura Dado/Cuando/Entonces, pero dependen de condiciones por definir (generación, mecanismo de acceso, datos, período), lo que impide una verificación objetiva sin esos valores.",
+          "criterion": "verificabilidad",
+          "recommendation": "Completar los elementos por definir en los criterios de aceptación para permitir pruebas verificables."
+        },
+        {
+          "score": 6,
+          "finding": "Cada requisito tiene un identificador único (REQ-1, REQ-2, REQ-3) y se relaciona con el rol de gerente y el sistema de ventas, permitiendo trazabilidad a nivel de requisito.",
+          "criterion": "trazabilidad",
+          "recommendation": "Mantener los identificadores únicos y vincular cada requisito a necesidades de negocio específicas una vez definidos los detalles."
+        },
+        {
+          "score": 5,
+          "finding": "No se detectan términos subjetivos como 'rápido' o 'fácil'; los marcadores [POR DEFINIR] no se consideran ambiguos por definición, aunque indiquen falta de información.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "No se requiere cambio por ambigüedad, pero sí por falta de definición en los elementos marcados."
+        },
+        {
+          "score": 3,
+          "finding": "Los criterios de aceptación dependen completamente de condiciones por definir [POR DEFINIR], por lo que no permiten determinar de forma verificable cuándo el requisito está satisfecho.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Definir explícitamente la condición de generación, mecanismo de acceso, lista de datos y alcance temporal en los criterios de aceptación."
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [
+        "¿Cuál es la condición válida para la generación del reporte de ventas: automática diaria, solo cuando el gerente lo solicite manualmente, o ambas bajo ciertas reglas?",
+        "¿Cómo debe el gerente acceder al reporte desde la web: mediante descarga de archivo, visualización en pantalla, o ambos?",
+        "¿Qué datos específicos debe incluir el reporte de ventas (p. ej.: ventas totales, por tienda, por producto, por categoría, etc.)?",
+        "¿Cuál es el alcance temporal que debe cubrir el reporte de ventas (p. ej.: último día, última semana, mes en curso, etc.)?"
+      ],
+      "missing_information": [
+        "condición de generación del reporte (automática diaria, manual o ambas)",
+        "mecanismo exacto de acceso desde la web (descarga, visualización en pantalla, etc.)",
+        "lista de datos específicos que debe contener el reporte (ventas totales, por tienda, por producto, etc.)",
+        "alcance temporal del reporte (diario, semanal, mensual, etc.)"
+      ],
+      "is_compound": false,
+      "summary": "El requisito presenta múltiples gaps críticos: contradicción no resuelta en REQ-1, falta de información esencial en todos los requisitos y criterios de aceptación dependientes de por definir. Aunque tiene buena estructura (identificadores, formato Gherkin), no puede ser desarrollado ni verificado sin resolver las incógnitas.",
+      "raw_response": {
+        "id": "chatcmpl-d6cb3115-e596-48bd-b4a1-97ca73af3f92",
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "usage": {
+          "total_tokens": 3930,
+          "prompt_tokens": 2522,
+          "completion_tokens": 1408
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 4,\n      \"finding\": \"El requisito REQ-1 contiene una contradicción explícita entre generación automática diaria y generación solo cuando el gerente lo solicite manualmente, lo que impide una comprensión clara del comportamiento esperado.\",\n      \"recommendation\": \"Resolver la contradicción definiendo claramente cuál es la condición de generación válida.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 3,\n      \"finding\": \"El requisito REQ-1 no especifica si la generación es automática, manual o ambas; REQ-2 no define el mecanismo de acceso web; REQ-3 no lista los datos específicos ni el alcance temporal del reporte.\",\n      \"recommendation\": \"Especificar la condición de generación, el mecanismo de acceso web, la lista de datos a incluir y el período cubierto por el reporte.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 7,\n      \"finding\": \"Cada requisito (REQ-1, REQ-2, REQ-3) expresa un solo comportamiento: generación del reporte, acceso al reporte y contenido del reporte, respectivamente, aunque REQ-1 contiene una contradicción interna.\",\n      \"recommendation\": \"Separar REQ-1 en dos requisitos distintos si se pretende cubrir ambos escenarios, o definir una única condición de generación.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 3,\n      \"finding\": \"Falta información esencial: condición de generación del reporte (automática/diaria o manual), mecanismo de acceso web (descarga/visualización), lista de datos a incluir y alcance temporal del reporte.\",\n      \"recommendation\": \"Completar los elementos marcados como [POR DEFINIR] con valores específicos para permitir el desarrollo y prueba.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 2,\n      \"finding\": \"REQ-1 presenta una contradicción interna explícita: 'generación automática diaria' vs 'generación solo cuando el gerente lo solicite manualmente'. Esto es una contradicción directa no resuelta.\",\n      \"recommendation\": \"Eliminar la contradicción definiendo una única condición de generación válida (automática, manual o ambas con reglas claras).\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 6,\n      \"finding\": \"Con los elementos ya definidos (sistema de ventas, acceso web por gerentes), es factible generar y entregar un reporte, pero la falta de definición de la condición de generación y mecanismo de acceso dificulta la estimación de esfuerzo.\",\n      \"recommendation\": \"Definir la condición de generación y mecanismo de acceso para permitir una evaluación factible de implementación.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 4,\n      \"finding\": \"Los criterios de aceptación tienen estructura Dado/Cuando/Entonces, pero dependen de condiciones por definir (generación, mecanismo de acceso, datos, período), lo que impide una verificación objetiva sin esos valores.\",\n      \"recommendation\": \"Completar los elementos por definir en los criterios de aceptación para permitir pruebas verificables.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 6,\n      \"finding\": \"Cada requisito tiene un identificador único (REQ-1, REQ-2, REQ-3) y se relaciona con el rol de gerente y el sistema de ventas, permitiendo trazabilidad a nivel de requisito.\",\n      \"recommendation\": \"Mantener los identificadores únicos y vincular cada requisito a necesidades de negocio específicas una vez definidos los detalles.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"No se detectan términos subjetivos como 'rápido' o 'fácil'; los marcadores [POR DEFINIR] no se consideran ambiguos por definición, aunque indiquen falta de información.\",\n      \"recommendation\": \"No se requiere cambio por ambigüedad, pero sí por falta de definición en los elementos marcados.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 3,\n      \"finding\": \"Los criterios de aceptación dependen completamente de condiciones por definir [POR DEFINIR], por lo que no permiten determinar de forma verificable cuándo el requisito está satisfecho.\",\n      \"recommendation\": \"Definir explícitamente la condición de generación, mecanismo de acceso, lista de datos y alcance temporal en los criterios de aceptación.\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"condición de generación del reporte (automática diaria, manual o ambas)\",\n    \"mecanismo exacto de acceso desde la web (descarga, visualización en pantalla, etc.)\",\n    \"lista de datos específicos que debe contener el reporte (ventas totales, por tienda, por producto, etc.)\",\n    \"alcance temporal del reporte (diario, semanal, mensual, etc.)\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es la condición válida para la generación del reporte de ventas: automática diaria, solo cuando el gerente lo solicite manualmente, o ambas bajo ciertas reglas?\",\n    \"¿Cómo debe el gerente acceder al reporte desde la web: mediante descarga de archivo, visualización en pantalla, o ambos?\",\n    \"¿Qué datos específicos debe incluir el reporte de ventas (p. ej.: ventas totales, por tienda, por producto, por categoría, etc.)?\",\n    \"¿Cuál es el alcance temporal que debe cubrir el reporte de ventas (p. ej.: último día, última semana, mes en curso, etc.)?\"\n  ],\n  \"summary\": \"El requisito presenta múltiples gaps críticos: contradicción no resuelta en REQ-1, falta de información esencial en todos los requisitos y criterios de aceptación dependientes de por definir. Aunque tiene buena estructura (identificadores, formato Gherkin), no puede ser desarrollado ni verificado sin resolver las incógnitas.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790524471,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "prompt_tokens": 2522,
+      "completion_tokens": 1408,
+      "latency_ms": 10776,
+      "created_at": "2026-09-27T10:54:43.508730-05:00"
+    }
+  ],
+  "score_delta": 9,
+  "recommended_version": "improved"
+}
