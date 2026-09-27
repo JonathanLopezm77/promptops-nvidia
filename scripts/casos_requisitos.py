@@ -122,9 +122,21 @@ TERMINOS_VAGOS_B = ("rápid", "sencill", "relevant")
 async def _esperar(client: httpx.AsyncClient, analysis_id: str, etiqueta: str, limite_s: int) -> dict:
     inicio = time.monotonic()
     estado_anterior = None
+    fallos_seguidos = 0
     while True:
-        r = await client.get(f"/api/requirements/{analysis_id}")
-        r.raise_for_status()
+        try:
+            r = await client.get(f"/api/requirements/{analysis_id}")
+            r.raise_for_status()
+        except httpx.TransportError as exc:
+            # Un corte momentáneo al consultar el estado no debe perder la
+            # corrida (pasó en la primera ejecución: ReadError en C1).
+            fallos_seguidos += 1
+            if fallos_seguidos > 5:
+                raise
+            print(f"  [{etiqueta}] consulta fallida ({type(exc).__name__}), reintentando", flush=True)
+            await asyncio.sleep(5)
+            continue
+        fallos_seguidos = 0
         analisis = r.json()
         if analisis["status"] != estado_anterior:
             print(f"  [{etiqueta}] {time.monotonic() - inicio:6.1f}s  {analisis['status']}", flush=True)
