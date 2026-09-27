@@ -51,11 +51,13 @@ async def evaluate_requirement(
     *,
     project_context: str | None = None,
     clarifications: str | None = None,
+    model: str | None = None,
 ) -> EvaluatorResult:
+    """`model` permite comparar modelos (benchmark); por defecto AUDITOR_MODEL."""
     settings = get_settings()
-    model = settings.auditor_model
+    model = model or settings.auditor_model
     extra_payload = dict(_EXTRA_PAYLOAD)
-    if settings.llm_json_mode:
+    if settings.json_mode_for(model):
         extra_payload["response_format"] = {"type": "json_object"}
     messages = [
         {"role": "system", "content": REQUIREMENTS_EVALUATOR_SYSTEM_PROMPT},

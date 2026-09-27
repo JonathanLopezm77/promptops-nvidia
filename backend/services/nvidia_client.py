@@ -47,7 +47,14 @@ class NvidiaTimeoutError(NvidiaClientError):
 
 
 class NvidiaEmptyResponseError(NvidiaClientError):
-    """La API respondió 200 pero sin contenido utilizable en el mensaje."""
+    """La API respondió 200 pero sin contenido utilizable en el mensaje.
+
+    Conserva el cuerpo recibido en `raw_response` para que el llamador lo
+    persista: la respuesta cruda se guarda siempre, también en este caso."""
+
+    def __init__(self, message: str, raw_response: dict[str, Any] | None = None):
+        super().__init__(message)
+        self.raw_response = raw_response
 
 
 class NvidiaServerError(NvidiaClientError):
@@ -146,7 +153,18 @@ async def chat_completion(
                     f"NVIDIA respondió {response.status_code} inesperado: {response.text[:300]}"
                 )
 
-            return _parsear_respuesta(response, model)
+            try:
+                return _parsear_respuesta(response, model)
+            except NvidiaEmptyResponseError as exc:
+                # Intermitente: verificado en el punto 3, kimi-k3 devolvió
+                # 200 con content vacío (finish_reason "stop") en llamadas
+                # sueltas que al repetirse responden bien.
+                if intento < intentos_totales:
+                    await asyncio.sleep(intento)
+                    continue
+                raise NvidiaEmptyResponseError(
+                    f"{exc} (persistió en {intentos_totales} intento(s))", exc.raw_response
+                ) from exc
 
     raise NvidiaClientError("Fallo desconocido llamando a NVIDIA: se agotaron los intentos.")
 
@@ -161,12 +179,17 @@ def _parsear_respuesta(response: httpx.Response, model: str) -> NvidiaChatResult
 
     choices = body.get("choices") or []
     if not choices:
-        raise NvidiaEmptyResponseError("NVIDIA respondió 200 sin 'choices' en el cuerpo.")
+        raise NvidiaEmptyResponseError("NVIDIA respondió 200 sin 'choices' en el cuerpo.", body)
 
     message = choices[0].get("message") or {}
     content = message.get("content")
     if not content:
-        raise NvidiaEmptyResponseError("NVIDIA respondió 200 pero 'message.content' está vacío.")
+        detalle = f"finish_reason={choices[0].get('finish_reason')!r}"
+        if message.get("refusal"):
+            detalle += f", refusal={str(message['refusal'])[:200]!r}"
+        raise NvidiaEmptyResponseError(
+            f"NVIDIA respondió 200 pero 'message.content' está vacío ({detalle}).", body
+        )
 
     usage = body.get("usage") or {}
 

@@ -140,6 +140,20 @@ async def _evaluar(
         fail_analysis(db, analysis, str(e))
         return None
     except NvidiaClientError as e:
+        # Si NVIDIA llegó a responder (p. ej. 200 con content vacío), su
+        # cuerpo se guarda: la respuesta cruda se conserva siempre.
+        if getattr(e, "raw_response", None) is not None:
+            db.add(
+                RequirementEvaluation(
+                    analysis_id=analysis.id,
+                    stage=stage,
+                    evaluated_text=texto,
+                    parse_ok=False,
+                    raw_response=e.raw_response,
+                    model=analysis.evaluator_model,
+                )
+            )
+            db.commit()
         fail_analysis(db, analysis, f"Error del Evaluador al llamar a NVIDIA: {e}")
         return None
     _guardar_evaluacion(db, analysis, stage, texto, resultado)
@@ -207,6 +221,8 @@ async def advance_analysis(db: Session, analysis: RequirementAnalysis) -> None:
         fail_analysis(db, analysis, str(e))
         return
     except NvidiaClientError as e:
+        if getattr(e, "raw_response", None) is not None:
+            analysis.improvement_raw = e.raw_response
         fail_analysis(db, analysis, f"Error del Mejorador al llamar a NVIDIA: {e}")
         return
 

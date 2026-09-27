@@ -63,9 +63,11 @@ async def improve_requirement(
     *,
     project_context: str | None = None,
     clarifications: str | None = None,
+    model: str | None = None,
 ) -> ImproverResult:
+    """`model` permite comparar modelos (benchmark); por defecto OPTIMIZER_MODEL."""
     settings = get_settings()
-    model = settings.optimizer_model
+    model = model or settings.optimizer_model
     messages = [
         {"role": "system", "content": REQUIREMENTS_IMPROVER_SYSTEM_PROMPT},
         {
@@ -73,7 +75,7 @@ async def improve_requirement(
             "content": _build_user_message(requirement, evaluation, project_context, clarifications),
         },
     ]
-    extra_payload = {"response_format": {"type": "json_object"}} if settings.llm_json_mode else None
+    extra_payload = {"response_format": {"type": "json_object"}} if settings.json_mode_for(model) else None
     inicio = time.perf_counter()
     tokens: list[int | None] = []
 

@@ -38,11 +38,15 @@ class Settings(BaseModel):
     executor_model: str
     llm_timeout_seconds: int
     llm_max_retries: int
-    # Pide `response_format: {"type": "json_object"}` en las IAs de
-    # requisitos. Útil con modelos locales (Ollama) que a veces devuelven
-    # JSON mal formado; apagado por defecto porque no todos los modelos de
-    # NVIDIA aceptan el parámetro.
-    llm_json_mode: bool = False
+    # Modelos a los que las IAs de requisitos piden
+    # `response_format: {"type": "json_object"}` ("*" = todos). Es por
+    # modelo porque depende de cada uno (medido en el punto 3): a
+    # nemotron-3-super le evita JSON mal formado, pero a kimi-k3 le provoca
+    # respuestas vacías.
+    json_mode_models: frozenset[str] = frozenset()
+
+    def json_mode_for(self, model: str) -> bool:
+        return "*" in self.json_mode_models or model in self.json_mode_models
 
     def __repr__(self) -> str:
         return (
@@ -54,7 +58,7 @@ class Settings(BaseModel):
             f"executor_model={self.executor_model!r}, "
             f"llm_timeout_seconds={self.llm_timeout_seconds}, "
             f"llm_max_retries={self.llm_max_retries}, "
-            f"llm_json_mode={self.llm_json_mode})"
+            f"json_mode_models={sorted(self.json_mode_models)})"
         )
 
     __str__ = __repr__
@@ -80,5 +84,14 @@ def get_settings() -> Settings:
         executor_model=os.environ["EXECUTOR_MODEL"],
         llm_timeout_seconds=int(os.environ.get("LLM_TIMEOUT_SECONDS", "60")),
         llm_max_retries=int(os.environ.get("LLM_MAX_RETRIES", "2")),
-        llm_json_mode=os.environ.get("LLM_JSON_MODE", "").strip().lower() in ("1", "true", "si", "sí"),
+        json_mode_models=_modelos_json(),
     )
+
+
+def _modelos_json() -> frozenset[str]:
+    """LLM_JSON_MODE_MODELS=modelo1,modelo2 (o "*"). Se mantiene
+    LLM_JSON_MODE=true como equivalente de "*" (pruebas con Ollama)."""
+    modelos = {m.strip() for m in os.environ.get("LLM_JSON_MODE_MODELS", "").split(",") if m.strip()}
+    if os.environ.get("LLM_JSON_MODE", "").strip().lower() in ("1", "true", "si", "sí"):
+        modelos.add("*")
+    return frozenset(modelos)

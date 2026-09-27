@@ -21,7 +21,7 @@ from backend.schemas.requirements import (
     RequirementImprovementResponse,
 )
 from backend.services import requirements_workflow
-from backend.services.nvidia_client import NvidiaAuthError, NvidiaChatResult
+from backend.services.nvidia_client import NvidiaAuthError, NvidiaChatResult, NvidiaEmptyResponseError
 from backend.services.requirements_evaluator import (
     EvaluatorParseError,
     EvaluatorResult,
@@ -311,7 +311,7 @@ async def test_modo_json_pide_response_format_solo_si_esta_activo(monkeypatch):
     monkeypatch.setattr("backend.services.requirements_evaluator.chat_completion", stub)
 
     await evaluate_requirement("req")
-    monkeypatch.setattr(get_settings(), "llm_json_mode", True)
+    monkeypatch.setattr(get_settings(), "json_mode_models", frozenset({get_settings().auditor_model}))
     await evaluate_requirement("req")
 
     assert "response_format" not in llamadas[0]
@@ -465,6 +465,29 @@ async def test_json_invalido_del_mejorador_deja_error_y_guarda_el_raw(db, monkey
     assert analysis.status == "ERROR"
     assert analysis.improvement_raw == {"crudo": 1}
     assert analysis.improved_requirement is None
+
+
+async def test_respuesta_vacia_del_evaluador_guarda_el_cuerpo_crudo(db, monkeypatch):
+    cuerpo = {"choices": [{"finish_reason": "stop", "message": {"content": ""}}]}
+    _mockear(monkeypatch, [NvidiaEmptyResponseError("vacío", cuerpo)], [])
+    analysis = _nuevo_analisis(db)
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "ERROR"
+    fila = _evaluaciones(db, analysis)["original"]
+    assert fila.parse_ok is False and fila.raw_response == cuerpo
+
+
+async def test_respuesta_vacia_del_mejorador_guarda_el_cuerpo_crudo(db, monkeypatch):
+    cuerpo = {"choices": [{"finish_reason": "stop", "message": {"content": ""}}]}
+    _mockear(monkeypatch, [_evaluator_result(5)], [NvidiaEmptyResponseError("vacío", cuerpo)])
+    analysis = _nuevo_analisis(db)
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "ERROR"
+    assert analysis.improvement_raw == cuerpo
 
 
 async def test_error_de_nvidia_deja_el_analisis_en_error(db, monkeypatch):
