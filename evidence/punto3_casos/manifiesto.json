@@ -1,0 +1,34 @@
+{
+  "ejecutado_en": "2026-09-27T16:15:42.302586+00:00",
+  "servidor": "http://localhost:8000",
+  "repeticiones": 3,
+  "commit": "a7a1ded67c78dc88464fb72f2ccdd7853f2dc3fd",
+  "cambios_sin_commit": true,
+  "configuracion": {
+    "NVIDIA_BASE_URL": "https://integrate.api.nvidia.com/v1",
+    "LLM_TIMEOUT_SECONDS": "180",
+    "LLM_MAX_RETRIES": "2",
+    "temperatura": "no se envía: valor por defecto de cada modelo en NVIDIA"
+  },
+  "casos": {
+    "A": {
+      "tipo": "Requisito claro",
+      "esperado": "Debe reconocer alta calidad y evitar modificaciones innecesarias.",
+      "requirement": "REQ-AUT-03 (origen: política de seguridad de la tienda en línea). El sistema deberá bloquear durante 15 minutos la cuenta de un cliente registrado cuando se produzcan 5 intentos fallidos consecutivos de inicio de sesión dentro de un periodo de 10 minutos.\nCriterios de aceptación:\n1. Dado un cliente con 4 intentos fallidos consecutivos en los últimos 10 minutos, cuando falla el quinto intento, entonces la cuenta queda bloqueada y el sistema rechaza todo inicio de sesión de esa cuenta durante 15 minutos.\n2. Dado una cuenta bloqueada hace 15 minutos o más, cuando el cliente ingresa su contraseña correcta, entonces el inicio de sesión es exitoso.\n3. Dado un cliente con 4 intentos fallidos consecutivos, cuando inicia sesión correctamente, entonces el contador de intentos fallidos vuelve a 0.",
+      "project_context": "Tienda en línea. Los clientes registrados inician sesión con correo y contraseña. La política de seguridad exige bloqueo temporal de cuentas ante intentos fallidos repetidos."
+    },
+    "B": {
+      "tipo": "Requisito ambiguo",
+      "esperado": "Debe detectar ambigüedad, formular preguntas y mejorar el requisito.",
+      "requirement": "El sistema debe permitir a los clientes buscar productos de forma rápida y sencilla, mostrando resultados relevantes.",
+      "project_context": "Tienda en línea de artículos deportivos con catálogo público. Los clientes pueden comprar como invitados o con una cuenta registrada.",
+      "aclaracion": "La búsqueda se hace desde un único cuadro de texto visible en la parte superior de todas las páginas y busca por nombre, marca y categoría del producto. Los resultados deben mostrarse en máximo 2 segundos con un catálogo de hasta 20000 productos. 'Relevantes' significa que el texto buscado aparece en el nombre, la marca o la categoría; primero se muestran las coincidencias en el nombre y luego las demás, ordenadas por unidades vendidas. 'Sencilla' significa que no hace falta iniciar sesión ni usar filtros para buscar. Aplica a clientes registrados e invitados."
+    },
+    "C": {
+      "tipo": "Requisito contradictorio o incompleto",
+      "esperado": "Debe señalar la inconsistencia o falta de información y abstenerse de inventar datos.",
+      "requirement": "Los reportes de ventas deben generarse automáticamente cada día, pero solo cuando el gerente los solicite manualmente, y deben incluir los datos necesarios.",
+      "project_context": "Sistema de ventas para una cadena de tiendas. Los gerentes consultan reportes desde la web."
+    }
+  }
+}

@@ -176,7 +176,12 @@ def _commit() -> dict:
     def git(*args: str) -> str:
         return subprocess.run(["git", *args], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
 
-    return {"commit": git("rev-parse", "HEAD"), "cambios_sin_commit": bool(git("status", "--porcelain"))}
+    # Solo cuentan cambios en archivos versionados: evidencia nueva sin
+    # commit (no rastreada) no altera el código que se ejecutó.
+    return {
+        "commit": git("rev-parse", "HEAD"),
+        "cambios_sin_commit": bool(git("status", "--porcelain", "--untracked-files=no")),
+    }
 
 
 def _config_local() -> dict:
