@@ -86,6 +86,12 @@ Dos jueces califican cada salida:
 - **Principal: `openai/gpt-oss-20b`** — no compite en el benchmark (neutral).
 - **Secundario: `nvidia/nemotron-3-super-120b-a12b`** — es el Evaluador de la plataforma, pero **compite**: sus notas sobre sus propias salidas son autoevaluación.
 
+gpt-oss-20b se usa con `reasoning_effort: "low"`: con su valor por defecto
+agotó el límite de ~300 s del servidor de NVIDIA (HTTP 504) al juzgar una
+salida del ensayo, y con "low" respondió 2 de 2 veces en 170-178 s
+(`experimentos/juez_esfuerzo_razonamiento*`). Cada juicio tiene hasta 3
+intentos ante errores transitorios.
+
 Se usa la nota del juez principal; si falla, la del secundario, marcada.
 Reportar ambas permite medir si el modelo que compite se favorece a sí mismo.
 Prueba previa (`experimentos/juez_neutral*`): ambos distinguen una lista buena

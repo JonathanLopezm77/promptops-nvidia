@@ -90,8 +90,15 @@ class ResultadoJuez:
     raw: dict[str, Any] | None = None
 
 
+# Parámetros propios de cada juez. gpt-oss-20b razona por defecto hasta
+# agotar el límite de ~300 s del servidor de NVIDIA (HTTP 504 en el ensayo);
+# con reasoning_effort "low" respondió 2 de 2 en 170-178 s
+# (evidence/punto6_benchmark/experimentos/juez_esfuerzo_razonamiento*).
+EXTRA_POR_JUEZ: dict[str, dict[str, Any]] = {"openai/gpt-oss-20b": {"reasoning_effort": "low"}}
+
+
 def _json_forzado(modelo: str) -> dict[str, Any]:
-    extra: dict[str, Any] = {}
+    extra: dict[str, Any] = dict(EXTRA_POR_JUEZ.get(modelo, {}))
     if get_settings().json_mode_for(modelo):
         extra["response_format"] = {"type": "json_object"}
     return extra
@@ -130,7 +137,8 @@ async def juzgar_arquitectura(modelo: str, especificacion: str, restricciones: s
 async def juzgar_requisitos(modelo: str, requisitos: str, contexto: str) -> ResultadoJuez:
     t0 = time.perf_counter()
     try:
-        r = await evaluate_requirement(requisitos, project_context=contexto, model=modelo)
+        r = await evaluate_requirement(requisitos, project_context=contexto, model=modelo,
+                                       extra_payload=EXTRA_POR_JUEZ.get(modelo))
     except EvaluatorParseError as e:
         return ResultadoJuez(modelo, False, error=f"JSON inválido tras reintentar: {str(e)[:300]}",
                              latencia_s=time.perf_counter() - t0, raw=e.raw_response)

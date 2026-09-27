@@ -230,3 +230,10 @@ def test_extraer_archivos_sin_marcas_divide_por_file():
 def test_extraer_archivos_lee_la_ruta_declarada():
     archivos = extraer_archivos("```python\n# File: src/wishlist_service.py\nx = 1\n```\n```ts\n// File: a.ts\n```")
     assert [(a[0], a[1]) for a in archivos] == [("src/wishlist_service.py", "python"), ("a.ts", "ts")]
+
+
+def test_juez_gpt_oss_usa_razonamiento_bajo_y_los_demas_no():
+    from benchmarks.juez import _json_forzado
+
+    assert _json_forzado("openai/gpt-oss-20b")["reasoning_effort"] == "low"
+    assert "reasoning_effort" not in _json_forzado("nvidia/nemotron-3-super-120b-a12b")

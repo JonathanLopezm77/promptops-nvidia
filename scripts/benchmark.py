@@ -148,7 +148,7 @@ async def calificar(forzar: bool) -> None:
     # Jueces: modo JSON y más tiempo (gpt-oss-20b tardó hasta 545 s en la prueba previa).
     s.json_mode_models = frozenset(s.json_mode_models | {JUEZ_PRINCIPAL, JUEZ_SECUNDARIO})
     s.llm_timeout_seconds = 600
-    s.llm_max_retries = 1
+    s.llm_max_retries = 2  # el 504 del servidor de NVIDIA es transitorio: 3 intentos por juicio
 
     DIR_CALIFICACIONES.mkdir(parents=True, exist_ok=True)
     casos = {f: cargar_caso(f) for f in FASES}

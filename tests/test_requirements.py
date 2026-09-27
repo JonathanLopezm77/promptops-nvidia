@@ -325,6 +325,22 @@ async def test_modo_json_pide_response_format_solo_si_esta_activo(monkeypatch):
     assert "response_format" not in llamadas[2]  # el modo JSON es por modelo
 
 
+async def test_extra_payload_se_suma_sin_perder_los_valores_base(monkeypatch):
+    llamadas = []
+
+    async def stub(model, messages, *, max_tokens=None, extra_payload=None):
+        llamadas.append(extra_payload)
+        return _nvidia(json.dumps(_payload_evaluacion()), {})
+
+    monkeypatch.setattr("backend.services.requirements_evaluator.chat_completion", stub)
+    await evaluate_requirement("req", extra_payload={"reasoning_effort": "low"})
+    await evaluate_requirement("req")
+
+    assert llamadas[0]["reasoning_effort"] == "low"
+    assert llamadas[0]["chat_template_kwargs"] == {"thinking": False}
+    assert "reasoning_effort" not in llamadas[1]  # no se filtra a llamadas posteriores
+
+
 async def test_evaluador_falla_tras_dos_json_invalidos_y_conserva_el_raw(monkeypatch):
     stub = _Secuencia([_nvidia("{{{", {"n": 1}), _nvidia("]]]", {"n": 2})])
     monkeypatch.setattr("backend.services.requirements_evaluator.chat_completion", stub)

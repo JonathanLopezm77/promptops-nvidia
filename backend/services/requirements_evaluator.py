@@ -52,11 +52,14 @@ async def evaluate_requirement(
     project_context: str | None = None,
     clarifications: str | None = None,
     model: str | None = None,
+    extra_payload: dict | None = None,
 ) -> EvaluatorResult:
-    """`model` permite comparar modelos (benchmark); por defecto AUDITOR_MODEL."""
+    """`model` permite comparar modelos (benchmark); por defecto AUDITOR_MODEL.
+    `extra_payload` agrega parámetros propios del modelo (p. ej. el
+    reasoning_effort del juez del benchmark)."""
     settings = get_settings()
     model = model or settings.auditor_model
-    extra_payload = dict(_EXTRA_PAYLOAD)
+    extra_payload = {**_EXTRA_PAYLOAD, **(extra_payload or {})}
     if settings.json_mode_for(model):
         extra_payload["response_format"] = {"type": "json_object"}
     messages = [

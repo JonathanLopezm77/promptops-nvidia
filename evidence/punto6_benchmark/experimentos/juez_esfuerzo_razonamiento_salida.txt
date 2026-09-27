@@ -1,0 +1,4 @@
+﻿low     OK    score= 70  178.1s tokens=1097
+low     OK    score= 62  169.5s tokens=1292
+medium  OK    score= 76  293.4s tokens=2001
+medium  FALLO NvidiaServerError: NVIDIA respondió 504 de forma persistente tras 1 intento(s):   302.6s
