@@ -309,14 +309,19 @@ async def test_modo_json_pide_response_format_solo_si_esta_activo(monkeypatch):
         return _nvidia(json.dumps(_payload_evaluacion()), {})
 
     monkeypatch.setattr("backend.services.requirements_evaluator.chat_completion", stub)
+    settings = get_settings()
 
+    # Punto de partida explícito: no depende de LLM_JSON_MODE_MODELS del .env local.
+    monkeypatch.setattr(settings, "json_mode_models", frozenset())
     await evaluate_requirement("req")
-    monkeypatch.setattr(get_settings(), "json_mode_models", frozenset({get_settings().auditor_model}))
-    await evaluate_requirement("req")
+    monkeypatch.setattr(settings, "json_mode_models", frozenset({"modelo-con-json"}))
+    await evaluate_requirement("req", model="modelo-con-json")
+    await evaluate_requirement("req", model="otro-modelo")
 
     assert "response_format" not in llamadas[0]
     assert llamadas[1]["response_format"] == {"type": "json_object"}
     assert llamadas[1]["chat_template_kwargs"] == {"thinking": False}
+    assert "response_format" not in llamadas[2]  # el modo JSON es por modelo
 
 
 async def test_evaluador_falla_tras_dos_json_invalidos_y_conserva_el_raw(monkeypatch):
