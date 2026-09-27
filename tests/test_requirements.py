@@ -32,6 +32,7 @@ from backend.services.requirements_improver import (
     ImproverResult,
     improve_requirement,
 )
+from backend.services.requirements_workflow import recover_interrupted as _recuperar_analisis_real
 from backend.services.workflow import InvalidTransitionError
 
 # ---------------------------------------------------------------------------
@@ -640,8 +641,9 @@ def test_al_arrancar_se_cierran_los_analisis_interrumpidos(db):
     terminado.status = "COMPLETED"
     db.commit()
 
-    # Limitado a los análisis del test: no toca datos reales de la BD.
-    recuperados = requirements_workflow.recover_interrupted(db, ids=[colgado.id, terminado.id])
+    # Función original (conftest la parchea en todos los tests) y limitada a
+    # los análisis del test: no toca datos reales de la BD.
+    recuperados = _recuperar_analisis_real(db, ids=[colgado.id, terminado.id])
 
     db.refresh(colgado)
     db.refresh(terminado)
@@ -664,6 +666,24 @@ def test_no_se_puede_aclarar_un_analisis_sin_terminar(db):
 )
 def test_transiciones_invalidas(db, origen, destino):
     analysis = _nuevo_analisis(db)
-    analysis.status = origen
+    analysis.status = origen  # solo para preparar el escenario
+    db.commit()  # las transiciones se validan contra la BD, no contra la memoria
     with pytest.raises(InvalidTransitionError):
         requirements_workflow._set_status(db, analysis, destino)
+
+
+def test_la_transicion_se_valida_contra_la_bd_y_no_contra_una_copia_desactualizada(db):
+    # Otra sesión pasa el análisis a ERROR; la copia de esta sesión todavía
+    # dice EVALUATING y no debe poder sobrescribirlo con COMPLETED.
+    analysis = _nuevo_analisis(db)
+    analysis.status = "EVALUATING"
+    db.commit()
+    otra = SessionLocal()
+    try:
+        requirements_workflow.fail_analysis(otra, otra.get(RequirementAnalysis, analysis.id), "cerrado por otro")
+    finally:
+        otra.close()
+
+    with pytest.raises(InvalidTransitionError) as info:
+        requirements_workflow._set_status(db, analysis, "COMPLETED")
+    assert info.value.current_status == "ERROR"

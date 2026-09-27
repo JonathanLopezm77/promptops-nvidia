@@ -24,14 +24,6 @@ STT = {
 }
 
 
-@pytest.fixture(autouse=True)
-def _sin_recuperacion_al_arrancar(monkeypatch):
-    """TestClient ejecuta el arranque de la app, que marca como ERROR los
-    análisis en curso. Contra la BD real eso interrumpiría los análisis de
-    un servidor local que esté corriendo mientras se ejecutan los tests."""
-    monkeypatch.setattr(requirements_workflow, "recover_interrupted", lambda db: 0)
-
-
 @pytest.fixture
 def client(monkeypatch):
     async def sin_procesar(analysis_id):

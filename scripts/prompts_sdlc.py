@@ -70,7 +70,6 @@ FASES: list[dict] = [
 
 _MARCADOR = re.compile(r"\{\{\s*([A-Z0-9_]+)\s*\}\}")
 _ESPERANDO = {"WAITING_HUMAN"}
-_TERMINADOS_OK = {"APPROVED", "EXECUTING", "COMPLETED"}
 
 
 def _prompt_inicial(fase: dict) -> str:
@@ -244,7 +243,7 @@ def _cargar_runs(base_url: str) -> list[tuple[dict, dict | None]]:
 
 
 def estado(base_url: str) -> None:
-    print(f"\n{'Fase':<24}{'Estado':<15}{'Base':>5}{'Mejor':>6}{'Delta':>7}  Marcadores  Run")
+    print(f"\n{'Fase':<26}{'Estado':<15}{'Aprobado':<10}{'Base':>5}{'Mejor':>6}{'Delta':>7}  Marcadores  Run")
     for fase, run in _cargar_runs(base_url):
         if run is None:
             print(f"{fase['fase']:<24}sin validar")
@@ -254,7 +253,9 @@ def estado(base_url: str) -> None:
         final = iteracion_aprobada(run) or ultima_iteracion(run)
         faltan = marcadores(run["original_prompt"]) - marcadores(final["output_prompt"] if final else "")
         delta = (mejor - base["total_score"]) if (mejor is not None and base) else None
-        print(f"{fase['fase']:<24}{run['status']:<15}{base and base['total_score'] or '—':>5}"
+        ap = iteracion_aprobada(run)
+        print(f"{fase['fase']:<26}{run['status']:<15}{('iter ' + str(ap['iteration_number'])) if ap else 'no':<10}"
+              f"{base and base['total_score'] or '—':>5}"
               f"{mejor if mejor is not None else '—':>6}{('+' if (delta or 0) > 0 else '') + str(delta) if delta is not None else '—':>7}  "
               f"{'OK' if not faltan else 'FALTAN ' + ','.join(sorted(faltan)):<11} {run['id']}")
 
@@ -300,7 +301,10 @@ def exportar(base_url: str) -> None:
         base_it = linea_base(run)
         base = _auditoria(base_it)
         aprobada = iteracion_aprobada(run)
-        aprobado = run["status"] in _TERMINADOS_OK and aprobada is not None
+        # Lo que cuenta para el punto 4 es la decisión humana de aprobar,
+        # registrada en la iteración; lo que pase después al ejecutar el
+        # prompt (EXECUTING, COMPLETED o un ERROR) no la invalida.
+        aprobado = aprobada is not None
         audit_final = _auditoria(aprobada) if aprobado else None
         decision = next((d for d in aprobada["human_decisions"] if d["decision"] == "approve"), None) if aprobada else None
         faltan = marcadores(run["original_prompt"]) - marcadores(aprobada["output_prompt"]) if aprobado else set()

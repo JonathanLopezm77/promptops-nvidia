@@ -23,6 +23,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.config import get_settings
@@ -91,9 +92,24 @@ def _ensure_transition_allowed(current_status: str, target_status: str) -> None:
         raise InvalidTransitionError(current_status, target_status)
 
 
+def _estado_en_bd(db: Session, run: Run) -> str:
+    """Estado actual del run según la BD, con la fila bloqueada hasta el
+    commit. Las transiciones se validan contra este valor y no contra el
+    objeto en memoria: las sesiones de fondo usan expire_on_commit=False y su
+    copia puede estar desactualizada. Pasó de verdad: otro proceso pasó un
+    run a ERROR mientras el Executor corría, y al terminar el Executor lo
+    sobrescribió con COMPLETED validando contra su EXECUTING en memoria."""
+    return db.execute(select(Run.status).where(Run.id == run.id).with_for_update()).scalar_one()
+
+
 def _set_status(db: Session, run: Run, target_status: str) -> None:
     """Único lugar que escribe `run.status`."""
-    _ensure_transition_allowed(run.status, target_status)
+    actual = _estado_en_bd(db, run)
+    if actual != run.status:
+        # Otro proceso cambió el run: se actualiza la copia y se valida
+        # contra el estado real (normalmente será una transición inválida).
+        run.status = actual
+    _ensure_transition_allowed(actual, target_status)
     run.status = target_status
     if target_status in _ESTADOS_TERMINALES:
         run.finished_at = datetime.now(timezone.utc)
@@ -606,7 +622,9 @@ def start_execution(db: Session, run: Run) -> Run:
 def complete_execution(db: Session, run: Run, *, final_response: str, model: str) -> Run:
     """EXECUTING -> COMPLETED, persistiendo el Result con la respuesta ya
     obtenida del Executor."""
-    _ensure_transition_allowed(run.status, "COMPLETED")
+    # Contra la BD, antes de guardar el Result: un run que otro proceso ya
+    # pasó a ERROR no debe quedar con un resultado.
+    _ensure_transition_allowed(_estado_en_bd(db, run), "COMPLETED")
     ultima_iteracion = _ultima_iteracion(db, run)
     result = Result(
         run_id=run.id,

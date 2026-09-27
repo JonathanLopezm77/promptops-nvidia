@@ -20,6 +20,7 @@ import logging
 import uuid
 from datetime import datetime, timezone
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.config import get_settings
@@ -65,8 +66,14 @@ def _set_status(db: Session, analysis: RequirementAnalysis, target_status: str) 
     nueva que retiene una conexión del pool mientras se espera a la IA
     (minutos). Con 9 análisis simultáneos eso agotó el pool y bloqueó el
     servidor (bug encontrado al ejecutar el punto 3)."""
-    if target_status not in TRANSICIONES_VALIDAS.get(analysis.status, set()):
-        raise InvalidTransitionError(analysis.status, target_status)
+    # Contra la BD con la fila bloqueada, no contra la copia en memoria
+    # (puede estar desactualizada: ver _estado_en_bd en workflow.py).
+    actual = db.execute(
+        select(RequirementAnalysis.status).where(RequirementAnalysis.id == analysis.id).with_for_update()
+    ).scalar_one()
+    analysis.status = actual
+    if target_status not in TRANSICIONES_VALIDAS.get(actual, set()):
+        raise InvalidTransitionError(actual, target_status)
     analysis.status = target_status
     if target_status in _ESTADOS_TERMINALES:
         analysis.finished_at = datetime.now(timezone.utc)
