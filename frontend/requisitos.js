@@ -331,8 +331,12 @@ function renderTrazabilidad(a) {
         (e.parse_ok ? "" : " · <strong>JSON inválido (respuesta cruda guardada)</strong>")
     )
     .join("<br />");
+  const respaldo = a.improvement?.fallback;
   const mejora = a.improved_requirement
-    ? `${escapeHtml(a.improver_model)} · ${(a.improvement_latency_ms / 1000).toFixed(1)} s · tokens ${a.improvement_tokens ?? "?"}`
+    ? `${escapeHtml(a.improver_model)} · ${(a.improvement_latency_ms / 1000).toFixed(1)} s · tokens ${a.improvement_tokens ?? "?"}` +
+      (respaldo
+        ? `<br />Modelo de respaldo: ${escapeHtml(respaldo.from_model)} no dio una respuesta usable (${escapeHtml(respaldo.reason)})`
+        : "")
     : a.improvement_skipped
       ? "Omitida (el original ya era de alta calidad)"
       : null;

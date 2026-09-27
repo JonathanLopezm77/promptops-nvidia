@@ -44,6 +44,9 @@ class Settings(BaseModel):
     # nemotron-3-super le evita JSON mal formado, pero a kimi-k3 le provoca
     # respuestas vacías.
     json_mode_models: frozenset[str] = frozenset()
+    # Modelo que el Mejorador de requisitos usa si OPTIMIZER_MODEL no da una
+    # respuesta usable (vacía o JSON inválido tras reintentar). Opcional.
+    improver_fallback_model: str | None = None
 
     def json_mode_for(self, model: str) -> bool:
         return "*" in self.json_mode_models or model in self.json_mode_models
@@ -58,7 +61,8 @@ class Settings(BaseModel):
             f"executor_model={self.executor_model!r}, "
             f"llm_timeout_seconds={self.llm_timeout_seconds}, "
             f"llm_max_retries={self.llm_max_retries}, "
-            f"json_mode_models={sorted(self.json_mode_models)})"
+            f"json_mode_models={sorted(self.json_mode_models)}, "
+            f"improver_fallback_model={self.improver_fallback_model!r})"
         )
 
     __str__ = __repr__
@@ -85,6 +89,7 @@ def get_settings() -> Settings:
         llm_timeout_seconds=int(os.environ.get("LLM_TIMEOUT_SECONDS", "60")),
         llm_max_retries=int(os.environ.get("LLM_MAX_RETRIES", "2")),
         json_mode_models=_modelos_json(),
+        improver_fallback_model=os.environ.get("IMPROVER_FALLBACK_MODEL", "").strip() or None,
     )
 
 

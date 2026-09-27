@@ -25,13 +25,17 @@ from sqlalchemy.orm import Session
 from backend.config import get_settings
 from backend.database import SessionLocal
 from backend.models import RequirementAnalysis, RequirementEvaluation
-from backend.services.nvidia_client import NvidiaClientError
+from backend.services.nvidia_client import NvidiaClientError, NvidiaEmptyResponseError
 from backend.services.requirements_evaluator import (
     EvaluatorParseError,
     EvaluatorResult,
     evaluate_requirement,
 )
-from backend.services.requirements_improver import ImproverParseError, improve_requirement
+from backend.services.requirements_improver import (
+    ImproverParseError,
+    ImproverResult,
+    improve_requirement,
+)
 from backend.services.workflow import InvalidTransitionError
 
 logger = logging.getLogger("promptops.requirements")
@@ -195,6 +199,68 @@ def start_analysis(
     return analysis
 
 
+async def _mejorar(
+    db: Session, analysis: RequirementAnalysis, original: EvaluatorResult
+) -> tuple[ImproverResult, dict | None] | None:
+    """Llama al Mejorador; si el modelo principal no produce una respuesta
+    usable (content vacío o JSON inválido tras sus reintentos), prueba una
+    vez con IMPROVER_FALLBACK_MODEL. Medido en el punto 3: kimi-k3 degenera
+    de forma intermitente (reasoning "!!!!" y content vacío), con más
+    frecuencia en prompts largos y bajo carga, y a veces en los 3 reintentos.
+
+    Devuelve (resultado, datos del respaldo o None), o None si falló (el
+    análisis ya queda en ERROR). `analysis.improver_model` pasa a ser el
+    modelo que realmente produjo la mejora."""
+    kwargs = dict(
+        project_context=analysis.project_context, clarifications=analysis.clarifications
+    )
+    principal = analysis.improver_model
+    try:
+        return await improve_requirement(
+            analysis.original_requirement, original.evaluation, model=principal, **kwargs
+        ), None
+    except (ImproverParseError, NvidiaEmptyResponseError) as e:
+        error_principal = e
+    except NvidiaClientError as e:
+        if getattr(e, "raw_response", None) is not None:
+            analysis.improvement_raw = e.raw_response
+        fail_analysis(db, analysis, f"Error del Mejorador al llamar a NVIDIA: {e}")
+        return None
+
+    respaldo = get_settings().improver_fallback_model
+    if not respaldo or respaldo == principal:
+        analysis.improvement_raw = error_principal.raw_response
+        if isinstance(error_principal, ImproverParseError):
+            analysis.improvement_latency_ms = error_principal.latency_ms
+            fail_analysis(db, analysis, str(error_principal))
+        else:
+            fail_analysis(db, analysis, f"Error del Mejorador al llamar a NVIDIA: {error_principal}")
+        return None
+
+    datos_respaldo = {
+        "from_model": principal,
+        "reason": str(error_principal),
+        "raw_response": error_principal.raw_response,
+    }
+    try:
+        mejora = await improve_requirement(
+            analysis.original_requirement, original.evaluation, model=respaldo, **kwargs
+        )
+    except (ImproverParseError, NvidiaClientError) as e:
+        analysis.improvement = {"fallback": datos_respaldo}
+        if getattr(e, "raw_response", None) is not None:
+            analysis.improvement_raw = e.raw_response
+        fail_analysis(
+            db,
+            analysis,
+            f"El Mejorador principal ({principal}) falló: {error_principal}. "
+            f"El de respaldo ({respaldo}) también falló: {e}",
+        )
+        return None
+    analysis.improver_model = respaldo
+    return mejora, datos_respaldo
+
+
 async def advance_analysis(db: Session, analysis: RequirementAnalysis) -> None:
     """CREATED -> ... -> COMPLETED/ERROR."""
     _set_status(db, analysis, "EVALUATING")
@@ -208,23 +274,10 @@ async def advance_analysis(db: Session, analysis: RequirementAnalysis) -> None:
         return
 
     _set_status(db, analysis, "IMPROVING")
-    try:
-        mejora = await improve_requirement(
-            analysis.original_requirement,
-            original.evaluation,
-            project_context=analysis.project_context,
-            clarifications=analysis.clarifications,
-        )
-    except ImproverParseError as e:
-        analysis.improvement_raw = e.raw_response
-        analysis.improvement_latency_ms = e.latency_ms
-        fail_analysis(db, analysis, str(e))
+    resultado = await _mejorar(db, analysis, original)
+    if resultado is None:
         return
-    except NvidiaClientError as e:
-        if getattr(e, "raw_response", None) is not None:
-            analysis.improvement_raw = e.raw_response
-        fail_analysis(db, analysis, f"Error del Mejorador al llamar a NVIDIA: {e}")
-        return
+    mejora, respaldo = resultado
 
     m = mejora.improvement
     analysis.improved_requirement = m.improved_requirement
@@ -235,6 +288,9 @@ async def advance_analysis(db: Session, analysis: RequirementAnalysis) -> None:
         "intent_preservation": m.intent_preservation,
         "unsupported_values": mejora.unsupported_values,
         "unsupported_retry": mejora.unsupported_retry,
+        # Solo si el modelo principal no dio una respuesta usable y se usó
+        # IMPROVER_FALLBACK_MODEL: modelo original, motivo y su respuesta cruda.
+        "fallback": respaldo,
     }
     analysis.improvement_raw = mejora.raw_response
     analysis.improvement_tokens = mejora.total_tokens

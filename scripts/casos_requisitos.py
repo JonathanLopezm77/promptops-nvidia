@@ -422,7 +422,8 @@ def informe(salida: Path) -> None:
             "caso", "corrida", "analysis_id", "estado", "input_mode", "evaluador", "mejorador",
             "puntaje_original", "alta_calidad", "puntaje_mejorado", "delta", "version_recomendada",
             "terminos_ambiguos", "preguntas", "pendientes", "valores_sin_respaldo",
-            "latencia_total_s", "tokens_evaluacion_original", "puntaje_final_tras_aclarar",
+            "latencia_total_s", "tokens_evaluacion_original", "mejorador_respaldo_desde",
+            "puntaje_final_tras_aclarar", "respaldo_en_aclaracion_desde",
             "verificaciones_requeridas_ok", "verificaciones_requeridas", "cumple",
         ])
         for caso, n, a, hijo, vs in resultados:
@@ -440,7 +441,9 @@ def informe(salida: Path) -> None:
                 len(imp.get("pending_items") or []), len(imp.get("unsupported_values") or []),
                 _seg(_latencia_total(a)),
                 (orig["prompt_tokens"] or 0) + (orig["completion_tokens"] or 0) if orig else "",
+                (imp.get("fallback") or {}).get("from_model", ""),
                 _puntaje_final(hijo) if hijo else "",
+                ((hijo.get("improvement") or {}).get("fallback") or {}).get("from_model", "") if hijo else "",
                 sum(v.ok for v in req), len(req), all(v.ok for v in req),
             ])
 
@@ -517,6 +520,11 @@ def informe(salida: Path) -> None:
         for _, n, a, hijo, _ in del_caso:
             orig = _evaluacion(a, "original")
             L += [f"<details><summary>Corrida {n} — análisis <code>{a['id']}</code></summary>", ""]
+            for etiqueta, x in (("", a), (" (aclaración)", hijo)):
+                respaldo = ((x or {}).get("improvement") or {}).get("fallback")
+                if respaldo:
+                    L += [f"> Mejorador{etiqueta}: `{respaldo['from_model']}` no dio una respuesta usable "
+                          f"({respaldo['reason']}); mejoró `{x['improver_model']}` (modelo de respaldo).", ""]
             if a.get("input_mode") == "voice":
                 L += [f"**Transcripción:** {a['original_requirement']}", ""]
             if orig:

@@ -396,11 +396,18 @@ async def test_mejorador_sin_valores_inventados_no_reintenta(monkeypatch):
 # ---------------------------------------------------------------------------
 
 
-def _mockear(monkeypatch, evaluaciones: list, mejoras: list) -> tuple[_Secuencia, _Secuencia]:
+def _mockear(
+    monkeypatch, evaluaciones: list, mejoras: list, respaldo: str | None = None
+) -> tuple[_Secuencia, _Secuencia]:
+    """Reemplaza las IAs y fija IMPROVER_FALLBACK_MODEL (por defecto sin
+    respaldo), para que ningún test dependa del .env local."""
+    from backend.config import get_settings
+
     evaluador = _Secuencia(evaluaciones)
     mejorador = _Secuencia(mejoras)
     monkeypatch.setattr(requirements_workflow, "evaluate_requirement", evaluador)
     monkeypatch.setattr(requirements_workflow, "improve_requirement", mejorador)
+    monkeypatch.setattr(get_settings(), "improver_fallback_model", respaldo)
     return evaluador, mejorador
 
 
@@ -493,6 +500,75 @@ async def test_respuesta_vacia_del_mejorador_guarda_el_cuerpo_crudo(db, monkeypa
 
     assert analysis.status == "ERROR"
     assert analysis.improvement_raw == cuerpo
+
+
+_DEGENERADA = {"choices": [{"finish_reason": "stop", "message": {"content": None, "reasoning_content": "!!!!"}}]}
+
+
+async def test_si_el_mejorador_principal_degenera_se_usa_el_de_respaldo(db, monkeypatch):
+    # Caso real del punto 3: kimi-k3 devolvió reasoning "!!!!" y content
+    # vacío en los 3 reintentos; nemotron-3-super sí produjo la mejora.
+    _, mejorador = _mockear(
+        monkeypatch,
+        [_evaluator_result(5), _evaluator_result(8)],
+        [NvidiaEmptyResponseError("vacío", _DEGENERADA), _improver_result()],
+        respaldo="modelo/respaldo",
+    )
+    analysis = _nuevo_analisis(db)
+    principal = analysis.improver_model
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "COMPLETED"
+    assert [llamada[1]["model"] for llamada in mejorador.llamadas] == [principal, "modelo/respaldo"]
+    assert analysis.improver_model == "modelo/respaldo"  # el que realmente mejoró
+    respaldo = analysis.improvement["fallback"]
+    assert respaldo["from_model"] == principal
+    assert respaldo["raw_response"] == _DEGENERADA  # la respuesta cruda del fallo se conserva
+    assert "vacío" in respaldo["reason"]
+
+
+async def test_sin_modelo_de_respaldo_la_degeneracion_deja_error(db, monkeypatch):
+    _mockear(monkeypatch, [_evaluator_result(5)], [NvidiaEmptyResponseError("vacío", _DEGENERADA)])
+    analysis = _nuevo_analisis(db)
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "ERROR"
+    assert analysis.improvement_raw == _DEGENERADA
+
+
+async def test_si_tambien_falla_el_respaldo_queda_error_con_ambos_motivos(db, monkeypatch):
+    _mockear(
+        monkeypatch,
+        [_evaluator_result(5)],
+        [
+            NvidiaEmptyResponseError("vacío", _DEGENERADA),
+            ImproverParseError("JSON inválido", raw_response={"r": 2}, model="m", latency_ms=1),
+        ],
+        respaldo="modelo/respaldo",
+    )
+    analysis = _nuevo_analisis(db)
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "ERROR"
+    assert "principal" in analysis.error_message and "respaldo" in analysis.error_message
+    assert analysis.improvement["fallback"]["raw_response"] == _DEGENERADA
+    assert analysis.improvement_raw == {"r": 2}
+
+
+async def test_otros_errores_de_nvidia_no_usan_el_respaldo(db, monkeypatch):
+    # Un 401 o un 404 no se arreglan cambiando de modelo: se reportan tal cual.
+    _, mejorador = _mockear(
+        monkeypatch, [_evaluator_result(5)], [NvidiaAuthError("401")], respaldo="modelo/respaldo"
+    )
+    analysis = _nuevo_analisis(db)
+
+    await requirements_workflow.advance_analysis(db, analysis)
+
+    assert analysis.status == "ERROR"
+    assert len(mejorador.llamadas) == 1
 
 
 async def test_error_de_nvidia_deja_el_analisis_en_error(db, monkeypatch):
