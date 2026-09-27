@@ -1,0 +1,1957 @@
+{
+  "id": "be249146-7bc9-4002-8272-69e6d4441896",
+  "status": "APPROVED",
+  "created_at": "2026-09-27T12:14:05.733744-05:00",
+  "finished_at": null,
+  "original_prompt": "Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \"El sistema deberá...\".\n\nNota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.",
+  "optimizer_model": "moonshotai/kimi-k3",
+  "auditor_model": "nvidia/nemotron-3-super-120b-a12b",
+  "executor_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "iterations": [
+    {
+      "id": "b1ce3c31-bca1-434b-8583-5a5ba8ed924c",
+      "iteration_number": 1,
+      "input_prompt": "Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \"El sistema deberá...\".\n\nNota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.",
+      "output_prompt": "Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \"El sistema deberá...\".\n\nNota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.",
+      "source": "original",
+      "optimizer_raw": null,
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:14:06.866182-05:00",
+      "audits": [
+        {
+          "id": "8438b0b4-2641-45db-8130-d19f48287e06",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \"El sistema deberá...\".\n\nNota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.",
+          "total_score": 76,
+          "gates_passed": 3,
+          "gates_failed": 0,
+          "gates_not_applicable": 1,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias innecesarias.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono profesional e instruccional, adecuado para la tarea de elaboración de requisitos.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Objetivo claro: redactar requisitos funcionales y no funcionales verificables con criterios de aceptación, con formato especificado (REQ-01, 'El sistema deberá...').",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 1,
+              "observation": "No se incluyen ejemplos Few-shot. Aunque no son estrictamente necesarios para esta tarea, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "Estructura lógica: rol → entradas (necesidad y contexto) → instrucciones de salida. Bien organizado por bloques.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas. Las instrucciones son coherentes entre sí y alineadas con el rol definido.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se solicita descomposición paso a paso (Chain-of-Thought); se asume que el modelo sabe cómo traducir necesidad/contexto en requisitos.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 7,
+              "observation": "El prompt elimina ruido irrelevante y se enfoca en las entradas necesarias.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "Asume conocimiento previo de ingeniería de requisitos sin activarlo explícitamente (ej. no recuerda qué hace un buen criterio de aceptación).",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 4,
+              "observation": "No incluye mecanismos de autoverificación o revisión de los requisitos generados.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se solicitan ni se asumen herramientas externas (ej. bases de datos de plantillas, validadores de requisitos).",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se incluyen refuerzos explícitos para motivar calidad, precisión o completitud en la salida.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Instruye explícitamente a indicar falta de información en lugar de suponerla, lo que mitiga alucinaciones.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "Enfocado en factibilidad (requisitos verificables), aunque deja poco espacio para creatividad — apropiado para el dominio.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No se detectan sesgos obvios en el lenguaje o instrucciones; es neutro respecto a dominio, stakeholder o tecnología.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a injection/jailbreaks: no invita a comportamientos fuera de rol y limita la salida a una tarea específica y segura.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No solicita ni maneja datos PII; las variables {{...}} son placeholders de contexto, no datos personales.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Admite límites al instruir a no suponer información faltante, lo que refleja conciencia de los límites del contexto.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Tono respetuoso y profesional; alineado con conducta adecuada en un entorno laboral de ingeniería de requisitos.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 6,
+              "observation": "Aunque indica qué hacer si falta información, no solicita proactivamente aclaraciones cuando las variables están vacías o ambiguas.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Tono profesional y adecuado para un contexto de colaboración entre ingeniero de requisitos y stakeholder.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias innecesarias.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional e instruccional, adecuado para la tarea de elaboración de requisitos.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 9,
+                  "observation": "Objetivo claro: redactar requisitos funcionales y no funcionales verificables con criterios de aceptación, con formato especificado (REQ-01, 'El sistema deberá...').",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 1,
+                  "observation": "No se incluyen ejemplos Few-shot. Aunque no son estrictamente necesarios para esta tarea, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 8,
+                  "observation": "Estructura lógica: rol → entradas (necesidad y contexto) → instrucciones de salida. Bien organizado por bloques.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas. Las instrucciones son coherentes entre sí y alineadas con el rol definido.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt cumple con los criterios estructurales básicos: es claro, tiene un rol definido, formato de salida especificado y se organiza lógicamente. No hay contradicciones internas."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "NO_APLICA",
+              "properties": [
+                {
+                  "score": 5,
+                  "observation": "No se solicita descomposición paso a paso (Chain-of-Thought); se asume que el modelo sabe cómo traducir necesidad/contexto en requisitos.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 7,
+                  "observation": "El prompt elimina ruido irrelevante y se enfoca en las entradas necesarias.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 6,
+                  "observation": "Asume conocimiento previo de ingeniería de requisitos sin activarlo explícitamente (ej. no recuerda qué hace un buen criterio de aceptación).",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 4,
+                  "observation": "No incluye mecanismos de autoverificación o revisión de los requisitos generados.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se solicitan ni se asumen herramientas externas (ej. bases de datos de plantillas, validadores de requisitos).",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se incluyen refuerzos explícitos para motivar calidad, precisión o completitud en la salida.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "La tarea de redactar requisitos a partir de entradas dadas es más bien una tarea de transformación y estructuración que de razonamiento complejo, abstracción o resolución de problemas novedosos. No requiere cadena de pensamiento profunda ni activación de conocimiento previo especializado más allá de lo explícito en el prompt."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "Instruye explícitamente a indicar falta de información en lugar de suponerla, lo que mitiga alucinaciones.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 7,
+                  "observation": "Enfocado en factibilidad (requisitos verificables), aunque deja poco espacio para creatividad — apropiado para el dominio.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No se detectan sesgos obvios en el lenguaje o instrucciones; es neutro respecto a dominio, stakeholder o tecnología.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a injection/jailbreaks: no invita a comportamientos fuera de rol y limita la salida a una tarea específica y segura.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No solicita ni maneja datos PII; las variables {{...}} son placeholders de contexto, no datos personales.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 8,
+                  "observation": "Admite límites al instruir a no suponer información faltante, lo que refleja conciencia de los límites del contexto.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono respetuoso y profesional; alineado con conducta adecuada en un entorno laboral de ingeniería de requisitos.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt muestra buenas prácticas de veracidad y seguridad: instruye a no suponer información faltante, lo que reduce alucinaciones, y no presenta riesgos evidentes de sesgo, inyección o privacidad en su construcción."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 6,
+                  "observation": "Aunque indica qué hacer si falta información, no solicita proactivamente aclaraciones cuando las variables están vacías o ambiguas.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional y adecuado para un contexto de colaboración entre ingeniero de requisitos y stakeholder.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita over-engineering: se enfoca en lo esencial para generar requisitos verificables. Aunque podría mejorar en interacción (pidiendo aclaraciones proactivamente), su enfoque es adecuado para la tarea."
+            }
+          ],
+          "recommendations": [
+            "Agregar 1-2 ejemplos Few-shot de requisitos bien formados (con identificador, formato 'El sistema deberá...' y criterio de aceptación) para guiar mejor la salida y reducir variabilidad.",
+            "Incluir una solicitud explícita de autoverificación antes de finalizar (ej. 'Antes de entregar, revisa que cada requisito tenga un criterio de aceptación verificable y esté escrito en la forma requerida')."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-b3de13bd-01e3-486f-bdfa-a5b17b6f816e",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 6377,
+              "prompt_tokens": 4690,
+              "completion_tokens": 1687
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt cumple con los criterios estructurales básicos: es claro, tiene un rol definido, formato de salida especificado y se organiza lógicamente. No hay contradicciones internas.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso y evita redundancias innecesarias.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono profesional e instruccional, adecuado para la tarea de elaboración de requisitos.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 9, \"observation\": \"Objetivo claro: redactar requisitos funcionales y no funcionales verificables con criterios de aceptación, con formato especificado (REQ-01, 'El sistema deberá...').\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 1, \"observation\": \"No se incluyen ejemplos Few-shot. Aunque no son estrictamente necesarios para esta tarea, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 8, \"observation\": \"Estructura lógica: rol → entradas (necesidad y contexto) → instrucciones de salida. Bien organizado por bloques.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones internas. Las instrucciones son coherentes entre sí y alineadas con el rol definido.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"NO_APLICA\",\n      \"justification\": \"La tarea de redactar requisitos a partir de entradas dadas es más bien una tarea de transformación y estructuración que de razonamiento complejo, abstracción o resolución de problemas novedosos. No requiere cadena de pensamiento profunda ni activación de conocimiento previo especializado más allá de lo explícito en el prompt.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 5, \"observation\": \"No se solicita descomposición paso a paso (Chain-of-Thought); se asume que el modelo sabe cómo traducir necesidad/contexto en requisitos.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 7, \"observation\": \"El prompt elimina ruido irrelevante y se enfoca en las entradas necesarias.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 6, \"observation\": \"Asume conocimiento previo de ingeniería de requisitos sin activarlo explícitamente (ej. no recuerda qué hace un buen criterio de aceptación).\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 4, \"observation\": \"No incluye mecanismos de autoverificación o revisión de los requisitos generados.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 5, \"observation\": \"No se solicitan ni se asumen herramientas externas (ej. bases de datos de plantillas, validadores de requisitos).\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 5, \"observation\": \"No se incluyen refuerzos explícitos para motivar calidad, precisión o completitud en la salida.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt muestra buenas prácticas de veracidad y seguridad: instruye a no suponer información faltante, lo que reduce alucinaciones, y no presenta riesgos evidentes de sesgo, inyección o privacidad en su construcción.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 8, \"observation\": \"Instruye explícitamente a indicar falta de información en lugar de suponerla, lo que mitiga alucinaciones.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 7, \"observation\": \"Enfocado en factibilidad (requisitos verificables), aunque deja poco espacio para creatividad — apropiado para el dominio.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 8, \"observation\": \"No se detectan sesgos obvios en el lenguaje o instrucciones; es neutro respecto a dominio, stakeholder o tecnología.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Resistente a injection/jailbreaks: no invita a comportamientos fuera de rol y limita la salida a una tarea específica y segura.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 9, \"observation\": \"No solicita ni maneja datos PII; las variables {{...}} son placeholders de contexto, no datos personales.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 8, \"observation\": \"Admite límites al instruir a no suponer información faltante, lo que refleja conciencia de los límites del contexto.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"Tono respetuoso y profesional; alineado con conducta adecuada en un entorno laboral de ingeniería de requisitos.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita over-engineering: se enfoca en lo esencial para generar requisitos verificables. Aunque podría mejorar en interacción (pidiendo aclaraciones proactivamente), su enfoque es adecuado para la tarea.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 6, \"observation\": \"Aunque indica qué hacer si falta información, no solicita proactivamente aclaraciones cuando las variables están vacías o ambiguas.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 9, \"observation\": \"Tono profesional y adecuado para un contexto de colaboración entre ingeniero de requisitos y stakeholder.\"}\n      ]\n    }\n  ],\n  \"total_score\": 76,\n  \"recommendations\": [\n    \"Agregar 1-2 ejemplos Few-shot de requisitos bien formados (con identificador, formato 'El sistema deberá...' y criterio de aceptación) para guiar mejor la salida y reducir variabilidad.\",\n    \"Incluir una solicitud explícita de autoverificación antes de finalizar (ej. 'Antes de entregar, revisa que cada requisito tenga un criterio de aceptación verificable y esté escrito en la forma requerida').\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529257,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:14:34.871078-05:00"
+        }
+      ],
+      "human_decisions": []
+    },
+    {
+      "id": "995872a1-1ea2-43ec-86cb-1a8a7952b7ad",
+      "iteration_number": 2,
+      "input_prompt": "Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \"El sistema deberá...\".\n\nNota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.",
+      "output_prompt": "Actúa como Ingeniero de Requisitos senior. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: añade al final una sección \"Información faltante\" listando cada dato pendiente como pregunta concreta al stakeholder.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-dc02b2a8-a829-48ba-90cb-2493505a6814",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 1764,
+          "prompt_tokens": 643,
+          "completion_tokens": 1121,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 16
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \\\"El sistema deberá...\\\".\",\n  \"analysis\": \"El prompt tiene una base buena (rol, variables, formato y manejo de incertidumbre), pero: (1) no separa identificadores de requisitos funcionales (RF) y no funcionales (RNF), lo que dificulta la trazabilidad; (2) no define el formato exacto de cada línea ni cómo expresar el criterio de aceptación, lo que genera salidas heterogéneas; (3) no indica cómo reportar la información faltante ni dónde ubicarla; (4) no fija verbos medibles ni prohibición de ambigüedades ('rápido', 'fácil'); (5) no delimita el alcance de la salida (riesgo de texto extra o supuestos implícitos).\",\n  \"improved_prompt\": \"Actúa como Ingeniero de Requisitos senior. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nInstrucciones:\\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\\n3. Redacta cada requisito en una sola línea con la forma \\\"El sistema deberá...\\\", usando un único verbo de acción y términos medibles (evita ambigüedades como \\\"rápido\\\", \\\"fácil\\\", \\\"adecuado\\\" sin métrica).\\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \\\"Criterio de aceptación:\\\".\\n5. Si falta información necesaria para definir un requisito completo, no la supongas: añade al final una sección \\\"Información faltante\\\" listando cada dato pendiente como pregunta concreta al stakeholder.\\n\\nFormato de salida obligatorio:\\n## Requisitos funcionales\\nRF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Requisitos no funcionales\\nRNF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Información faltante\\n- ...\\n\\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.\",\n  \"changes\": [\n    \"Separación de identificadores en RF-xx (funcionales) y RNF-xx (no funcionales) para mejorar trazabilidad\",\n    \"Formato de salida obligatorio con secciones y prefijo explícito para el criterio de aceptación\",\n    \"Regla explícita de no suposición con sección dedicada 'Información faltante' en forma de preguntas concretas\",\n    \"Exigencia de verbos medibles y prohibición de términos ambiguos para garantizar verificabilidad\",\n    \"Restricción de alcance: deriva solo de la información dada y sin texto fuera de la estructura\",\n    \"Rol afinado a 'Ingeniero de Requisitos senior'\"\n  ],\n  \"reasoning_summary\": \"La versión mejorada elimina ambigüedades de formato y clasificación, refuerza la verificabilidad (métricas y criterios explícitos) y canaliza la incertidumbre hacia una sección concreta, produciendo salidas consistentes, trazables y listas para validación, sin ejecutar la tarea en sí.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Optimize the prompt, keep variables intact, return JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529296
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:15:38.057341-05:00",
+      "audits": [
+        {
+          "id": "a32df7d8-65fc-4b00-b4a7-f42007b5b507",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como Ingeniero de Requisitos senior. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: añade al final una sección \"Información faltante\" listando cada dato pendiente como pregunta concreta al stakeholder.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+          "total_score": 87,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias innecesarias, logrando un buen equilibrio entre claridad y brevedad.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "El tono es formal, directo y apropiado para la tarea de ingeniería de requisitos, sin ambigüedades ni subjetividades innecesarias.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Los objetivos están perfectamente definidos: rol (Ingeniero de Requisitos senior), meta (redactar especificación de requisitos), formato de salida (secciones obligatorias) y restricciones explícitas (no inventar funcionalidades, usar verbos medibles, etc.).",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 1,
+              "observation": "No se proporcionan ejemplos few-shot. Aunque no son estrictamente necesarios dada la claridad de las instrucciones, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado, especialmente en casos edge.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "La organización por bloques (necesidad, contexto, instrucciones numeradas, formato de salida) es coherente y sigue un flujo lógico que facilita la ejecución.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas. Todas las instrucciones se alinean entre sí y con el objetivo final de generar requisitos verificables y trazables.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "El prompt descompone la tarea en pasos claros: derivar, clasificar, redactar con formato, agregar criterios y señalar faltantes — facilitando un proceso de pensamiento paso a paso (Chain-of-Thought implícito pero efectivo).",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 10,
+              "observation": "Elimina todo ruido al prohibir explícitamente inventar funcionalidades o suponer datos, enfocando la atención únicamente en el stakeholder y contexto proporcionados.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Asume conocimiento previo en ingeniería de requisitos (como usar verbos medibles, distinguir RF/RNF, escribir criterios de aceptación), lo cual es razonable para el rol definido.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Incluye mecanismos explícitos de autoverificación: pedir criterios de aceptación comprobables y señalar información faltante obliga al modelo a reflexionar sobre la suficiencia de sus salidas antes de finalizar.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 1,
+              "observation": "No se solicitan ni se anticipan usos de herramientas externas (como APIs o bases de datos), lo cual es apropiado dado que la tarea es puramente analítica y basada en texto de entrada.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No hay refuerzos explícitos (como elogios por precisión o penalizaciones por suposiciones). Aunque la claridad de las restricciones implícitamente incentiva buen comportamiento, falta un mecanismo directo de recompensa que podría mejorar la adherencia en casos ambiguos.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "La instrucción de 'derivar requisitos exclusivamente de la información proporcionada; no inventar funcionalidades ni supuest datos' es un fuerte ancla contra alucinaciones, obligando al modelo a abstenerse cuando falta información.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Prioriza correctamente la factibilidad sobre la creatividad al restringir la invención, lo cual es apropiado para la tarea. No se suprime la creatividad inutilemente, pero sí se la encuadra dentro de límites estrictos de trazabilidad.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Al prohibir suposiciones y requerir que todo se derive de inputs específicos, se reduce significativamente el riesgo de sesgos inducidos por el modelo o por suposiciones culturales/domainiales no justificadas.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El prompt es resistente a injection/jailbreaks porque no invita a roles adversariales ni abierta puertas a manipulación: el rol es estrictamente técnico y las restricciones son claras y acotadas.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "No se solicitan ni se manejan datos personales o sensibles en la tarea; por tanto, no hay riesgo de exposición de PII. El diseño asume que los inputs ya fueron sanitizados o son no sensibles.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El prompt fomenta la honestidad epistémica al obligar a listar 'Información faltante' cuando los datos son insuficientes, admitiendo explícientemente límites en lugar de forzar una respuesta falsa o inventada.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El tono y las instrucciones promueven conducta profesional, respetuosa y orientada al servicio al stakeholder, alineada con normas sociales esperadas en un contexto profesional de ingeniería.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Aunque no solicita aclaraciones interactivas durante la generación, la sección 'Información faltante' cumple un rol similar al forzar la identificación proactiva de lagunas, lo que indirectamente promueve una interacción de seguimiento con el stakeholder.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "El tono es consistentemente profesional, respetuoso y orientado a cumplir con las expectativas del rol sin sobrepasar límites ni caer en frialdad excesiva.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias innecesarias, logrando un buen equilibrio entre claridad y brevedad.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono es formal, directo y apropiado para la tarea de ingeniería de requisitos, sin ambigüedades ni subjetividades innecesarias.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Los objetivos están perfectamente definidos: rol (Ingeniero de Requisitos senior), meta (redactar especificación de requisitos), formato de salida (secciones obligatorias) y restricciones explícitas (no inventar funcionalidades, usar verbos medibles, etc.).",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 1,
+                  "observation": "No se proporcionan ejemplos few-shot. Aunque no son estrictamente necesarios dada la claridad de las instrucciones, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado, especialmente en casos edge.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "La organización por bloques (necesidad, contexto, instrucciones numeradas, formato de salida) es coherente y sigue un flujo lógico que facilita la ejecución.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas. Todas las instrucciones se alinean entre sí y con el objetivo final de generar requisitos verificables y trazables.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con secciones claras, instrucciones explícitas y formato definido. No presenta contradicciones internas y mantiene un tono profesional y enfocado."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "El prompt descompone la tarea en pasos claros: derivar, clasificar, redactar con formato, agregar criterios y señalar faltantes — facilitando un proceso de pensamiento paso a paso (Chain-of-Thought implícito pero efectivo).",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 10,
+                  "observation": "Elimina todo ruido al prohibir explícitamente inventar funcionalidades o suponer datos, enfocando la atención únicamente en el stakeholder y contexto proporcionados.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 8,
+                  "observation": "Asume conocimiento previo en ingeniería de requisitos (como usar verbos medibles, distinguir RF/RNF, escribir criterios de aceptación), lo cual es razonable para el rol definido.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye mecanismos explícitos de autoverificación: pedir criterios de aceptación comprobables y señalar información faltante obliga al modelo a reflexionar sobre la suficiencia de sus salidas antes de finalizar.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 1,
+                  "observation": "No se solicitan ni se anticipan usos de herramientas externas (como APIs o bases de datos), lo cual es apropiado dado que la tarea es puramente analítica y basada en texto de entrada.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No hay refuerzos explícitos (como elogios por precisión o penalizaciones por suposiciones). Aunque la claridad de las restricciones implícitamente incentiva buen comportamiento, falta un mecanismo directo de recompensa que podría mejorar la adherencia en casos ambiguos.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guiará efectivamente un razonamiento estructurado y metacognitivo, ya que obliga a derivar requisitos únicamente de la información dada, clasificarlos, verificarlos y reconocer lagunas — lo que implica descomposición, autoverificación y manejo de incertidumbre."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 10,
+                  "observation": "La instrucción de 'derivar requisitos exclusivamente de la información proporcionada; no inventar funcionalidades ni supuest datos' es un fuerte ancla contra alucinaciones, obligando al modelo a abstenerse cuando falta información.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Prioriza correctamente la factibilidad sobre la creatividad al restringir la invención, lo cual es apropiado para la tarea. No se suprime la creatividad inutilemente, pero sí se la encuadra dentro de límites estrictos de trazabilidad.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Al prohibir suposiciones y requerir que todo se derive de inputs específicos, se reduce significativamente el riesgo de sesgos inducidos por el modelo o por suposiciones culturales/domainiales no justificadas.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "El prompt es resistente a injection/jailbreaks porque no invita a roles adversariales ni abierta puertas a manipulación: el rol es estrictamente técnico y las restricciones son claras y acotadas.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 10,
+                  "observation": "No se solicitan ni se manejan datos personales o sensibles en la tarea; por tanto, no hay riesgo de exposición de PII. El diseño asume que los inputs ya fueron sanitizados o son no sensibles.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El prompt fomenta la honestidad epistémica al obligar a listar 'Información faltante' cuando los datos son insuficientes, admitiendo explícientemente límites en lugar de forzar una respuesta falsa o inventada.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono y las instrucciones promueven conducta profesional, respetuosa y orientada al servicio al stakeholder, alineada con normas sociales esperadas en un contexto profesional de ingeniería.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt minimiza riesgos de alucinaciones al anclar estrictamente la salida a los inputs, promueve veracidad mediante criterios de aceptación objetivos y evita sesgos al prohibir suposiciones. No maneja datos sensibles, por lo que privacidad y seguridad no son preocupaciones activas, pero el diseño es inherentemente seguro."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Aunque no solicita aclaraciones interactivas durante la generación, la sección 'Información faltante' cumple un rol similar al forzar la identificación proactiva de lagunas, lo que indirectamente promueve una interacción de seguimiento con el stakeholder.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 10,
+                  "observation": "El tono es consistentemente profesional, respetuoso y orientado a cumplir con las expectativas del rol sin sobrepasar límites ni caer en frialdad excesiva.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita el over-engineering al enfocarse únicamente en las propiedades esenciales para la tarea: claridad estructural, trazabilidad, verificabilidad y honradez epistémica. No agrega complejidad innecesaria."
+            }
+          ],
+          "recommendations": [
+            "Agregar uno o dos ejemplos few-shot de requisitos bien formateados (con su criterio de aceptación) para reducir variabilidad en la salida y asegurar que el formato se entienda de manera uniforme, especialmente en modelos menos capacitados.",
+            "Incluir un estímulo positivo explícito (por ejemplo: 'Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad') para reforzar comportamientos deseados como la abstención de suposiciones y la rigurosidad en los criterios de aceptación."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-5a679503-7096-4c4b-b282-0010caddef83",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 7490,
+              "prompt_tokens": 5379,
+              "completion_tokens": 2111
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con secciones claras, instrucciones explícitas y formato definido. No presenta contradicciones internas y mantiene un tono profesional y enfocado.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso y evita redundancias innecesarias, logrando un buen equilibrio entre claridad y brevedad.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"El tono es formal, directo y apropiado para la tarea de ingeniería de requisitos, sin ambigüedades ni subjetividades innecesarias.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Los objetivos están perfectamente definidos: rol (Ingeniero de Requisitos senior), meta (redactar especificación de requisitos), formato de salida (secciones obligatorias) y restricciones explícitas (no inventar funcionalidades, usar verbos medibles, etc.).\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 1, \"observation\": \"No se proporcionan ejemplos few-shot. Aunque no son estrictamente necesarios dada la claridad de las instrucciones, su ausencia representa una oportunidad perdida para guiar mejor el formato esperado, especialmente en casos edge.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"La organización por bloques (necesidad, contexto, instrucciones numeradas, formato de salida) es coherente y sigue un flujo lógico que facilita la ejecución.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones internas. Todas las instrucciones se alinean entre sí y con el objetivo final de generar requisitos verificables y trazables.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guiará efectivamente un razonamiento estructurado y metacognitivo, ya que obliga a derivar requisitos únicamente de la información dada, clasificarlos, verificarlos y reconocer lagunas — lo que implica descomposición, autoverificación y manejo de incertidumbre.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"El prompt descompone la tarea en pasos claros: derivar, clasificar, redactar con formato, agregar criterios y señalar faltantes — facilitando un proceso de pensamiento paso a paso (Chain-of-Thought implícito pero efectivo).\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 10, \"observation\": \"Elimina todo ruido al prohibir explícitamente inventar funcionalidades o suponer datos, enfocando la atención únicamente en el stakeholder y contexto proporcionados.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 8, \"observation\": \"Asume conocimiento previo en ingeniería de requisitos (como usar verbos medibles, distinguir RF/RNF, escribir criterios de aceptación), lo cual es razonable para el rol definido.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 9, \"observation\": \"Incluye mecanismos explícitos de autoverificación: pedir criterios de aceptación comprobables y señalar información faltante obliga al modelo a reflexionar sobre la suficiencia de sus salidas antes de finalizar.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 1, \"observation\": \"No se solicitan ni se anticipan usos de herramientas externas (como APIs o bases de datos), lo cual es apropiado dado que la tarea es puramente analítica y basada en texto de entrada.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 5, \"observation\": \"No hay refuerzos explícitos (como elogios por precisión o penalizaciones por suposiciones). Aunque la claridad de las restricciones implícitamente incentiva buen comportamiento, falta un mecanismo directo de recompensa que podría mejorar la adherencia en casos ambiguos.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt minimiza riesgos de alucinaciones al anclar estrictamente la salida a los inputs, promueve veracidad mediante criterios de aceptación objetivos y evita sesgos al prohibir suposiciones. No maneja datos sensibles, por lo que privacidad y seguridad no son preocupaciones activas, pero el diseño es inherentemente seguro.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 10, \"observation\": \"La instrucción de 'derivar requisitos exclusivamente de la información proporcionada; no inventar funcionalidades ni supuest datos' es un fuerte ancla contra alucinaciones, obligando al modelo a abstenerse cuando falta información.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 8, \"observation\": \"Prioriza correctamente la factibilidad sobre la creatividad al restringir la invención, lo cual es apropiado para la tarea. No se suprime la creatividad inutilemente, pero sí se la encuadra dentro de límites estrictos de trazabilidad.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 9, \"observation\": \"Al prohibir suposiciones y requerir que todo se derive de inputs específicos, se reduce significativamente el riesgo de sesgos inducidos por el modelo o por suposiciones culturales/domainiales no justificadas.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"El prompt es resistente a injection/jailbreaks porque no invita a roles adversariales ni abierta puertas a manipulación: el rol es estrictamente técnico y las restricciones son claras y acotadas.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 10, \"observation\": \"No se solicitan ni se manejan datos personales o sensibles en la tarea; por tanto, no hay riesgo de exposición de PII. El diseño asume que los inputs ya fueron sanitizados o son no sensibles.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"El prompt fomenta la honestidad epistémica al obligar a listar 'Información faltante' cuando los datos son insuficientes, admitiendo explícientemente límites en lugar de forzar una respuesta falsa o inventada.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"El tono y las instrucciones promueven conducta profesional, respetuosa y orientada al servicio al stakeholder, alineada con normas sociales esperadas en un contexto profesional de ingeniería.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita el over-engineering al enfocarse únicamente en las propiedades esenciales para la tarea: claridad estructural, trazabilidad, verificabilidad y honradez epistémica. No agrega complejidad innecesaria.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 9, \"observation\": \"Aunque no solicita aclaraciones interactivas durante la generación, la sección 'Información faltante' cumple un rol similar al forzar la identificación proactiva de lagunas, lo que indirectamente promueve una interacción de seguimiento con el stakeholder.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 10, \"observation\": \"El tono es consistentemente profesional, respetuoso y orientado a cumplir con las expectativas del rol sin sobrepasar límites ni caer en frialdad excesiva.\"}\n      ]\n    }\n  ],\n  \"total_score\": 87,\n  \"recommendations\": [\n    \"Agregar uno o dos ejemplos few-shot de requisitos bien formateados (con su criterio de aceptación) para reducir variabilidad en la salida y asegurar que el formato se entienda de manera uniforme, especialmente en modelos menos capacitados.\",\n    \"Incluir un estímulo positivo explícito (por ejemplo: 'Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad') para reforzar comportamientos deseados como la abstención de suposiciones y la rigurosidad en los criterios de aceptación.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529357,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:16:12.446611-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "737a885d-4e20-4995-9045-3378ce5d22ff",
+          "decision": "iterate",
+          "feedback": "[AUTO-ITERACIÓN 1/3] Recomendaciones: Agregar uno o dos ejemplos few-shot de requisitos bien formateados (con su criterio de aceptación) para reducir variabilidad en la salida y asegurar que el formato se entienda de manera uniforme, especialmente en modelos menos capacitados.; Incluir un estímulo positivo explícito (por ejemplo: 'Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad') para reforzar comportamientos deseados como la abstención de suposiciones y la rigurosidad en los criterios de aceptación.",
+          "edited_prompt": null,
+          "created_at": "2026-09-27T12:16:12.483758-05:00"
+        }
+      ]
+    },
+    {
+      "id": "d1591729-563f-442d-8b7b-e155f98145d3",
+      "iteration_number": 3,
+      "input_prompt": "Actúa como Ingeniero de Requisitos senior. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: añade al final una sección \"Información faltante\" listando cada dato pendiente como pregunta concreta al stakeholder.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "output_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad, y por la total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: lista cada dato pendiente en la sección \"Información faltante\" como pregunta concreta al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-a938f5ca-0fe3-4605-8c89-b4ad4d3e089d",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 2770,
+          "prompt_tokens": 1437,
+          "completion_tokens": 1333,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 15
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \\\"El sistema deberá...\\\".\",\n  \"analysis\": \"La versión anterior está bien estructurada (clasificación RF/RNF, formato obligatorio, sección de información faltante), pero carece de elementos pedidos por el feedback: (1) ejemplos few-shot que anclen el formato y reduzcan variabilidad, especialmente en modelos menos capacitados; (2) un estímulo positivo explícito que refuerce la rigurosidad y la abstención de suposiciones. El feedback de auditoría y del humano es idéntico y prioritario sobre mi criterio.\",\n  \"improved_prompt\": \"Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad, y por la total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nInstrucciones:\\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\\n3. Redacta cada requisito en una sola línea con la forma \\\"El sistema deberá...\\\", usando un único verbo de acción y términos medibles (evita ambigüedades como \\\"rápido\\\", \\\"fácil\\\", \\\"adecuado\\\" sin métrica).\\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \\\"Criterio de aceptación:\\\".\\n5. Si falta información necesaria para definir un requisito completo, no la supongas: lista cada dato pendiente en la sección \\\"Información faltante\\\" como pregunta concreta al stakeholder.\\n\\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\\n\\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\\n\\nFormato de salida obligatorio:\\n## Requisitos funcionales\\nRF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Requisitos no funcionales\\nRNF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Información faltante\\n- ...\\n\\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.\",\n  \"changes\": [\n    \"Se añadieron dos ejemplos few-shot (un RF y un RNF) con formato completo incluyendo criterio de aceptación medible, tal como pidió el feedback duplicado\",\n    \"Se incorporó el estímulo positivo explícito al inicio: 'Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad...', reforzando la abstención de suposiciones\",\n    \"Los ejemplos se etiquetaron explícitamente como referencia de estilo para evitar que se confundan con requisitos reales de la salida\",\n    \"Se mantuvieron las variables de plantilla {{...}} intactas y toda la estructura validada de la versión anterior\"\n  ],\n  \"reasoning_summary\": \"La versión mejorada prioriza íntegramente el feedback de la auditoría y del humano (idénticos): añade ejemplos few-shot que anclan el formato y reducen variabilidad en modelos menos capacitados, e incorpora un estímulo positivo explícito que refuerza rigurosidad, trazabilidad y abstención de suposiciones, sin degradar nada de la estructura ya validada.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Add few-shot examples and positive stimulus to previous version."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529416
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:17:48.048617-05:00",
+      "audits": [
+        {
+          "id": "c461c11b-7d1e-40af-b1fe-89e6cc136882",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad, y por la total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: lista cada dato pendiente en la sección \"Información faltante\" como pregunta concreta al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+          "total_score": 86,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono profesional, preciso y libre de ambigüedades, adecuado para un rol de Ingeniero de Requisitos senior.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivo claro: redactar especificaciones de requisitos trazables y objetivas. Se especifican rol, meta, formato y restricciones explícitas.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Incluye ejemplo bien formado que ilustra el formato esperado, útil para guiar la salida sin sobrecargar.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Estructura coherente: rol → necesidad → contexto → instrucciones numeradas → formato de salida obligatorio.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones; todas las partes se alinean para guiar la generación de requisitos basados únicamente en entradas proporcionadas.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Descompone la tarea en pasos claros: derivar, clasificar, redactar, verificar y listar faltantes, facilitando el Chain-of-Thought.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 10,
+              "observation": "Elimina ruido al enfocarse únicamente en la información proporcionada y prohibir suposiciones.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación RF/RNF) sin depender de ellos para inventar contenido.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Incluye mecanismos de autoverificación mediante el requisito de criterios de aceptación objetivos y la sección de información faltante para reconocer límites.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 3,
+              "observation": "No se menciona ni implica el uso de herramientas externas (APIs, funciones, etc.), lo cual es apropiado dado el enfoque en razonamiento puro basado en texto.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No incluye refuerzos explícitos de comportamiento, pero la claridad de las instrucciones y el ejemplo implícitamente guían hacia la precisión.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "Fuerte énfasis en derivar requisitos exclusivamente de la información proporcionada; prohíbe inventar funcionalidades o datos.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Prioriza factibilidad y objetividad sobre creatividad, lo cual es adecuado para especificaciones de requisitos.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No se detectan sesgos evidentes en el lenguaje o instrucciones; el enfoque es neutral y basado en evidencia.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "Bajo riesgo de injection/jailbreaks debido a la naturaleza estructurada y delimitada de la tarea; no se genera código ni se ejecutan acciones externas.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que el riesgo es mínimo.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Reconoce explícitamente los límites al requerir listar información faltante en lugar de suponer, lo que aumenta la confiabilidad.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El tono y las instrucciones promueven conducta profesional, rigurosa y respetuosa con el stakeholder al solicitar clarificaciones cuando es necesario.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 8,
+              "observation": "No solicita aclaraciones proactivamente, pero obliga a listar información faltante, lo que indirectamente facilita la interacción necesaria.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Tono respetuoso y profesional adecuado para un rol de ingeniero de requisitos interactuando con stakeholders.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional, preciso y libre de ambigüedades, adecuado para un rol de Ingeniero de Requisitos senior.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivo claro: redactar especificaciones de requisitos trazables y objetivas. Se especifican rol, meta, formato y restricciones explícitas.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye ejemplo bien formado que ilustra el formato esperado, útil para guiar la salida sin sobrecargar.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "Estructura coherente: rol → necesidad → contexto → instrucciones numeradas → formato de salida obligatorio.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones; todas las partes se alinean para guiar la generación de requisitos basados únicamente en entradas proporcionadas.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con roles claros, objetivos definidos y formato de salida explícito. No presenta contradicciones internas y sigue una organización lógica por bloques."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Descompone la tarea en pasos claros: derivar, clasificar, redactar, verificar y listar faltantes, facilitando el Chain-of-Thought.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 10,
+                  "observation": "Elimina ruido al enfocarse únicamente en la información proporcionada y prohibir suposiciones.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 8,
+                  "observation": "Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación RF/RNF) sin depender de ellos para inventar contenido.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 8,
+                  "observation": "Incluye mecanismos de autoverificación mediante el requisito de criterios de aceptación objetivos y la sección de información faltante para reconocer límites.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 3,
+                  "observation": "No se menciona ni implica el uso de herramientas externas (APIs, funciones, etc.), lo cual es apropiado dado el enfoque en razonamiento puro basado en texto.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No incluye refuerzos explícitos de comportamiento, pero la claridad de las instrucciones y el ejemplo implícitamente guían hacia la precisión.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía un proceso de razonamiento estructurado: derivar requisitos exclusivamente de la información dada, clasificarlos, verificarlos y señalar lagunas. Promueve descomposición y autoverificación mediante el formato de salida y criterios de aceptación."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 10,
+                  "observation": "Fuerte énfasis en derivar requisitos exclusivamente de la información proporcionada; prohíbe inventar funcionalidades o datos.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 9,
+                  "observation": "Prioriza factibilidad y objetividad sobre creatividad, lo cual es adecuado para especificaciones de requisitos.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No se detectan sesgos evidentes en el lenguaje o instrucciones; el enfoque es neutral y basado en evidencia.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 7,
+                  "observation": "Bajo riesgo de injection/jailbreaks debido a la naturaleza estructurada y delimitada de la tarea; no se genera código ni se ejecutan acciones externas.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que el riesgo es mínimo.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Reconoce explícitamente los límites al requerir listar información faltante en lugar de suponer, lo que aumenta la confiabilidad.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono y las instrucciones promueven conducta profesional, rigurosa y respetuosa con el stakeholder al solicitar clarificaciones cuando es necesario.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt evita alucinaciones al prohibir suposiciones, enfatiza la verificabilidad y no introduce sesgos obvios. No maneja datos sensibles, por lo que privacidad y seguridad son menos críticas, pero se mantiene rigurosidad en la objetividad."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "No solicita aclaraciones proactivamente, pero obliga a listar información faltante, lo que indirectamente facilita la interacción necesaria.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono respetuoso y profesional adecuado para un rol de ingeniero de requisitos interactuando con stakeholders.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita over-engineering al enfocarse en la tarea esencial: generar requisitos trazables y verificables. Prioriza claridad y objetividad sin propiedades innecesarias."
+            }
+          ],
+          "recommendations": [
+            "Considerar agregar una instrucción explícita para solicitar aclaraciones al stakeholder cuando la información sea ambigua o insuficiente, en lugar de solo listarla como faltante, para mejorar la interacción (P20).",
+            "Incluir una breve directiva sobre la evitación de requisitos triviales o sin valor añadido, para reforzar el enfoque en funcionalidades significativas y evitar sobreespecificación."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-66c41c56-3c15-49de-a198-972ecfc1db03",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 4992,
+              "prompt_tokens": 3269,
+              "completion_tokens": 1723
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con roles claros, objetivos definidos y formato de salida explícito. No presenta contradicciones internas y sigue una organización lógica por bloques.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono profesional, preciso y libre de ambigüedades, adecuado para un rol de Ingeniero de Requisitos senior.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivo claro: redactar especificaciones de requisitos trazables y objetivas. Se especifican rol, meta, formato y restricciones explícitas.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 9, \"observation\": \"Incluye ejemplo bien formado que ilustra el formato esperado, útil para guiar la salida sin sobrecargar.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"Estructura coherente: rol → necesidad → contexto → instrucciones numeradas → formato de salida obligatorio.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones; todas las partes se alinean para guiar la generación de requisitos basados únicamente en entradas proporcionadas.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía un proceso de razonamiento estructurado: derivar requisitos exclusivamente de la información dada, clasificarlos, verificarlos y señalar lagunas. Promueve descomposición y autoverificación mediante el formato de salida y criterios de aceptación.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"Descompone la tarea en pasos claros: derivar, clasificar, redactar, verificar y listar faltantes, facilitando el Chain-of-Thought.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 10, \"observation\": \"Elimina ruido al enfocarse únicamente en la información proporcionada y prohibir suposiciones.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 8, \"observation\": \"Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación RF/RNF) sin depender de ellos para inventar contenido.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 8, \"observation\": \"Incluye mecanismos de autoverificación mediante el requisito de criterios de aceptación objetivos y la sección de información faltante para reconocer límites.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 3, \"observation\": \"No se menciona ni implica el uso de herramientas externas (APIs, funciones, etc.), lo cual es apropiado dado el enfoque en razonamiento puro basado en texto.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 5, \"observation\": \"No incluye refuerzos explícitos de comportamiento, pero la claridad de las instrucciones y el ejemplo implícitamente guían hacia la precisión.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita alucinaciones al prohibir suposiciones, enfatiza la verificabilidad y no introduce sesgos obvios. No maneja datos sensibles, por lo que privacidad y seguridad son menos críticas, pero se mantiene rigurosidad en la objetividad.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 10, \"observation\": \"Fuerte énfasis en derivar requisitos exclusivamente de la información proporcionada; prohíbe inventar funcionalidades o datos.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 9, \"observation\": \"Prioriza factibilidad y objetividad sobre creatividad, lo cual es adecuado para especificaciones de requisitos.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 8, \"observation\": \"No se detectan sesgos evidentes en el lenguaje o instrucciones; el enfoque es neutral y basado en evidencia.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 7, \"observation\": \"Bajo riesgo de injection/jailbreaks debido a la naturaleza estructurada y delimitada de la tarea; no se genera código ni se ejecutan acciones externas.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 9, \"observation\": \"No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que el riesgo es mínimo.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Reconoce explícitamente los límites al requerir listar información faltante en lugar de suponer, lo que aumenta la confiabilidad.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"El tono y las instrucciones promueven conducta profesional, rigurosa y respetuosa con el stakeholder al solicitar clarificaciones cuando es necesario.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita over-engineering al enfocarse en la tarea esencial: generar requisitos trazables y verificables. Prioriza claridad y objetividad sin propiedades innecesarias.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 8, \"observation\": \"No solicita aclaraciones proactivamente, pero obliga a listar información faltante, lo que indirectamente facilita la interacción necesaria.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 9, \"observation\": \"Tono respetuoso y profesional adecuado para un rol de ingeniero de requisitos interactuando con stakeholders.\"}\n      ]\n    }\n  ],\n  \"total_score\": 86,\n  \"recommendations\": [\n    \"Considerar agregar una instrucción explícita para solicitar aclaraciones al stakeholder cuando la información sea ambigua o insuficiente, en lugar de solo listarla como faltante, para mejorar la interacción (P20).\",\n    \"Incluir una breve directiva sobre la evitación de requisitos triviales o sin valor añadido, para reforzar el enfoque en funcionalidades significativas y evitar sobreespecificación.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529466,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:18:27.941585-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "c2efeea2-5a0b-445c-b74f-8f4e3167bcd7",
+          "decision": "iterate",
+          "feedback": "[AUTO-ITERACIÓN 2/3] Recomendaciones: Considerar agregar una instrucción explícita para solicitar aclaraciones al stakeholder cuando la información sea ambigua o insuficiente, en lugar de solo listarla como faltante, para mejorar la interacción (P20).; Incluir una breve directiva sobre la evitación de requisitos triviales o sin valor añadido, para reforzar el enfoque en funcionalidades significativas y evitar sobreespecificación.",
+          "edited_prompt": null,
+          "created_at": "2026-09-27T12:18:27.949009-05:00"
+        }
+      ]
+    },
+    {
+      "id": "24ae97d0-c966-4a55-95a7-1dd985180d73",
+      "iteration_number": 4,
+      "input_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad y objetividad, y por la total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02....\n3. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n4. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n5. Si falta información necesaria para definir un requisito completo, no la supongas: lista cada dato pendiente en la sección \"Información faltante\" como pregunta concreta al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- ...\n\nNo incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "output_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-c4ca5103-1ca9-48ee-81d3-b6abacc5c9a4",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 3118,
+          "prompt_tokens": 1595,
+          "completion_tokens": 1523,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 21
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \\\"El sistema deberá...\\\".\",\n  \"analysis\": \"La versión anterior ya era sólida (rol, trazabilidad, formato, anti-suposiciones), pero la auditoría señala dos carencias: (1) no contempla la interacción activa con el stakeholder para aclarar información ambigua, solo lista faltantes pasivamente; (2) no evita la sobreespecificación con requisitos triviales o sin valor. Además, la ambigüedad también debería poder resolverse mediante preguntas aclaratorias, no solo la falta de datos.\",\n  \"improved_prompt\": \"Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nInstrucciones:\\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\\n4. Redacta cada requisito en una sola línea con la forma \\\"El sistema deberá...\\\", usando un único verbo de acción y términos medibles (evita ambigüedades como \\\"rápido\\\", \\\"fácil\\\", \\\"adecuado\\\" sin métrica).\\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \\\"Criterio de aceptación:\\\".\\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\\n   a) Información faltante: ausencia total de un dato necesario.\\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\\n\\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\\n\\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\\n\\nFormato de salida obligatorio:\\n## Requisitos funcionales\\nRF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Requisitos no funcionales\\nRNF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Información faltante\\n- Pregunta concreta al stakeholder sobre cada dato ausente...\\n\\n## Aclaraciones sobre información ambigua\\n- Pregunta al stakeholder indicando las interpretaciones posibles...\\n\\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \\\"Sin elementos\\\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.\",\n  \"changes\": [\n    \"Añadida instrucción explícita de formular preguntas aclaratorias al stakeholder, distinguiendo información faltante de información ambigua (recomendación P20 de la auditoría)\",\n    \"Nueva directiva anti-trivialidad: excluir requisitos sin valor añadido o sobreespecificados\",\n    \"Nueva sección de salida \\\"Aclaraciones sobre información ambigua\\\" separada de \\\"Información faltante\\\"\",\n    \"Renumeración de instrucciones y regla de indicar \\\"Sin elementos\\\" en secciones vacías para consistencia del formato\"\n  ],\n  \"reasoning_summary\": \"Se incorporan ambas recomendaciones de la auditoría y del humano: la gestión activa de ambigüedad mediante preguntas aclaratorias diferenciadas de los datos faltantes mejora la interacción con el stakeholder, y la directiva anti-trivialidad evita la sobreespecificación. Se mantiene íntegra la estructura, los ejemplos y las variables de plantilla de la iteración anterior, que ya eran correctos.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Output JSON only. Incorporate feedback: clarifying questions, avoid trivial requirements."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529526
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:19:44.504425-05:00",
+      "audits": [
+        {
+          "id": "9017ab3c-6210-4246-9436-b5fce6b5590e",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+          "total_score": 84,
+          "gates_passed": 3,
+          "gates_failed": 0,
+          "gates_not_applicable": 1,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono profesional, preciso y riguroso, alineado con el rol de Ingeniero de Requisitos senior. Ausencia de ambigüedad en las instrucciones.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivos claramente definidos: redactar especificaciones de requisitos trazables, objetivos y medibles, con clasificación RF/RNF y formato de salida obligatorio.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Incluye un ejemplo de formato bien formado que ilustra claramente el estilo esperado para RF y RNF.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Estructura lógica organizada en secciones claras: instrucciones, ejemplo, formato de salida obligatorio. Flujo coherente y sin saltos.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas. Todas las partes del prompt se refuerzan mutuamente (ejemplo, reglas, formato).",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 4,
+              "observation": "No se requiere descomposición paso a paso ni razonamiento complejo; la tarea es de aplicación directa de reglas.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "El prompt elimina ruido y se enfoca únicamente en lo necesario para generar la salida requerida.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "Activa conocimientos previos sobre ingeniería de requisitos, pero no exige su síntesis ni elaboración avanzada.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 3,
+              "observation": "No incluye mecanismos de autoverificación o reflexión sobre el proceso; asume que el modelo seguirá las reglas sin validación interna.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se mencionan ni se requieren herramientas externas; la tarea es autocontenida.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No hay refuerzo explícito de comportamiento más allá de la instrucción de ser 'preciso y riguroso'.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Instruye explícitamente a no inventar funcionalidades ni suponer datos, lo que reduce fuertemente el riesgo de alucinaciones.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Prioriza la factibilidad y trazabilidad sobre la creatividad, lo cual es apropiado para un contexto de requisitos formales.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Al basarse únicamente en la información proporcionada y evitar suposiciones, reduce el riesgo de sesgos inductivos o de dominio.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a injection/jailbreaks debido a su naturaleza estructurada y de bajo grado de libertad; no invita a roles ficticios ni a romper restricciones.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No solicita ni maneja datos PII; enfocado en requisitos de sistema, no en datos personales.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Incentiva a admitir insuficiencia de información mediante preguntas aclaratorias, lo que aumenta la confiabilidad frente a la ambigüedad.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El tono es profesional, respetuoso y orientado a la colaboración con el stakeholder, alineado con normas sociales apropiadas.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Incluye mecanismos claros para solicitar información faltante o ambigua mediante preguntas específicas al stakeholder, lo que mejora la interacción cuando se necesita aclaración.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "El tono es respetuoso, colaborativo y profesional en todo momento, apropiado para un contexto de ingeniería de requisitos con stakeholders.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional, preciso y riguroso, alineado con el rol de Ingeniero de Requisitos senior. Ausencia de ambigüedad en las instrucciones.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivos claramente definidos: redactar especificaciones de requisitos trazables, objetivos y medibles, con clasificación RF/RNF y formato de salida obligatorio.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye un ejemplo de formato bien formado que ilustra claramente el estilo esperado para RF y RNF.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "Estructura lógica organizada en secciones claras: instrucciones, ejemplo, formato de salida obligatorio. Flujo coherente y sin saltos.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas. Todas las partes del prompt se refuerzan mutuamente (ejemplo, reglas, formato).",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con instrucciones claras, objetivos definidos y formato de salida explícito. No hay contradicciones internas y la organización por bloques es coherente."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "NO_APLICA",
+              "properties": [
+                {
+                  "score": 4,
+                  "observation": "No se requiere descomposición paso a paso ni razonamiento complejo; la tarea es de aplicación directa de reglas.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 8,
+                  "observation": "El prompt elimina ruido y se enfoca únicamente en lo necesario para generar la salida requerida.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 6,
+                  "observation": "Activa conocimientos previos sobre ingeniería de requisitos, pero no exige su síntesis ni elaboración avanzada.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 3,
+                  "observation": "No incluye mecanismos de autoverificación o reflexión sobre el proceso; asume que el modelo seguirá las reglas sin validación interna.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se mencionan ni se requieren herramientas externas; la tarea es autocontenida.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No hay refuerzo explícito de comportamiento más allá de la instrucción de ser 'preciso y riguroso'.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "La tarea descrita no requiere razonamiento complejo, cadena de pensamiento ni metacognición. Es una tarea de transformación y formato basado en reglas estrictas, no de análisis profundo o inferencia."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Instruye explícitamente a no inventar funcionalidades ni suponer datos, lo que reduce fuertemente el riesgo de alucinaciones.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Prioriza la factibilidad y trazabilidad sobre la creatividad, lo cual es apropiado para un contexto de requisitos formales.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "Al basarse únicamente en la información proporcionada y evitar suposiciones, reduce el riesgo de sesgos inductivos o de dominio.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a injection/jailbreaks debido a su naturaleza estructurada y de bajo grado de libertad; no invita a roles ficticios ni a romper restricciones.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No solicita ni maneja datos PII; enfocado en requisitos de sistema, no en datos personales.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incentiva a admitir insuficiencia de información mediante preguntas aclaratorias, lo que aumenta la confiabilidad frente a la ambigüedad.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono es profesional, respetuoso y orientado a la colaboración con el stakeholder, alineado con normas sociales apropiadas.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt enfatiza la trazabilidad, objetividad y prohibición de suposiciones, lo que directamente mitiga riesgos de alucinaciones, sesgo y falta de veracidad. Promueve la honradez ante la incertidumbre."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Incluye mecanismos claros para solicitar información faltante o ambigua mediante preguntas específicas al stakeholder, lo que mejora la interacción cuando se necesita aclaración.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 10,
+                  "observation": "El tono es respetuoso, colaborativo y profesional en todo momento, apropiado para un contexto de ingeniería de requisitos con stakeholders.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita el over-engineering al enfocarse únicamente en lo esencial: generación de requisitos trazables y verificables. Prioriza claridad y utilidad sobre propiedades excesivas."
+            }
+          ],
+          "recommendations": [
+            "Considerar agregar un recordatorio explícito para evitar verbos vagos como 'gestionar' o 'procesar' en los requisitos, reforzando la regla de un solo verbo de acción medible.",
+            "Incluir una nota breve que recuerde al modelo que los criterios de aceptación deben ser independientes y verificables mediante pruebas u observación directa, sin depender de interpretación subjetiva."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-80fed623-40de-4f00-a43f-fa6ac52a7968",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5139,
+              "prompt_tokens": 3451,
+              "completion_tokens": 1688
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con instrucciones claras, objetivos definidos y formato de salida explícito. No hay contradicciones internas y la organización por bloques es coherente.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso y evita redundancias, aunque incluye ejemplos detallados que podrían optimizarse ligeramente.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono profesional, preciso y riguroso, alineado con el rol de Ingeniero de Requisitos senior. Ausencia de ambigüedad en las instrucciones.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivos claramente definidos: redactar especificaciones de requisitos trazables, objetivos y medibles, con clasificación RF/RNF y formato de salida obligatorio.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 9, \"observation\": \"Incluye un ejemplo de formato bien formado que ilustra claramente el estilo esperado para RF y RNF.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"Estructura lógica organizada en secciones claras: instrucciones, ejemplo, formato de salida obligatorio. Flujo coherente y sin saltos.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones internas. Todas las partes del prompt se refuerzan mutuamente (ejemplo, reglas, formato).\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"NO_APLICA\",\n      \"justification\": \"La tarea descrita no requiere razonamiento complejo, cadena de pensamiento ni metacognición. Es una tarea de transformación y formato basado en reglas estrictas, no de análisis profundo o inferencia.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 4, \"observation\": \"No se requiere descomposición paso a paso ni razonamiento complejo; la tarea es de aplicación directa de reglas.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 8, \"observation\": \"El prompt elimina ruido y se enfoca únicamente en lo necesario para generar la salida requerida.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 6, \"observation\": \"Activa conocimientos previos sobre ingeniería de requisitos, pero no exige su síntesis ni elaboración avanzada.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 3, \"observation\": \"No incluye mecanismos de autoverificación o reflexión sobre el proceso; asume que el modelo seguirá las reglas sin validación interna.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 5, \"observation\": \"No se mencionan ni se requieren herramientas externas; la tarea es autocontenida.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 5, \"observation\": \"No hay refuerzo explícito de comportamiento más allá de la instrucción de ser 'preciso y riguroso'.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt enfatiza la trazabilidad, objetividad y prohibición de suposiciones, lo que directamente mitiga riesgos de alucinaciones, sesgo y falta de veracidad. Promueve la honradez ante la incertidumbre.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 9, \"observation\": \"Instruye explícitamente a no inventar funcionalidades ni suponer datos, lo que reduce fuertemente el riesgo de alucinaciones.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 8, \"observation\": \"Prioriza la factibilidad y trazabilidad sobre la creatividad, lo cual es apropiado para un contexto de requisitos formales.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 8, \"observation\": \"Al basarse únicamente en la información proporcionada y evitar suposiciones, reduce el riesgo de sesgos inductivos o de dominio.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Resistente a injection/jailbreaks debido a su naturaleza estructurada y de bajo grado de libertad; no invita a roles ficticios ni a romper restricciones.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 9, \"observation\": \"No solicita ni maneja datos PII; enfocado en requisitos de sistema, no en datos personales.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Incentiva a admitir insuficiencia de información mediante preguntas aclaratorias, lo que aumenta la confiabilidad frente a la ambigüedad.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"El tono es profesional, respetuoso y orientado a la colaboración con el stakeholder, alineado con normas sociales apropiadas.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita el over-engineering al enfocarse únicamente en lo esencial: generación de requisitos trazables y verificables. Prioriza claridad y utilidad sobre propiedades excesivas.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 9, \"observation\": \"Incluye mecanismos claros para solicitar información faltante o ambigua mediante preguntas específicas al stakeholder, lo que mejora la interacción cuando se necesita aclaración.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 10, \"observation\": \"El tono es respetuoso, colaborativo y profesional en todo momento, apropiado para un contexto de ingeniería de requisitos con stakeholders.\"}\n      ]\n    }\n  ],\n  \"total_score\": 84,\n  \"recommendations\": [\n    \"Considerar agregar un recordatorio explícito para evitar verbos vagos como 'gestionar' o 'procesar' en los requisitos, reforzando la regla de un solo verbo de acción medible.\",\n    \"Incluir una nota breve que recuerde al modelo que los criterios de aceptación deben ser independientes y verificables mediante pruebas u observación directa, sin depender de interpretación subjetiva.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529582,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:20:02.835522-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "cbee70cb-a647-425e-ac8d-d3ec5e586f85",
+          "decision": "iterate",
+          "feedback": "[AUTO-ITERACIÓN 3/3] Recomendaciones: Considerar agregar un recordatorio explícito para evitar verbos vagos como 'gestionar' o 'procesar' en los requisitos, reforzando la regla de un solo verbo de acción medible.; Incluir una nota breve que recuerde al modelo que los criterios de aceptación deben ser independientes y verificables mediante pruebas u observación directa, sin depender de interpretación subjetiva.",
+          "edited_prompt": null,
+          "created_at": "2026-09-27T12:20:02.841493-05:00"
+        }
+      ]
+    },
+    {
+      "id": "e82d2745-0ed2-480a-9761-ec5da0ac120e",
+      "iteration_number": 5,
+      "input_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción y términos medibles (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica).\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación objetivo y comprobable, en la línea siguiente, con el prefijo \"Criterio de aceptación:\".\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "output_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción medible y términos cuantificables (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica). NO uses verbos vagos o genéricos como \"gestionar\", \"procesar\", \"manejar\", \"administrar\" o \"ofrecer soporte\": sustitúyelos por el verbo de acción concreto y observable (por ejemplo, \"registrar\", \"calcular y mostrar\", \"validar\", \"notificar por correo\").\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación en la línea siguiente, con el prefijo \"Criterio de aceptación:\". Cada criterio debe ser independiente y comprobable mediante una prueba, medición u observación directa, con condiciones y resultados objetivos (valores numéricos, estados, mensajes), sin depender de interpretación subjetiva ni de otros criterios.\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-c2b34ad5-c5e4-4571-bda3-68a30b8ba3ba",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 3576,
+          "prompt_tokens": 1809,
+          "completion_tokens": 1767,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 27
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nEscribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma \\\"El sistema deberá...\\\".\",\n  \"analysis\": \"La versión anterior ya es sólida (rol, formato, ejemplo, separación RF/RNF, gestión de información faltante/ambigua). El feedback de auditoría y del humano señala dos carencias concretas: (1) falta un recordatorio explícito contra verbos vagos como 'gestionar' o 'procesar' que violan la regla de un solo verbo de acción medible; (2) falta aclarar que los criterios de aceptación deben ser independientes y verificables mediante pruebas u observación directa, sin interpretación subjetiva.\",\n  \"improved_prompt\": \"Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\\n\\nNecesidad del stakeholder:\\n{{NECESIDAD_DEL_STAKEHOLDER}}\\n\\nContexto del proyecto:\\n{{CONTEXTO_DEL_PROYECTO}}\\n\\nInstrucciones:\\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\\n4. Redacta cada requisito en una sola línea con la forma \\\"El sistema deberá...\\\", usando un único verbo de acción medible y términos cuantificables (evita ambigüedades como \\\"rápido\\\", \\\"fácil\\\", \\\"adecuado\\\" sin métrica). NO uses verbos vagos o genéricos como \\\"gestionar\\\", \\\"procesar\\\", \\\"manejar\\\", \\\"administrar\\\" o \\\"ofrecer soporte\\\": sustitúyelos por el verbo de acción concreto y observable (por ejemplo, \\\"registrar\\\", \\\"calcular y mostrar\\\", \\\"validar\\\", \\\"notificar por correo\\\").\\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación en la línea siguiente, con el prefijo \\\"Criterio de aceptación:\\\". Cada criterio debe ser independiente y comprobable mediante una prueba, medición u observación directa, con condiciones y resultados objetivos (valores numéricos, estados, mensajes), sin depender de interpretación subjetiva ni de otros criterios.\\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\\n   a) Información faltante: ausencia total de un dato necesario.\\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\\n\\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\\n\\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\\n\\nFormato de salida obligatorio:\\n## Requisitos funcionales\\nRF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Requisitos no funcionales\\nRNF-01: El sistema deberá...\\nCriterio de aceptación: ...\\n\\n## Información faltante\\n- Pregunta concreta al stakeholder sobre cada dato ausente...\\n\\n## Aclaraciones sobre información ambigua\\n- Pregunta al stakeholder indicando las interpretaciones posibles...\\n\\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \\\"Sin elementos\\\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.\",\n  \"changes\": [\n    \"En la instrucción 4 se añadió prohibición explícita de verbos vagos ('gestionar', 'procesar', 'manejar', 'administrar', 'ofrecer soporte') con ejemplos de sustituciones por verbos concretos y observables, reforzando la regla de un solo verbo de acción medible (feedback de auditoría/humano).\",\n    \"En la instrucción 5 se añadió que cada criterio de aceptación debe ser independiente y verificable mediante prueba, medición u observación directa, con condiciones y resultados objetivos, sin interpretación subjetiva ni dependencia de otros criterios (feedback de auditoría/humano).\",\n    \"Se conservaron intactos el rol senior, la plantilla con variables {{...}}, el ejemplo few-shot, el formato de salida y la gestión de información faltante/ambigua, que ya eran fortalezas.\"\n  ],\n  \"reasoning_summary\": \"Se incorporaron prioritariamente las dos recomendaciones del feedback (verbos de acción específicos en lugar de verbos vagos, y criterios de aceptación independientes y objetivamente verificables), reforzando las instrucciones existentes sin alterar la estructura ni el formato que ya funcionaban. El prompt queda más preciso, con menos margen de ambigüedad y mayor verificabilidad de los requisitos generados.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Incorporate feedback: avoid vague verbs like 'gestionar'/'procesar', criteria independently testable."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529623
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:21:32.460089-05:00",
+      "audits": [
+        {
+          "id": "38e831bb-0827-47df-b777-bcb842e0dfcd",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\n{{NECESIDAD_DEL_STAKEHOLDER}}\n\nContexto del proyecto:\n{{CONTEXTO_DEL_PROYECTO}}\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción medible y términos cuantificables (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica). NO uses verbos vagos o genéricos como \"gestionar\", \"procesar\", \"manejar\", \"administrar\" o \"ofrecer soporte\": sustitúyelos por el verbo de acción concreto y observable (por ejemplo, \"registrar\", \"calcular y mostrar\", \"validar\", \"notificar por correo\").\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación en la línea siguiente, con el prefijo \"Criterio de aceptación:\". Cada criterio debe ser independiente y comprobable mediante una prueba, medición u observación directa, con condiciones y resultados objetivos (valores numéricos, estados, mensajes), sin depender de interpretación subjetiva ni de otros criterios.\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.",
+          "total_score": 86,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias, utilizando placeholders efectivamente para enfocar la tarea en la entrada del stakeholder.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "El tono es profesional, preciso y riguroso, alineado con las expectativas de un Ingeniero de Requisitos senior, sin ambigüedades en el rol o la actitud esperada.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Los objetivos están claramente definidos: generar requisitos trazables, objetivos y sin suposiciones, con formato de salida específico y reglas de clasificación y redacción explícitas.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Incluye un ejemplo detallado y relevante que ilustra el formato esperado, incluyendo tanto requisitos funcionales como no funcionales con sus criterios de aceptación, lo que facilita la comprensión y aplicación correcta.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "El prompt está organizado en bloques lógicos: rol, entradas (necesidad y contexto), instrucciones numeradas, formato de salida y manejo de incertidumbre, lo que asegura una secuencia coherente de acciones.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas; todas las instrucciones son consistentes entre sí y alineadas con el objetivo de producir requisitos verificables y libres de suposiciones.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Descompone la tarea en pasos claros: derivar requisitos, clasificarlos, redactarlos con verbos medibles, añadir criterios de aceptación y formular preguntas si falta información — una cadena de pensamiento lógica y bien estructurada.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Elimina ruido al prohibir explícitamente inventar funcionalidades, hacer suposiciones o incluir requisitos triviales, enfocando la atención únicamente en lo relevante y trazable.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación FN/NF, criterios de aceptación) al referirse implícitamente a buenas prácticas reconocidas en el campo.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Incluye mecanismos de autoverificación mediante la exigencia de criterios de aceptación verificables y la distinción entre información faltante y ambigua, lo que obliga al modelo a reflexionar sobre la suficiencia de la entrada.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se mencionan ni se requieren herramientas externas (como APIs o bases de datos), por lo que no aplica su uso. La puntuación refleja neutralidad, no deficiencia.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "No hay refuerzos explícitos de comportamiento (como recompensas por precisión o penalizaciones por suposiciones), aunque la instrucción de 'no inventar' funciona como una restricción regulativa. Se podría mejorar con lenguaje de refuerzo positivo.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Fuerte anclaje a la entrada: se prohíbe inventar funcionalidades o suposiciones, y se exige derivar requisitos exclusivamente de lo proporcionado, lo que minimiza el riesgo de alucinaciones.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Prioriza la factibilidad y la verificabilidad sobre la creatividad libre, lo cual es apropiado para la ingeniería de requisitos. La creatividad se canaliza en la formulación precisa, no en la invención de contenido.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Al requerir que los requisitos se derivede estrictamente de la entrada y prohibir suposiciones, se reduce el riesgo de sesgos inducidos por el modelo o por conocimiento previo no relevante.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Aunque no se enfoca en resistencia a injection, el diseño restrictivo (no inventar, no suponer) limita indirectamente la superficie de ataque por fabricación de contenido. No hay indicaciones de vulnerabilidad inherente en el prompt.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que no hay riesgo evidente. Si la entrada del stakeholdercontuviera PII, el prompt no la protege explícitamente, pero tampoco la expone innecesariamente.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El prompt instruye claramente a admitir límites de información mediante preguntas aclaratorias cuando los datos son insuficientes o ambiguos, lo que refleja una postura honesta y confiable frente a la incertidumbre.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El tono es respetuoso, profesional y constructivo, alineado con normas de colaboración en entornos de ingeniería y stakeholders, sin lenguaje ofensivo, excluente o inapropiado.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Solicita explícitamente preguntas aclaratorias cuando la información es insuficiente o ambigua, lo que promueve una interacción proactiva y necesaria para la corrección del output.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "El tono es formal, respetuoso y orientado al servicio (actuando como Ingeniero de Requisitos al servicio del stakeholder), adecuado para un contexto profesional de elicitation de requisitos.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias, utilizando placeholders efectivamente para enfocar la tarea en la entrada del stakeholder.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono es profesional, preciso y riguroso, alineado con las expectativas de un Ingeniero de Requisitos senior, sin ambigüedades en el rol o la actitud esperada.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Los objetivos están claramente definidos: generar requisitos trazables, objetivos y sin suposiciones, con formato de salida específico y reglas de clasificación y redacción explícitas.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye un ejemplo detallado y relevante que ilustra el formato esperado, incluyendo tanto requisitos funcionales como no funcionales con sus criterios de aceptación, lo que facilita la comprensión y aplicación correcta.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "El prompt está organizado en bloques lógicos: rol, entradas (necesidad y contexto), instrucciones numeradas, formato de salida y manejo de incertidumbre, lo que asegura una secuencia coherente de acciones.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas; todas las instrucciones son consistentes entre sí y alineadas con el objetivo de producir requisitos verificables y libres de suposiciones.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con instrucciones claras, roles definidos, formato de salida explícito y sin contradicciones internas. Cumple con los principios de claridad y organización necesaria para guiar la generación de requisitos trazables."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Descompone la tarea en pasos claros: derivar requisitos, clasificarlos, redactarlos con verbos medibles, añadir criterios de aceptación y formular preguntas si falta información — una cadena de pensamiento lógica y bien estructurada.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 8,
+                  "observation": "Elimina ruido al prohibir explícitamente inventar funcionalidades, hacer suposiciones o incluir requisitos triviales, enfocando la atención únicamente en lo relevante y trazable.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 9,
+                  "observation": "Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación FN/NF, criterios de aceptación) al referirse implícitamente a buenas prácticas reconocidas en el campo.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 8,
+                  "observation": "Incluye mecanismos de autoverificación mediante la exigencia de criterios de aceptación verificables y la distinción entre información faltante y ambigua, lo que obliga al modelo a reflexionar sobre la suficiencia de la entrada.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se mencionan ni se requieren herramientas externas (como APIs o bases de datos), por lo que no aplica su uso. La puntuación refleja neutralidad, no deficiencia.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 6,
+                  "observation": "No hay refuerzos explícitos de comportamiento (como recompensas por precisión o penalizaciones por suposiciones), aunque la instrucción de 'no inventar' funciona como una restricción regulativa. Se podría mejorar con lenguaje de refuerzo positivo.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía efectivamente un proceso de razonamiento estructurado: obliga a derivar requisitos únicamente de la información dada, a clasificarlos, a hacerlos medibles y verificables, y a identificar lagunas mediante preguntas aclaratorias, lo que refleja una carga intrínseca adecuada y metacognición explícita."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Fuerte anclaje a la entrada: se prohíbe inventar funcionalidades o suposiciones, y se exige derivar requisitos exclusivamente de lo proporcionado, lo que minimiza el riesgo de alucinaciones.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Prioriza la factibilidad y la verificabilidad sobre la creatividad libre, lo cual es apropiado para la ingeniería de requisitos. La creatividad se canaliza en la formulación precisa, no en la invención de contenido.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Al requerir que los requisitos se derivede estrictamente de la entrada y prohibir suposiciones, se reduce el riesgo de sesgos inducidos por el modelo o por conocimiento previo no relevante.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 8,
+                  "observation": "Aunque no se enfoca en resistencia a injection, el diseño restrictivo (no inventar, no suponer) limita indirectamente la superficie de ataque por fabricación de contenido. No hay indicaciones de vulnerabilidad inherente en el prompt.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que no hay riesgo evidente. Si la entrada del stakeholdercontuviera PII, el prompt no la protege explícitamente, pero tampoco la expone innecesariamente.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El prompt instruye claramente a admitir límites de información mediante preguntas aclaratorias cuando los datos son insuficientes o ambiguos, lo que refleja una postura honesta y confiable frente a la incertidumbre.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono es respetuoso, profesional y constructivo, alineado con normas de colaboración en entornos de ingeniería y stakeholders, sin lenguaje ofensivo, excluente o inapropiado.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt promueve la veracidad al proibir suposiciones y exigir trazabilidad a la entrada, reduce el riesgo de alucinaciones mediante la verificación explícita y evita sesgos al ceñirse estrictamente a la información proporcionada. No solicita ni maneja datos sensibles, por lo que privacidad y seguridad no son puntos críticos aquí."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Solicita explícitamente preguntas aclaratorias cuando la información es insuficiente o ambigua, lo que promueve una interacción proactiva y necesaria para la corrección del output.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 10,
+                  "observation": "El tono es formal, respetuoso y orientado al servicio (actuando como Ingeniero de Requisitos al servicio del stakeholder), adecuado para un contexto profesional de elicitation de requisitos.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita el sobre-engineering al enfocarse únicamente en lo esencial para generar requisitos trazables y verificables. Prioriza la claridad, la medibilidad y la trazabilidad, que son las propiedades de mayor impacto para este caso de uso, sin incluir elementos innecesarios."
+            }
+          ],
+          "recommendations": [
+            "Considerar añadir un refuerzo positivo explícito en la sección de incentivos (P12),例如: 'Tu precisión en evitar suposiciones será clave para la calidad del requisito final', para fortalecer la metacognición y la motivación intrínseca del modelo.",
+            "Incluir una nota breve en la sección de privacidad (P17) que recuerde al modelo manejar con confidencialidad cualquier dato sensible que pudiera aparecer en la entrada del stakeholder, incluso si no se solicita explícitamente su protección."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-6b48c352-03a1-4984-b978-0471705561d6",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5841,
+              "prompt_tokens": 3573,
+              "completion_tokens": 2268
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con instrucciones claras, roles definidos, formato de salida explícito y sin contradicciones internas. Cumple con los principios de claridad y organización necesaria para guiar la generación de requisitos trazables.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P1\",\n          \"property_name\": \"Cantidad de Tokens\",\n          \"score\": 8,\n          \"observation\": \"El prompt es conciso y evita redundancias, utilizando placeholders efectivamente para enfocar la tarea en la entrada del stakeholder.\"\n        },\n        {\n          \"property_id\": \"P2\",\n          \"property_name\": \"Manera / Tono\",\n          \"score\": 9,\n          \"observation\": \"El tono es profesional, preciso y riguroso, alineado con las expectativas de un Ingeniero de Requisitos senior, sin ambigüedades en el rol o la actitud esperada.\"\n        },\n        {\n          \"property_id\": \"P3\",\n          \"property_name\": \"Objetivos\",\n          \"score\": 10,\n          \"observation\": \"Los objetivos están claramente definidos: generar requisitos trazables, objetivos y sin suposiciones, con formato de salida específico y reglas de clasificación y redacción explícitas.\"\n        },\n        {\n          \"property_id\": \"P4\",\n          \"property_name\": \"Demonstrations / Demos\",\n          \"score\": 9,\n          \"observation\": \"Incluye un ejemplo detallado y relevante que ilustra el formato esperado, incluyendo tanto requisitos funcionales como no funcionales con sus criterios de aceptación, lo que facilita la comprensión y aplicación correcta.\"\n        },\n        {\n          \"property_id\": \"P5\",\n          \"property_name\": \"Lógica Estructural\",\n          \"score\": 10,\n          \"observation\": \"El prompt está organizado en bloques lógicos: rol, entradas (necesidad y contexto), instrucciones numeradas, formato de salida y manejo de incertidumbre, lo que asegura una secuencia coherente de acciones.\"\n        },\n        {\n          \"property_id\": \"P6\",\n          \"property_name\": \"Lógica Contextual\",\n          \"score\": 9,\n          \"observation\": \"No hay contradicciones internas; todas las instrucciones son consistentes entre sí y alineadas con el objetivo de producir requisitos verificables y libres de suposiciones.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía efectivamente un proceso de razonamiento estructurado: obliga a derivar requisitos únicamente de la información dada, a clasificarlos, a hacerlos medibles y verificables, y a identificar lagunas mediante preguntas aclaratorias, lo que refleja una carga intrínseca adecuada y metacognición explícita.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P7\",\n          \"property_name\": \"Carga Intrínseca\",\n          \"score\": 9,\n          \"observation\": \"Descompone la tarea en pasos claros: derivar requisitos, clasificarlos, redactarlos con verbos medibles, añadir criterios de aceptación y formular preguntas si falta información — una cadena de pensamiento lógica y bien estructurada.\"\n        },\n        {\n          \"property_id\": \"P8\",\n          \"property_name\": \"Carga Extránea\",\n          \"score\": 8,\n          \"observation\": \"Elimina ruido al prohibir explícitamente inventar funcionalidades, hacer suposiciones o incluir requisitos triviales, enfocando la atención únicamente en lo relevante y trazable.\"\n        },\n        {\n          \"property_id\": \"P9\",\n          \"property_name\": \"Carga Germana\",\n          \"score\": 9,\n          \"observation\": \"Activa conocimientos previos sobre ingeniería de requisitos (trazabilidad, verificabilidad, clasificación FN/NF, criterios de aceptación) al referirse implícitamente a buenas prácticas reconocidas en el campo.\"\n        },\n        {\n          \"property_id\": \"P10\",\n          \"property_name\": \"Metacognición\",\n          \"score\": 8,\n          \"observation\": \"Incluye mecanismos de autoverificación mediante la exigencia de criterios de aceptación verificables y la distinción entre información faltante y ambigua, lo que obliga al modelo a reflexionar sobre la suficiencia de la entrada.\"\n        },\n        {\n          \"property_id\": \"P11\",\n          \"property_name\": \"Herramientas Externas\",\n          \"score\": 5,\n          \"observation\": \"No se mencionan ni se requieren herramientas externas (como APIs o bases de datos), por lo que no aplica su uso. La puntuación refleja neutralidad, no deficiencia.\"\n        },\n        {\n          \"property_id\": \"P12\",\n          \"property_name\": \"Recompensas / Incentivos\",\n          \"score\": 6,\n          \"observation\": \"No hay refuerzos explícitos de comportamiento (como recompensas por precisión o penalizaciones por suposiciones), aunque la instrucción de 'no inventar' funciona como una restricción regulativa. Se podría mejorar con lenguaje de refuerzo positivo.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt promueve la veracidad al proibir suposiciones y exigir trazabilidad a la entrada, reduce el riesgo de alucinaciones mediante la verificación explícita y evita sesgos al ceñirse estrictamente a la información proporcionada. No solicita ni maneja datos sensibles, por lo que privacidad y seguridad no son puntos críticos aquí.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P13\",\n          \"property_name\": \"Detección de Alucinaciones\",\n          \"score\": 9,\n          \"observation\": \"Fuerte anclaje a la entrada: se prohíbe inventar funcionalidades o suposiciones, y se exige derivar requisitos exclusivamente de lo proporcionado, lo que minimiza el riesgo de alucinaciones.\"\n        },\n        {\n          \"property_id\": \"P14\",\n          \"property_name\": \"Balance Factibilidad vs. Creatividad\",\n          \"score\": 8,\n          \"observation\": \"Prioriza la factibilidad y la verificabilidad sobre la creatividad libre, lo cual es apropiado para la ingeniería de requisitos. La creatividad se canaliza en la formulación precisa, no en la invención de contenido.\"\n        },\n        {\n          \"property_id\": \"P15\",\n          \"property_name\": \"Sesgo\",\n          \"score\": 9,\n          \"observation\": \"Al requerir que los requisitos se derivede estrictamente de la entrada y prohibir suposiciones, se reduce el riesgo de sesgos inducidos por el modelo o por conocimiento previo no relevante.\"\n        },\n        {\n          \"property_id\": \"P16\",\n          \"property_name\": \"Seguridad\",\n          \"score\": 8,\n          \"observation\": \"Aunque no se enfoca en resistencia a injection, el diseño restrictivo (no inventar, no suponer) limita indirectamente la superficie de ataque por fabricación de contenido. No hay indicaciones de vulnerabilidad inherente en el prompt.\"\n        },\n        {\n          \"property_id\": \"P17\",\n          \"property_name\": \"Privacidad\",\n          \"score\": 8,\n          \"observation\": \"No se solicita ni se maneja información personal identificable (PII) en el prompt, por lo que no hay riesgo evidente. Si la entrada del stakeholdercontuviera PII, el prompt no la protege explícitamente, pero tampoco la expone innecesariamente.\"\n        },\n        {\n          \"property_id\": \"P18\",\n          \"property_name\": \"Confiabilidad\",\n          \"score\": 9,\n          \"observation\": \"El prompt instruye claramente a admitir límites de información mediante preguntas aclaratorias cuando los datos son insuficientes o ambiguos, lo que refleja una postura honesta y confiable frente a la incertidumbre.\"\n        },\n        {\n          \"property_id\": \"P19\",\n          \"property_name\": \"Normas Sociales\",\n          \"score\": 9,\n          \"observation\": \"El tono es respetuoso, profesional y constructivo, alineado con normas de colaboración en entornos de ingeniería y stakeholders, sin lenguaje ofensivo, excluente o inapropiado.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita el sobre-engineering al enfocarse únicamente en lo esencial para generar requisitos trazables y verificables. Prioriza la claridad, la medibilidad y la trazabilidad, que son las propiedades de mayor impacto para este caso de uso, sin incluir elementos innecesarios.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P20\",\n          \"property_name\": \"Interacción\",\n          \"score\": 9,\n          \"observation\": \"Solicita explícitamente preguntas aclaratorias cuando la información es insuficiente o ambigua, lo que promueve una interacción proactiva y necesaria para la corrección del output.\"\n        },\n        {\n          \"property_id\": \"P21\",\n          \"property_name\": \"Cortesía\",\n          \"score\": 10,\n          \"observation\": \"El tono es formal, respetuoso y orientado al servicio (actuando como Ingeniero de Requisitos al servicio del stakeholder), adecuado para un contexto profesional de elicitation de requisitos.\"\n        }\n      ]\n    }\n  ],\n  \"total_score\": 86,\n  \"recommendations\": [\n    \"Considerar añadir un refuerzo positivo explícito en la sección de incentivos (P12),例如: 'Tu precisión en evitar suposiciones será clave para la calidad del requisito final', para fortalecer la metacognición y la motivación intrínseca del modelo.\",\n    \"Incluir una nota breve en la sección de privacidad (P17) que recuerde al modelo manejar con confidencialidad cualquier dato sensible que pudiera aparecer en la entrada del stakeholder, incluso si no se solicita explícitamente su protección.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529690,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:21:51.795329-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "61c00d30-ecb6-46ff-90a3-ac87e77787d2",
+          "decision": "approve",
+          "feedback": null,
+          "edited_prompt": null,
+          "created_at": "2026-09-27T13:09:45.626607-05:00"
+        }
+      ]
+    }
+  ],
+  "result": null
+}

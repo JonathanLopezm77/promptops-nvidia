@@ -1,0 +1,1165 @@
+{
+  "id": "38bf85b3-6cfe-42b2-b099-192066089fa9",
+  "status": "APPROVED",
+  "created_at": "2026-09-27T12:14:05.760973-05:00",
+  "finished_at": null,
+  "original_prompt": "Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\n\nRequisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n\nCódigo a probar:\n{{CODIGO_A_PROBAR}}\n\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\n\nNo modifiques las variables {{...}} de la plantilla.",
+  "optimizer_model": "moonshotai/kimi-k3",
+  "auditor_model": "nvidia/nemotron-3-super-120b-a12b",
+  "executor_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "iterations": [
+    {
+      "id": "876a7d0b-3562-4306-8e99-c908ddfe3b43",
+      "iteration_number": 1,
+      "input_prompt": "Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\n\nRequisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n\nCódigo a probar:\n{{CODIGO_A_PROBAR}}\n\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "output_prompt": "Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\n\nRequisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n\nCódigo a probar:\n{{CODIGO_A_PROBAR}}\n\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "source": "original",
+      "optimizer_raw": null,
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:14:06.641138-05:00",
+      "audits": [
+        {
+          "id": "f77ce9ec-b8ff-43ed-8117-fb5d8dcd92d2",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\n\nRequisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n\nCódigo a probar:\n{{CODIGO_A_PROBAR}}\n\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\n\nNo modifiques las variables {{...}} de la plantilla.",
+          "total_score": 42,
+          "gates_passed": 0,
+          "gates_failed": 3,
+          "gates_not_applicable": 1,
+          "gates_score": 0.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 4,
+              "observation": "El prompt es excesivamente vago y requiere mucha inferencia, lo que aumenta innecesariamente el consumo de tokens.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 5,
+              "observation": "El tono es genérico y falta claridad en la instrucción; no se especifica qué tipo de pruebas se esperan ni el nivel de detalle.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 3,
+              "observation": "No se definen objetivos claros: falta rol específico, formato de salida (por ejemplo, JUnit, pytest), ni restricciones como lenguaje o framework.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 2,
+              "observation": "No se proporcionan ejemplos de casos de prueba ni estructura de suite, lo que dificulta la generación correcta por parte del modelo.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 4,
+              "observation": "La instrucción está desorganizada: mezcla generación de casos, suite automatizada, reporte de cobertura y defectos sin separar en bloques lógicos.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 5,
+              "observation": "No hay contradicciones directas, pero la falta de contexto sobre el dominio, lenguaje o tipo de sistema bajo prueba genera ambigüedad.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se requiere descomposición paso a paso compleja; la tarea es más de generación que de razonamiento.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "El prompt incluye variables de plantilla que son relevantes, pero no especifica qué información es crítica, lo que podría incluir ruido.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "Asume conocimiento previo en QA y testing, pero no activa explícitamente marcos como ISTQB o técnicas de diseño de pruebas.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 4,
+              "observation": "No incluye mecanismos de autoverificación, como validar que los casos cubran todos los requisitos o que sean independientes.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No menciona uso de herramientas como generadores de datos, mocks o frameworks de testing, aunque pudiera aplicarse.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No hay refuerzo de comportamiento deseado, como priorizar casos de riesgo o recompensar cobertura de ramas.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 3,
+              "observation": "No se pide anclar los casos de prueba a requisitos o código específicos; el modelo podría inventar funcionalidades no presentes.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 6,
+              "observation": "No se guía para evitar casos de prueba imposibles o poco realistas por exceso de creatividad sin base en los inputs.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "No hay indicación de sesgo evidente, pero tampoco se asegura cobertura equitativa de funcionalidades críticas o de riesgo.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "El prompt no solicita código ejecutable ni acceso a sistemas, por lo que riesgo de injection es bajo; sin embargo, no se evita generar pruebas que asuman entornos inseguros.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "No se manejan datos sensibles en la instrucción, pero tampoco se prohíbe el uso de PII en datos de prueba, lo que podría llevar a exposiciones.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 2,
+              "observation": "No se instruye al modelo a admitir falta de información cuando los requisitos o código son vagos o incompletos, lo que lleva a respuestas falsamente seguras.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No se genera contenido ofensivo o inapropiado en la instrucción, y el contexto de testing es neutral.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 3,
+              "observation": "No se pide al modelo que solicite información faltante (por ejemplo, si los requisitos están vacíos o el código es ilegible), lo que obliga a suposiciones riesgosas.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 6,
+              "observation": "El tono es directo pero no hostil; sin embargo, falta profesionalismo en la forma de manejar la incertidumbre, lo que afecta la experiencia de uso.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "FAIL",
+              "properties": [
+                {
+                  "score": 4,
+                  "observation": "El prompt es excesivamente vago y requiere mucha inferencia, lo que aumenta innecesariamente el consumo de tokens.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 5,
+                  "observation": "El tono es genérico y falta claridad en la instrucción; no se especifica qué tipo de pruebas se esperan ni el nivel de detalle.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 3,
+                  "observation": "No se definen objetivos claros: falta rol específico, formato de salida (por ejemplo, JUnit, pytest), ni restricciones como lenguaje o framework.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 2,
+                  "observation": "No se proporcionan ejemplos de casos de prueba ni estructura de suite, lo que dificulta la generación correcta por parte del modelo.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 4,
+                  "observation": "La instrucción está desorganizada: mezcla generación de casos, suite automatizada, reporte de cobertura y defectos sin separar en bloques lógicos.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 5,
+                  "observation": "No hay contradicciones directas, pero la falta de contexto sobre el dominio, lenguaje o tipo de sistema bajo prueba genera ambigüedad.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt carece de estructura clara y objetivos específicos. No define rol, formato de salida, ni restricciones explícitas. Omite demonstrations y presenta lógica estructural y contextual débiles."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "NO_APLICA",
+              "properties": [
+                {
+                  "score": 5,
+                  "observation": "No se requiere descomposición paso a paso compleja; la tarea es más de generación que de razonamiento.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 6,
+                  "observation": "El prompt incluye variables de plantilla que son relevantes, pero no especifica qué información es crítica, lo que podría incluir ruido.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 6,
+                  "observation": "Asume conocimiento previo en QA y testing, pero no activa explícitamente marcos como ISTQB o técnicas de diseño de pruebas.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 4,
+                  "observation": "No incluye mecanismos de autoverificación, como validar que los casos cubran todos los requisitos o que sean independientes.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 5,
+                  "observation": "No menciona uso de herramientas como generadores de datos, mocks o frameworks de testing, aunque pudiera aplicarse.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No hay refuerzo de comportamiento deseado, como priorizar casos de riesgo o recompensar cobertura de ramas.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "La tarea descrita es de generación de artefactos (casos de prueba), no de razonamiento complejo o resolución de problemas que requieran cadena de pensamiento, metacognición o uso de herramientas externas."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "FAIL",
+              "properties": [
+                {
+                  "score": 3,
+                  "observation": "No se pide anclar los casos de prueba a requisitos o código específicos; el modelo podría inventar funcionalidades no presentes.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 6,
+                  "observation": "No se guía para evitar casos de prueba imposibles o poco realistas por exceso de creatividad sin base en los inputs.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 7,
+                  "observation": "No hay indicación de sesgo evidente, pero tampoco se asegura cobertura equitativa de funcionalidades críticas o de riesgo.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 8,
+                  "observation": "El prompt no solicita código ejecutable ni acceso a sistemas, por lo que riesgo de injection es bajo; sin embargo, no se evita generar pruebas que asuman entornos inseguros.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 7,
+                  "observation": "No se manejan datos sensibles en la instrucción, pero tampoco se prohíbe el uso de PII en datos de prueba, lo que podría llevar a exposiciones.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 2,
+                  "observation": "No se instruye al modelo a admitir falta de información cuando los requisitos o código son vagos o incompletos, lo que lleva a respuestas falsamente seguras.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No se genera contenido ofensivo o inapropiado en la instrucción, y el contexto de testing es neutral.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt falla críticamente en veracidad y confiabilidad: no obliga a admitir límites cuando los requisitos o código son ambiguos, y no incluye mecanismos para detectar alucinaciones en los casos de prueba generados."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "FAIL",
+              "properties": [
+                {
+                  "score": 3,
+                  "observation": "No se pide al modelo que solicite información faltante (por ejemplo, si los requisitos están vacíos o el código es ilegible), lo que obliga a suposiciones riesgosas.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 6,
+                  "observation": "El tono es directo pero no hostil; sin embargo, falta profesionalismo en la forma de manejar la incertidumbre, lo que afecta la experiencia de uso.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt falla en interacción y cortesía: no solicita aclaraciones cuando faltan detalles críticos, y el tono es imperativo sin considerar la ambigüedad de los inputs."
+            }
+          ],
+          "recommendations": [
+            "Estructura el prompt con secciones claras: rol, objetivo, formato de salida (por ejemplo, en Gherkin o código de pytest), restricciones y ejemplos de casos de prueba (few-shot).",
+            "Añade instrucciones para que el modelo verifique que cada caso de prueba esté trazable a un requisito, admita cuando la información es insuficiente y evite inventar funcionalidades no presentes en los inputs."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-a5d1fb72-293e-4489-873c-d4a3e05964fe",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 4577,
+              "prompt_tokens": 2840,
+              "completion_tokens": 1737
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"FAIL\",\n      \"justification\": \"El prompt carece de estructura clara y objetivos específicos. No define rol, formato de salida, ni restricciones explícitas. Omite demonstrations y presenta lógica estructural y contextual débiles.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 4, \"observation\": \"El prompt es excesivamente vago y requiere mucha inferencia, lo que aumenta innecesariamente el consumo de tokens.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 5, \"observation\": \"El tono es genérico y falta claridad en la instrucción; no se especifica qué tipo de pruebas se esperan ni el nivel de detalle.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 3, \"observation\": \"No se definen objetivos claros: falta rol específico, formato de salida (por ejemplo, JUnit, pytest), ni restricciones como lenguaje o framework.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 2, \"observation\": \"No se proporcionan ejemplos de casos de prueba ni estructura de suite, lo que dificulta la generación correcta por parte del modelo.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 4, \"observation\": \"La instrucción está desorganizada: mezcla generación de casos, suite automatizada, reporte de cobertura y defectos sin separar en bloques lógicos.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 5, \"observation\": \"No hay contradicciones directas, pero la falta de contexto sobre el dominio, lenguaje o tipo de sistema bajo prueba genera ambigüedad.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"NO_APLICA\",\n      \"justification\": \"La tarea descrita es de generación de artefactos (casos de prueba), no de razonamiento complejo o resolución de problemas que requieran cadena de pensamiento, metacognición o uso de herramientas externas.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 5, \"observation\": \"No se requiere descomposición paso a paso compleja; la tarea es más de generación que de razonamiento.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 6, \"observation\": \"El prompt incluye variables de plantilla que son relevantes, pero no especifica qué información es crítica, lo que podría incluir ruido.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 6, \"observation\": \"Asume conocimiento previo en QA y testing, pero no activa explícitamente marcos como ISTQB o técnicas de diseño de pruebas.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 4, \"observation\": \"No incluye mecanismos de autoverificación, como validar que los casos cubran todos los requisitos o que sean independientes.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 5, \"observation\": \"No menciona uso de herramientas como generadores de datos, mocks o frameworks de testing, aunque pudiera aplicarse.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 5, \"observation\": \"No hay refuerzo de comportamiento deseado, como priorizar casos de riesgo o recompensar cobertura de ramas.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"FAIL\",\n      \"justification\": \"El prompt falla críticamente en veracidad y confiabilidad: no obliga a admitir límites cuando los requisitos o código son ambiguos, y no incluye mecanismos para detectar alucinaciones en los casos de prueba generados.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 3, \"observation\": \"No se pide anclar los casos de prueba a requisitos o código específicos; el modelo podría inventar funcionalidades no presentes.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 6, \"observation\": \"No se guía para evitar casos de prueba imposibles o poco realistas por exceso de creatividad sin base en los inputs.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 7, \"observation\": \"No hay indicación de sesgo evidente, pero tampoco se asegura cobertura equitativa de funcionalidades críticas o de riesgo.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 8, \"observation\": \"El prompt no solicita código ejecutable ni acceso a sistemas, por lo que riesgo de injection es bajo; sin embargo, no se evita generar pruebas que asuman entornos inseguros.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 7, \"observation\": \"No se manejan datos sensibles en la instrucción, pero tampoco se prohíbe el uso de PII en datos de prueba, lo que podría llevar a exposiciones.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 2, \"observation\": \"No se instruye al modelo a admitir falta de información cuando los requisitos o código son vagos o incompletos, lo que lleva a respuestas falsamente seguras.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 8, \"observation\": \"No se genera contenido ofensivo o inapropiado en la instrucción, y el contexto de testing es neutral.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"FAIL\",\n      \"justification\": \"El prompt falla en interacción y cortesía: no solicita aclaraciones cuando faltan detalles críticos, y el tono es imperativo sin considerar la ambigüedad de los inputs.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 3, \"observation\": \"No se pide al modelo que solicite información faltante (por ejemplo, si los requisitos están vacíos o el código es ilegible), lo que obliga a suposiciones riesgosas.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 6, \"observation\": \"El tono es directo pero no hostil; sin embargo, falta profesionalismo en la forma de manejar la incertidumbre, lo que afecta la experiencia de uso.\"}\n      ]\n    }\n  ],\n  \"total_score\": 42,\n  \"recommendations\": [\n    \"Estructura el prompt con secciones claras: rol, objetivo, formato de salida (por ejemplo, en Gherkin o código de pytest), restricciones y ejemplos de casos de prueba (few-shot).\",\n    \"Añade instrucciones para que el modelo verifique que cada caso de prueba esté trazable a un requisito, admita cuando la información es insuficiente y evite inventar funcionalidades no presentes en los inputs.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529247,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:16:07.713334-05:00"
+        }
+      ],
+      "human_decisions": []
+    },
+    {
+      "id": "7bee5d80-4e75-42d8-9d19-40337335d598",
+      "iteration_number": 2,
+      "input_prompt": "Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\n\nRequisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n\nCódigo a probar:\n{{CODIGO_A_PROBAR}}\n\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "output_prompt": "Actúa como ingeniero de QA senior especializado en verificación de requisitos.\n\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\n\nENTRADAS:\n- Requisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n- Código a probar:\n{{CODIGO_A_PROBAR}}\n\nINSTRUCCIONES:\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\n3. Formato obligatorio de cada caso:\n   - ID: TEST-XX (numeración secuencial)\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\n   - Precondiciones\n   - Pasos numerados\n   - Datos de entrada concretos\n   - Resultado esperado (observable y verificable)\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\n\nSALIDA (en este orden):\nA. Tabla de casos de prueba con el formato del punto 3.\nB. Suite automatizada en un bloque de código.\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-35a66873-5d6d-494b-909f-706e425abc0c",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 1913,
+          "prompt_tokens": 621,
+          "completion_tokens": 1292,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 12
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\\n\\nRequisitos y criterios de aceptación:\\n{{REQUISITOS_Y_CRITERIOS}}\\n\\nCódigo a probar:\\n{{CODIGO_A_PROBAR}}\\n\\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\\n\\nNo modifiques las variables {{...}} de la plantilla.\",\n  \"analysis\": \"El prompt tiene buena base (rol, variables, requisitos mínimos por caso) pero carece de: especificación del formato de salida, priorización de pruebas, formato del reporte de cobertura y defectos, severidad de defectos, criterios cuando el código no es ejecutable, y manejo de requisitos ambiguos. Además 'di qué requisitos quedaron cubiertos' es vago (¿formato tabla? ¿porcentaje?).\",\n  \"improved_prompt\": \"Actúa como ingeniero de QA senior especializado en verificación de requisitos.\\n\\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\\n\\nENTRADAS:\\n- Requisitos y criterios de aceptación:\\n{{REQUISITOS_Y_CRITERIOS}}\\n- Código a probar:\\n{{CODIGO_A_PROBAR}}\\n\\nINSTRUCCIONES:\\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\\n3. Formato obligatorio de cada caso:\\n   - ID: TEST-XX (numeración secuencial)\\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\\n   - Precondiciones\\n   - Pasos numerados\\n   - Datos de entrada concretos\\n   - Resultado esperado (observable y verificable)\\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\\n\\nSALIDA (en este orden):\\nA. Tabla de casos de prueba con el formato del punto 3.\\nB. Suite automatizada en un bloque de código.\\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\\n\\nNo modifiques las variables {{...}} de la plantilla.\",\n  \"changes\": [\n    \"Añadido objetivo explícito y contexto de trazabilidad requisito→prueba\",\n    \"Definido formato obligatorio por caso de prueba (prioridad, precondiciones, datos concretos, resultado verificable)\",\n    \"Especificada la estructura de salida en 4 secciones ordenadas (casos, suite, matriz de cobertura, defectos)\",\n    \"Formalizado el reporte de cobertura como matriz con porcentaje\",\n    \"Añadido esquema de severidad y campos obligatorios para defectos\",\n    \"Incorporado manejo de casos sin ejecución y de requisitos ambiguos\",\n    \"Requerido declarar el framework de testing usado y nombrar tests según su ID\"\n  ],\n  \"reasoning_summary\": \"La versión mejorada elimina ambigüedad sobre formato y estructura de salida, asegura trazabilidad completa requisito-prueba-defecto, añade priorización y severidad, y contempla casos límite del proceso (código no ejecutable, requisitos ambiguos), lo que hace los resultados más consistentes, auditables y accionables.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Optimize the prompt. Return JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529385
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:17:12.589543-05:00",
+      "audits": [
+        {
+          "id": "a18b77f7-6cbc-4c37-9f9f-1f9e2763be6e",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de QA senior especializado en verificación de requisitos.\n\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\n\nENTRADAS:\n- Requisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n- Código a probar:\n{{CODIGO_A_PROBAR}}\n\nINSTRUCCIONES:\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\n3. Formato obligatorio de cada caso:\n   - ID: TEST-XX (numeración secuencial)\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\n   - Precondiciones\n   - Pasos numerados\n   - Datos de entrada concretos\n   - Resultado esperado (observable y verificable)\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\n\nSALIDA (en este orden):\nA. Tabla de casos de prueba con el formato del punto 3.\nB. Suite automatizada en un bloque de código.\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\n\nNo modifiques las variables {{...}} de la plantilla.",
+          "total_score": 85,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias innecesarias, ajustándose bien a la complejidad de la tarea solicitada.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono profesional y técnico adecuado para un ingeniero de QA senior, sin ambigüedades en las instrucciones.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivo claramente definido: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos, con rol, formato y restricciones explícitas.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 5,
+              "observation": "No se proporcionan ejemplos few-shot de casos de prueba o estructura de salida, lo que podría ayudar a estandarizar el formato esperado.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Estructura lógica clara: entra, procesa según reglas, y salida en orden específico (A, B, C, D). Bien secuencial y fácil de seguir.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "No hay contradicciones internas; las instrucciones son consistentes entre sí y con el rol asignado.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Descomposición explícita en pasos (1-6) que guían el razonamiento paso a paso, facilitando el manejo de la complejidad inherente a la derivación de casos de prueba trazables.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Elimina ruido al enfocarse únicamente en requisitos y código proporcionados, evitando información irrelevante.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Activa conocimiento previo en QA, diseño de pruebas, trazabilidad, frameworks de testing y reporte de defectos, asumiendo experiencia de nivel senior.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Incluye mecanismos de autoverificación: señala ambigüedades, propone criterios asumidos, marca pruebas que requieren ejecución real y distingue entre análisis estático y dinámico.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 7,
+              "observation": "No especifica uso de herramientas externas (como APIs o librerías de testing), pero sí menciona frameworks adecuados al lenguaje, lo cual es suficiente y evita sobrecarga innecesaria.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "No hay refuerzo explícito de comportamiento (ej. 'se premia la exhaustividad'), pero la claridad en expectativas y estructura de salida actúa como incentivo implícito.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Obliga a basar casos en requisitos trazables y marca explícitamente cuando se asume criterios por ambigüedad, reduciendo riesgo de invención.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Fomenta creatividad en derivar casos de borde y error, pero dentro de límites factibles y verificables, evitando especulaciones sin base.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No muestra sesgo evidente en lenguaje o enfoque; trata todos los requisitos por igual y permite adaptación al código sin asumir tecnologías específicas.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a injection/jailbreaks: no ejecuta código, no interpreta entradas externas maliciosas, y las variables {{...}} están protegidas como placeholders.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "No solicita, maneja ni expone datos PII; trabaja únicamente con requisitos y código proporcionados como placeholders.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Admite límites: indica claramente cuando no se puede ejecutar, marca pruebas que requieren ejecución real y propone criterios asumidos ante ambigüedades.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Lenguaje respetuoso, profesional y alineado con conducta adecuada en contexto de ingeniería de software y QA.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 8,
+              "observation": "No solicita aclaraciones proactivamente, pero sí obliga a señalar ambigüedades y proponer criterios asumidos, lo cual cubre parcialmente la necesidad de interacción cuando falta información.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Tono profesional, respetuoso y adecuado para un contexto de colaboración técnica entre pares (ingeniero de QA y desarrollador).",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias innecesarias, ajustándose bien a la complejidad de la tarea solicitada.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional y técnico adecuado para un ingeniero de QA senior, sin ambigüedades en las instrucciones.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivo claramente definido: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos, con rol, formato y restricciones explícitas.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se proporcionan ejemplos few-shot de casos de prueba o estructura de salida, lo que podría ayudar a estandarizar el formato esperado.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Estructura lógica clara: entra, procesa según reglas, y salida en orden específico (A, B, C, D). Bien secuencial y fácil de seguir.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 8,
+                  "observation": "No hay contradicciones internas; las instrucciones son consistentes entre sí y con el rol asignado.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con una instrucción clara, rol definido, objetivo explícito y formato de salida especificado. No hay contradicciones internas y la organización por bloques (entrada, instrucciones, salida) es coherente."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Descomposición explícita en pasos (1-6) que guían el razonamiento paso a paso, facilitando el manejo de la complejidad inherente a la derivación de casos de prueba trazables.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 8,
+                  "observation": "Elimina ruido al enfocarse únicamente en requisitos y código proporcionados, evitando información irrelevante.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 9,
+                  "observation": "Activa conocimiento previo en QA, diseño de pruebas, trazabilidad, frameworks de testing y reporte de defectos, asumiendo experiencia de nivel senior.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 8,
+                  "observation": "Incluye mecanismos de autoverificación: señala ambigüedades, propone criterios asumidos, marca pruebas que requieren ejecución real y distingue entre análisis estático y dinámico.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 7,
+                  "observation": "No especifica uso de herramientas externas (como APIs o librerías de testing), pero sí menciona frameworks adecuados al lenguaje, lo cual es suficiente y evita sobrecarga innecesaria.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 6,
+                  "observation": "No hay refuerzo explícito de comportamiento (ej. 'se premia la exhaustividad'), pero la claridad en expectativas y estructura de salida actúa como incentivo implícito.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía efectivamente un proceso de razonamiento complejo: derivar casos desde requisitos (no código), incluir múltiples tipos de casos, generar código ejecutable, estimar resultados estáticamente y manejar ambigüedades — todo ello requiere decomposición, metacognición y carga germana adecuada."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Obliga a basar casos en requisitos trazables y marca explícitamente cuando se asume criterios por ambigüedad, reduciendo riesgo de invención.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Fomenta creatividad en derivar casos de borde y error, pero dentro de límites factibles y verificables, evitando especulaciones sin base.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No muestra sesgo evidente en lenguaje o enfoque; trata todos los requisitos por igual y permite adaptación al código sin asumir tecnologías específicas.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a injection/jailbreaks: no ejecuta código, no interpreta entradas externas maliciosas, y las variables {{...}} están protegidas como placeholders.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 10,
+                  "observation": "No solicita, maneja ni expone datos PII; trabaja únicamente con requisitos y código proporcionados como placeholders.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Admite límites: indica claramente cuando no se puede ejecutar, marca pruebas que requieren ejecución real y propone criterios asumidos ante ambigüedades.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Lenguaje respetuoso, profesional y alineado con conducta adecuada en contexto de ingeniería de software y QA.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt no genera riesgos de seguridad, privacidad o veracidad inherentes. No maneja datos sensibles, no incentiva fabrication, y promueve la trazabilidad y honestidad al marcar limitaciones (ej. ambigüedades, necesidad de ejecución real)."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "No solicita aclaraciones proactivamente, pero sí obliga a señalar ambigüedades y proponer criterios asumidos, lo cual cubre parcialmente la necesidad de interacción cuando falta información.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional, respetuoso y adecuado para un contexto de colaboración técnica entre pares (ingeniero de QA y desarrollador).",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita over-engineering al enfocarse en lo esencial: casos trazables, suite ejecutable, matriz de cobertura y reporte de defectos. Prioriza propiedades de alto impacto (trazabilidad, ejecutabilidad, veracidad) sin añadir elementos innecesarios."
+            }
+          ],
+          "recommendations": [
+            "Agregar 1-2 ejemplos few-shot de casos de prueba (incluyendo ID, requisito, pasos y resultado esperado) para estandarizar el formato esperado y reducir variabilidad en la salida.",
+            "Incluir una instrucción explícita para solicitar aclaraciones cuando los requisitos o el código son insuficientes, mejorando la propiedad P20 (Interacción) y reduciendo riesgos de supuestos no válidos."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-67df952f-39d0-4a0f-a3bf-fa85532446ed",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5111,
+              "prompt_tokens": 3247,
+              "completion_tokens": 1864
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con una instrucción clara, rol definido, objetivo explícito y formato de salida especificado. No hay contradicciones internas y la organización por bloques (entrada, instrucciones, salida) es coherente.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso y evita redundancias innecesarias, ajustándose bien a la complejidad de la tarea solicitada.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono profesional y técnico adecuado para un ingeniero de QA senior, sin ambigüedades en las instrucciones.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivo claramente definido: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos, con rol, formato y restricciones explícitas.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 5, \"observation\": \"No se proporcionan ejemplos few-shot de casos de prueba o estructura de salida, lo que podría ayudar a estandarizar el formato esperado.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 9, \"observation\": \"Estructura lógica clara: entra, procesa según reglas, y salida en orden específico (A, B, C, D). Bien secuencial y fácil de seguir.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 8, \"observation\": \"No hay contradicciones internas; las instrucciones son consistentes entre sí y con el rol asignado.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía efectivamente un proceso de razonamiento complejo: derivar casos desde requisitos (no código), incluir múltiples tipos de casos, generar código ejecutable, estimar resultados estáticamente y manejar ambigüedades — todo ello requiere decomposición, metacognición y carga germana adecuada.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"Descomposición explícita en pasos (1-6) que guían el razonamiento paso a paso, facilitando el manejo de la complejidad inherente a la derivación de casos de prueba trazables.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 8, \"observation\": \"Elimina ruido al enfocarse únicamente en requisitos y código proporcionados, evitando información irrelevante.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 9, \"observation\": \"Activa conocimiento previo en QA, diseño de pruebas, trazabilidad, frameworks de testing y reporte de defectos, asumiendo experiencia de nivel senior.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 8, \"observation\": \"Incluye mecanismos de autoverificación: señala ambigüedades, propone criterios asumidos, marca pruebas que requieren ejecución real y distingue entre análisis estático y dinámico.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 7, \"observation\": \"No especifica uso de herramientas externas (como APIs o librerías de testing), pero sí menciona frameworks adecuados al lenguaje, lo cual es suficiente y evita sobrecarga innecesaria.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 6, \"observation\": \"No hay refuerzo explícito de comportamiento (ej. 'se premia la exhaustividad'), pero la claridad en expectativas y estructura de salida actúa como incentivo implícito.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt no genera riesgos de seguridad, privacidad o veracidad inherentes. No maneja datos sensibles, no incentiva fabrication, y promueve la trazabilidad y honestidad al marcar limitaciones (ej. ambigüedades, necesidad de ejecución real).\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 9, \"observation\": \"Obliga a basar casos en requisitos trazables y marca explícitamente cuando se asume criterios por ambigüedad, reduciendo riesgo de invención.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 8, \"observation\": \"Fomenta creatividad en derivar casos de borde y error, pero dentro de límites factibles y verificables, evitando especulaciones sin base.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 8, \"observation\": \"No muestra sesgo evidente en lenguaje o enfoque; trata todos los requisitos por igual y permite adaptación al código sin asumir tecnologías específicas.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Resistente a injection/jailbreaks: no ejecuta código, no interpreta entradas externas maliciosas, y las variables {{...}} están protegidas como placeholders.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 10, \"observation\": \"No solicita, maneja ni expone datos PII; trabaja únicamente con requisitos y código proporcionados como placeholders.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Admite límites: indica claramente cuando no se puede ejecutar, marca pruebas que requieren ejecución real y propone criterios asumidos ante ambigüedades.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"Lenguaje respetuoso, profesional y alineado con conducta adecuada en contexto de ingeniería de software y QA.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita over-engineering al enfocarse en lo esencial: casos trazables, suite ejecutable, matriz de cobertura y reporte de defectos. Prioriza propiedades de alto impacto (trazabilidad, ejecutabilidad, veracidad) sin añadir elementos innecesarios.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 8, \"observation\": \"No solicita aclaraciones proactivamente, pero sí obliga a señalar ambigüedades y proponer criterios asumidos, lo cual cubre parcialmente la necesidad de interacción cuando falta información.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 9, \"observation\": \"Tono profesional, respetuoso y adecuado para un contexto de colaboración técnica entre pares (ingeniero de QA y desarrollador).\"}\n      ]\n    }\n  ],\n  \"total_score\": 85,\n  \"recommendations\": [\n    \"Agregar 1-2 ejemplos few-shot de casos de prueba (incluyendo ID, requisito, pasos y resultado esperado) para estandarizar el formato esperado y reducir variabilidad en la salida.\",\n    \"Incluir una instrucción explícita para solicitar aclaraciones cuando los requisitos o el código son insuficientes, mejorando la propiedad P20 (Interacción) y reduciendo riesgos de supuestos no válidos.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529431,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:17:37.292879-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "544dbb43-254b-4209-8a3e-22b20ac9a6d4",
+          "decision": "iterate",
+          "feedback": "[AUTO-ITERACIÓN 1/3] Recomendaciones: Agregar 1-2 ejemplos few-shot de casos de prueba (incluyendo ID, requisito, pasos y resultado esperado) para estandarizar el formato esperado y reducir variabilidad en la salida.; Incluir una instrucción explícita para solicitar aclaraciones cuando los requisitos o el código son insuficientes, mejorando la propiedad P20 (Interacción) y reduciendo riesgos de supuestos no válidos.",
+          "edited_prompt": null,
+          "created_at": "2026-09-27T12:17:40.582773-05:00"
+        }
+      ]
+    },
+    {
+      "id": "9d716242-51ca-4ef9-8eb3-281e5f96e690",
+      "iteration_number": 3,
+      "input_prompt": "Actúa como ingeniero de QA senior especializado en verificación de requisitos.\n\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\n\nENTRADAS:\n- Requisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n- Código a probar:\n{{CODIGO_A_PROBAR}}\n\nINSTRUCCIONES:\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\n3. Formato obligatorio de cada caso:\n   - ID: TEST-XX (numeración secuencial)\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\n   - Precondiciones\n   - Pasos numerados\n   - Datos de entrada concretos\n   - Resultado esperado (observable y verificable)\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\n\nSALIDA (en este orden):\nA. Tabla de casos de prueba con el formato del punto 3.\nB. Suite automatizada en un bloque de código.\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "output_prompt": "Actúa como ingeniero de QA senior especializado en verificación de requisitos.\n\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\n\nENTRADAS:\n- Requisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n- Código a probar:\n{{CODIGO_A_PROBAR}}\n\nINSTRUCCIONES:\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\n3. Formato obligatorio de cada caso:\n   - ID: TEST-XX (numeración secuencial)\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\n   - Precondiciones\n   - Pasos numerados\n   - Datos de entrada concretos\n   - Resultado esperado (observable y verificable)\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\n7. Si la información es insuficiente para proceder con confianza (requisitos contradictorios, criterios de aceptación ausentes, código incompleto, lenguaje o dependencias no identificables), NO supongas: enumera primero una lista de PREGUNTAS DE ACLARACIÓN concretas y espera la respuesta antes de generar los casos. Solo procede sin preguntar cuando la información disponible permita deducir criterios razonables y explícitos.\n\nEJEMPLOS DEL FORMATO ESPERADO (few-shot):\n\nEjemplo 1 (caso normal):\n- ID: TEST-01\n- Requisito(s): REQ-01\n- Prioridad: Alta\n- Precondiciones: Existe un usuario registrado con email \"ana@test.com\" y contraseña \"Pass123!\".\n- Pasos:\n  1. Enviar POST /login con body {\"email\": \"ana@test.com\", \"password\": \"Pass123!\"}.\n  2. Leer el cuerpo de la respuesta.\n- Datos de entrada: {\"email\": \"ana@test.com\", \"password\": \"Pass123!\"}.\n- Resultado esperado: HTTP 200 y la respuesta contiene un campo \"token\" no vacío.\n\nEjemplo 2 (caso de error):\n- ID: TEST-05\n- Requisito(s): REQ-01, SPEC-02\n- Prioridad: Alta\n- Precondiciones: No existe ningún usuario con email \"noexiste@test.com\".\n- Pasos:\n  1. Enviar POST /login con body {\"email\": \"noexiste@test.com\", \"password\": \"X\"}.\n  2. Leer código de estado y mensaje.\n- Datos de entrada: {\"email\": \"noexiste@test.com\", \"password\": \"X\"}.\n- Resultado esperado: HTTP 401 con mensaje \"Credenciales inválidas\" y sin campo \"token\" en la respuesta.\n\nSALIDA (en este orden):\n0. Preguntas de aclaración (solo si aplica la instrucción 7; si no aplica, omite esta sección).\nA. Tabla de casos de prueba con el formato del punto 3, siguiendo el estilo de los ejemplos.\nB. Suite automatizada en un bloque de código.\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\n\nNo modifiques las variables {{...}} de la plantilla.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-0da9b95c-fab2-46df-92b8-85b8361836bf",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 3345,
+          "prompt_tokens": 1561,
+          "completion_tokens": 1784,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 12
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.\\n\\nRequisitos y criterios de aceptación:\\n{{REQUISITOS_Y_CRITERIOS}}\\n\\nCódigo a probar:\\n{{CODIGO_A_PROBAR}}\\n\\nEscribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.\\n\\nNo modifiques las variables {{...}} de la plantilla.\",\n  \"analysis\": \"La versión anterior ya era sólida en estructura, trazabilidad y formato de salida, pero le faltaban dos elementos señalados por el feedback: ejemplos few-shot que fijen el formato exacto de los casos y reduzcan la variabilidad, y una instrucción explícita para pedir aclaraciones cuando los requisitos o el código sean insuficientes, evitando supuestos implícitos no válidos (propiedad P20 de interacción).\",\n  \"improved_prompt\": \"Actúa como ingeniero de QA senior especializado en verificación de requisitos.\\n\\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\\n\\nENTRADAS:\\n- Requisitos y criterios de aceptación:\\n{{REQUISITOS_Y_CRITERIOS}}\\n- Código a probar:\\n{{CODIGO_A_PROBAR}}\\n\\nINSTRUCCIONES:\\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\\n3. Formato obligatorio de cada caso:\\n   - ID: TEST-XX (numeración secuencial)\\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\\n   - Precondiciones\\n   - Pasos numerados\\n   - Datos de entrada concretos\\n   - Resultado esperado (observable y verificable)\\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\\n7. Si la información es insuficiente para proceder con confianza (requisitos contradictorios, criterios de aceptación ausentes, código incompleto, lenguaje o dependencias no identificables), NO supongas: enumera primero una lista de PREGUNTAS DE ACLARACIÓN concretas y espera la respuesta antes de generar los casos. Solo procede sin preguntar cuando la información disponible permita deducir criterios razonables y explícitos.\\n\\nEJEMPLOS DEL FORMATO ESPERADO (few-shot):\\n\\nEjemplo 1 (caso normal):\\n- ID: TEST-01\\n- Requisito(s): REQ-01\\n- Prioridad: Alta\\n- Precondiciones: Existe un usuario registrado con email \\\"ana@test.com\\\" y contraseña \\\"Pass123!\\\".\\n- Pasos:\\n  1. Enviar POST /login con body {\\\"email\\\": \\\"ana@test.com\\\", \\\"password\\\": \\\"Pass123!\\\"}.\\n  2. Leer el cuerpo de la respuesta.\\n- Datos de entrada: {\\\"email\\\": \\\"ana@test.com\\\", \\\"password\\\": \\\"Pass123!\\\"}.\\n- Resultado esperado: HTTP 200 y la respuesta contiene un campo \\\"token\\\" no vacío.\\n\\nEjemplo 2 (caso de error):\\n- ID: TEST-05\\n- Requisito(s): REQ-01, SPEC-02\\n- Prioridad: Alta\\n- Precondiciones: No existe ningún usuario con email \\\"noexiste@test.com\\\".\\n- Pasos:\\n  1. Enviar POST /login con body {\\\"email\\\": \\\"noexiste@test.com\\\", \\\"password\\\": \\\"X\\\"}.\\n  2. Leer código de estado y mensaje.\\n- Datos de entrada: {\\\"email\\\": \\\"noexiste@test.com\\\", \\\"password\\\": \\\"X\\\"}.\\n- Resultado esperado: HTTP 401 con mensaje \\\"Credenciales inválidas\\\" y sin campo \\\"token\\\" en la respuesta.\\n\\nSALIDA (en este orden):\\n0. Preguntas de aclaración (solo si aplica la instrucción 7; si no aplica, omite esta sección).\\nA. Tabla de casos de prueba con el formato del punto 3, siguiendo el estilo de los ejemplos.\\nB. Suite automatizada en un bloque de código.\\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\\n\\nNo modifiques las variables {{...}} de la plantilla.\",\n  \"changes\": [\n    \"Añadida instrucción 7: obligar a formular preguntas de aclaración concretas cuando los requisitos o el código sean insuficientes, en lugar de asumir supuestos no declarados\",\n    \"Añadidos 2 ejemplos few-shot (caso normal y caso de error) que fijan el formato exacto de ID, trazabilidad, pasos, datos y resultado esperado\",\n    \"Añadida sección 0 en la salida para las preguntas de aclaración cuando aplique, explicitando que se omita si no\",\n    \"Referencia en la salida A al estilo de los ejemplos para reforzar la consistencia del formato\"\n  ],\n  \"reasoning_summary\": \"Se incorporan exactamente las dos recomendaciones del feedback (few-shot y solicitud de aclaraciones) sobre la versión anterior ya aprobada, sin romper su estructura. Los ejemplos reducen la variabilidad del formato y las aclaraciones previenen supuestos inválidos, mejorando la robustez y la interacción del prompt.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Add few-shot examples and clarification instruction."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529531
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:19:54.501314-05:00",
+      "audits": [
+        {
+          "id": "957524b6-49df-45f1-97bb-27c6d6948915",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de QA senior especializado en verificación de requisitos.\n\nOBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.\n\nENTRADAS:\n- Requisitos y criterios de aceptación:\n{{REQUISITOS_Y_CRITERIOS}}\n- Código a probar:\n{{CODIGO_A_PROBAR}}\n\nINSTRUCCIONES:\n1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.\n2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).\n3. Formato obligatorio de cada caso:\n   - ID: TEST-XX (numeración secuencial)\n   - Requisito(s) que verifica: REQ-XX / SPEC-XX\n   - Prioridad: Alta / Media / Baja (según criticidad del requisito)\n   - Precondiciones\n   - Pasos numerados\n   - Datos de entrada concretos\n   - Resultado esperado (observable y verificable)\n4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.\n5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.\n6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.\n7. Si la información es insuficiente para proceder con confianza (requisitos contradictorios, criterios de aceptación ausentes, código incompleto, lenguaje o dependencias no identificables), NO supongas: enumera primero una lista de PREGUNTAS DE ACLARACIÓN concretas y espera la respuesta antes de generar los casos. Solo procede sin preguntar cuando la información disponible permita deducir criterios razonables y explícitos.\n\nEJEMPLOS DEL FORMATO ESPERADO (few-shot):\n\nEjemplo 1 (caso normal):\n- ID: TEST-01\n- Requisito(s): REQ-01\n- Prioridad: Alta\n- Precondiciones: Existe un usuario registrado con email \"ana@test.com\" y contraseña \"Pass123!\".\n- Pasos:\n  1. Enviar POST /login con body {\"email\": \"ana@test.com\", \"password\": \"Pass123!\"}.\n  2. Leer el cuerpo de la respuesta.\n- Datos de entrada: {\"email\": \"ana@test.com\", \"password\": \"Pass123!\"}.\n- Resultado esperado: HTTP 200 y la respuesta contiene un campo \"token\" no vacío.\n\nEjemplo 2 (caso de error):\n- ID: TEST-05\n- Requisito(s): REQ-01, SPEC-02\n- Prioridad: Alta\n- Precondiciones: No existe ningún usuario con email \"noexiste@test.com\".\n- Pasos:\n  1. Enviar POST /login con body {\"email\": \"noexiste@test.com\", \"password\": \"X\"}.\n  2. Leer código de estado y mensaje.\n- Datos de entrada: {\"email\": \"noexiste@test.com\", \"password\": \"X\"}.\n- Resultado esperado: HTTP 401 con mensaje \"Credenciales inválidas\" y sin campo \"token\" en la respuesta.\n\nSALIDA (en este orden):\n0. Preguntas de aclaración (solo si aplica la instrucción 7; si no aplica, omite esta sección).\nA. Tabla de casos de prueba con el formato del punto 3, siguiendo el estilo de los ejemplos.\nB. Suite automatizada en un bloque de código.\nC. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.\nD. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.\n\nNo modifiques las variables {{...}} de la plantilla.",
+          "total_score": 91,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es detallado pero eficiente; no hay redundancia excesiva y se enfoca en lo necesario para la tarea.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono profesional y técnico adecuado para un ingeniero QA senior; claro, directo y sin ambigüedades en las instrucciones.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivos explícitos: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos. Rol, meta, formato y restricciones bien definidos.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Incluye dos ejemplos Few-shot claros y representativos (caso normal y caso de error) que ilustran el formato esperado.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Estructura lógica por bloques: rol, objetivo, entradas, instrucciones numeradas, ejemplos y salida esperada. Flujo coherente y fácil de seguir.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas; todas las secciones se alinean con el objetivo de generar pruebas trazables y verificables.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Descompone la tarea en pasos claros: derivar casos de trazabilidad, incluir tipos de caso (normal, borde, error), definir formato, escribir suite, reportar cobertura y defectos.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Elimina irrelevancias: se centra únicamente en lo necesario para generar pruebas y reportes, sin incluir contexto innecesario sobre herramientas o entornos no especificados.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 10,
+              "observation": "Activa conocimiento previo en pruebas de software: trazabilidad, tipos de casos de prueba, formatos estándar, suites automatizadas, matriz de cobertura y reporte de defectos.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 10,
+              "observation": "Incluye mecanismos explícitos de autoverificación: señalamiento de ambigüedades, propuesta de criterios asumidos, detección de información insuficiente y regla clara para no suponer y en su lugar hacer preguntas de aclaración.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 7,
+              "observation": "No requiere herramientas externas explícitas, pero menciona adecuadamente el framework de testing según el lenguaje, lo cual es apropiado y contextual.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Refuerza el comportamiento deseado al enfatizar la trazabilidad, la ejecución real cuando sea posible y la honestidad en limitaciones (ej. marcar pruebas que requieren ejecución real).",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Evita alucinaciones al exigir que los casos se deriven de requisitos, no del código, y al requerir marcar pruebas que no se puedan verificar estáticamente.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Equilibrio adecuado: permite Creatividad en la derivación de casos de borde y error, pero dentro de límites factibles y verificables basados en requisitos.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No hay indicaciones de sesgo en lenguaje, roles o prioridades; el enfoque es neutral y técnico, aplicable a cualquier dominio.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a injection/jailbreaks: las instrucciones son específicas y cerradas, enfocadas en una tarea técnica bien delimitada, sin abrir canales para comportamiento no deseado.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "No se requiere ni se sugiere manejo de datos PII; las entradas son requisitos y código, y los ejemplos usan datos genéricos (ana@test.com).",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Admite límites: instruye claramente a no suponer y a hacer preguntas de aclaración cuando la información es insuficiente, mostrando transparencia sobre incertidumbre.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "El tono y contenido son apropiados, profesionales y alineados con conducta esperada en un contexto de ingeniería de QA; no hay lenguaje ofensivo ni inapropiado.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "Incluye explícitamente un mecanismo para solicitar aclaraciones (punto 7), lo cual mejora la interacción y reduce riesgos de suposiciones erróneas.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "Tono respetuoso y profesional en todo momento; las instrucciones son directas pero no impositivas, y se valora la honestidad sobre limitaciones.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es detallado pero eficiente; no hay redundancia excesiva y se enfoca en lo necesario para la tarea.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional y técnico adecuado para un ingeniero QA senior; claro, directo y sin ambigüedades en las instrucciones.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivos explícitos: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos. Rol, meta, formato y restricciones bien definidos.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye dos ejemplos Few-shot claros y representativos (caso normal y caso de error) que ilustran el formato esperado.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "Estructura lógica por bloques: rol, objetivo, entradas, instrucciones numeradas, ejemplos y salida esperada. Flujo coherente y fácil de seguir.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas; todas las secciones se alinean con el objetivo de generar pruebas trazables y verificables.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado, con roles claros, objetivos definidos y formato de salida especificado. Incluye ejemplos Few-shot relevantes y mantiene coherencia interna sin contradicciones."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Descompone la tarea en pasos claros: derivar casos de trazabilidad, incluir tipos de caso (normal, borde, error), definir formato, escribir suite, reportar cobertura y defectos.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 9,
+                  "observation": "Elimina irrelevancias: se centra únicamente en lo necesario para generar pruebas y reportes, sin incluir contexto innecesario sobre herramientas o entornos no especificados.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 10,
+                  "observation": "Activa conocimiento previo en pruebas de software: trazabilidad, tipos de casos de prueba, formatos estándar, suites automatizadas, matriz de cobertura y reporte de defectos.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 10,
+                  "observation": "Incluye mecanismos explícitos de autoverificación: señalamiento de ambigüedades, propuesta de criterios asumidos, detección de información insuficiente y regla clara para no suponer y en su lugar hacer preguntas de aclaración.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 7,
+                  "observation": "No requiere herramientas externas explícitas, pero menciona adecuadamente el framework de testing según el lenguaje, lo cual es apropiado y contextual.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 8,
+                  "observation": "Refuerza el comportamiento deseado al enfatizar la trazabilidad, la ejecución real cuando sea posible y la honestidad en limitaciones (ej. marcar pruebas que requieren ejecución real).",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía eficazmente el razonamiento complejo requerido: descompone la tarea, elimina ruido, activa conocimiento previo en QA/testing, incluye metacognición (verificación de ambigüedades) yDefine claramente cuándo hacer preguntas de aclaración."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Evita alucinaciones al exigir que los casos se deriven de requisitos, no del código, y al requerir marcar pruebas que no se puedan verificar estáticamente.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Equilibrio adecuado: permite Creatividad en la derivación de casos de borde y error, pero dentro de límites factibles y verificables basados en requisitos.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay indicaciones de sesgo en lenguaje, roles o prioridades; el enfoque es neutral y técnico, aplicable a cualquier dominio.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a injection/jailbreaks: las instrucciones son específicas y cerradas, enfocadas en una tarea técnica bien delimitada, sin abrir canales para comportamiento no deseado.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 10,
+                  "observation": "No se requiere ni se sugiere manejo de datos PII; las entradas son requisitos y código, y los ejemplos usan datos genéricos (ana@test.com).",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Admite límites: instruye claramente a no suponer y a hacer preguntas de aclaración cuando la información es insuficiente, mostrando transparencia sobre incertidumbre.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 10,
+                  "observation": "El tono y contenido son apropiados, profesionales y alineados con conducta esperada en un contexto de ingeniería de QA; no hay lenguaje ofensivo ni inapropiado.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt promueve veracidad al exigir trazabilidad, admitir límites cuando falta información y evitar suposiciones. No hay indicaciones de sesgo, y la estructura respeta normas sociales y de seguridad al no generar contenido dañino ni requerir manejo de PII."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 10,
+                  "observation": "Incluye explícitamente un mecanismo para solicitar aclaraciones (punto 7), lo cual mejora la interacción y reduce riesgos de suposiciones erróneas.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 10,
+                  "observation": "Tono respetuoso y profesional en todo momento; las instrucciones son directas pero no impositivas, y se valora la honestidad sobre limitaciones.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita over-engineering: se centra en las propiedades clave para la tarea (trazabilidad, tipos de caso, formato, suite, cobertura, reporte) y prioriza claridad y usabilidad sin sobrecargar con requisitos no esenciales."
+            }
+          ],
+          "recommendations": [
+            "Considerar agregar un recordatorio explícito para validar que los IDs de requisitos (REQ-XX, SPEC-XX) mencionados en los casos de prueba existen realmente en las entradas {{REQUISITOS_Y_CRITERIOS}}, reforzando la trazabilidad bidireccional.",
+            "Incluir una nota sobre cómo manejar requisitos no funcionales (ej. rendimiento, seguridad) en la generación de casos de prueba, ya que el prompt actual se enfoca mayormente en funcionales."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-c745a138-3585-4e32-b95b-cf5d8920abf0",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 7793,
+              "prompt_tokens": 5882,
+              "completion_tokens": 1911
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado, con roles claros, objetivos definidos y formato de salida especificado. Incluye ejemplos Few-shot relevantes y mantiene coherencia interna sin contradicciones.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es detallado pero eficiente; no hay redundancia excesiva y se enfoca en lo necesario para la tarea.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono profesional y técnico adecuado para un ingeniero QA senior; claro, directo y sin ambigüedades en las instrucciones.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivos explícitos: generar casos de prueba trazables, suite automatizada, matriz de cobertura y reporte de defectos. Rol, meta, formato y restricciones bien definidos.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 9, \"observation\": \"Incluye dos ejemplos Few-shot claros y representativos (caso normal y caso de error) que ilustran el formato esperado.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"Estructura lógica por bloques: rol, objetivo, entradas, instrucciones numeradas, ejemplos y salida esperada. Flujo coherente y fácil de seguir.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones internas; todas las secciones se alinean con el objetivo de generar pruebas trazables y verificables.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía eficazmente el razonamiento complejo requerido: descompone la tarea, elimina ruido, activa conocimiento previo en QA/testing, incluye metacognición (verificación de ambigüedades) yDefine claramente cuándo hacer preguntas de aclaración.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"Descompone la tarea en pasos claros: derivar casos de trazabilidad, incluir tipos de caso (normal, borde, error), definir formato, escribir suite, reportar cobertura y defectos.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 9, \"observation\": \"Elimina irrelevancias: se centra únicamente en lo necesario para generar pruebas y reportes, sin incluir contexto innecesario sobre herramientas o entornos no especificados.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 10, \"observation\": \"Activa conocimiento previo en pruebas de software: trazabilidad, tipos de casos de prueba, formatos estándar, suites automatizadas, matriz de cobertura y reporte de defectos.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 10, \"observation\": \"Incluye mecanismos explícitos de autoverificación: señalamiento de ambigüedades, propuesta de criterios asumidos, detección de información insuficiente y regla clara para no suponer y en su lugar hacer preguntas de aclaración.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 7, \"observation\": \"No requiere herramientas externas explícitas, pero menciona adecuadamente el framework de testing según el lenguaje, lo cual es apropiado y contextual.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 8, \"observation\": \"Refuerza el comportamiento deseado al enfatizar la trazabilidad, la ejecución real cuando sea posible y la honestidad en limitaciones (ej. marcar pruebas que requieren ejecución real).\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt promueve veracidad al exigir trazabilidad, admitir límites cuando falta información y evitar suposiciones. No hay indicaciones de sesgo, y la estructura respeta normas sociales y de seguridad al no generar contenido dañino ni requerir manejo de PII.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 9, \"observation\": \"Evita alucinaciones al exigir que los casos se deriven de requisitos, no del código, y al requerir marcar pruebas que no se puedan verificar estáticamente.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 8, \"observation\": \"Equilibrio adecuado: permite Creatividad en la derivación de casos de borde y error, pero dentro de límites factibles y verificables basados en requisitos.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 9, \"observation\": \"No hay indicaciones de sesgo en lenguaje, roles o prioridades; el enfoque es neutral y técnico, aplicable a cualquier dominio.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Resistente a injection/jailbreaks: las instrucciones son específicas y cerradas, enfocadas en una tarea técnica bien delimitada, sin abrir canales para comportamiento no deseado.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 10, \"observation\": \"No se requiere ni se sugiere manejo de datos PII; las entradas son requisitos y código, y los ejemplos usan datos genéricos (ana@test.com).\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Admite límites: instruye claramente a no suponer y a hacer preguntas de aclaración cuando la información es insuficiente, mostrando transparencia sobre incertidumbre.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 10, \"observation\": \"El tono y contenido son apropiados, profesionales y alineados con conducta esperada en un contexto de ingeniería de QA; no hay lenguaje ofensivo ni inapropiado.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita over-engineering: se centra en las propiedades clave para la tarea (trazabilidad, tipos de caso, formato, suite, cobertura, reporte) y prioriza claridad y usabilidad sin sobrecargar con requisitos no esenciales.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 10, \"observation\": \"Incluye explícitamente un mecanismo para solicitar aclaraciones (punto 7), lo cual mejora la interacción y reduce riesgos de suposiciones erróneas.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 10, \"observation\": \"Tono respetuoso y profesional en todo momento; las instrucciones son directas pero no impositivas, y se valora la honestidad sobre limitaciones.\"}\n      ]\n    }\n  ],\n  \"total_score\": 91,\n  \"recommendations\": [\n    \"Considerar agregar un recordatorio explícito para validar que los IDs de requisitos (REQ-XX, SPEC-XX) mencionados en los casos de prueba existen realmente en las entradas {{REQUISITOS_Y_CRITERIOS}}, reforzando la trazabilidad bidireccional.\",\n    \"Incluir una nota sobre cómo manejar requisitos no funcionales (ej. rendimiento, seguridad) en la generación de casos de prueba, ya que el prompt actual se enfoca mayormente en funcionales.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529617,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:20:34.855547-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "08f168ad-8576-4175-b09f-c7f36f680adb",
+          "decision": "approve",
+          "feedback": null,
+          "edited_prompt": null,
+          "created_at": "2026-09-27T13:41:21.800273-05:00"
+        }
+      ]
+    }
+  ],
+  "result": null
+}

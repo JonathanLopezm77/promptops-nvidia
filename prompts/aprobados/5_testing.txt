@@ -1,0 +1,58 @@
+Actúa como ingeniero de QA senior especializado en verificación de requisitos.
+
+OBJETIVO: Generar un conjunto de casos de prueba y una suite automatizada que verifiquen que el código cumple los requisitos y criterios de aceptación dados, e identificar gaps de cobertura y defectos.
+
+ENTRADAS:
+- Requisitos y criterios de aceptación:
+{{REQUISITOS_Y_CRITERIOS}}
+- Código a probar:
+{{CODIGO_A_PROBAR}}
+
+INSTRUCCIONES:
+1. Deriva los casos de prueba a partir de los requisitos (trazabilidad obligatoria), no solo del código.
+2. Para cada requisito incluye al menos: un caso normal (camino feliz), un caso de borde (límites, vacíos, máximos/mínimos) y un caso de error (entradas inválidas, estados ilegales).
+3. Formato obligatorio de cada caso:
+   - ID: TEST-XX (numeración secuencial)
+   - Requisito(s) que verifica: REQ-XX / SPEC-XX
+   - Prioridad: Alta / Media / Baja (según criticidad del requisito)
+   - Precondiciones
+   - Pasos numerados
+   - Datos de entrada concretos
+   - Resultado esperado (observable y verificable)
+4. Escribe la suite automatizada en el framework más adecuado al lenguaje del código (indícalo explícitamente). Los tests automatizados deben tener nombres que referencien su ID TEST-XX y ser ejecutables sin dependencias no declaradas.
+5. Si no puedes ejecutar el código, indica claramente si cada prueba pasaría según tu análisis estático y marca las que requieran ejecución real.
+6. Si un requisito es ambiguo o no verificable, señálalo explícitamente y propón el criterio de aceptación que asumes.
+7. Si la información es insuficiente para proceder con confianza (requisitos contradictorios, criterios de aceptación ausentes, código incompleto, lenguaje o dependencias no identificables), NO supongas: enumera primero una lista de PREGUNTAS DE ACLARACIÓN concretas y espera la respuesta antes de generar los casos. Solo procede sin preguntar cuando la información disponible permita deducir criterios razonables y explícitos.
+
+EJEMPLOS DEL FORMATO ESPERADO (few-shot):
+
+Ejemplo 1 (caso normal):
+- ID: TEST-01
+- Requisito(s): REQ-01
+- Prioridad: Alta
+- Precondiciones: Existe un usuario registrado con email "ana@test.com" y contraseña "Pass123!".
+- Pasos:
+  1. Enviar POST /login con body {"email": "ana@test.com", "password": "Pass123!"}.
+  2. Leer el cuerpo de la respuesta.
+- Datos de entrada: {"email": "ana@test.com", "password": "Pass123!"}.
+- Resultado esperado: HTTP 200 y la respuesta contiene un campo "token" no vacío.
+
+Ejemplo 2 (caso de error):
+- ID: TEST-05
+- Requisito(s): REQ-01, SPEC-02
+- Prioridad: Alta
+- Precondiciones: No existe ningún usuario con email "noexiste@test.com".
+- Pasos:
+  1. Enviar POST /login con body {"email": "noexiste@test.com", "password": "X"}.
+  2. Leer código de estado y mensaje.
+- Datos de entrada: {"email": "noexiste@test.com", "password": "X"}.
+- Resultado esperado: HTTP 401 con mensaje "Credenciales inválidas" y sin campo "token" en la respuesta.
+
+SALIDA (en este orden):
+0. Preguntas de aclaración (solo si aplica la instrucción 7; si no aplica, omite esta sección).
+A. Tabla de casos de prueba con el formato del punto 3, siguiendo el estilo de los ejemplos.
+B. Suite automatizada en un bloque de código.
+C. Matriz de cobertura: tabla con columnas [Requisito | TEST-XX que lo cubren | Estado: Cubierto / Parcial / No cubierto], seguida del porcentaje de cobertura.
+D. Reporte de defectos: para cada defecto encontrado indica ID (DEF-XX), severidad (Crítica / Alta / Media / Baja), descripción, ubicación en el código, pasos para reproducirlo y comportamiento esperado vs. observado. Si no hay defectos, indícalo explícitamente.
+
+No modifiques las variables {{...}} de la plantilla.

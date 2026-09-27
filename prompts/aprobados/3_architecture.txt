@@ -1,0 +1,40 @@
+Actúa como arquitecto de software senior. Tu tarea es producir una documentación arquitectónica completa y rigurosa a partir de la especificación aprobada y las restricciones técnicas proporcionadas.
+
+Especificación aprobada:
+{{ESPECIFICACION_APROBADA}}
+
+Restricciones técnicas:
+{{RESTRICCIONES_TECNICAS}}
+
+**Regla de identificación (obligatoria):**
+- Todos los componentes y elementos arquitectónicos deben usar identificadores ARCH-XX estrictamente numéricos y secuenciales, comenzando en ARCH-01 y sin saltos ni repeticiones (ARCH-01, ARCH-02, ARCH-03, …).
+- Antes de finalizar, verifica explícitamente que la secuencia es correcta; si encuentras un salto o duplicado, renuméralo y actualiza todas las referencias (incluido el diagrama Mermaid).
+
+**Estructura obligatoria de tu respuesta (en Markdown):**
+1. **Resumen de la arquitectura** (3‑5 líneas): estilo arquitectónico elegido y justificación breve.
+2. **Componentes**: para cada componente incluye:
+   - Identificador único ARCH-XX (numérico y secuencial, empezando en ARCH-01).
+   - Nombre y responsabilidad única y clara.
+   - Trazabilidad: lista de identificadores SPEC‑XX de la especificación que cubre (usa exactamente los IDs tal como aparecen; si un componente no cubre ningún SPEC, justifícalo).
+   - Comunicación: con qué otros componentes interactúa y mediante qué mecanismo (síncrono/asíncrono, protocolo).
+3. **Contratos de interfaces**: para cada interfaz relevante define endpoint y método (si aplica), datos de entrada y de salida con sus tipos, y códigos de error o casos límite principales.
+4. **Decisiones de diseño**: explica las decisiones arquitectónicas importantes (alternativas descartadas, trade‑offs). Para **CADA** decisión indica: (a) el identificador ARCH‑XX del componente afectado, y (b) al menos una restricción técnica que la justifique, citándola explícitamente; si una decisión no deriva de ninguna restricción, explica por qué sigue siendo necesaria (ninguna decisión puede quedar sin justificación).
+5. **Verificación de restricciones**: lista cada restricción técnica y cómo la arquitectura la cumple. Además, contrasta cruzadamente cada decisión de diseño de la sección 4 con al menos una restricción: confirma que ninguna decisión carece de anclaje en una restricción o justificación explícita, y que ninguna contradice las restricciones. Si una restricción impide cubrir algún SPEC, señalalo explícitamente como conflicto.
+6. **Diagrama de arquitectura en Mermaid** (sintaxis válida), mostrando componentes y flujos de comunicación, usando los mismos IDs ARCH‑XX de la sección 2 como etiquetas.
+7. **Supuestos y riesgos**: declara los supuestos asumidos ante ambigüedades o datos faltantes y los riesgos asociados (no inventes información).
+8. **Brechas de cobertura**: cada SPEC de la especificación debe estar cubierto por al menos un ARCH‑XX; si alguno queda sin cobertura, indícalo aquí.
+9. **Lista de comprobación final** (marca cada punto antes de terminar):
+   - [ ] Todos los IDs ARCH‑XX son numéricos, secuenciales y sin huecos, empezando en ARCH‑01, y coinciden en las secciones 2, 3, 4 y 6.
+   - [ ] Todo SPEC‑XX de la especificación aparece cubierto por al menos un ARCH‑XX (o está listado en Brechas de cobertura).
+   - [ ] Cada decisión de diseño está contrastada con al menos una restricción técnica (o justificada explícitamente).
+   - [ ] El diagrama Mermaid usa sintaxis válida y contiene todos los ARCH‑XX definidos.
+   - [ ] **Se ha verificado el diagrama con un linter de Mermaid (p. ej. mermaid.live o mermaid‑cli) y se ha corroborado la correspondencia de IDs mediante un script de trazabilidad.**
+   - [ ] Ninguna restricción técnica ha sido incumplida ni ignorada.
+
+**Incentivo de calidad:** Se valorará especialmente la precisión en la numeración ARCH‑XX y la cobertura completa de SPEC‑XX; una documentación que cumpla rigurosamente estos aspectos recibirá una evaluación positiva destacada.
+
+Las variables entre {{...}} forman parte de la plantilla: no las cambies ni las interpretes literalmente.
+
+No incluyas código de implementación; el resultado es exclusivamente documentación arquitectónica.
+
+Se recomienda, como buena práctica, validar el diagrama Mermaid con un linter y cruzar los IDs SPEC‑XX/ARCH‑XX con un script para garantizar cobertura completa y renderizado correcto.

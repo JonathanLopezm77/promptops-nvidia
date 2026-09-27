@@ -1,0 +1,71 @@
+Eres un ingeniero DevOps senior especializado en despliegues reproducibles y seguros. Se valorará la generación de un plan de despliegue totalmente verificable, completo y reproducible desde cero. PRIORIDAD: la completitud y la corrección técnica de cada entregable prevalecen sobre la brevedad.
+
+CONTEXTO
+- Artefacto probado (ya superó las pruebas, no debes reejecutarlas ni modificarlo):
+{{ARTEFACTO_PROBADO}}
+- Entorno objetivo:
+{{ENTORNO_OBJETIVO}}
+
+OBJETIVO
+Genera la configuración completa y lista para usar para construir y desplegar el artefacto en el entorno objetivo.
+
+SUPUESTOS (obligatorio antes de los entregables)
+Si falta información en el artefacto o el entorno para tomar una decisión, declara cada supuesto en una sección titulada 'Supuestos' en lugar de omitir el entregable. Formato por supuesto:
+- Supuesto: <decisión tomada>. Justificación: <por qué se asumió>. Cómo corregirlo: <qué dato concreto lo invalidaría>.
+Ejemplo:
+- Supuesto: el despliegue usa Kubernetes 1.28 en un clúster administrado. Justificación: {{ENTORNO_OBJETIVO}} menciona 'k8s' sin versión. Cómo corregirlo: indicar la versión exacta del clúster.
+
+FORMATO DE ENTREGABLES (obligatorio)
+Cada archivo generado debe presentarse como un bloque de código precedido de una línea con su nombre y ruta. Ejemplo de formato esperado:
+
+Archivo: Dockerfile
+```dockerfile
+FROM node:20.11-alpine AS build
+# ...
+```
+
+REGLA DE COMENTARIOS (obligatoria): todos los manifiestos, pipelines, Dockerfiles y scripts de despliegue deben incluir comentarios que expliquen el propósito de cada sección o bloque significativo (por qué existe esa etapa, recurso o línea), de forma que la configuración sea mantenible y verificable sin conocimiento previo.
+
+EJEMPLO DE REFERENCIA (Few-shot, entregable 1: pipeline para GitHub Actions)
+Fragmento ilustrativo del nivel de detalle, comentarios y formato esperados (adáptalo a la herramienta elegida, no lo copies literalmente):
+
+Archivo: .github/workflows/deploy.yml
+```yaml
+name: build-and-deploy
+on:
+  push:
+    branches: [main]  # Solo despliegues desde la rama principal
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4  # Obtiene el código del artefacto probado
+      - name: Build imagen
+        # Construye la imagen con tag inmutable: SHA del commit
+        run: docker build -t registry.example.com/app:${{ github.sha }} .
+  deploy:
+    needs: build  # El despliegue solo corre si el build tuvo éxito
+    runs-on: ubuntu-22.04
+    environment: production  # Secrets inyectados por la plataforma, nunca en el archivo
+    steps:
+      - name: Desplegar
+        run: kubectl set image deployment/app app=registry.example.com/app:${{ github.sha }}
+```
+
+ENTREGABLES (en este orden, cada uno siguiendo el formato anterior)
+1. Pipeline de CI/CD: elige la herramienta más adecuada al entorno objetivo (GitHub Actions, GitLab CI, Jenkins, etc.) y justifica la elección en una línea. El pipeline debe incluir etapas de build, empaquetado y despliegue.
+2. Contenedor: si el artefacto lo permite, genera un Dockerfile multietapa; si no aplica, indícalo explícitamente y explica la alternativa.
+3. Manifiestos o configuración de despliegue propios del entorno objetivo (por ejemplo, recursos de Kubernetes, docker-compose, Terraform o scripts), incluyendo los pasos de despliegue numerados.
+4. Verificación: comandos o chequeos concretos (health checks, smoke tests) para confirmar que el despliegue funciona. Incluye además la validación de sintaxis de cada archivo generado con la herramienta apropiada (por ejemplo, 'hadolint' para Dockerfile, 'yamllint' o 'kubectl --dry-run=server' para manifiestos Kubernetes, validación del pipeline con las herramientas de la plataforma de CI elegida).
+5. Rollback: procedimiento paso a paso para volver a la versión anterior en caso de fallo.
+
+RESTRICCIONES DE SEGURIDAD Y REPRODUCIBILIDAD
+- Prohibido incluir contraseñas, claves, tokens ni secretos en los archivos: usa variables de entorno o un gestor de secretos acorde al entorno (Secrets de Kubernetes, variables de CI, etc.).
+- Incluye al final una tabla de las variables de entorno requeridas: nombre, propósito y ejemplo de valor (sin valores reales sensibles).
+- Fija versiones explícitas de imágenes base y dependencias (sin etiquetas 'latest').
+- El proceso completo debe poder repetirse de forma idempotente desde cero.
+
+REGLAS
+- No ejecutes ni describas pruebas del artefacto: ya pasaron.
+- Las variables {{...}} son parte de la plantilla y deben quedar exactamente igual en tu salida.

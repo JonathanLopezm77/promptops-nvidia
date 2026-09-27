@@ -1,0 +1,88 @@
+{
+  "fases": {
+    "requirements": {
+      "run_id": "be249146-7bc9-4002-8272-69e6d4441896",
+      "validado_en": "2026-09-27T17:25:24.185987+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    },
+    "analysis_specification": {
+      "run_id": "24c5e24b-91ca-4141-96fc-7bb9f6108e84",
+      "validado_en": "2026-09-27T17:25:24.254655+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    },
+    "architecture": {
+      "run_id": "36a2f1b0-69cc-4fff-a535-e941a5751c67",
+      "validado_en": "2026-09-27T17:39:32.745578+00:00",
+      "commit": "60c977854e03d521b23886327e0bdc75af68a2a5",
+      "cambios_sin_commit": true,
+      "intentos_previos": [
+        {
+          "run_id": "07017870-a79e-4d6c-a384-c98c136fba78",
+          "validado_en": "2026-09-27T17:25:24.319930+00:00",
+          "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+          "cambios_sin_commit": false
+        }
+      ]
+    },
+    "implementation": {
+      "run_id": "c740d143-ce25-4294-b8f6-5579b36384fe",
+      "validado_en": "2026-09-27T17:25:24.388068+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    },
+    "testing": {
+      "run_id": "38bf85b3-6cfe-42b2-b099-192066089fa9",
+      "validado_en": "2026-09-27T17:25:24.451000+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    },
+    "deployment": {
+      "run_id": "cbba5125-8cfc-4565-9d31-f9340073a4ec",
+      "validado_en": "2026-09-27T17:25:24.517339+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    },
+    "maintenance": {
+      "run_id": "0d065c71-013d-4f30-ae5f-d56a1598cb4c",
+      "validado_en": "2026-09-27T17:25:24.586587+00:00",
+      "commit": "877aa650fd74a6300a78217f6a678335b118de71",
+      "cambios_sin_commit": false
+    }
+  },
+  "servidor": "http://localhost:8000",
+  "objetivo_auto_iteracion": 90,
+  "intentos_auto_iteracion": 3,
+  "temperatura": "no se envía: valor por defecto de cada modelo en NVIDIA",
+  "aprobaciones_delegadas": {
+    "nota": "Estas aprobaciones las ejecutó el asistente (Claude) por instrucción explícita del usuario ('hazlo tú pero pues solo en el local aprueba todo eso'), sin una revisión previa del usuario de cada prompt. Las de Requerimientos y Arquitectura las hizo el usuario en la interfaz.",
+    "aprobaciones": [
+      {
+        "fase": "analysis_specification",
+        "run_id": "24c5e24b-91ca-4141-96fc-7bb9f6108e84",
+        "aprobado_en": "2026-09-27T18:41:09.784142+00:00"
+      },
+      {
+        "fase": "implementation",
+        "run_id": "c740d143-ce25-4294-b8f6-5579b36384fe",
+        "aprobado_en": "2026-09-27T18:41:16.977419+00:00"
+      },
+      {
+        "fase": "testing",
+        "run_id": "38bf85b3-6cfe-42b2-b099-192066089fa9",
+        "aprobado_en": "2026-09-27T18:41:21.821944+00:00"
+      },
+      {
+        "fase": "deployment",
+        "run_id": "cbba5125-8cfc-4565-9d31-f9340073a4ec",
+        "aprobado_en": "2026-09-27T18:41:26.624986+00:00"
+      },
+      {
+        "fase": "maintenance",
+        "run_id": "0d065c71-013d-4f30-ae5f-d56a1598cb4c",
+        "aprobado_en": "2026-09-27T18:41:31.399275+00:00"
+      }
+    ]
+  }
+}

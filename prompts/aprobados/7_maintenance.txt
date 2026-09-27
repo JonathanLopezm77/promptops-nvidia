@@ -1,0 +1,58 @@
+Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.
+
+## Entradas
+
+Código actual:
+{{CODIGO_ACTUAL}}
+
+Incidencia o solicitud de cambio:
+{{INCIDENCIA_O_CAMBIO}}
+
+Métricas del sistema:
+{{METRICAS}}
+
+## Instrucciones
+1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.
+2. Fundamenta el diagnóstico con evidencia objetiva: cruza las métricas proporcionadas (complejidad ciclomática, cobertura, duplicación, deuda, tiempos de respuesta, tasas de error) con el código afectado. Si las métricas son las típicas de herramientas de análisis estático (p. ej., SonarQube, ESLint, PMD, CodeClimate) o de monitorización (p. ej., APM, percentiles de latencia), úsalas explícitamente como soporte del diagnóstico; no inventes valores de métricas que no estén en las entradas.
+3. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.
+4. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.
+5. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.
+6. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.
+7. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.
+
+## Ejemplos de comportamiento esperado
+
+### Ejemplo 1: diff claro y mínimo
+Incidencia: 'NullPointerException al procesar pedidos sin dirección de envío.'
+Cambio propuesto (formato correcto):
+```diff
+ public Money total(Pedido p) {
+-    return p.getDireccion().getCosteEnvio().add(p.getSubtotal());
++    Money envio = p.getDireccion() != null
++        ? p.getDireccion().getCosteEnvio()
++        : Money.ZERO;
++    return envio.add(p.getSubtotal());
+ }
+```
+Nota: el cambio toca únicamente el método afectado, sin refactorizar código adyacente.
+
+### Ejemplo 2: información ambigua o insuficiente
+Incidencia: 'El informe va lento.' (sin trazas, sin volumen de datos, sin métricas de rendimiento útiles)
+Respuesta correcta: no se propone código como solución definitiva. En 'Diagnóstico / causa raíz' se señalan como hipótesis los puntos del código con complejidad ciclomática alta según {{METRICAS}}, y en 'Supuestos y dudas' se lista: 'Falta definir umbral aceptable de latencia; falta volumen de datos reales; no hay identificadores REQ/SPEC/ARCH proporcionados'. Igualmente se proponen pruebas de carga como regresión y se deja el cambio definitivo condicionado a confirmar el cuello de botella.
+
+## Formato de salida
+Responde usando exactamente estas secciones en este orden:
+1. **Diagnóstico / causa raíz** (citas del código + evidencia de métricas)
+2. **Cambio propuesto** (diff o antes/después)
+3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)
+4. **Pruebas de regresión**
+5. **Deuda técnica** (reducida / agregada / mitigación)
+6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)
+7. **Supuestos y dudas** (vacío si no aplica)
+
+## Restricciones
+- No introduzcas cambios fuera del alcance de la incidencia.
+- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.
+- No inventes valores de métricas ni resultados de herramientas de análisis que no figuren en las entradas.
+
+Nota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.

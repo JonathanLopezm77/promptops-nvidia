@@ -39,6 +39,15 @@ def test_la_linea_base_no_cuenta_para_el_mejor_score():
     assert mejor_score(run) == 80
 
 
+def test_modelo_de_marca_como_deducido_lo_que_no_se_registro():
+    from scripts.prompts_sdlc import modelo_de
+
+    run = {"optimizer_model": "moonshotai/kimi-k3"}
+    assert modelo_de({"source": "optimizer", "model": "nvidia/nemotron"}, run) == "nvidia/nemotron"
+    assert "deducido" in modelo_de({"source": "optimizer", "model": None}, run)
+    assert modelo_de({"source": "original", "model": None}, run) == "—"
+
+
 def test_los_siete_prompts_iniciales_existen_y_declaran_sus_variables():
     assert [f["n"] for f in FASES] == [1, 2, 3, 4, 5, 6, 7]
     for fase in FASES:

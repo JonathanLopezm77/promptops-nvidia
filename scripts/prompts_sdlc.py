@@ -113,6 +113,17 @@ def mejor_score(run: dict) -> int | None:
     return max(scores) if scores else None
 
 
+def modelo_de(iteracion: dict, run: dict) -> str:
+    """Modelo que produjo la versión de una iteración. Las iteraciones
+    anteriores a la columna `model` (commit 60c9778) no lo registran; como
+    entonces no existía el respaldo, solo pudo ser el Optimizer principal."""
+    if iteracion.get("model"):
+        return iteracion["model"]
+    if iteracion["source"] == "optimizer":
+        return f"{run['optimizer_model']} (deducido: iteración anterior al registro por iteración)"
+    return "—"
+
+
 def _resumen_gates(a: dict | None) -> str:
     if not a:
         return "—"
@@ -336,6 +347,7 @@ def exportar(base_url: str) -> None:
             "auto_iteraciones": auto, "intervenciones_humanas": manuales,
             "marcadores_conservados": (not faltan) if aprobado else "",
             "iteraciones_con_respaldo": sum(1 for it in run["iterations"] if it.get("optimizer_fallback")),
+            "modelo_version_aprobada": modelo_de(aprobada, run) if aprobado else "",
             "optimizer_model": run["optimizer_model"], "auditor_model": run["auditor_model"],
             "fecha_inicio": run["created_at"], "fecha_aprobacion": decision and decision["created_at"],
         })
@@ -350,6 +362,14 @@ def exportar(base_url: str) -> None:
              f"| Variables de la plantilla | {', '.join('`{{' + m + '}}`' for m in sorted(marcadores(run['original_prompt'])))} |",
              f"| Run en la plataforma | `{run['id']}` |", f"| Estado | {run['status']} |",
              f"| Modelos | Optimizer `{run['optimizer_model']}` · Auditor `{run['auditor_model']}` |",
+             f"| Modelo que produjo la versión aprobada | "
+             + (f"`{modelo_de(aprobada, run)}`"
+                + (" (respaldo: el Optimizer principal no dio una respuesta usable; "
+                   "es el mismo modelo que el Auditor)"
+                   if aprobada.get("optimizer_fallback") and aprobada.get("model") == run["auditor_model"]
+                   else " (respaldo: el Optimizer principal no dio una respuesta usable)"
+                   if aprobada.get("optimizer_fallback") else "")
+                if aprobado else "pendiente") + " |",
              f"| Validación | {run['created_at']} → aprobación {decision['created_at'] if decision else 'pendiente'} |",
              "", "## Métricas (Quality Gate de prompts, sección 6.1)", "",
              "| | Score | Gates | gates_score |", "|---|---|---|---|",
@@ -378,7 +398,7 @@ def exportar(base_url: str) -> None:
             decs = "; ".join(
                 d["decision"] + (" (automática)" if (d["feedback"] or "").startswith("[AUTO-ITERACIÓN") else "")
                 for d in it["human_decisions"]) or "—"
-            modelo = it.get("model") or "—"
+            modelo = modelo_de(it, run)
             if it.get("optimizer_fallback"):
                 modelo += f" (respaldo; `{it['optimizer_fallback']['from_model']}` no respondió)"
             L.append(f"| {it['iteration_number']} | {it['source']} | {modelo} | {a and a['total_score']} | "

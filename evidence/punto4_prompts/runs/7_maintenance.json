@@ -1,0 +1,1165 @@
+{
+  "id": "0d065c71-013d-4f30-ae5f-d56a1598cb4c",
+  "status": "APPROVED",
+  "created_at": "2026-09-27T12:14:05.755746-05:00",
+  "finished_at": null,
+  "original_prompt": "Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\n\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.",
+  "optimizer_model": "moonshotai/kimi-k3",
+  "auditor_model": "nvidia/nemotron-3-super-120b-a12b",
+  "executor_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "iterations": [
+    {
+      "id": "1ff7ff26-1f50-4836-9b53-ead118a73e71",
+      "iteration_number": 1,
+      "input_prompt": "Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\n\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.",
+      "output_prompt": "Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\n\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.",
+      "source": "original",
+      "optimizer_raw": null,
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:14:06.418038-05:00",
+      "audits": [
+        {
+          "id": "6c562d59-2027-41a4-bc15-f6bd1c4dd134",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\n\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.",
+          "total_score": 76,
+          "gates_passed": 3,
+          "gates_failed": 0,
+          "gates_not_applicable": 1,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso y evita redundancias. No incluye ejemplos innecesarios ni texto de relleno, lo que lo hace eficiente para su propósito.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono técnico, directo y apropiado para un ingeniero de mantenimiento. Libre de ambigüedades o lenguaje coloquial inadecuado.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Objetivos claros: analizar código, identificar causa, proponer cambio, explicar impacto, especificar pruebas y deuda técnica, y mantener trazabilidad. Rol y formato de salida bien definidos.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 5,
+              "observation": "No se incluyen ejemplos few-shot. Esto es aceptable dado que la tarea es de alto dominio y el rol está claramente definido, pero un ejemplo breve podría mejorar la consistencia en respuestas complejas.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Estructura lógica y secuencial: entrada (código, incidencia, métricas) → análisis → propuesta → impacto → pruebas → deuda → trazabilidad. Flujo coherente y fácil de seguir.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "No hay contradicciones internas. Todas las instrucciones son mutuamente compatibles y se refieren al mismo contexto de mantenimiento de software.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se solicita descomposición paso a paso ni cadena de pensamiento explícita. El análisis se espera, pero no se guía con estructura de razonamiento.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 7,
+              "observation": "El prompt elimina ruido irrelevante al enfocarse únicamente en los elementos necesarios: código, incidencia, métricas. No incluye distracciones.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "Asume conocimiento previo de ingeniería de mantenimiento y buenas prácticas, pero no lo activa explícitamente mediante recordatorios o desencadenantes.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 4,
+              "observation": "No hay mecanismos de autoverificación, revisión o reflexión sobre el propio proceso de razonamiento. Se espera un resultado, pero no se pide validar la lógica interna del análisis.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No se menciona ni se incentiva el uso de herramientas externas (linters, analyzers, etc.), aunque podría ser útil en un contexto real.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 5,
+              "observation": "No hay refuerzo explícito de comportamientos deseados como rigor, precisión o documentación. La motivación es implícita en el rol.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "El prompt se basa en entradas específicas ({{CODIGO_ACTUAL}}, etc.), lo que reduce la tendencia a alucinar. No se pide inventar información fuera de contexto.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "Equilibrio adecuado: se espera una solución técnica factible basada en el código y la incidencia, no soluciones arbitrarias o excesivamente creativas.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No hay indicadores de sesgo inherente en las instrucciones. El rol es neutral y las entradas son provistas externamente.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a injection/jailbreaks: no hay instrucciones que puedan ser manipuladas para cambiar el comportamiento del modelo (ej. ignorar reglas, revelar prompts internos). El contexto es cerrado y acotado.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No se solicitan ni se manejan datos personales o PII. Las variables {{...}} se asumen como artefactos de código o métricas del sistema, no información privada.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 7,
+              "observation": "El prompt asume que las entradas son suficientes. No incluye mecanismos para admitir falta de contexto, pero dado que las variables son provistas por el sistema, es razonable asumir su disponibilidad. Una mejora sería pedir explícitamente que se indique si falta información.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "El tono es profesional, respetuoso y alineado con conducta adecuada en un entorno laboral de ingeniería. No hay lenguaje ofensivo o inapropiado.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 7,
+              "observation": "No solicita explícitamente aclaraciones si falta información, pero la estructura obliga a usar las entradas provistas. Una mejora sería añadir: 'Si falta información crítica para el análisis, indique qué se necesita y por qué'.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Tono profesional, respetuoso y apropiado para una solicitud de trabajo en equipo. No impositivo ni agresivo.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso y evita redundancias. No incluye ejemplos innecesarios ni texto de relleno, lo que lo hace eficiente para su propósito.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono técnico, directo y apropiado para un ingeniero de mantenimiento. Libre de ambigüedades o lenguaje coloquial inadecuado.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 9,
+                  "observation": "Objetivos claros: analizar código, identificar causa, proponer cambio, explicar impacto, especificar pruebas y deuda técnica, y mantener trazabilidad. Rol y formato de salida bien definidos.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se incluyen ejemplos few-shot. Esto es aceptable dado que la tarea es de alto dominio y el rol está claramente definido, pero un ejemplo breve podría mejorar la consistencia en respuestas complejas.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Estructura lógica y secuencial: entrada (código, incidencia, métricas) → análisis → propuesta → impacto → pruebas → deuda → trazabilidad. Flujo coherente y fácil de seguir.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 8,
+                  "observation": "No hay contradicciones internas. Todas las instrucciones son mutuamente compatibles y se refieren al mismo contexto de mantenimiento de software.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt cumple con los requisitos estructurales básicos: incluye todas las secciones necesarias (código, incidencia, métricas, impacto, pruebas, deuda técnica, trazabilidad), mantiene un tono claro y profesional, y define explícitamente el rol y los objetivos. No hay contradicciones internas ni ambigüedades críticas. Las plantillas {{...}} se respetan correctamente."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "NO_APLICA",
+              "properties": [
+                {
+                  "score": 5,
+                  "observation": "No se solicita descomposición paso a paso ni cadena de pensamiento explícita. El análisis se espera, pero no se guía con estructura de razonamiento.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 7,
+                  "observation": "El prompt elimina ruido irrelevante al enfocarse únicamente en los elementos necesarios: código, incidencia, métricas. No incluye distracciones.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 6,
+                  "observation": "Asume conocimiento previo de ingeniería de mantenimiento y buenas prácticas, pero no lo activa explícitamente mediante recordatorios o desencadenantes.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 4,
+                  "observation": "No hay mecanismos de autoverificación, revisión o reflexión sobre el propio proceso de razonamiento. Se espera un resultado, pero no se pide validar la lógica interna del análisis.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se menciona ni se incentiva el uso de herramientas externas (linters, analyzers, etc.), aunque podría ser útil en un contexto real.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 5,
+                  "observation": "No hay refuerzo explícito de comportamientos deseados como rigor, precisión o documentación. La motivación es implícita en el rol.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "Aunque el prompt implica análisis, no exige razonamiento complejo de múltiples pasos, cadena de pensamiento (CoT) o meta-cognición explícita. La tarea es más bien de aplicación de conocimiento y síntesis basada en entradas dadas, no de resolución de problemas abiertos o ambiguos que requieran descomposición profunda. Por lo tanto, gate_2 no aplica según las reglas de la rúbrica."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt se basa en entradas específicas ({{CODIGO_ACTUAL}}, etc.), lo que reduce la tendencia a alucinar. No se pide inventar información fuera de contexto.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 7,
+                  "observation": "Equilibrio adecuado: se espera una solución técnica factible basada en el código y la incidencia, no soluciones arbitrarias o excesivamente creativas.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No hay indicadores de sesgo inherente en las instrucciones. El rol es neutral y las entradas son provistas externamente.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a injection/jailbreaks: no hay instrucciones que puedan ser manipuladas para cambiar el comportamiento del modelo (ej. ignorar reglas, revelar prompts internos). El contexto es cerrado y acotado.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No se solicitan ni se manejan datos personales o PII. Las variables {{...}} se asumen como artefactos de código o métricas del sistema, no información privada.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 7,
+                  "observation": "El prompt asume que las entradas son suficientes. No incluye mecanismos para admitir falta de contexto, pero dado que las variables son provistas por el sistema, es razonable asumir su disponibilidad. Una mejora sería pedir explícitamente que se indique si falta información.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "El tono es profesional, respetuoso y alineado con conducta adecuada en un entorno laboral de ingeniería. No hay lenguaje ofensivo o inapropiado.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt no presenta riesgos significativos de seguridad, privacidad o veracidad. No incentiva alucinaciones (se basa en entradas concretas), no pide crear contenido falso, no maneja PII explícitamente, y asume un contexto de uso interno y controlado. La trazabilidad a REQ/SPEC/ARCH reduce riesgos de desalineación."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 7,
+                  "observation": "No solicita explícitamente aclaraciones si falta información, pero la estructura obliga a usar las entradas provistas. Una mejora sería añadir: 'Si falta información crítica para el análisis, indique qué se necesita y por qué'.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional, respetuoso y apropiado para una solicitud de trabajo en equipo. No impositivo ni agresivo.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita el over-engineering: incluye solo lo necesario para la tarea de mantenimiento. No sobrecarga con propiedades innecesarias. Fomenta interacción implícita (al pedir explicación de impacto y pruebas) y mantiene un tono cortés y profesional adecuado al contexto."
+            }
+          ],
+          "recommendations": [
+            "Agregar una instrucción explícita para que el modelo solicite aclaraciones si falta información crítica en las entradas (por ejemplo, código ambiguo o métricas insuficientes), mejorando la propiedad P20 (Interacción).",
+            "Incluir un breve ejemplo few-shot (1-2 líneas) mostrando cómo se espera que se estructure la respuesta (causa → cambio de código → impacto → pruebas → deuda → trazabilidad), lo que mejoraría la consistencia en salidas complejas sin sobrecargar el prompt (P4)."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-9f49185e-0345-4862-9069-80a97f5f4a6e",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5013,
+              "prompt_tokens": 2846,
+              "completion_tokens": 2167
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt cumple con los requisitos estructurales básicos: incluye todas las secciones necesarias (código, incidencia, métricas, impacto, pruebas, deuda técnica, trazabilidad), mantiene un tono claro y profesional, y define explícitamente el rol y los objetivos. No hay contradicciones internas ni ambigüedades críticas. Las plantillas {{...}} se respetan correctamente.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P1\",\n          \"property_name\": \"Cantidad de Tokens\",\n          \"score\": 8,\n          \"observation\": \"El prompt es conciso y evita redundancias. No incluye ejemplos innecesarios ni texto de relleno, lo que lo hace eficiente para su propósito.\"\n        },\n        {\n          \"property_id\": \"P2\",\n          \"property_name\": \"Manera / Tono\",\n          \"score\": 9,\n          \"observation\": \"Tono técnico, directo y apropiado para un ingeniero de mantenimiento. Libre de ambigüedades o lenguaje coloquial inadecuado.\"\n        },\n        {\n          \"property_id\": \"P3\",\n          \"property_name\": \"Objetivos\",\n          \"score\": 9,\n          \"observation\": \"Objetivos claros: analizar código, identificar causa, proponer cambio, explicar impacto, especificar pruebas y deuda técnica, y mantener trazabilidad. Rol y formato de salida bien definidos.\"\n        },\n        {\n          \"property_id\": \"P4\",\n          \"property_name\": \"Demonstrations / Demos\",\n          \"score\": 5,\n          \"observation\": \"No se incluyen ejemplos few-shot. Esto es aceptable dado que la tarea es de alto dominio y el rol está claramente definido, pero un ejemplo breve podría mejorar la consistencia en respuestas complejas.\"\n        },\n        {\n          \"property_id\": \"P5\",\n          \"property_name\": \"Lógica Estructural\",\n          \"score\": 9,\n          \"observation\": \"Estructura lógica y secuencial: entrada (código, incidencia, métricas) → análisis → propuesta → impacto → pruebas → deuda → trazabilidad. Flujo coherente y fácil de seguir.\"\n        },\n        {\n          \"property_id\": \"P6\",\n          \"property_name\": \"Lógica Contextual\",\n          \"score\": 8,\n          \"observation\": \"No hay contradicciones internas. Todas las instrucciones son mutuamente compatibles y se refieren al mismo contexto de mantenimiento de software.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"NO_APLICA\",\n      \"justification\": \"Aunque el prompt implica análisis, no exige razonamiento complejo de múltiples pasos, cadena de pensamiento (CoT) o meta-cognición explícita. La tarea es más bien de aplicación de conocimiento y síntesis basada en entradas dadas, no de resolución de problemas abiertos o ambiguos que requieran descomposición profunda. Por lo tanto, gate_2 no aplica según las reglas de la rúbrica.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P7\",\n          \"property_name\": \"Carga Intrínseca\",\n          \"score\": 5,\n          \"observation\": \"No se solicita descomposición paso a paso ni cadena de pensamiento explícita. El análisis se espera, pero no se guía con estructura de razonamiento.\"\n        },\n        {\n          \"property_id\": \"P8\",\n          \"property_name\": \"Carga Extránea\",\n          \"score\": 7,\n          \"observation\": \"El prompt elimina ruido irrelevante al enfocarse únicamente en los elementos necesarios: código, incidencia, métricas. No incluye distracciones.\"\n        },\n        {\n          \"property_id\": \"P9\",\n          \"property_name\": \"Carga Germana\",\n          \"score\": 6,\n          \"observation\": \"Asume conocimiento previo de ingeniería de mantenimiento y buenas prácticas, pero no lo activa explícitamente mediante recordatorios o desencadenantes.\"\n        },\n        {\n          \"property_id\": \"P10\",\n          \"property_name\": \"Metacognición\",\n          \"score\": 4,\n          \"observation\": \"No hay mecanismos de autoverificación, revisión o reflexión sobre el propio proceso de razonamiento. Se espera un resultado, pero no se pide validar la lógica interna del análisis.\"\n        },\n        {\n          \"property_id\": \"P11\",\n          \"property_name\": \"Herramientas Externas\",\n          \"score\": 5,\n          \"observation\": \"No se menciona ni se incentiva el uso de herramientas externas (linters, analyzers, etc.), aunque podría ser útil en un contexto real.\"\n        },\n        {\n          \"property_id\": \"P12\",\n          \"property_name\": \"Recompensas / Incentivos\",\n          \"score\": 5,\n          \"observation\": \"No hay refuerzo explícito de comportamientos deseados como rigor, precisión o documentación. La motivación es implícita en el rol.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt no presenta riesgos significativos de seguridad, privacidad o veracidad. No incentiva alucinaciones (se basa en entradas concretas), no pide crear contenido falso, no maneja PII explícitamente, y asume un contexto de uso interno y controlado. La trazabilidad a REQ/SPEC/ARCH reduce riesgos de desalineación.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P13\",\n          \"property_name\": \"Detección de Alucinaciones\",\n          \"score\": 8,\n          \"observation\": \"El prompt se basa en entradas específicas ({{CODIGO_ACTUAL}}, etc.), lo que reduce la tendencia a alucinar. No se pide inventar información fuera de contexto.\"\n        },\n        {\n          \"property_id\": \"P14\",\n          \"property_name\": \"Balance Factibilidad vs. Creatividad\",\n          \"score\": 7,\n          \"observation\": \"Equilibrio adecuado: se espera una solución técnica factible basada en el código y la incidencia, no soluciones arbitrarias o excesivamente creativas.\"\n        },\n        {\n          \"property_id\": \"P15\",\n          \"property_name\": \"Sesgo\",\n          \"score\": 8,\n          \"observation\": \"No hay indicadores de sesgo inherente en las instrucciones. El rol es neutral y las entradas son provistas externamente.\"\n        },\n        {\n          \"property_id\": \"P16\",\n          \"property_name\": \"Seguridad\",\n          \"score\": 9,\n          \"observation\": \"Resistente a injection/jailbreaks: no hay instrucciones que puedan ser manipuladas para cambiar el comportamiento del modelo (ej. ignorar reglas, revelar prompts internos). El contexto es cerrado y acotado.\"\n        },\n        {\n          \"property_id\": \"P17\",\n          \"property_name\": \"Privacidad\",\n          \"score\": 9,\n          \"observation\": \"No se solicitan ni se manejan datos personales o PII. Las variables {{...}} se asumen como artefactos de código o métricas del sistema, no información privada.\"\n        },\n        {\n          \"property_id\": \"P18\",\n          \"property_name\": \"Confiabilidad\",\n          \"score\": 7,\n          \"observation\": \"El prompt asume que las entradas son suficientes. No incluye mecanismos para admitir falta de contexto, pero dado que las variables son provistas por el sistema, es razonable asumir su disponibilidad. Una mejora sería pedir explícitamente que se indique si falta información.\"\n        },\n        {\n          \"property_id\": \"P19\",\n          \"property_name\": \"Normas Sociales\",\n          \"score\": 9,\n          \"observation\": \"El tono es profesional, respetuoso y alineado con conducta adecuada en un entorno laboral de ingeniería. No hay lenguaje ofensivo o inapropiado.\"\n        }\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita el over-engineering: incluye solo lo necesario para la tarea de mantenimiento. No sobrecarga con propiedades innecesarias. Fomenta interacción implícita (al pedir explicación de impacto y pruebas) y mantiene un tono cortés y profesional adecuado al contexto.\",\n      \"properties\": [\n        {\n          \"property_id\": \"P20\",\n          \"property_name\": \"Interacción\",\n          \"score\": 7,\n          \"observation\": \"No solicita explícitamente aclaraciones si falta información, pero la estructura obliga a usar las entradas provistas. Una mejora sería añadir: 'Si falta información crítica para el análisis, indique qué se necesita y por qué'.\"\n        },\n        {\n          \"property_id\": \"P21\",\n          \"property_name\": \"Cortesía\",\n          \"score\": 9,\n          \"observation\": \"Tono profesional, respetuoso y apropiado para una solicitud de trabajo en equipo. No impositivo ni agresivo.\"\n        }\n      ]\n    }\n  ],\n  \"total_score\": 76,\n  \"recommendations\": [\n    \"Agregar una instrucción explícita para que el modelo solicite aclaraciones si falta información crítica en las entradas (por ejemplo, código ambiguo o métricas insuficientes), mejorando la propiedad P20 (Interacción).\",\n    \"Incluir un breve ejemplo few-shot (1-2 líneas) mostrando cómo se espera que se estructure la respuesta (causa → cambio de código → impacto → pruebas → deuda → trazabilidad), lo que mejoraría la consistencia en salidas complejas sin sobrecargar el prompt (P4).\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529245,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:14:25.184102-05:00"
+        }
+      ],
+      "human_decisions": []
+    },
+    {
+      "id": "31129eb4-e9e3-4054-a2fb-c94180c610bc",
+      "iteration_number": 2,
+      "input_prompt": "Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\n\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.",
+      "output_prompt": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n3. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n4. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n5. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n6. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz**\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-0da32621-dbc2-4b24-a13e-bebe2265c052",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 1955,
+          "prompt_tokens": 627,
+          "completion_tokens": 1328,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 11
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"original_prompt\":\"Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\\n\\nCódigo actual:\\n{{CODIGO_ACTUAL}}\\n\\nIncidencia o solicitud de cambio:\\n{{INCIDENCIA_O_CAMBIO}}\\n\\nMétricas del sistema:\\n{{METRICAS}}\\n\\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\\n\\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.\",\"analysis\":\"El prompt define el rol y las entradas, pero: no especifica formato de salida (riesgo de respuestas heterogéneas); 'explica el impacto' es ambiguo (¿técnico, de rendimiento, de riesgo?); no indica cómo tratar información insuficiente ni ambigüedad en la incidencia; no define convenciones para el código modificado (diff vs. archivo completo); no aclara el significado de REQ/SPEC/ARCH para el modelo; la trazabilidad se pide sin formato; no hay restricciones de alcance (p. ej., no reescribir código no afectado); no se pide nivel de confianza ni alternativas consideradas.\",\"improved_prompt\":\"Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\\n\\n## Entradas\\n\\nCódigo actual:\\n{{CODIGO_ACTUAL}}\\n\\nIncidencia o solicitud de cambio:\\n{{INCIDENCIA_O_CAMBIO}}\\n\\nMétricas del sistema:\\n{{METRICAS}}\\n\\n## Instrucciones\\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\\n2. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\\n3. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\\n4. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\\n5. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\\n6. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\\n\\n## Formato de salida\\nResponde usando exactamente estas secciones en este orden:\\n1. **Diagnóstico / causa raíz**\\n2. **Cambio propuesto** (diff o antes/después)\\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\\n4. **Pruebas de regresión**\\n5. **Deuda técnica** (reducida / agregada / mitigación)\\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\\n7. **Supuestos y dudas** (vacío si no aplica)\\n\\n## Restricciones\\n- No introduzcas cambios fuera del alcance de la incidencia.\\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\\n\\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.\",\"changes\":[\"Se define el formato de salida en 7 secciones ordenadas, incluyendo tabla de trazabilidad\",\"Se aclara 'explica el impacto' descomponiéndolo en funcional, rendimiento, compatibilidad y riesgos\",\"Se especifica el formato del código modificado (diff o antes/después) y se prohíben cambios fuera de alcance\",\"Se añade manejo explícito de información insuficiente o ambigua mediante la sección 'Supuestos y dudas'\",\"Se explican los identificadores REQ/SPEC/ARCH y se prohíbe inventarlos\",\"Se detalla qué incluir en pruebas de regresión (suites afectadas + nuevas pruebas con motivo)\"],\"reasoning_summary\":\"El prompt mejorado conserva el rol, las variables de plantilla y los objetivos originales, pero elimina la ambigüedad sobre el formato de salida, el alcance de los cambios y el tratamiento de la trazabilidad, lo que produce respuestas más consistentes, verificables y seguras en un flujo de mantenimiento.\"}",
+              "refusal": null,
+              "reasoning_content": "Optimize prompt, return JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529285
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:15:37.477319-05:00",
+      "audits": [
+        {
+          "id": "09ebf99d-8021-494d-a893-a598f3c5c9bd",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n3. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n4. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n5. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n6. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz**\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.",
+          "total_score": 84,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "Longitud adecuada para la complejidad de la tarea; no hay redundancia excesiva ni omisión crítica.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono técnico, claro y profesional; libre de ambigüedad en las instrucciones.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivo explícito: analizar código, incidencia y métricas para proponer modificación mínima y segura. Rol, meta, formato y restricciones bien definidos.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 5,
+              "observation": "No se incluyen ejemplos few-shot. No es crítico dado el alto nivel de especificidad en instrucciones, pero su ausencia limita la guía para casos borderline.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Estructura coherente por bloques: entradas → instrucciones → formato de salida. Flujo fácil de seguir.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Sin contradicciones internas. Las restricciones refuerzan el enfoque en minimalismo y trazabilidad sin conflicto.",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Las instrucciones descomponen la tarea en pasos claros (causa raíz → cambio → impacto → pruebas → deuda → trazabilidad), facilitando Chain-of-Thought.",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "El ruido es mínimo; las variables {{...}} enfocan en entradas relevantes. No hay información irrelevante que distraiga.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Activa conocimientos de ingeniería de software: depuración, refactorización, métricas, pruebas de regresión, deuda técnica y trazabilidad de requisitos.",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Incluye mecanismos de autoverificación: obliga a identificar supuestos y dudas si la información es insuficiente, y a no inventar datos. Favorece la reflexión sobre límites.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 3,
+              "observation": "No se mencionan ni se incentivan herramientas externas (linters, analizadores estáticos, etc.), aunque su uso podría enriquecer el análisis.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "No hay refuerzo explícito de comportamientos deseados (ej. 'premía soluciones minimalistas'). La motivación es implícita en la tarea.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Obliga a citar líneas, funciones o módulos concretos y a declarar supuestos si la información es insuficiente. Reduce riesgo de invención.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "Equilibrio adecuado: permite proponer cambios creativos pero dentro del alcance de la incidencia, sin favorecer soluciones excesivamente innovadoras o riesgosas.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 8,
+              "observation": "No hay indicios de sesgo inherente en las instrucciones. El enfoque es neutral y basado en evidencia del código y métricas.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Las restricciones evitan cambios fuera de alcance y exigen minimalismo, reduciendo superficie de ataque por modificaciones innecesarias. Resiste intentos de desviación del rol.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No se solicitan ni se manejan datos PII en el prompt. Las entradas son código, incidencias y métricas del sistema, asumidas no sensibles o desidentificadas.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Instruye a admitir falta de información en lugar de inventar. Promueve humildad epistémica y transparencia en límites.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Tono profesional, respetuoso y orientado a la colaboración técnica. Alineado con conducta apropiada en entornos de ingeniería.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 8,
+              "observation": "Aunque no solicita aclaraciones proactivamente, la sección 'Supuestos y dudas' cumple funciones similares al forzar el reconocimiento de incertidumbre.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Tono formal pero accesible, respetuoso del rol de ingeniero. Adecuado para contexto profesional de mantenimiento de software.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "Longitud adecuada para la complejidad de la tarea; no hay redundancia excesiva ni omisión crítica.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono técnico, claro y profesional; libre de ambigüedad en las instrucciones.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivo explícito: analizar código, incidencia y métricas para proponer modificación mínima y segura. Rol, meta, formato y restricciones bien definidos.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 5,
+                  "observation": "No se incluyen ejemplos few-shot. No es crítico dado el alto nivel de especificidad en instrucciones, pero su ausencia limita la guía para casos borderline.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "Estructura coherente por bloques: entradas → instrucciones → formato de salida. Flujo fácil de seguir.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "Sin contradicciones internas. Las restricciones refuerzan el enfoque en minimalismo y trazabilidad sin conflicto.",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado con secciones claras y orden lógico. Define rol, tarea, entradas, instrucciones numeradas y formato de salida explícito. No hay contradicciones internas y el tono es profesional y técnico adecuado."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Las instrucciones descomponen la tarea en pasos claros (causa raíz → cambio → impacto → pruebas → deuda → trazabilidad), facilitando Chain-of-Thought.",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 8,
+                  "observation": "El ruido es mínimo; las variables {{...}} enfocan en entradas relevantes. No hay información irrelevante que distraiga.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 9,
+                  "observation": "Activa conocimientos de ingeniería de software: depuración, refactorización, métricas, pruebas de regresión, deuda técnica y trazabilidad de requisitos.",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 8,
+                  "observation": "Incluye mecanismos de autoverificación: obliga a identificar supuestos y dudas si la información es insuficiente, y a no inventar datos. Favorece la reflexión sobre límites.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 3,
+                  "observation": "No se mencionan ni se incentivan herramientas externas (linters, analizadores estáticos, etc.), aunque su uso podría enriquecer el análisis.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 6,
+                  "observation": "No hay refuerzo explícito de comportamientos deseados (ej. 'premía soluciones minimalistas'). La motivación es implícita en la tarea.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía un razonamiento estructurado y complejo: diagnóstico causal, propuesta de cambio con diff, análisis de impacto, pruebas, deuda técnica y trazabilidad. Requiere descomposición paso a paso y pensamiento crítico."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Obliga a citar líneas, funciones o módulos concretos y a declarar supuestos si la información es insuficiente. Reduce riesgo de invención.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 8,
+                  "observation": "Equilibrio adecuado: permite proponer cambios creativos pero dentro del alcance de la incidencia, sin favorecer soluciones excesivamente innovadoras o riesgosas.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 8,
+                  "observation": "No hay indicios de sesgo inherente en las instrucciones. El enfoque es neutral y basado en evidencia del código y métricas.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Las restricciones evitan cambios fuera de alcance y exigen minimalismo, reduciendo superficie de ataque por modificaciones innecesarias. Resiste intentos de desviación del rol.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No se solicitan ni se manejan datos PII en el prompt. Las entradas son código, incidencias y métricas del sistema, asumidas no sensibles o desidentificadas.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Instruye a admitir falta de información en lugar de inventar. Promueve humildad epistémica y transparencia en límites.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono profesional, respetuoso y orientado a la colaboración técnica. Alineado con conducta apropiada en entornos de ingeniería.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt evita alucinaciones al exigir citas concretas de código y admitir incertidumbre. Prohíbe inventar identificadores y cambios fuera de alcance. Enfocado en seguridad mediante minimalismo y trazabilidad."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "Aunque no solicita aclaraciones proactivamente, la sección 'Supuestos y dudas' cumple funciones similares al forzar el reconocimiento de incertidumbre.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono formal pero accesible, respetuoso del rol de ingeniero. Adecuado para contexto profesional de mantenimiento de software.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita over-engineering al enfocarse en la esencia de la tarea: cambio mínimo y seguro. Las secciones son justas y necesarias; no incluye propiedades excesivas que diluyan el foco."
+            }
+          ],
+          "recommendations": [
+            "Considerar añadir uno o dos ejemplos few-shot (P4) que muestren cómo responder ante información ambigua o cómo estructurar un diff claro, para mejorar la consistencia en casos borderline.",
+            "Incluir una referencia explícita a herramientas de análisis estático o de métricas (P11) para enriquecer el diagnóstico con evidencia objetiva, sin salir del alcance."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-0252fce9-eb26-49aa-a558-2ee80ef7019e",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5035,
+              "prompt_tokens": 3242,
+              "completion_tokens": 1793
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado con secciones claras y orden lógico. Define rol, tarea, entradas, instrucciones numeradas y formato de salida explícito. No hay contradicciones internas y el tono es profesional y técnico adecuado.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"Longitud adecuada para la complejidad de la tarea; no hay redundancia excesiva ni omisión crítica.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono técnico, claro y profesional; libre de ambigüedad en las instrucciones.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivo explícito: analizar código, incidencia y métricas para proponer modificación mínima y segura. Rol, meta, formato y restricciones bien definidos.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 5, \"observation\": \"No se incluyen ejemplos few-shot. No es crítico dado el alto nivel de especificidad en instrucciones, pero su ausencia limita la guía para casos borderline.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"Estructura coherente por bloques: entradas → instrucciones → formato de salida. Flujo fácil de seguir.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"Sin contradicciones internas. Las restricciones refuerzan el enfoque en minimalismo y trazabilidad sin conflicto.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía un razonamiento estructurado y complejo: diagnóstico causal, propuesta de cambio con diff, análisis de impacto, pruebas, deuda técnica y trazabilidad. Requiere descomposición paso a paso y pensamiento crítico.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"Las instrucciones descomponen la tarea en pasos claros (causa raíz → cambio → impacto → pruebas → deuda → trazabilidad), facilitando Chain-of-Thought.\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 8, \"observation\": \"El ruido es mínimo; las variables {{...}} enfocan en entradas relevantes. No hay información irrelevante que distraiga.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 9, \"observation\": \"Activa conocimientos de ingeniería de software: depuración, refactorización, métricas, pruebas de regresión, deuda técnica y trazabilidad de requisitos.\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 8, \"observation\": \"Incluye mecanismos de autoverificación: obliga a identificar supuestos y dudas si la información es insuficiente, y a no inventar datos. Favorece la reflexión sobre límites.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 3, \"observation\": \"No se mencionan ni se incentivan herramientas externas (linters, analizadores estáticos, etc.), aunque su uso podría enriquecer el análisis.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 6, \"observation\": \"No hay refuerzo explícito de comportamientos deseados (ej. 'premía soluciones minimalistas'). La motivación es implícita en la tarea.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita alucinaciones al exigir citas concretas de código y admitir incertidumbre. Prohíbe inventar identificadores y cambios fuera de alcance. Enfocado en seguridad mediante minimalismo y trazabilidad.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 9, \"observation\": \"Obliga a citar líneas, funciones o módulos concretos y a declarar supuestos si la información es insuficiente. Reduce riesgo de invención.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 8, \"observation\": \"Equilibrio adecuado: permite proponer cambios creativos pero dentro del alcance de la incidencia, sin favorecer soluciones excesivamente innovadoras o riesgosas.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 8, \"observation\": \"No hay indicios de sesgo inherente en las instrucciones. El enfoque es neutral y basado en evidencia del código y métricas.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Las restricciones evitan cambios fuera de alcance y exigen minimalismo, reduciendo superficie de ataque por modificaciones innecesarias. Resiste intentos de desviación del rol.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 9, \"observation\": \"No se solicitan ni se manejan datos PII en el prompt. Las entradas son código, incidencias y métricas del sistema, asumidas no sensibles o desidentificadas.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Instruye a admitir falta de información en lugar de inventar. Promueve humildad epistémica y transparencia en límites.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 9, \"observation\": \"Tono profesional, respetuoso y orientado a la colaboración técnica. Alineado con conducta apropiada en entornos de ingeniería.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita over-engineering al enfocarse en la esencia de la tarea: cambio mínimo y seguro. Las secciones son justas y necesarias; no incluye propiedades excesivas que diluyan el foco.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 8, \"observation\": \"Aunque no solicita aclaraciones proactivamente, la sección 'Supuestos y dudas' cumple funciones similares al forzar el reconocimiento de incertidumbre.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 9, \"observation\": \"Tono formal pero accesible, respetuoso del rol de ingeniero. Adecuado para contexto profesional de mantenimiento de software.\"}\n      ]\n    }\n  ],\n  \"total_score\": 84,\n  \"recommendations\": [\n    \"Considerar añadir uno o dos ejemplos few-shot (P4) que muestren cómo responder ante información ambigua o cómo estructurar un diff claro, para mejorar la consistencia en casos borderline.\",\n    \"Incluir una referencia explícita a herramientas de análisis estático o de métricas (P11) para enriquecer el diagnóstico con evidencia objetiva, sin salir del alcance.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529336,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:15:57.397094-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "2834dd23-297f-41be-813d-9ef59378ae8e",
+          "decision": "iterate",
+          "feedback": "[AUTO-ITERACIÓN 1/3] Recomendaciones: Considerar añadir uno o dos ejemplos few-shot (P4) que muestren cómo responder ante información ambigua o cómo estructurar un diff claro, para mejorar la consistencia en casos borderline.; Incluir una referencia explícita a herramientas de análisis estático o de métricas (P11) para enriquecer el diagnóstico con evidencia objetiva, sin salir del alcance.",
+          "edited_prompt": null,
+          "created_at": "2026-09-27T12:16:00.386563-05:00"
+        }
+      ]
+    },
+    {
+      "id": "631636f7-4291-4fda-9661-b93d04b1aed5",
+      "iteration_number": 3,
+      "input_prompt": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n3. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n4. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n5. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n6. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz**\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.",
+      "output_prompt": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Fundamenta el diagnóstico con evidencia objetiva: cruza las métricas proporcionadas (complejidad ciclomática, cobertura, duplicación, deuda, tiempos de respuesta, tasas de error) con el código afectado. Si las métricas son las típicas de herramientas de análisis estático (p. ej., SonarQube, ESLint, PMD, CodeClimate) o de monitorización (p. ej., APM, percentiles de latencia), úsalas explícitamente como soporte del diagnóstico; no inventes valores de métricas que no estén en las entradas.\n3. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n4. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n5. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n6. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n7. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Ejemplos de comportamiento esperado\n\n### Ejemplo 1: diff claro y mínimo\nIncidencia: 'NullPointerException al procesar pedidos sin dirección de envío.'\nCambio propuesto (formato correcto):\n```diff\n public Money total(Pedido p) {\n-    return p.getDireccion().getCosteEnvio().add(p.getSubtotal());\n+    Money envio = p.getDireccion() != null\n+        ? p.getDireccion().getCosteEnvio()\n+        : Money.ZERO;\n+    return envio.add(p.getSubtotal());\n }\n```\nNota: el cambio toca únicamente el método afectado, sin refactorizar código adyacente.\n\n### Ejemplo 2: información ambigua o insuficiente\nIncidencia: 'El informe va lento.' (sin trazas, sin volumen de datos, sin métricas de rendimiento útiles)\nRespuesta correcta: no se propone código como solución definitiva. En 'Diagnóstico / causa raíz' se señalan como hipótesis los puntos del código con complejidad ciclomática alta según {{METRICAS}}, y en 'Supuestos y dudas' se lista: 'Falta definir umbral aceptable de latencia; falta volumen de datos reales; no hay identificadores REQ/SPEC/ARCH proporcionados'. Igualmente se proponen pruebas de carga como regresión y se deja el cambio definitivo condicionado a confirmar el cuello de botella.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz** (citas del código + evidencia de métricas)\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n- No inventes valores de métricas ni resultados de herramientas de análisis que no figuren en las entradas.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.",
+      "source": "optimizer",
+      "optimizer_raw": {
+        "id": "chatcmpl-aeb80cd1-2c34-4b32-bcce-a62e30565976",
+        "model": "moonshotai/kimi-k3",
+        "usage": {
+          "total_tokens": 3551,
+          "prompt_tokens": 1546,
+          "completion_tokens": 2005,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 19
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"original_prompt\": \"Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.\\n\\nCódigo actual:\\n{{CODIGO_ACTUAL}}\\n\\nIncidencia o solicitud de cambio:\\n{{INCIDENCIA_O_CAMBIO}}\\n\\nMétricas del sistema:\\n{{METRICAS}}\\n\\nEncuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.\\n\\nRecuerda que las variables {{...}} de la plantilla no se deben modificar.\",\n  \"analysis\": \"La versión anterior ya era sólida (rol, instrucciones numeradas, formato de salida, restricciones), pero el feedback de la auditoría y del humano señalan dos carencias concretas: (1) ausencia de ejemplos few-shot que guíen el comportamiento ante información ambigua y muestren el formato de diff esperado, lo que genera inconsistencia en casos borderline; (2) falta de referencia explícita a herramientas de análisis estático o de métricas para fundamentar el diagnóstico con evidencia objetiva. Además, los ejemplos deben ser compactos para no inflar excesivamente el coste en tokens.\",\n  \"improved_prompt\": \"Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\\n\\n## Entradas\\n\\nCódigo actual:\\n{{CODIGO_ACTUAL}}\\n\\nIncidencia o solicitud de cambio:\\n{{INCIDENCIA_O_CAMBIO}}\\n\\nMétricas del sistema:\\n{{METRICAS}}\\n\\n## Instrucciones\\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\\n2. Fundamenta el diagnóstico con evidencia objetiva: cruza las métricas proporcionadas (complejidad ciclomática, cobertura, duplicación, deuda, tiempos de respuesta, tasas de error) con el código afectado. Si las métricas son las típicas de herramientas de análisis estático (p. ej., SonarQube, ESLint, PMD, CodeClimate) o de monitorización (p. ej., APM, percentiles de latencia), úsalas explícitamente como soporte del diagnóstico; no inventes valores de métricas que no estén en las entradas.\\n3. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\\n4. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\\n5. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\\n6. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\\n7. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\\n\\n## Ejemplos de comportamiento esperado\\n\\n### Ejemplo 1: diff claro y mínimo\\nIncidencia: 'NullPointerException al procesar pedidos sin dirección de envío.'\\nCambio propuesto (formato correcto):\\n```diff\\n public Money total(Pedido p) {\\n-    return p.getDireccion().getCosteEnvio().add(p.getSubtotal());\\n+    Money envio = p.getDireccion() != null\\n+        ? p.getDireccion().getCosteEnvio()\\n+        : Money.ZERO;\\n+    return envio.add(p.getSubtotal());\\n }\\n```\\nNota: el cambio toca únicamente el método afectado, sin refactorizar código adyacente.\\n\\n### Ejemplo 2: información ambigua o insuficiente\\nIncidencia: 'El informe va lento.' (sin trazas, sin volumen de datos, sin métricas de rendimiento útiles)\\nRespuesta correcta: no se propone código como solución definitiva. En 'Diagnóstico / causa raíz' se señalan como hipótesis los puntos del código con complejidad ciclomática alta según {{METRICAS}}, y en 'Supuestos y dudas' se lista: 'Falta definir umbral aceptable de latencia; falta volumen de datos reales; no hay identificadores REQ/SPEC/ARCH proporcionados'. Igualmente se proponen pruebas de carga como regresión y se deja el cambio definitivo condicionado a confirmar el cuello de botella.\\n\\n## Formato de salida\\nResponde usando exactamente estas secciones en este orden:\\n1. **Diagnóstico / causa raíz** (citas del código + evidencia de métricas)\\n2. **Cambio propuesto** (diff o antes/después)\\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\\n4. **Pruebas de regresión**\\n5. **Deuda técnica** (reducida / agregada / mitigación)\\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\\n7. **Supuestos y dudas** (vacío si no aplica)\\n\\n## Restricciones\\n- No introduzcas cambios fuera del alcance de la incidencia.\\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\\n- No inventes valores de métricas ni resultados de herramientas de análisis que no figuren en las entradas.\\n\\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.\",\n  \"changes\": [\n    \"Añadidos dos ejemplos few-shot compactos: uno de diff mínimo y claro y otro de comportamiento ante información ambigua/insuficiente (feedback P4)\",\n    \"Incorporada instrucción explícita de fundamentar el diagnóstico con métricas y referencia a herramientas de análisis estático/monitorización (feedback P11)\",\n    \"Nueva restricción que prohíbe inventar valores de métricas o resultados de herramientas no presentes en las entradas\",\n    \"Ajustada la sección 'Diagnóstico / causa raíz' del formato de salida para exigir citas del código más evidencia de métricas\",\n    \"Renumeradas las instrucciones tras insertar la nueva instrucción de evidencia objetiva\"\n  ],\n  \"reasoning_summary\": \"La mejora prioriza el feedback recibido (auditoría y humano coinciden en P4 y P11): los ejemplos few-shot fijan el patrón de respuesta en casos borderline (diff mínimo y gestión explícita de ambigüedad), y la referencia a herramientas de análisis estático/métricas dota al diagnóstico de evidencia objetiva sin salirse del alcance. Las nuevas restricciones evitan alucinación de métricas e identificadores, y se mantienen intactas las variables de plantilla y la estructura general ya validada.\"\n}",
+              "refusal": null,
+              "reasoning_content": "Produce JSON with improved prompt incorporating few-shot examples and static analysis tools reference."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790529376
+      },
+      "model": null,
+      "optimizer_fallback": null,
+      "created_at": "2026-09-27T12:17:52.025823-05:00",
+      "audits": [
+        {
+          "id": "0c8cba0e-7084-430d-a79f-926ff8fbb6c3",
+          "parse_ok": true,
+          "audited_prompt": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n{{CODIGO_ACTUAL}}\n\nIncidencia o solicitud de cambio:\n{{INCIDENCIA_O_CAMBIO}}\n\nMétricas del sistema:\n{{METRICAS}}\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Fundamenta el diagnóstico con evidencia objetiva: cruza las métricas proporcionadas (complejidad ciclomática, cobertura, duplicación, deuda, tiempos de respuesta, tasas de error) con el código afectado. Si las métricas son las típicas de herramientas de análisis estático (p. ej., SonarQube, ESLint, PMD, CodeClimate) o de monitorización (p. ej., APM, percentiles de latencia), úsalas explícitamente como soporte del diagnóstico; no inventes valores de métricas que no estén en las entradas.\n3. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n4. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n5. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n6. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n7. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Ejemplos de comportamiento esperado\n\n### Ejemplo 1: diff claro y mínimo\nIncidencia: 'NullPointerException al procesar pedidos sin dirección de envío.'\nCambio propuesto (formato correcto):\n```diff\n public Money total(Pedido p) {\n-    return p.getDireccion().getCosteEnvio().add(p.getSubtotal());\n+    Money envio = p.getDireccion() != null\n+        ? p.getDireccion().getCosteEnvio()\n+        : Money.ZERO;\n+    return envio.add(p.getSubtotal());\n }\n```\nNota: el cambio toca únicamente el método afectado, sin refactorizar código adyacente.\n\n### Ejemplo 2: información ambigua o insuficiente\nIncidencia: 'El informe va lento.' (sin trazas, sin volumen de datos, sin métricas de rendimiento útiles)\nRespuesta correcta: no se propone código como solución definitiva. En 'Diagnóstico / causa raíz' se señalan como hipótesis los puntos del código con complejidad ciclomática alta según {{METRICAS}}, y en 'Supuestos y dudas' se lista: 'Falta definir umbral aceptable de latencia; falta volumen de datos reales; no hay identificadores REQ/SPEC/ARCH proporcionados'. Igualmente se proponen pruebas de carga como regresión y se deja el cambio definitivo condicionado a confirmar el cuello de botella.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz** (citas del código + evidencia de métricas)\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n- No inventes valores de métricas ni resultados de herramientas de análisis que no figuren en las entradas.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.",
+          "total_score": 90,
+          "gates_passed": 4,
+          "gates_failed": 0,
+          "gates_not_applicable": 0,
+          "gates_score": 1.0,
+          "properties": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 8,
+              "observation": "El prompt es conciso pero suficientemente detallado; no hay redundancia evidente.",
+              "property_id": "P1",
+              "property_name": "Cantidad de Tokens"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Tono formal, claro y libre de ambigüedad; adecuado para un contexto de ingeniería de software.",
+              "property_id": "P2",
+              "property_name": "Manera / Tono"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Objetivos claramente definidos: rol, meta (proponer cambio mínimo y seguro), formato de salida (secciones fijas) y restricciones explícitas.",
+              "property_id": "P3",
+              "property_name": "Objetivos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "Incluye dos ejemplos claros y relevantes (ejemplo 1: diff correcto; ejemplo 2: manejo de ambigüedad) que ilustran el comportamiento esperado.",
+              "property_id": "P4",
+              "property_name": "Demonstrations / Demos"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 10,
+              "observation": "Organización coherente por bloques: entradas, instrucciones numeradas, ejemplos, formato de salida y restricciones. Flujo lógico y fácil de seguir.",
+              "property_id": "P5",
+              "property_name": "Lógica Estructural"
+            },
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "score": 9,
+              "observation": "No hay contradicciones internas; todas las partes se refuerzan entre sí (por ejemplo, las restricciones respaldan las instrucciones).",
+              "property_id": "P6",
+              "property_name": "Lógica Contextual"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Descompone la tarea en pasos claros (diagnóstico, cambio, impacto, etc.), facilitando el razonamiento paso a paso (Chain-of-Thought).",
+              "property_id": "P7",
+              "property_name": "Carga Intrínseca"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 9,
+              "observation": "Elimina ruido al enfocarse únicamente en elementos relevantes: código, incidencia, métricas. No incluye información irrelevante o distractiva.",
+              "property_id": "P8",
+              "property_name": "Carga Extránea"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 10,
+              "observation": "Activa conocimiento previo en análisis estático, depuración, métricas de código y buenas prácticas de ingeniería (ej. uso de SonarQube, ESLint, APM).",
+              "property_id": "P9",
+              "property_name": "Carga Germana"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 8,
+              "observation": "Incluye mecanismos de autoverificación mediante la sección 'Supuestos y dudas', donde se debe indicar explícitamente si la información es insuficiente en lugar de inventar.",
+              "property_id": "P10",
+              "property_name": "Metacognición"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 7,
+              "observation": "Menciona explícitamente herramientas como SonarQube, ESLint, PMD, CodeClimate y APM, lo que permite su uso como referencia, aunque no las invoca directamente en tiempo de ejecución.",
+              "property_id": "P11",
+              "property_name": "Herramientas Externas"
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "score": 6,
+              "observation": "No incluye refuerzos explícitos de comportamiento (como premios o retroalimentación positiva), pero la claridad de las expectativas y los ejemplos sirven como incentivo implícito.",
+              "property_id": "P12",
+              "property_name": "Recompensas / Incentivos"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "Restringe explícitamente la invención de datos: 'Si la información es insuficiente o ambigua, indícalo explícitamente... en lugar de inventar datos' y lo mismo para métricas e identificadores.",
+              "property_id": "P13",
+              "property_name": "Detección de Alucinaciones"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Equilibrio adecuado: permite creatividad en la propuesta de cambios, pero dentro de límites estrictos de factibilidad basados en entradas reales.",
+              "property_id": "P14",
+              "property_name": "Balance Factibilidad vs. Creatividad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "No muestra favorecimiento hacia ciertas tecnologías, metodologías o estilos; el enfoque es neutral y basado en evidencia objetiva.",
+              "property_id": "P15",
+              "property_name": "Sesgo"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Resistente a inyecciones: las entradas están claramente marcadas como variables de plantilla ({{...}}) y el prompt prohíbe modificarlas, reduciendo riesgo de prompt injection vía contexto.",
+              "property_id": "P16",
+              "property_name": "Seguridad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "No solicita ni maneja datos personales o PII; el enfoque es en código, métricas técnicas e incidencias, por lo que no hay riesgo de privacidad.",
+              "property_id": "P17",
+              "property_name": "Privacidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 9,
+              "observation": "Fomenta la admisión de límites: obliga a indicar cuando la información es insuficiente, lo que aumenta la confiabilidad de la salida.",
+              "property_id": "P18",
+              "property_name": "Confiabilidad"
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "score": 10,
+              "observation": "Tono profesional, respetuoso y alineado con conducta adecuada en un entorno de ingeniería de software colaborativo.",
+              "property_id": "P19",
+              "property_name": "Normas Sociales"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 9,
+              "observation": "Solicita explícitamente que se indiquen supuestos y dudas cuando la información es insuficiente, lo que permite interacción adaptativa sin asumir.",
+              "property_id": "P20",
+              "property_name": "Interacción"
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "score": 10,
+              "observation": "Tono formal, respetuoso y profesional durante todo el prompt, apropiado para la colaboración entre pares en ingeniería.",
+              "property_id": "P21",
+              "property_name": "Cortesía"
+            }
+          ],
+          "gates": [
+            {
+              "gate": "gate_1_estructura_instruccion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 8,
+                  "observation": "El prompt es conciso pero suficientemente detallado; no hay redundancia evidente.",
+                  "property_id": "P1",
+                  "property_name": "Cantidad de Tokens"
+                },
+                {
+                  "score": 9,
+                  "observation": "Tono formal, claro y libre de ambigüedad; adecuado para un contexto de ingeniería de software.",
+                  "property_id": "P2",
+                  "property_name": "Manera / Tono"
+                },
+                {
+                  "score": 10,
+                  "observation": "Objetivos claramente definidos: rol, meta (proponer cambio mínimo y seguro), formato de salida (secciones fijas) y restricciones explícitas.",
+                  "property_id": "P3",
+                  "property_name": "Objetivos"
+                },
+                {
+                  "score": 9,
+                  "observation": "Incluye dos ejemplos claros y relevantes (ejemplo 1: diff correcto; ejemplo 2: manejo de ambigüedad) que ilustran el comportamiento esperado.",
+                  "property_id": "P4",
+                  "property_name": "Demonstrations / Demos"
+                },
+                {
+                  "score": 10,
+                  "observation": "Organización coherente por bloques: entradas, instrucciones numeradas, ejemplos, formato de salida y restricciones. Flujo lógico y fácil de seguir.",
+                  "property_id": "P5",
+                  "property_name": "Lógica Estructural"
+                },
+                {
+                  "score": 9,
+                  "observation": "No hay contradicciones internas; todas las partes se refuerzan entre sí (por ejemplo, las restricciones respaldan las instrucciones).",
+                  "property_id": "P6",
+                  "property_name": "Lógica Contextual"
+                }
+              ],
+              "justification": "El prompt está bien estructurado, con secciones claras y lógicamente ordenadas. El tono es profesional y técnico, adecuado para el rol de ingeniero de mantenimiento. Los objetivos son explícitos: analizar código, incidencia y métricas para proponer un cambio mínimo y seguro. No hay contradicciones internas y se incluyen demostraciones útiles mediante ejemplos."
+            },
+            {
+              "gate": "gate_2_cognicion",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Descompone la tarea en pasos claros (diagnóstico, cambio, impacto, etc.), facilitando el razonamiento paso a paso (Chain-of-Thought).",
+                  "property_id": "P7",
+                  "property_name": "Carga Intrínseca"
+                },
+                {
+                  "score": 9,
+                  "observation": "Elimina ruido al enfocarse únicamente en elementos relevantes: código, incidencia, métricas. No incluye información irrelevante o distractiva.",
+                  "property_id": "P8",
+                  "property_name": "Carga Extránea"
+                },
+                {
+                  "score": 10,
+                  "observation": "Activa conocimiento previo en análisis estático, depuración, métricas de código y buenas prácticas de ingeniería (ej. uso de SonarQube, ESLint, APM).",
+                  "property_id": "P9",
+                  "property_name": "Carga Germana"
+                },
+                {
+                  "score": 8,
+                  "observation": "Incluye mecanismos de autoverificación mediante la sección 'Supuestos y dudas', donde se debe indicar explícitamente si la información es insuficiente en lugar de inventar.",
+                  "property_id": "P10",
+                  "property_name": "Metacognición"
+                },
+                {
+                  "score": 7,
+                  "observation": "Menciona explícitamente herramientas como SonarQube, ESLint, PMD, CodeClimate y APM, lo que permite su uso como referencia, aunque no las invoca directamente en tiempo de ejecución.",
+                  "property_id": "P11",
+                  "property_name": "Herramientas Externas"
+                },
+                {
+                  "score": 6,
+                  "observation": "No incluye refuerzos explícitos de comportamiento (como premios o retroalimentación positiva), pero la claridad de las expectativas y los ejemplos sirven como incentivo implícito.",
+                  "property_id": "P12",
+                  "property_name": "Recompensas / Incentivos"
+                }
+              ],
+              "justification": "El prompt guía eficazmente el razonamiento complejo requerido para el análisis de código, diagnóstico basado en evidencia, propuesta de cambios mínimos y evaluación de impacto. Incluye descomposición paso a paso, metacognición (a través de la sección de supuestos y dudas) y uso explícito de métricas como evidencia, lo que activa conocimiento germano en ingeniería de software."
+            },
+            {
+              "gate": "gate_3_seguridad_veracidad",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 10,
+                  "observation": "Restringe explícitamente la invención de datos: 'Si la información es insuficiente o ambigua, indícalo explícitamente... en lugar de inventar datos' y lo mismo para métricas e identificadores.",
+                  "property_id": "P13",
+                  "property_name": "Detección de Alucinaciones"
+                },
+                {
+                  "score": 9,
+                  "observation": "Equilibrio adecuado: permite creatividad en la propuesta de cambios, pero dentro de límites estrictos de factibilidad basados en entradas reales.",
+                  "property_id": "P14",
+                  "property_name": "Balance Factibilidad vs. Creatividad"
+                },
+                {
+                  "score": 9,
+                  "observation": "No muestra favorecimiento hacia ciertas tecnologías, metodologías o estilos; el enfoque es neutral y basado en evidencia objetiva.",
+                  "property_id": "P15",
+                  "property_name": "Sesgo"
+                },
+                {
+                  "score": 9,
+                  "observation": "Resistente a inyecciones: las entradas están claramente marcadas como variables de plantilla ({{...}}) y el prompt prohíbe modificarlas, reduciendo riesgo de prompt injection vía contexto.",
+                  "property_id": "P16",
+                  "property_name": "Seguridad"
+                },
+                {
+                  "score": 10,
+                  "observation": "No solicita ni maneja datos personales o PII; el enfoque es en código, métricas técnicas e incidencias, por lo que no hay riesgo de privacidad.",
+                  "property_id": "P17",
+                  "property_name": "Privacidad"
+                },
+                {
+                  "score": 9,
+                  "observation": "Fomenta la admisión de límites: obliga a indicar cuando la información es insuficiente, lo que aumenta la confiabilidad de la salida.",
+                  "property_id": "P18",
+                  "property_name": "Confiabilidad"
+                },
+                {
+                  "score": 10,
+                  "observation": "Tono profesional, respetuoso y alineado con conducta adecuada en un entorno de ingeniería de software colaborativo.",
+                  "property_id": "P19",
+                  "property_name": "Normas Sociales"
+                }
+              ],
+              "justification": "El prompt evita alucinaciones al exigir que las conclusiones se basen únicamente en las entradas proporcionadas. Prohíbe inventar valores de métricas, identificadores o código no relacionado. Promueve la veracidad al requerir trazabilidad y admisión de límites. No hay indicaciones de sesgo o riesgo de privacidad, y el tono es neutral y profesional."
+            },
+            {
+              "gate": "gate_4_eficiencia_foco",
+              "status": "PASS",
+              "properties": [
+                {
+                  "score": 9,
+                  "observation": "Solicita explícitamente que se indiquen supuestos y dudas cuando la información es insuficiente, lo que permite interacción adaptativa sin asumir.",
+                  "property_id": "P20",
+                  "property_name": "Interacción"
+                },
+                {
+                  "score": 10,
+                  "observation": "Tono formal, respetuoso y profesional durante todo el prompt, apropiado para la colaboración entre pares en ingeniería.",
+                  "property_id": "P21",
+                  "property_name": "Cortesía"
+                }
+              ],
+              "justification": "El prompt evita el over-engineering al enfocarse únicamente en lo necesario para cumplir su propósito: guiar la propuesta de un cambio de código mínimo y seguro. Las propiedades de interacción y cortesía están bien atendidas mediante la solicitud explícita de aclaraciones cuando falta información y el tono profesional."
+            }
+          ],
+          "recommendations": [
+            "Considerar añadir un recordatorio explícito en la sección 'Restricciones' para evitar el uso de términos vagos como 'mejorar' o 'optimizar' sin vincularlos a métricas concretas, reforzando la objetividad.",
+            "Incluir una breve nota en la sección 'Formato de salida' que indique que las secciones deben estar presentes incluso si están vacías (excepto 'Supuestos y dudas', que puede estar vacío si no aplica), para evitar ambigüedad en la salida del modelo."
+          ],
+          "raw_response": {
+            "id": "chatcmpl-4de85f7d-a615-4334-aa85-9c9b8819ad2f",
+            "model": "nvidia/nemotron-3-super-120b-a12b",
+            "usage": {
+              "total_tokens": 5701,
+              "prompt_tokens": 3715,
+              "completion_tokens": 1986
+            },
+            "object": "chat.completion",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "{\n  \"gates\": [\n    {\n      \"gate\": \"gate_1_estructura_instruccion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt está bien estructurado, con secciones claras y lógicamente ordenadas. El tono es profesional y técnico, adecuado para el rol de ingeniero de mantenimiento. Los objetivos son explícitos: analizar código, incidencia y métricas para proponer un cambio mínimo y seguro. No hay contradicciones internas y se incluyen demostraciones útiles mediante ejemplos.\",\n      \"properties\": [\n        {\"property_id\": \"P1\", \"property_name\": \"Cantidad de Tokens\", \"score\": 8, \"observation\": \"El prompt es conciso pero suficientemente detallado; no hay redundancia evidente.\"},\n        {\"property_id\": \"P2\", \"property_name\": \"Manera / Tono\", \"score\": 9, \"observation\": \"Tono formal, claro y libre de ambigüedad; adecuado para un contexto de ingeniería de software.\"},\n        {\"property_id\": \"P3\", \"property_name\": \"Objetivos\", \"score\": 10, \"observation\": \"Objetivos claramente definidos: rol, meta (proponer cambio mínimo y seguro), formato de salida (secciones fijas) y restricciones explícitas.\"},\n        {\"property_id\": \"P4\", \"property_name\": \"Demonstrations / Demos\", \"score\": 9, \"observation\": \"Incluye dos ejemplos claros y relevantes (ejemplo 1: diff correcto; ejemplo 2: manejo de ambigüedad) que ilustran el comportamiento esperado.\"},\n        {\"property_id\": \"P5\", \"property_name\": \"Lógica Estructural\", \"score\": 10, \"observation\": \"Organización coherente por bloques: entradas, instrucciones numeradas, ejemplos, formato de salida y restricciones. Flujo lógico y fácil de seguir.\"},\n        {\"property_id\": \"P6\", \"property_name\": \"Lógica Contextual\", \"score\": 9, \"observation\": \"No hay contradicciones internas; todas las partes se refuerzan entre sí (por ejemplo, las restricciones respaldan las instrucciones).\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_2_cognicion\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt guía eficazmente el razonamiento complejo requerido para el análisis de código, diagnóstico basado en evidencia, propuesta de cambios mínimos y evaluación de impacto. Incluye descomposición paso a paso, metacognición (a través de la sección de supuestos y dudas) y uso explícito de métricas como evidencia, lo que activa conocimiento germano en ingeniería de software.\",\n      \"properties\": [\n        {\"property_id\": \"P7\", \"property_name\": \"Carga Intrínseca\", \"score\": 9, \"observation\": \"Descompone la tarea en pasos claros (diagnóstico, cambio, impacto, etc.), facilitando el razonamiento paso a paso (Chain-of-Thought).\"},\n        {\"property_id\": \"P8\", \"property_name\": \"Carga Extránea\", \"score\": 9, \"observation\": \"Elimina ruido al enfocarse únicamente en elementos relevantes: código, incidencia, métricas. No incluye información irrelevante o distractiva.\"},\n        {\"property_id\": \"P9\", \"property_name\": \"Carga Germana\", \"score\": 10, \"observation\": \"Activa conocimiento previo en análisis estático, depuración, métricas de código y buenas prácticas de ingeniería (ej. uso de SonarQube, ESLint, APM).\"},\n        {\"property_id\": \"P10\", \"property_name\": \"Metacognición\", \"score\": 8, \"observation\": \"Incluye mecanismos de autoverificación mediante la sección 'Supuestos y dudas', donde se debe indicar explícitamente si la información es insuficiente en lugar de inventar.\"},\n        {\"property_id\": \"P11\", \"property_name\": \"Herramientas Externas\", \"score\": 7, \"observation\": \"Menciona explícitamente herramientas como SonarQube, ESLint, PMD, CodeClimate y APM, lo que permite su uso como referencia, aunque no las invoca directamente en tiempo de ejecución.\"},\n        {\"property_id\": \"P12\", \"property_name\": \"Recompensas / Incentivos\", \"score\": 6, \"observation\": \"No incluye refuerzos explícitos de comportamiento (como premios o retroalimentación positiva), pero la claridad de las expectativas y los ejemplos sirven como incentivo implícito.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_3_seguridad_veracidad\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita alucinaciones al exigir que las conclusiones se basen únicamente en las entradas proporcionadas. Prohíbe inventar valores de métricas, identificadores o código no relacionado. Promueve la veracidad al requerir trazabilidad y admisión de límites. No hay indicaciones de sesgo o riesgo de privacidad, y el tono es neutral y profesional.\",\n      \"properties\": [\n        {\"property_id\": \"P13\", \"property_name\": \"Detección de Alucinaciones\", \"score\": 10, \"observation\": \"Restringe explícitamente la invención de datos: 'Si la información es insuficiente o ambigua, indícalo explícitamente... en lugar de inventar datos' y lo mismo para métricas e identificadores.\"},\n        {\"property_id\": \"P14\", \"property_name\": \"Balance Factibilidad vs. Creatividad\", \"score\": 9, \"observation\": \"Equilibrio adecuado: permite creatividad en la propuesta de cambios, pero dentro de límites estrictos de factibilidad basados en entradas reales.\"},\n        {\"property_id\": \"P15\", \"property_name\": \"Sesgo\", \"score\": 9, \"observation\": \"No muestra favorecimiento hacia ciertas tecnologías, metodologías o estilos; el enfoque es neutral y basado en evidencia objetiva.\"},\n        {\"property_id\": \"P16\", \"property_name\": \"Seguridad\", \"score\": 9, \"observation\": \"Resistente a inyecciones: las entradas están claramente marcadas como variables de plantilla ({{...}}) y el prompt prohíbe modificarlas, reduciendo riesgo de prompt injection vía contexto.\"},\n        {\"property_id\": \"P17\", \"property_name\": \"Privacidad\", \"score\": 10, \"observation\": \"No solicita ni maneja datos personales o PII; el enfoque es en código, métricas técnicas e incidencias, por lo que no hay riesgo de privacidad.\"},\n        {\"property_id\": \"P18\", \"property_name\": \"Confiabilidad\", \"score\": 9, \"observation\": \"Fomenta la admisión de límites: obliga a indicar cuando la información es insuficiente, lo que aumenta la confiabilidad de la salida.\"},\n        {\"property_id\": \"P19\", \"property_name\": \"Normas Sociales\", \"score\": 10, \"observation\": \"Tono profesional, respetuoso y alineado con conducta adecuada en un entorno de ingeniería de software colaborativo.\"}\n      ]\n    },\n    {\n      \"gate\": \"gate_4_eficiencia_foco\",\n      \"status\": \"PASS\",\n      \"justification\": \"El prompt evita el over-engineering al enfocarse únicamente en lo necesario para cumplir su propósito: guiar la propuesta de un cambio de código mínimo y seguro. Las propiedades de interacción y cortesía están bien atendidas mediante la solicitud explícita de aclaraciones cuando falta información y el tono profesional.\",\n      \"properties\": [\n        {\"property_id\": \"P20\", \"property_name\": \"Interacción\", \"score\": 9, \"observation\": \"Solicita explícitamente que se indiquen supuestos y dudas cuando la información es insuficiente, lo que permite interacción adaptativa sin asumir.\"},\n        {\"property_id\": \"P21\", \"property_name\": \"Cortesía\", \"score\": 10, \"observation\": \"Tono formal, respetuoso y profesional durante todo el prompt, apropiado para la colaboración entre pares en ingeniería.\"}\n      ]\n    }\n  ],\n  \"total_score\": 90,\n  \"recommendations\": [\n    \"Considerar añadir un recordatorio explícito en la sección 'Restricciones' para evitar el uso de términos vagos como 'mejorar' o 'optimizar' sin vincularlos a métricas concretas, reforzando la objetividad.\",\n    \"Incluir una breve nota en la sección 'Formato de salida' que indique que las secciones deben estar presentes incluso si están vacías (excepto 'Supuestos y dudas', que puede estar vacío si no aplica), para evitar ambigüedad en la salida del modelo.\"\n  ]\n}",
+                  "reasoning_content": null
+                },
+                "logprobs": null,
+                "finish_reason": "stop"
+              }
+            ],
+            "created": 1790529470,
+            "service_tier": null,
+            "system_fingerprint": null
+          },
+          "created_at": "2026-09-27T12:18:10.353557-05:00"
+        }
+      ],
+      "human_decisions": [
+        {
+          "id": "4a88639c-98f3-4fba-8195-3632a22c0f19",
+          "decision": "approve",
+          "feedback": null,
+          "edited_prompt": null,
+          "created_at": "2026-09-27T13:41:31.381793-05:00"
+        }
+      ]
+    }
+  ],
+  "result": null
+}
