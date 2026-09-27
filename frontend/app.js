@@ -194,7 +194,11 @@ function renderIteraciones(run) {
   panel.hidden = false;
   contenedor.innerHTML = run.iterations
     .map((it) => {
-      const fuente = ETIQUETA_FUENTE[it.source] || it.source;
+      let fuente = ETIQUETA_FUENTE[it.source] || it.source;
+      if (it.model) fuente += ` · ${escapeHtml(it.model)}`;
+      if (it.optimizer_fallback) {
+        fuente += ` · respaldo: ${escapeHtml(it.optimizer_fallback.from_model)} no dio una respuesta usable`;
+      }
       const salida = it.output_prompt ?? "(el Optimizer no devolvió un prompt válido)";
       const auditoria = it.audits[0];
       let badge = "";

@@ -29,7 +29,7 @@ from backend.config import get_settings
 from backend.database import SessionLocal
 from backend.models import Audit, HumanDecision, Iteration, Result, Run
 from backend.services.final_executor import ExecutorParseError, execute_prompt
-from backend.services.nvidia_client import NvidiaClientError
+from backend.services.nvidia_client import NvidiaClientError, NvidiaEmptyResponseError
 from backend.services.prompt_auditor import AuditorParseError, audit_prompt
 from backend.services.prompt_optimizer import OptimizerParseError, optimize_prompt
 
@@ -200,27 +200,48 @@ async def _ciclo_optimizar_y_auditar(
     human_feedback: str | None,
 ) -> None:
     original_prompt = run.original_prompt
+    principal = run.optimizer_model
+    kwargs = dict(previous_prompt=previous_prompt, audit_feedback=audit_feedback, human_feedback=human_feedback)
     _soltar_conexion(db)
-    try:
-        resultado_opt = await optimize_prompt(
-            original_prompt,
-            previous_prompt=previous_prompt,
-            audit_feedback=audit_feedback,
-            human_feedback=human_feedback,
+
+    def iteracion_fallida(raw, respaldo=None) -> None:
+        db.add(
+            Iteration(
+                run_id=run.id,
+                iteration_number=iteration_number,
+                input_prompt=db_input_prompt,
+                output_prompt=None,
+                source="optimizer",
+                optimizer_raw=raw,
+                optimizer_fallback=respaldo,
+            )
         )
-    except OptimizerParseError as e:
-        iteracion = Iteration(
-            run_id=run.id,
-            iteration_number=iteration_number,
-            input_prompt=db_input_prompt,
-            output_prompt=None,
-            source="optimizer",
-            optimizer_raw=e.raw_response,
-        )
-        db.add(iteracion)
         db.commit()
-        fail_run(db, run, f"El Optimizer no devolvió JSON válido tras reintentar: {e}")
-        return
+
+    datos_respaldo = None
+    try:
+        resultado_opt = await optimize_prompt(original_prompt, model=principal, **kwargs)
+    except (OptimizerParseError, NvidiaEmptyResponseError) as e:
+        # Sin respuesta usable del modelo principal (visto en el punto 4:
+        # kimi-k3 devolvió content vacío en los 3 reintentos): una vez con
+        # el modelo de respaldo, igual que el Mejorador de requisitos.
+        respaldo = get_settings().improver_fallback_model
+        if not respaldo or respaldo == principal:
+            iteracion_fallida(e.raw_response)
+            fail_run(db, run, f"El Optimizer no devolvió una respuesta usable: {e}")
+            return
+        datos_respaldo = {"from_model": principal, "reason": str(e), "raw_response": e.raw_response}
+        try:
+            resultado_opt = await optimize_prompt(original_prompt, model=respaldo, **kwargs)
+        except (OptimizerParseError, NvidiaClientError) as e2:
+            iteracion_fallida(getattr(e2, "raw_response", None), datos_respaldo)
+            fail_run(
+                db,
+                run,
+                f"El Optimizer principal ({principal}) falló: {e}. "
+                f"El de respaldo ({respaldo}) también falló: {e2}",
+            )
+            return
     except NvidiaClientError as e:
         fail_run(db, run, f"Error del Optimizer al llamar a NVIDIA: {e}")
         return
@@ -232,6 +253,8 @@ async def _ciclo_optimizar_y_auditar(
         output_prompt=resultado_opt.optimizer_response.improved_prompt,
         source="optimizer",
         optimizer_raw=resultado_opt.raw_response,
+        model=resultado_opt.model,
+        optimizer_fallback=datos_respaldo,
     )
     db.add(iteracion)
     db.commit()

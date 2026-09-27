@@ -44,8 +44,11 @@ async def optimize_prompt(
     previous_prompt: str | None = None,
     audit_feedback: str | None = None,
     human_feedback: str | None = None,
+    model: str | None = None,
 ) -> OptimizerResult:
+    """`model` permite usar el modelo de respaldo; por defecto OPTIMIZER_MODEL."""
     settings = get_settings()
+    model = model or settings.optimizer_model
     messages = [
         {"role": "system", "content": OPTIMIZER_SYSTEM_PROMPT},
         {
@@ -56,10 +59,10 @@ async def optimize_prompt(
         },
     ]
 
-    resultado_llm = await chat_completion(model=settings.optimizer_model, messages=messages)
+    resultado_llm = await chat_completion(model=model, messages=messages)
 
     try:
-        return _a_resultado(resultado_llm, settings.optimizer_model)
+        return _a_resultado(resultado_llm, model)
     except (ValueError, ValidationError) as primer_error:
         messages.append({"role": "assistant", "content": resultado_llm.content})
         messages.append(
@@ -72,9 +75,9 @@ async def optimize_prompt(
                 ),
             }
         )
-        resultado_llm = await chat_completion(model=settings.optimizer_model, messages=messages)
+        resultado_llm = await chat_completion(model=model, messages=messages)
         try:
-            return _a_resultado(resultado_llm, settings.optimizer_model)
+            return _a_resultado(resultado_llm, model)
         except (ValueError, ValidationError) as segundo_error:
             raise OptimizerParseError(
                 f"El Optimizer no devolvió JSON válido tras reintentar: {segundo_error}",

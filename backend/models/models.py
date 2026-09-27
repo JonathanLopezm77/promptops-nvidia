@@ -78,6 +78,8 @@ class Iteration(Base):
     output_prompt: Mapped[str | None] = mapped_column(Text, default=None)
     source: Mapped[str] = mapped_column(IterationSource)
     optimizer_raw: Mapped[dict | None] = mapped_column(JSONB, default=None)
+    model: Mapped[str | None] = mapped_column(Text, default=None)
+    optimizer_fallback: Mapped[dict | None] = mapped_column(JSONB, default=None)
     created_at: Mapped[datetime] = mapped_column(server_default=text("now()"))
 
     run: Mapped["Run"] = relationship(back_populates="iterations")

@@ -10,3 +10,9 @@
 -- tener las métricas iniciales y el delta que exige el enunciado (6.1).
 -- ADD VALUE puede ir dentro de una transacción desde PostgreSQL 12.
 ALTER TYPE iteration_source ADD VALUE IF NOT EXISTS 'original';
+
+-- Punto 4: el Optimizer tiene modelo de respaldo (kimi-k3 degenera de forma
+-- intermitente). Cada iteración registra qué modelo produjo su versión y,
+-- si hubo respaldo, el modelo original, el motivo y su respuesta cruda.
+ALTER TABLE iterations ADD COLUMN IF NOT EXISTS model TEXT;
+ALTER TABLE iterations ADD COLUMN IF NOT EXISTS optimizer_fallback JSONB;

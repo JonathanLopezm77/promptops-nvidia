@@ -203,8 +203,17 @@ async def validar(base_url: str, objetivo: int, intentos: int, solo: list[str] |
         if isinstance(res, Exception):
             print(f"  FALLO {fase['clave']}: {type(res).__name__}: {res}")
             continue
+        anterior = manifiesto["fases"].get(fase["clave"])
+        previos = []
+        if anterior:
+            # Revalidar no borra el intento anterior (p. ej. un run en ERROR):
+            # queda registrado como evidencia.
+            previos = anterior.get("intentos_previos", []) + [
+                {k: v for k, v in anterior.items() if k != "intentos_previos"}
+            ]
         manifiesto["fases"][fase["clave"]] = {
             "run_id": res["run_id"], "validado_en": datetime.now(timezone.utc).isoformat(), **_commit(),
+            **({"intentos_previos": previos} if previos else {}),
         }
     MANIFIESTO.write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
     estado(base_url)
@@ -272,6 +281,11 @@ def exportar(base_url: str) -> None:
             continue
         (DIR_EVIDENCIA / "runs" / f"{fase['n']}_{fase['clave']}.json").write_text(
             json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")
+        info = json.loads(MANIFIESTO.read_text(encoding="utf-8"))["fases"][fase["clave"]]
+        for i, previo in enumerate(info.get("intentos_previos", []), start=1):
+            run_previo = httpx.get(f"{base_url}/api/runs/{previo['run_id']}", timeout=60).json()
+            (DIR_EVIDENCIA / "runs" / f"{fase['n']}_{fase['clave']}_intento_previo_{i}.json").write_text(
+                json.dumps(run_previo, ensure_ascii=False, indent=2), encoding="utf-8")
         eventos = httpx.get(f"{base_url}/api/runs/{run['id']}/events", timeout=60).json()
 
         base_it = linea_base(run)
@@ -308,6 +322,7 @@ def exportar(base_url: str) -> None:
             "iteraciones_optimizacion": len(iteraciones_opt),
             "auto_iteraciones": auto, "intervenciones_humanas": manuales,
             "marcadores_conservados": (not faltan) if aprobado else "",
+            "iteraciones_con_respaldo": sum(1 for it in run["iterations"] if it.get("optimizer_fallback")),
             "optimizer_model": run["optimizer_model"], "auditor_model": run["auditor_model"],
             "fecha_inicio": run["created_at"], "fecha_aprobacion": decision and decision["created_at"],
         })
@@ -344,13 +359,17 @@ def exportar(base_url: str) -> None:
         else:
             L += ["_Pendiente de aprobación humana en la plataforma._"]
         L += ["", "## 3. Historial de iteraciones", "",
-              "| # | Origen | Score | Gates | Decisión humana |", "|---|---|---|---|---|"]
+              "| # | Origen | Modelo | Score | Gates | Decisión humana |", "|---|---|---|---|---|---|"]
         for it in run["iterations"]:
             a = _auditoria(it)
             decs = "; ".join(
                 d["decision"] + (" (automática)" if (d["feedback"] or "").startswith("[AUTO-ITERACIÓN") else "")
                 for d in it["human_decisions"]) or "—"
-            L.append(f"| {it['iteration_number']} | {it['source']} | {a and a['total_score']} | {_resumen_gates(a)} | {decs} |")
+            modelo = it.get("model") or "—"
+            if it.get("optimizer_fallback"):
+                modelo += f" (respaldo; `{it['optimizer_fallback']['from_model']}` no respondió)"
+            L.append(f"| {it['iteration_number']} | {it['source']} | {modelo} | {a and a['total_score']} | "
+                     f"{_resumen_gates(a)} | {decs} |")
         L += ["", "<details><summary>Timeline</summary>", ""] + \
              [f"- {e['timestamp']} — {e['description']}" for e in eventos] + ["", "</details>", ""]
         (DIR_PROMPTS / fase["archivo"]).write_text("\n".join(L), encoding="utf-8")

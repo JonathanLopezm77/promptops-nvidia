@@ -45,6 +45,10 @@ CREATE TABLE iterations (
     output_prompt TEXT,
     source iteration_source NOT NULL,
     optimizer_raw JSONB,
+    -- Modelo que produjo output_prompt (NULL en 'original' y 'human_edit') y,
+    -- si el Optimizer principal falló, los datos del modelo de respaldo.
+    model TEXT,
+    optimizer_fallback JSONB,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     UNIQUE (run_id, iteration_number)
 );

@@ -87,6 +87,8 @@ class IterationOut(BaseModel):
     output_prompt: str | None
     source: str
     optimizer_raw: dict[str, Any] | None
+    model: str | None = None
+    optimizer_fallback: dict[str, Any] | None = None
     created_at: datetime
     audits: list[AuditOut] = []
     human_decisions: list[HumanDecisionOut] = []
