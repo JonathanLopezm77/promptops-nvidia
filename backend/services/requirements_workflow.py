@@ -55,7 +55,12 @@ TRANSICIONES_VALIDAS: dict[str, set[str]] = {
 
 
 def _set_status(db: Session, analysis: RequirementAnalysis, target_status: str) -> None:
-    """Único lugar que escribe `analysis.status`."""
+    """Único lugar que escribe `analysis.status`.
+
+    No hace `db.refresh()` tras el commit: refrescar abre una transacción
+    nueva que retiene una conexión del pool mientras se espera a la IA
+    (minutos). Con 9 análisis simultáneos eso agotó el pool y bloqueó el
+    servidor (bug encontrado al ejecutar el punto 3)."""
     if target_status not in TRANSICIONES_VALIDAS.get(analysis.status, set()):
         raise InvalidTransitionError(analysis.status, target_status)
     analysis.status = target_status
@@ -63,7 +68,6 @@ def _set_status(db: Session, analysis: RequirementAnalysis, target_status: str) 
         analysis.finished_at = datetime.now(timezone.utc)
     db.add(analysis)
     db.commit()
-    db.refresh(analysis)
 
 
 def fail_analysis(db: Session, analysis: RequirementAnalysis, error_message: str) -> None:
@@ -227,8 +231,13 @@ async def advance_analysis(db: Session, analysis: RequirementAnalysis) -> None:
 
 
 async def run_analysis_background(analysis_id: uuid.UUID) -> None:
-    """Para FastAPI BackgroundTasks: abre su PROPIA sesión de BD."""
-    db = SessionLocal()
+    """Para FastAPI BackgroundTasks: abre su PROPIA sesión de BD.
+
+    `expire_on_commit=False`: tras cada commit los atributos siguen en
+    memoria, así que leerlos no vuelve a consultar la BD ni retiene una
+    conexión durante la espera a la IA. Es seguro porque este proceso es el
+    único que modifica el análisis mientras corre."""
+    db = SessionLocal(expire_on_commit=False)
     try:
         analysis = db.get(RequirementAnalysis, analysis_id)
         if analysis is None:

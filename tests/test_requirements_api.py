@@ -52,6 +52,45 @@ def _crear(client, **body):
     return respuesta
 
 
+def test_ni_la_peticion_ni_el_proceso_retienen_conexiones_mientras_espera_a_la_ia(monkeypatch):
+    """Bug real del punto 3 (pool agotado con 9 análisis simultáneos): la
+    sesión de la petición POST también retenía su conexión hasta que
+    terminaba el análisis en segundo plano, porque FastAPI cierra las
+    dependencias con yield después de las BackgroundTasks."""
+    from backend.database import engine
+    from tests.test_requirements import _evaluator_result, _improver_result
+
+    ocupadas: list[int] = []
+
+    async def evaluador(*args, **kwargs):
+        ocupadas.append(engine.pool.checkedout())
+        return _evaluator_result(5)
+
+    async def mejorador(*args, **kwargs):
+        ocupadas.append(engine.pool.checkedout())
+        return _improver_result()
+
+    monkeypatch.setattr(requirements_workflow, "evaluate_requirement", evaluador)
+    monkeypatch.setattr(requirements_workflow, "improve_requirement", mejorador)
+
+    with TestClient(app) as c:
+        base = engine.pool.checkedout()
+        r = c.post("/api/requirements", json={"requirement": "El sistema debe ser rápido."})
+        analysis_id = r.json()["id"]
+        estado = c.get(f"/api/requirements/{analysis_id}").json()["status"]
+
+    db = SessionLocal()
+    try:
+        db.delete(db.get(RequirementAnalysis, uuid.UUID(analysis_id)))
+        db.commit()
+    finally:
+        db.close()
+
+    assert r.status_code == 202
+    assert estado == "COMPLETED"
+    assert ocupadas == [base] * 3
+
+
 def test_entrada_por_voz_guarda_la_metadata_del_stt(client):
     r = _crear(client, requirement="El sistema debe ser rápido.", input_mode="voice", stt_metadata=STT)
 

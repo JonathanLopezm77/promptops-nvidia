@@ -498,6 +498,35 @@ async def test_aclaracion_crea_un_analisis_hijo_con_las_respuestas(db, monkeypat
     assert padre.status == "COMPLETED"  # el análisis anterior queda intacto
 
 
+async def test_el_proceso_en_segundo_plano_no_ocupa_conexiones_mientras_espera_a_la_ia(db, monkeypatch):
+    """Bug real del punto 3: con 9 análisis simultáneos se agotó el pool de
+    conexiones (5 + 10), porque cada análisis retenía una conexión durante
+    los minutos que tarda la IA, y el servidor se bloqueó esperando una."""
+    from backend.database import engine
+
+    analysis_id = _nuevo_analisis(db).id
+    db.commit()  # la sesión del test no debe retener conexión durante la medición
+    base = engine.pool.checkedout()
+    ocupadas_durante_la_ia: list[int] = []
+
+    async def evaluador(*args, **kwargs):
+        ocupadas_durante_la_ia.append(engine.pool.checkedout() - base)
+        return _evaluator_result(5)
+
+    async def mejorador(*args, **kwargs):
+        ocupadas_durante_la_ia.append(engine.pool.checkedout() - base)
+        return _improver_result()
+
+    monkeypatch.setattr(requirements_workflow, "evaluate_requirement", evaluador)
+    monkeypatch.setattr(requirements_workflow, "improve_requirement", mejorador)
+
+    await requirements_workflow.run_analysis_background(analysis_id)
+
+    assert ocupadas_durante_la_ia == [0, 0, 0]
+    db.expire_all()
+    assert db.get(RequirementAnalysis, analysis_id).status == "COMPLETED"
+
+
 def test_no_se_puede_aclarar_un_analisis_sin_terminar(db):
     analysis = _nuevo_analisis(db)
     with pytest.raises(InvalidTransitionError):

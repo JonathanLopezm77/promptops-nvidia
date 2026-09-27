@@ -33,10 +33,25 @@ def _obtener_o_404(db: Session, analysis_id: uuid.UUID) -> RequirementAnalysis:
     return analysis
 
 
+def _responder_y_liberar(
+    db: Session, analysis: RequirementAnalysis, background_tasks: BackgroundTasks
+) -> RequirementAnalysisDetailOut:
+    """Arma la respuesta, devuelve la conexión al pool y agenda el análisis.
+
+    FastAPI cierra las dependencias con yield (get_db) DESPUÉS de las
+    BackgroundTasks, así que sin este `db.close()` la conexión de la petición
+    quedaba retenida los minutos que tarda la IA. Con 9 análisis simultáneos
+    se agotó el pool y el servidor se bloqueó (bug encontrado en el punto 3)."""
+    respuesta = RequirementAnalysisDetailOut.model_validate(analysis)
+    db.close()
+    background_tasks.add_task(requirements_workflow.run_analysis_background, respuesta.id)
+    return respuesta
+
+
 @router.post("", response_model=RequirementAnalysisDetailOut, status_code=202)
 def crear_analisis(
     body: CreateRequirementRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
-) -> RequirementAnalysis:
+) -> RequirementAnalysisDetailOut:
     analysis = requirements_workflow.start_analysis(
         db,
         body.requirement,
@@ -44,8 +59,7 @@ def crear_analisis(
         input_mode=body.input_mode,
         stt_metadata=body.stt_metadata,
     )
-    background_tasks.add_task(requirements_workflow.run_analysis_background, analysis.id)
-    return analysis
+    return _responder_y_liberar(db, analysis, background_tasks)
 
 
 @router.get("", response_model=list[RequirementAnalysisOut])
@@ -76,10 +90,9 @@ def aclarar_analisis(
     body: ClarifyRequirementRequest,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
-) -> RequirementAnalysis:
+) -> RequirementAnalysisDetailOut:
     """Responde las preguntas de aclaración: crea un análisis nuevo ligado
     al anterior (parent_id) y lo procesa en segundo plano."""
     anterior = _obtener_o_404(db, analysis_id)
     nuevo = requirements_workflow.start_clarification(db, anterior, body.answers)
-    background_tasks.add_task(requirements_workflow.run_analysis_background, nuevo.id)
-    return nuevo
+    return _responder_y_liberar(db, nuevo, background_tasks)
