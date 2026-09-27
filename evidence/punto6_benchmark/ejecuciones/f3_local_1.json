@@ -1,0 +1,91 @@
+{
+  "id": "f3_local_1",
+  "fase": 3,
+  "modelo_clave": "local",
+  "corrida": 1,
+  "posicion_en_orden": 17,
+  "modelo": {
+    "clave": "local",
+    "tipo": "Modelo local / open-weight ejecutado on-premise",
+    "proveedor": "ollama",
+    "modelo": "qwen2.5-coder:7b",
+    "extra": {
+      "options": {
+        "num_ctx": 16384
+      },
+      "keep_alive": "60m"
+    },
+    "justificacion": "Open-weight (licencia Apache 2.0, según /api/show de Ollama), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "prompt_enviado": "Actúa como arquitecto de software senior. Tu tarea es producir una documentación arquitectónica completa y rigurosa a partir de la especificación aprobada y las restricciones técnicas proporcionadas.\n\nEspecificación aprobada:\nSPEC-01 Agregar a la lista de deseos: un cliente registrado con correo verificado agrega un producto del catálogo a su lista, que guarda el precio vigente en ese momento. La lista no admite productos repetidos ni más de 50 productos; en esos casos se informa el motivo al cliente.\nSPEC-02 Eliminar de la lista: el cliente elimina un producto de su lista; si el producto no estaba, se informa al cliente.\nSPEC-03 Consultar la lista: el cliente ve sus productos ordenados por fecha de agregado, del más antiguo al más reciente, con el precio guardado y el precio actual.\nSPEC-04 Detectar bajas de precio: el sistema compara el precio actual de cada producto de las listas con el precio guardado y detecta las bajas iguales o mayores a un umbral configurable, 10 % por defecto.\nSPEC-05 Avisar por correo: por cada baja detectada se envía un correo al cliente con el producto, el precio guardado y el precio actual; como máximo un aviso por cliente y producto cada 24 horas.\nSPEC-06 Clientes invitados: los clientes sin cuenta ven la opción de lista de deseos deshabilitada con el mensaje \"Inicia sesión para usar tu lista de deseos\".\n\nRestricciones técnicas:\nR1: Monolito modular: una sola aplicación en Python 3.12 con FastAPI, que es como ya está construida la tienda.\nR2: La base de datos PostgreSQL existente es la única base de datos; no se agregan otras (ni Redis ni bases NoSQL).\nR3: Sin colas ni brokers de mensajes (Kafka, RabbitMQ, Amazon SQS, Celery).\nR4: Los correos se envían solo mediante el servicio interno existente: POST /internal/mail/send con JSON {to, subject, body}.\nR5: La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación.\nR6: No se contratan ni integran servicios de terceros nuevos.\n\n**Regla de identificación (obligatoria):**\n- Todos los componentes y elementos arquitectónicos deben usar identificadores ARCH-XX estrictamente numéricos y secuenciales, comenzando en ARCH-01 y sin saltos ni repeticiones (ARCH-01, ARCH-02, ARCH-03, …).\n- Antes de finalizar, verifica explícitamente que la secuencia es correcta; si encuentras un salto o duplicado, renuméralo y actualiza todas las referencias (incluido el diagrama Mermaid).\n\n**Estructura obligatoria de tu respuesta (en Markdown):**\n1. **Resumen de la arquitectura** (3‑5 líneas): estilo arquitectónico elegido y justificación breve.\n2. **Componentes**: para cada componente incluye:\n   - Identificador único ARCH-XX (numérico y secuencial, empezando en ARCH-01).\n   - Nombre y responsabilidad única y clara.\n   - Trazabilidad: lista de identificadores SPEC‑XX de la especificación que cubre (usa exactamente los IDs tal como aparecen; si un componente no cubre ningún SPEC, justifícalo).\n   - Comunicación: con qué otros componentes interactúa y mediante qué mecanismo (síncrono/asíncrono, protocolo).\n3. **Contratos de interfaces**: para cada interfaz relevante define endpoint y método (si aplica), datos de entrada y de salida con sus tipos, y códigos de error o casos límite principales.\n4. **Decisiones de diseño**: explica las decisiones arquitectónicas importantes (alternativas descartadas, trade‑offs). Para **CADA** decisión indica: (a) el identificador ARCH‑XX del componente afectado, y (b) al menos una restricción técnica que la justifique, citándola explícitamente; si una decisión no deriva de ninguna restricción, explica por qué sigue siendo necesaria (ninguna decisión puede quedar sin justificación).\n5. **Verificación de restricciones**: lista cada restricción técnica y cómo la arquitectura la cumple. Además, contrasta cruzadamente cada decisión de diseño de la sección 4 con al menos una restricción: confirma que ninguna decisión carece de anclaje en una restricción o justificación explícita, y que ninguna contradice las restricciones. Si una restricción impide cubrir algún SPEC, señalalo explícitamente como conflicto.\n6. **Diagrama de arquitectura en Mermaid** (sintaxis válida), mostrando componentes y flujos de comunicación, usando los mismos IDs ARCH‑XX de la sección 2 como etiquetas.\n7. **Supuestos y riesgos**: declara los supuestos asumidos ante ambigüedades o datos faltantes y los riesgos asociados (no inventes información).\n8. **Brechas de cobertura**: cada SPEC de la especificación debe estar cubierto por al menos un ARCH‑XX; si alguno queda sin cobertura, indícalo aquí.\n9. **Lista de comprobación final** (marca cada punto antes de terminar):\n   - [ ] Todos los IDs ARCH‑XX son numéricos, secuenciales y sin huecos, empezando en ARCH‑01, y coinciden en las secciones 2, 3, 4 y 6.\n   - [ ] Todo SPEC‑XX de la especificación aparece cubierto por al menos un ARCH‑XX (o está listado en Brechas de cobertura).\n   - [ ] Cada decisión de diseño está contrastada con al menos una restricción técnica (o justificada explícitamente).\n   - [ ] El diagrama Mermaid usa sintaxis válida y contiene todos los ARCH‑XX definidos.\n   - [ ] **Se ha verificado el diagrama con un linter de Mermaid (p. ej. mermaid.live o mermaid‑cli) y se ha corroborado la correspondencia de IDs mediante un script de trazabilidad.**\n   - [ ] Ninguna restricción técnica ha sido incumplida ni ignorada.\n\n**Incentivo de calidad:** Se valorará especialmente la precisión en la numeración ARCH‑XX y la cobertura completa de SPEC‑XX; una documentación que cumpla rigurosamente estos aspectos recibirá una evaluación positiva destacada.\n\nLas variables entre {{...}} forman parte de la plantilla: no las cambies ni las interpretes literalmente.\n\nNo incluyas código de implementación; el resultado es exclusivamente documentación arquitectónica.\n\nSe recomienda, como buena práctica, validar el diagrama Mermaid con un linter y cruzar los IDs SPEC‑XX/ARCH‑XX con un script para garantizar cobertura completa y renderizado correcto.\n",
+  "resultado": {
+    "modelo": "qwen2.5-coder:7b",
+    "proveedor": "ollama",
+    "contenido": "## Resumen de la arquitectura\nLa arquitectura elegida es **Microservicios**. Este estilo permite una escalabilidad horizontal y una gestión más eficiente de las funcionalidades individuales, lo que se adapta bien a las restricciones técnicas y a la especificación del proyecto.\n\n## Componentes\n\n1. **ARCH-01**: **Servicio de Listas de Deseos**\n   - **Responsabilidad**: Maneja la creación, eliminación y consulta de listas de deseos de los clientes.\n   - **Trazabilidad**: SPEC-01, SPEC-02, SPEC-03\n   - **Comunicación**: Consume el servicio de correo interno (ARCH-02) para enviar avisos por correo.\n\n2. **ARCH-02**: **Servicio de Correo Interno**\n   - **Responsabilidad**: Envía correos electrónicos a los clientes.\n   - **Trazabilidad**: SPEC-05\n   - **Comunicación**: Recibe solicitudes de correo a través de la API POST /internal/mail/send.\n\n3. **ARCH-03**: **Servicio de Detección de Bajas de Precio**\n   - **Responsabilidad**: Compara los precios actuales con los guardados y envía avisos por correo si hay bajas significativas.\n   - **Trazabilidad**: SPEC-04, SPEC-05\n   - **Comunicación**: Consume el servicio de correo interno (ARCH-02) para enviar avisos por correo.\n\n## Contratos de Interfaces\n\n1. **Endpoint**: POST /internal/mail/send\n   - **Entrada**: {to, subject, body}\n   - **Salida**: {status: \"success\" | \"error\", message: string}\n   - **Códigos de Error**: 400 (Invalid request), 500 (Internal Server Error)\n\n## Decisiones de Diseño\n\n1. **Microservicios vs Monolito**\n   - **Justificación**: R1 (Monolito modular)\n   - **Restricción**: La arquitectura de microservicios permite una escalabilidad horizontal y una gestión más eficiente de las funcionalidades individuales.\n\n2. **Uso de la base de datos existente**\n   - **Justificación**: R2 (La base de datos PostgreSQL existente es la única base de datos)\n   - **Restricción**: La arquitectura de microservicios permite compartir la base de datos existente entre los servicios.\n\n3. **Tarea programada para la detección de bajas de precio**\n   - **Justificación**: R5 (La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación)\n   - **Restricción**: La arquitectura de microservicios permite ejecutar tareas programadas dentro de los servicios.\n\n## Verificación de Restricciones\n\n1. **R1 (Monolito modular)**: Cumplida por la arquitectura de microservicios.\n2. **R2 (La base de datos PostgreSQL existente es la única base de datos)**: Cumplida por la arquitectura de microservicios.\n3. **R3 (Sin colas ni brokers de mensajes)**: Cumplida por la arquitectura de microservicios.\n4. **R4 (Los correos se envían solo mediante el servicio interno existente)**: Cumplida por la arquitectura de microservicios.\n5. **R5 (La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación)**: Cumplida por la arquitectura de microservicios.\n6. **R6 (No se contratan ni integran servicios de terceros nuevos)**: Cumplida por la arquitectura de microservicios.\n\n## Diagrama de Arquitectura en Mermaid\n\n```mermaid\ngraph TD\n    A[ARCH-01: Servicio de Listas de Deseos] --> B[ARCH-02: Servicio de Correo Interno]\n    A --> C[ARCH-03: Servicio de Detección de Bajas de Precio]\n    B --> A\n    C --> B\n```\n\n## Supuestos y Riesgos\n\n1. **Supuesto**: El servicio de correo interno es confiable y siempre estará disponible.\n   - **Riesgo**: Fallo en el servicio de correo interno podría interrumpir la comunicación con los clientes.\n\n2. **Supuesto**: El servicio de correo interno soporta el volumen de correos que se espera.\n   - **Riesgo**: Si el volumen de correos aumenta, el servicio de correo interno podría no poder manejarlo adecuadamente.\n\n## Brechas de Cobertura\n\n- **SPEC-06 (Clientes invitados)**: No está cubierto por ninguna ARCH-XX. Se debe implementar una lógica adicional en el Servicio de Listas de Deseos para manejar los clientes invitados.\n\n## Lista de Comprobación Final\n\n- [ ] Todos los IDs ARCH-XX son numéricos, secuenciales y sin huecos, empezando en ARCH-01, y coinciden en las secciones 2, 3, 4 y 6.\n- [ ] Todo SPEC-XX de la especificación aparece cubierto por al menos un ARCH-XX (o está listado en Brechas de cobertura).\n- [ ] Cada decisión de diseño está contrastada con al menos una restricción técnica (o justificada explícitamente).\n- [ ] El diagrama Mermaid usa sintaxis válida y contiene todos los ARCH-XX definidos.\n- [ ] Se ha verificado el diagrama con un linter de Mermaid (p. ej. mermaid.live o mermaid-cli) y se ha corroborado la correspondencia de IDs mediante un script de trazabilidad.\n- [ ] Ninguna restricción técnica ha sido incumplida ni ignorada.",
+    "razonamiento": "",
+    "ttft_s": 2.0106708999956027,
+    "ttft_contenido_s": 2.0106717000016943,
+    "latencia_total_s": 78.87136289989576,
+    "tokens_entrada": 1604,
+    "tokens_salida": 1304,
+    "tokens_razonamiento": null,
+    "finish_reason": "stop",
+    "carga_modelo_s": 0.0048417,
+    "modelo_reportado": "qwen2.5-coder:7b",
+    "inicio_utc": "2026-09-27T20:24:40.260148+00:00",
+    "fin_utc": "2026-09-27T20:25:59.131923+00:00",
+    "error": null,
+    "detalle_final": {
+      "model": "qwen2.5-coder:7b",
+      "created_at": "2026-09-27T20:25:59.1308174Z",
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 78605621300,
+      "load_duration": 4841700,
+      "prompt_eval_count": 1604,
+      "prompt_eval_cached_count": 24,
+      "prompt_eval_duration": 1593516000,
+      "eval_count": 1304,
+      "eval_duration": 76859220000
+    },
+    "recursos": {
+      "muestras": 138,
+      "intervalo_s": 0.5,
+      "ram_proceso_mb": {
+        "max": 1678.8,
+        "media": 1676.9
+      },
+      "cpu_proceso_pct": {
+        "max": 617.0,
+        "media": 571.4
+      },
+      "nucleos_logicos": 12,
+      "vram_gpu_total_usada_mb": {
+        "max": 4193.0,
+        "media": 4192.9
+      },
+      "gpu_uso_pct": {
+        "max": 95.0,
+        "media": 38.7
+      },
+      "modelos_cargados_ollama": [
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "tamano_mb": 5543.929997444153,
+          "vram_mb": 4052.979998588562,
+          "fraccion_gpu": 0.731,
+          "contexto": 16384
+        }
+      ]
+    },
+    "intentos": 1,
+    "errores_previos": [],
+    "duracion_con_reintentos_s": 79.5620017000474,
+    "ok": true
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "f4_cloud_razonamiento_3",
+  "fase": 4,
+  "modelo_clave": "cloud_razonamiento",
+  "corrida": 3,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.914634+00:00",
+  "puntaje": 82.94,
+  "componentes": {
+    "tests": 67.94,
+    "lint": 0.0,
+    "formato": 15
+  },
+  "cumple_tarea": false,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "estatico": {
+      "sintaxis_ok": true,
+      "importados": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "decimal",
+        "typing"
+      ],
+      "no_estandar": [],
+      "peligrosos": [],
+      "nombres_publicos_extra": [],
+      "faltan_del_contrato": [],
+      "asunciones": 0
+    },
+    "encabezado_file": true,
+    "archivos": [
+      [
+        "wishlist_service.py",
+        "python"
+      ]
+    ],
+    "compila": true,
+    "tests_total": 34,
+    "tests_pasadas": 33,
+    "tests_fallidas": [
+      "test_spec03_orden_por_fecha_ascendente"
+    ],
+    "avisos_lint": [
+      "I001: Import block is un-sorted or un-formatted",
+      "UP035: `typing.Dict` is deprecated, use `dict` instead",
+      "UP035: `typing.List` is deprecated, use `list` instead",
+      "UP006: Use `dict` instead of `Dict` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `dict` instead of `Dict` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation"
+    ],
+    "implements": true,
+    "archivos_implementacion": 1,
+    "incluye_pruebas": false
+  }
+}

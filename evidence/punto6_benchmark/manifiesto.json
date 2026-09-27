@@ -1,0 +1,65 @@
+{
+  "sesiones": [
+    {
+      "inicio_utc": "2026-09-27T20:06:31.822742+00:00",
+      "maquina_antes": {
+        "so": "Windows-11-10.0.26200-SP0",
+        "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+        "nucleos_logicos": 12,
+        "ram_total_gb": 23.7,
+        "ram_disponible_gb": 7.0,
+        "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU, 577.00, 6144 MiB, 4191 MiB"
+      },
+      "versiones": {
+        "local": {
+          "modelo": "qwen2.5-coder:7b",
+          "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+          "tamano_bytes": 4683087561,
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen2",
+          "families": [
+            "qwen2"
+          ],
+          "parameter_size": "7.6B",
+          "quantization_level": "Q4_K_M",
+          "contexto_maximo": 32768,
+          "ollama_version": "0.34.4"
+        },
+        "cloud_generalista": {
+          "modelo": "moonshotai/kimi-k3",
+          "owned_by": "moonshotai",
+          "en_catalogo": true,
+          "version": "no publicada por NVIDIA: se registra el id del modelo y la fecha de ejecución"
+        },
+        "cloud_razonamiento": {
+          "modelo": "nvidia/nemotron-3-super-120b-a12b",
+          "owned_by": "nvidia",
+          "en_catalogo": true,
+          "version": "no publicada por NVIDIA: se registra el id del modelo y la fecha de ejecución"
+        }
+      },
+      "parametros": {
+        "temperature": 0.2,
+        "top_p": 0.95,
+        "max_tokens": 8192
+      },
+      "reintentos": {
+        "max_intentos": 3,
+        "politica": "Solo ante fallos del servicio (respuesta vacía, HTTP 429/5xx, timeout, corte de red); nunca por la calidad de la respuesta. Igual para los 3 modelos. Cada ejecución registra sus intentos y los errores previos."
+      },
+      "semilla_orden": 20260927,
+      "local_ya_cargado": true,
+      "local_carga_al_calentar_s": 0.0066054,
+      "fin_utc": "2026-09-27T20:38:45.723023+00:00",
+      "maquina_despues": {
+        "so": "Windows-11-10.0.26200-SP0",
+        "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+        "nucleos_logicos": 12,
+        "ram_total_gb": 23.7,
+        "ram_disponible_gb": 6.5,
+        "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU, 577.00, 6144 MiB, 4193 MiB"
+      }
+    }
+  ]
+}

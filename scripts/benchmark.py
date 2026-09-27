@@ -245,7 +245,7 @@ def informe() -> None:
             "ram_proceso_max_mb": (rec.get("ram_proceso_mb") or {}).get("max"),
             "cpu_proceso_media_pct": (rec.get("cpu_proceso_pct") or {}).get("media"),
             "gpu_uso_max_pct": (rec.get("gpu_uso_pct") or {}).get("max"),
-            "vram_modelo_mb": vram.get("vram_mb"), "fraccion_modelo_en_gpu": vram.get("fraccion_gpu"),
+            "vram_modelo_mb": round(vram["vram_mb"], 1) if vram.get("vram_mb") else None, "fraccion_modelo_en_gpu": vram.get("fraccion_gpu"),
             "quality_gate_score": cal.get("puntaje"), "cumple_tarea": cal.get("cumple_tarea"),
             "schema_ok": cal.get("schema_ok"), "n_violaciones": len(cal.get("violaciones") or []),
             "n_supuestos_no_sustentados": len(cal.get("supuestos_no_sustentados") or []),

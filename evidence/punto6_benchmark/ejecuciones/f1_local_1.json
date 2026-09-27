@@ -1,0 +1,91 @@
+{
+  "id": "f1_local_1",
+  "fase": 1,
+  "modelo_clave": "local",
+  "corrida": 1,
+  "posicion_en_orden": 9,
+  "modelo": {
+    "clave": "local",
+    "tipo": "Modelo local / open-weight ejecutado on-premise",
+    "proveedor": "ollama",
+    "modelo": "qwen2.5-coder:7b",
+    "extra": {
+      "options": {
+        "num_ctx": 16384
+      },
+      "keep_alive": "60m"
+    },
+    "justificacion": "Open-weight (licencia Apache 2.0, según /api/show de Ollama), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "prompt_enviado": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\nLos clientes quieren guardar los productos que les interesan en una lista de deseos para comprarlos más adelante, y que la tienda les avise cuando alguno de esos productos baje de precio. El gerente comercial pide que el aviso llegue rápido y que la lista no sea demasiado grande.\n\nContexto del proyecto:\nTienda en línea de artículos deportivos con un catálogo público de 20000 productos. Hay clientes registrados, con correo verificado, y clientes invitados que compran sin cuenta. La tienda ya envía correos transaccionales mediante un servicio de correo existente. El equipo comercial actualiza los precios desde un panel interno.\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción medible y términos cuantificables (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica). NO uses verbos vagos o genéricos como \"gestionar\", \"procesar\", \"manejar\", \"administrar\" o \"ofrecer soporte\": sustitúyelos por el verbo de acción concreto y observable (por ejemplo, \"registrar\", \"calcular y mostrar\", \"validar\", \"notificar por correo\").\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación en la línea siguiente, con el prefijo \"Criterio de aceptación:\". Cada criterio debe ser independiente y comprobable mediante una prueba, medición u observación directa, con condiciones y resultados objetivos (valores numéricos, estados, mensajes), sin depender de interpretación subjetiva ni de otros criterios.\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.\n",
+  "resultado": {
+    "modelo": "qwen2.5-coder:7b",
+    "proveedor": "ollama",
+    "contenido": "## Requisitos funcionales\nRF-01: El sistema deberá permitir a los clientes registrados y invitados agregar productos a una lista de deseos.\nCriterio de aceptación: El producto se agrega a la lista de deseos del cliente y se muestra un mensaje de confirmación.\n\nRF-02: El sistema deberá permitir a los clientes ver su lista de deseos.\nCriterio de aceptación: El cliente puede ver todos los productos que ha agregado a su lista de deseos en una interfaz clara y ordenada.\n\nRF-03: El sistema deberá notificar a los clientes cuando un producto en su lista de deseos baje de precio.\nCriterio de aceptación: El cliente recibe un correo electrónico con el producto que ha bajado de precio y su nuevo precio.\n\nRF-04: El sistema deberá permitir a los clientes eliminar productos de su lista de deseos.\nCriterio de aceptación: El producto se elimina de la lista de deseos del cliente y se muestra un mensaje de confirmación.\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nRNF-02: El sistema deberá mantener la lista de deseos del cliente durante un mínimo de 30 días.\nCriterio de aceptación: El cliente puede ver su lista de deseos durante 30 días desde la última vez que la accedió.\n\n## Información faltante\n- ¿Cuál es el límite máximo de productos que un cliente puede agregar a su lista de deseos?\n- ¿Cómo se manejarán los productos que el cliente ya ha comprado pero aún están en su lista de deseos?\n\n## Aclaraciones sobre información ambigua\n- ¿Qué criterios se utilizarán para determinar si un producto ha bajado de precio? ¿Por ejemplo, si el precio cambia a un valor inferior al precio de compra del cliente, o si el precio cambia a un valor inferior al precio de la última vez que el cliente lo vio?\n- ¿Cómo se manejarán los productos que el cliente ha eliminado de su lista de deseos pero aún están en el catálogo? ¿Se eliminarán automáticamente o se mantendrán en la lista de deseos del cliente?",
+    "razonamiento": "",
+    "ttft_s": 0.7257478999672458,
+    "ttft_contenido_s": 0.7257487999740988,
+    "latencia_total_s": 34.725327100022696,
+    "tokens_entrada": 1086,
+    "tokens_salida": 549,
+    "tokens_razonamiento": null,
+    "finish_reason": "stop",
+    "carga_modelo_s": 0.0056743,
+    "modelo_reportado": "qwen2.5-coder:7b",
+    "inicio_utc": "2026-09-27T20:15:31.739167+00:00",
+    "fin_utc": "2026-09-27T20:16:06.469959+00:00",
+    "error": null,
+    "detalle_final": {
+      "model": "qwen2.5-coder:7b",
+      "created_at": "2026-09-27T20:16:06.4683549Z",
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 34451454100,
+      "load_duration": 5674300,
+      "prompt_eval_count": 1086,
+      "prompt_eval_cached_count": 1085,
+      "prompt_eval_duration": 249846000,
+      "eval_count": 549,
+      "eval_duration": 33998703999
+    },
+    "recursos": {
+      "muestras": 60,
+      "intervalo_s": 0.5,
+      "ram_proceso_mb": {
+        "max": 1579.9,
+        "media": 1578.3
+      },
+      "cpu_proceso_pct": {
+        "max": 618.9,
+        "media": 571.6
+      },
+      "nucleos_logicos": 12,
+      "vram_gpu_total_usada_mb": {
+        "max": 4191.0,
+        "media": 4191.0
+      },
+      "gpu_uso_pct": {
+        "max": 53.0,
+        "media": 43.3
+      },
+      "modelos_cargados_ollama": [
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "tamano_mb": 5543.929997444153,
+          "vram_mb": 4052.979998588562,
+          "fraccion_gpu": 0.731,
+          "contexto": 16384
+        }
+      ]
+    },
+    "intentos": 1,
+    "errores_previos": [],
+    "duracion_con_reintentos_s": 35.444410700001754,
+    "ok": true
+  }
+}

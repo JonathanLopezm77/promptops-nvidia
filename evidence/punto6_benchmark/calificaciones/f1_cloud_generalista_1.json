@@ -1,0 +1,165 @@
+{
+  "id": "f1_cloud_generalista_1",
+  "fase": 1,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 1,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.892005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "global_score": 70,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 7,
+          "especificidad": 6,
+          "atomicidad": 9,
+          "completitud": 6,
+          "consistencia": 9,
+          "factibilidad": 9,
+          "verificabilidad": 7,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 4,
+          "criterios_aceptacion": 5
+        },
+        "ambiguous_terms": [
+          "rápido",
+          "demasiado grande"
+        ],
+        "summary": "Los requisitos están mayoritariamente claros y atómicos, pero carecen de valores numéricos concretos y tienen algunos términos subjetivos. Se necesita clarificar los umbrales de tiempo, límites de lista y políticas de notificación para garantizar completitud, verificabilidad y ausencia de ambigüedad."
+      },
+      "error": null,
+      "latencia_s": 201.69399100006558,
+      "raw": {
+        "id": "chatcmpl-ac846cc57a97c621",
+        "object": "chat.completion",
+        "created": 1790541549,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 7,\n      \"finding\": \"El texto de los requisitos funcionales es comprensible, sin ambigüedad interna. Sin embargo, los criterios de aceptación para RF-04 y RF-05 contienen frases que dependen de normas externas (por ejemplo, el “umbral” no está definido), lo que dificulta la interpretación completa.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 6,\n      \"finding\": \"Muchos requisitos definen la acción y el resultado de forma precisa, pero faltan valores numéricos concretos, como el límite de productos por lista (RNF-02) y el tiempo máximo de envío de correos (RNF-01).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"Cada requisito describe un único comportamiento o regla, sin mezclar distintos motivos dentro de una misma oración.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 6,\n      \"finding\": \"El conjunto de requisitos cubre las principales funciones, pero carecen de datos esenciales, como el umbral de tiempo para notificaciones y el límite de productos en la lista.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 9,\n      \"finding\": \"No se observan contradicciones internas entre los requisitos; todos se alinean con el contexto del proyecto.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 9,\n      \"finding\": \"Los requisitos describen funcionalidades razonables dentro de las capacidades del sistema actual y del servicio de correo existente.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 7,\n      \"finding\": \"Los criterios de aceptación proporcionan condiciones verificables, pero algunos carecen de métricas numéricas concretas, lo que dificulta medir el cumplimiento de RF-04 y RF-05 en su totalidad.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"Se usan identificadores claros (RF-01 … RNF-02) y se relacionan con el contexto del proyecto, lo que permite trazarlos a nivel de diseño y pruebas.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 4,\n      \"finding\": \"Se emplean términos subjetivos como \\\"rápido\\\" y \\\"demasiado grande\\\" sin definir valores medibles.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 5,\n      \"finding\": \"Cada requisito tiene un criterio de aceptación, pero muchos de ellos carecen de métricas concretas y dependen de aclaraciones externas.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"falta un tiempo medible concreto para la notificación de bajada de precio.\"\n    },\n    {\n      \"term\": \"demasiado grande\",\n      \"reason\": \"no se especifica el límite exacto de productos permitidos en la lista.\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"valor del umbral de tiempo para la notificación de bajada de precio (RNF-01)\",\n    \"límite de productos máximo por lista de deseos (RNF-02)\",\n    \"definición precisa de \\\"rápido\\\" (tiempo concreto)\",\n    \"definición precisa de \\\"demasiado grande\\\" (valor numérico)\",\n    \"detalles sobre la gestión de listas de deseos para clientes invitados\",\n    \"estructura exacta del correo de notificación (campos exigidos)\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el valor numérico específico que define el tiempo máximo para enviar la notificación de bajada de precio (por ejemplo, ≤5 minutos, 30 minutos, etc.)?\",\n    \"¿Cuál es el límite exacto de productos permitido para una lista de deseos (por ejemplo, 50, 100, 200)?\",\n    \"¿Se permitirá el uso de la lista de deseos y la recepción de notificaciones a clientes invitados sin cuenta o solo a clientes registrados con correo verificado?\",\n    \"¿Qué campos mínimos debe contener el correo de notificación (nombre del producto, precio anterior, precio nuevo, enlace al producto, etc.)?\",\n    \"En caso de una nueva bajada de precio para un producto ya notificado, ¿se debe enviar un segundo aviso? Si es así, ¿con qué condiciones y frecuencia?\"\n  ],\n  \"summary\": \"Los requisitos están mayoritariamente claros y atómicos, pero carecen de valores numéricos concretos y tienen algunos términos subjetivos. Se necesita clarificar los umbrales de tiempo, límites de lista y políticas de notificación para garantizar completitud, verificabilidad y ausencia de ambigüedad.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "We need evaluate each criterion, produce JSON. Let's assume no contradiction. Some missing info, so scores lower. Provide ambiguous_terms etc.\n\nLet's assign scores: clarity 7, especificidad 6 (missing limits). atomicidad 9. completitud 6. consistencia 9. factibilidad 9. verificabilidad 7. trazabilidad 8 (identifiers present). ausencia_ambiguedad 4 (terms 'rápido', 'muy grande'). criterios_aceptacion 5 (some lack). Provide findings.\n\nLet's produce JSON.",
+              "reasoning_content": "We need evaluate each criterion, produce JSON. Let's assume no contradiction. Some missing info, so scores lower. Provide ambiguous_terms etc.\n\nLet's assign scores: clarity 7, especificidad 6 (missing limits). atomicidad 9. completitud 6. consistencia 9. factibilidad 9. verificabilidad 7. trazabilidad 8 (identifiers present). ausencia_ambiguedad 4 (terms 'rápido', 'muy grande'). criterios_aceptacion 5 (some lack). Provide findings.\n\nLet's produce JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 3015,
+          "total_tokens": 4254,
+          "completion_tokens": 1239,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "global_score": 74,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 8,
+          "especificidad": 7,
+          "atomicidad": 9,
+          "completitud": 6,
+          "consistencia": 8,
+          "factibilidad": 8,
+          "verificabilidad": 7,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 6,
+          "criterios_aceptacion": 7
+        },
+        "ambiguous_terms": [
+          "confirmación visible",
+          "envío del correo",
+          "rápido",
+          "no sea demasiado grande"
+        ],
+        "summary": "Los requisitos son claros, atómicos y coherentes, pero carecen de detalles esenciales como formato de confirmación, contenido del correo y valores umbral para tiempo límite y tamaño de lista, lo que afecta su completitud, especificidad y verificabilidad. Se detectan términos ambiguos que deben resolverse mediante aclaraciones del stakeholder."
+      },
+      "error": null,
+      "latencia_s": 41.89000659994781,
+      "raw": {
+        "id": "chatcmpl-295d70e8-c913-4ea3-9d1f-4eb383d4ebac",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 8,\n      \"finding\": \"Los requisitos RF-01 a RF-06 y RNF-01 a RNF-02 son claros en su intención principal. Por ejemplo, RF-01: 'El sistema deberá permitir al cliente registrado añadir un producto del catálogo a su lista de deseos desde la página del producto' no admite interpretaciones contradictorias sobre quién, qué acción y dónde se ejecuta.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 7,\n      \"finding\": \"RF-01 especifica actor, acción y contexto, pero omite detalles como el mecanismo de interacción (botón, gesto, etc.) o formato de la confirmación. RF-05 menciona 'correo electrónico' pero no especifica si es HTML, texto plano o incluye enlaces. RNF-01 y RNF-02 dependen de valores pendientes de definir, lo que reduce su especificidad actual.\",\n      \"recommendation\": \"Añadir detalles sobre formato de interacción y contenido del correo donde sea necesario para desarrollo.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"Cada requisito (RF-01 a RF-06 y RNF-01 a RNF-02) expresa un solo comportamiento principal. Por ejemplo, RF-03 solo trata sobre eliminación de producto y su efecto en notificaciones, sin mezclar con otras funcionalidades como adición o consulta.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 6,\n      \"finding\": \"Faltan detalles esenciales como el formato exacto de la confirmación visible en RF-01, el contenido mínimo del correo en RF-05, y los valores umbral para RNF-01 (tiempo máximo) y RNF-02 (límite de productos). Estos huecos impiden desarrollar y probar completamente los requisitos tal como están escritos.\",\n      \"recommendation\": \"Definir el formato de confirmación, contenido del correo y valores umbral pendientes.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"No hay contradicciones internas entre los requisitos. Por ejemplo, RF-06 evita duplicados y RF-03 elimina productos, lo cual es coherente. RF-05 limita notificaciones a clientes con el producto en su lista, alineado con RF-02. Ningún requisito se contradice consigo mismo ni con otros.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Dado el contexto (tienda en línea con panel interno, servicio de correo existente, 20000 productos), los requisitos son factibles. Por ejemplo, detectar bajadas de precio al guardar en panel interno (RF-04) y disparar notificaciones (RF-05) es técnico estándar. Los marcadores [POR DEFINIR] en RNF-01 y RNF-02 no afectan factibilidad, solo pendiente de ajuste.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 7,\n      \"finding\": \"Cada criterio de aceptación permite verificar objetivamente el cumplimiento. Por ejemplo, en RF-01: 'Al pulsar la opción de añadir... el producto queda registrado... y se muestra una confirmación visible' se puede probar mediante prueba de interacción y observación de estado. Sin embargo, la vaguedad de 'confirmación visible' y la dependencia de valores pendientes en RNF-01 y RNF-02 reducen la verificabilidad plena.\",\n      \"recommendation\": \"Definir qué constituye una 'confirmación visible' y establecer los umbrales pendientes para hacer los criterios totalmente verificables.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"Cada requisito tiene un identificador único (RF-01, RF-02, etc.) y está vinculado a un actor (cliente registrado, equipo comercial) y una necesidad clara del contexto (guardar productos, recibir avisos de bajada). Esto permite trazabilidad hacia diseño, código y pruebas.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 6,\n      \"finding\": \"Se detectan términos ambiguos: 'confirmación visible' en RF-01 no define qué tan visible o cómo; 'envío del correo' en RF-05 no especifica formato o contenido mínimo; 'rápido' en RNF-01 y la aclaración del gerente es subjetivo aunque marcado como pendiente. 'No sea demasiado grande' en RNF-02 y su aclaración también es ambiguo aunque pendiente de definir.\",\n      \"recommendation\": \"Reemplazar términos ambiguos por especificaciones medibles una vez resueltas las aclaraciones.\",\n      \"ambiguous_terms\": [\n        {\n          \"term\": \"confirmación visible\",\n          \"reason\": \"no define qué constituye una confirmación visible (toast, mensaje, cambio de color, etc.)\"\n        },\n        {\n          \"term\": \"envío del correo\",\n          \"reason\": \"no especifica formato, contenido mínimo o si incluye enlace al producto\"\n        },\n        {\n          \"term\": \"rápido\",\n          \"reason\": \"término subjetivo sin umbral de tiempo definido\"\n        },\n        {\n          \"term\": \"no sea demasiado grande\",\n          \"reason\": \"término subjetivo sin criterio definido para 'demasiado grande'\"\n        }\n      ]\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 7,\n      \"finding\": \"Todos los requisitos incluyen criterios de aceptación explícitos. Por ejemplo, RF-06: 'Al intentar añadir un producto ya presente, la lista no se duplica y se informa al cliente de que el producto ya está guardado' es verificable. Sin embargo, RNF-01 y RNF-02 tienen criterios pendientes de definir umbrales, lo que impide su plena verificabilidad hasta que se resuelvan las aclaraciones.\",\n      \"recommendation\": \"Definir los umbrales pendientes para RNF-01 (tiempo máximo) y RNF-02 (límite de productos) para completar los criterios de aceptación.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"confirmación visible\",\n      \"reason\": \"no define qué constituye una confirmación visible (toast, mensaje, cambio de color, etc.)\"\n    },\n    {\n      \"term\": \"envío del correo\",\n      \"reason\": \"no especifica formato, contenido mínimo o si incluye enlace al producto\"\n    },\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"término subjetivo sin umbral de tiempo definido\"\n    },\n    {\n      \"term\": \"no sea demasiado grande\",\n      \"reason\": \"término subjetivo sin criterio definido para 'demasiado grande'\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"formato y contenido mínimo de la confirmación visible al añadir a la lista de deseos\",\n    \"contenido mínimo del correo de notificación (nombre del producto, precio anterior, precio nuevo, enlace al producto, etc.)\",\n    \"umbral de tiempo máximo para el envío del correo de notificación tras actualización de precio\",\n    \"límite máximo de productos permitidos por lista de deseos\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál debe ser el formato y contenido mínimo de la confirmación visible al añadir un producto a la lista de deseos (por ejemplo, mensaje toast, banner, cambio de color del ícono)?\",\n    \"¿Qué datos mínimos debe contener el correo de aviso de bajada de precio (nombre del producto, precio anterior, precio nuevo, enlace al producto, etc.)?\",\n    \"¿Cuál es el umbral de tiempo máximo acordado para enviar el correo de notificación tras la actualización del precio en el panel interno (por ejemplo, ≤5 minutos, ≤1 hora, ≤24 horas)?\",\n    \"¿Cuál es el límite máximo de productos acordado para la lista de deseos por cliente (por ejemplo, 50, 100, 200 unidades)?\"\n  ],\n  \"summary\": \"Los requisitos son claros, atómicos y coherentes, pero carecen de detalles esenciales como formato de confirmación, contenido del correo y valores umbral para tiempo límite y tamaño de lista, lo que afecta su completitud, especificidad y verificabilidad. Se detectan términos ambiguos que deben resolverse mediante aclaraciones del stakeholder.\"\n}",
+              "role": "assistant",
+              "reasoning_content": null
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541549,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 3198,
+          "completion_tokens": 2003,
+          "total_tokens": 5201
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 85.0,
+  "componentes": {
+    "quality_score": 35.0,
+    "verificabilidad": 20.0,
+    "trazabilidad": 15.0,
+    "no_inventar": 15
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "secciones_presentes": [
+      "requisitos funcionales",
+      "requisitos no funcionales",
+      "información faltante",
+      "aclaraciones sobre información ambigua"
+    ],
+    "secciones_en_orden": true,
+    "requisitos": 8,
+    "rf": 6,
+    "rnf": 2,
+    "verificabilidad": 1.0,
+    "trazabilidad": 1.0,
+    "huecos_preguntados": [
+      "plazo del aviso",
+      "tamaño de la lista",
+      "umbral de baja",
+      "clientes invitados"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 87.0
+  }
+}

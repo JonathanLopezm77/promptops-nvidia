@@ -1,0 +1,57 @@
+{
+  "id": "f1_cloud_generalista_3",
+  "fase": 1,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 3,
+  "posicion_en_orden": 5,
+  "modelo": {
+    "clave": "cloud_generalista",
+    "tipo": "Modelo cloud generalista",
+    "proveedor": "nvidia",
+    "modelo": "moonshotai/kimi-k3",
+    "extra": {},
+    "justificacion": "Modelo generalista de gran tamaño en NVIDIA; es además el Optimizer de la plataforma. En la prueba con un caso real respondió en ~56 s (primer token de respuesta a ~22 s), frente a 68-335 s de openai/gpt-oss-20b; nemotron-3.5-lightning llegó al límite de 4096 tokens en las 3 llamadas (180-367 s). Limitación medida: en streaming devuelve content vacío de forma intermitente (1 de 3 con el caso real), cubierta con la política de reintentos registrados."
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "prompt_enviado": "Actúa como Ingeniero de Requisitos senior. Sé preciso y riguroso: tu salida será evaluada por su trazabilidad, objetividad y total ausencia de suposiciones no fundamentadas. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta la especificación de requisitos del sistema.\n\nNecesidad del stakeholder:\nLos clientes quieren guardar los productos que les interesan en una lista de deseos para comprarlos más adelante, y que la tienda les avise cuando alguno de esos productos baje de precio. El gerente comercial pide que el aviso llegue rápido y que la lista no sea demasiado grande.\n\nContexto del proyecto:\nTienda en línea de artículos deportivos con un catálogo público de 20000 productos. Hay clientes registrados, con correo verificado, y clientes invitados que compran sin cuenta. La tienda ya envía correos transaccionales mediante un servicio de correo existente. El equipo comercial actualiza los precios desde un panel interno.\n\nInstrucciones:\n1. Deriva los requisitos exclusivamente de la información proporcionada; no inventes funcionalidades ni supongas datos.\n2. Incluye únicamente requisitos que aporten valor significativo al stakeholder o al sistema; evita requisitos triviales, obvios o sin impacto (por ejemplo, funciones implícitas que no condicionan el diseño ni la verificación).\n3. Clasifica cada requisito como funcional (RF) o no funcional (RNF) y numéralos por separado: RF-01, RF-02... y RNF-01, RNF-02...\n4. Redacta cada requisito en una sola línea con la forma \"El sistema deberá...\", usando un único verbo de acción medible y términos cuantificables (evita ambigüedades como \"rápido\", \"fácil\", \"adecuado\" sin métrica). NO uses verbos vagos o genéricos como \"gestionar\", \"procesar\", \"manejar\", \"administrar\" o \"ofrecer soporte\": sustitúyelos por el verbo de acción concreto y observable (por ejemplo, \"registrar\", \"calcular y mostrar\", \"validar\", \"notificar por correo\").\n5. Cada requisito debe ser verificable e ir seguido de al menos un criterio de aceptación en la línea siguiente, con el prefijo \"Criterio de aceptación:\". Cada criterio debe ser independiente y comprobable mediante una prueba, medición u observación directa, con condiciones y resultados objetivos (valores numéricos, estados, mensajes), sin depender de interpretación subjetiva ni de otros criterios.\n6. Si la información es insuficiente o ambigua para definir un requisito completo, NO la supongas: formula una pregunta aclaratoria concreta al stakeholder. Distingue dos casos:\n   a) Información faltante: ausencia total de un dato necesario.\n   b) Información ambigua: el dato existe pero admite múltiples interpretaciones; en este caso indica las interpretaciones posibles dentro de la pregunta.\n7. Agrupa todas las preguntas aclaratorias al final, en las secciones correspondientes, como preguntas directamente formulables al stakeholder.\n\nEjemplo de requisitos bien formateados (úsalo como referencia de estilo y formato):\nRF-01: El sistema deberá permitir al usuario registrarse ingresando correo electrónico y contraseña de mínimo 8 caracteres.\nCriterio de aceptación: Se crea la cuenta y se muestra confirmación cuando el correo es válido y la contraseña cumple la longitud mínima; en caso contrario se muestra un mensaje de error específico.\n\nRNF-01: El sistema deberá responder a cualquier consulta de búsqueda en menos de 2 segundos con hasta 10.000 usuarios simultáneos.\nCriterio de aceptación: El 95% de las búsquedas ejecutadas en la prueba de carga con 10.000 usuarios simultáneos responde en ≤2 segundos.\n\nFormato de salida obligatorio:\n## Requisitos funcionales\nRF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Requisitos no funcionales\nRNF-01: El sistema deberá...\nCriterio de aceptación: ...\n\n## Información faltante\n- Pregunta concreta al stakeholder sobre cada dato ausente...\n\n## Aclaraciones sobre información ambigua\n- Pregunta al stakeholder indicando las interpretaciones posibles...\n\nSi alguna sección no aplica (por ejemplo, no hay información faltante), indícalo con \"Sin elementos\". No incluyas introducciones, conclusiones ni texto fuera de esta estructura.\n",
+  "resultado": {
+    "modelo": "moonshotai/kimi-k3",
+    "proveedor": "nvidia",
+    "contenido": "## Requisitos funcionales\n\nRF-01: El sistema deberá permitir al cliente registrado añadir un producto del catálogo a su lista de deseos desde la página del producto.\nCriterio de aceptación: Al pulsar la acción de añadir en un producto del catálogo estando autenticado, el producto aparece en la lista de deseos del cliente y se muestra una confirmación visible.\n\nRF-02: El sistema deberá permitir al cliente registrado eliminar un producto de su lista de deseos.\nCriterio de aceptación: Al ejecutar la acción de eliminar sobre un producto de la lista, el producto deja de mostrarse en la lista de deseos del cliente.\n\nRF-03: El sistema deberá mostrar al cliente registrado su lista de deseos con los productos actualmente guardados.\nCriterio de aceptación: Al acceder a la lista de deseos, se muestran exactamente los productos guardados por ese cliente y ningún producto de otro cliente.\n\nRF-04: El sistema deberá detectar la bajada de precio de un producto cuando el equipo comercial actualice su precio desde el panel interno a un valor inferior al anterior.\nCriterio de aceptación: Al guardar en el panel interno un precio menor que el vigente para un producto, el sistema registra el evento de bajada de precio de ese producto; al guardar un precio igual o mayor, no se registra ningún evento.\n\nRF-05: El sistema deberá notificar por correo electrónico, mediante el servicio de correo existente, a cada cliente registrado que tenga en su lista de deseos un producto cuyo precio haya bajado.\nCriterio de aceptación: Tras una bajada de precio de un producto, se envía un correo a la dirección verificada de cada cliente que tiene ese producto en su lista de deseos, y no se envía a clientes que no lo tienen en su lista.\n\nRF-06: El sistema deberá impedir añadir a la lista de deseos un producto que ya esté guardado en ella.\nCriterio de aceptación: Al intentar añadir un producto ya presente en la lista, el sistema no crea un duplicado y muestra un mensaje indicando que el producto ya está en la lista.\n\n## Requisitos no funcionales\n\nRNF-01: El sistema deberá enviar el correo de notificación de bajada de precio dentro de un plazo máximo medido desde la actualización del precio en el panel interno.\nCriterio de aceptación: Pendiente de definir el plazo máximo con el stakeholder (ver sección de aclaraciones); una vez definido, se mide el tiempo entre la confirmación del cambio de precio y el envío del correo en una prueba controlada.\n\nRNF-02: El sistema deberá limitar el número máximo de productos que un cliente puede guardar en su lista de deseos.\nCriterio de aceptación: Pendiente de definir el límite con el stakeholder (ver sección de aclaraciones); una vez definido, al intentar superar el límite el sistema rechaza la operación y muestra un mensaje indicando el máximo permitido.\n\n## Información faltante\n\n- ¿Los clientes invitados (sin cuenta) podrán usar la lista de deseos y recibir avisos de bajada de precio, o la funcionalidad está restringida exclusivamente a clientes registrados con correo verificado?\n- ¿Qué contenido mínimo debe incluir el correo de aviso (por ejemplo: nombre del producto, precio anterior, precio nuevo, enlace al producto)?\n- ¿Debe notificarse de nuevo al cliente si un mismo producto baja de precio varias veces mientras permanece en su lista, o solo la primera vez?\n\n## Aclaraciones sobre información ambigua\n\n- El gerente comercial pide que el aviso llegue \"rápido\": ¿qué plazo máximo es aceptable entre la actualización del precio y el envío del correo? Interpretaciones posibles: (a) segundos/minutos (notificación casi en tiempo real), (b) dentro de la misma hora, (c) dentro del mismo día.\n- El gerente comercial pide que la lista \"no sea demasiado grande\": ¿cuál es el número máximo de productos por lista de deseos? Interpretaciones posibles: (a) un límite fijo por cliente (indicar el valor, p. ej. 50 o 100), (b) una restricción de rendimiento sobre el catálogo de 20.000 productos sin límite explícito por cliente.",
+    "razonamiento": "Derive requirements: wishlist for registered customers (guests? ambiguous — guests have no account, so wishlist likely registered only; but ambiguous → question). Price drop notification via existing email service. \"Rápido\" ambiguous → question or set metric? Must not invent; ask. \"Lista no demasiado grande\" ambiguous → question. Price updates from internal panel → trigger detection.\n\nWrite requirements with placeholders? Better: define requirements and ask questions for thresholds.",
+    "ttft_s": 28.095158400014043,
+    "ttft_contenido_s": 32.81068700004835,
+    "latencia_total_s": 80.89220450003631,
+    "tokens_entrada": 1257,
+    "tokens_salida": 1223,
+    "tokens_razonamiento": 99,
+    "finish_reason": "stop",
+    "carga_modelo_s": null,
+    "modelo_reportado": "moonshotai/kimi-k3",
+    "inicio_utc": "2026-09-27T20:08:42.116181+00:00",
+    "fin_utc": "2026-09-27T20:10:03.007550+00:00",
+    "error": null,
+    "detalle_final": {
+      "usage": {
+        "prompt_tokens": 1257,
+        "completion_tokens": 1223,
+        "total_tokens": 2480,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 99
+        }
+      }
+    },
+    "recursos": null,
+    "intentos": 1,
+    "errores_previos": [],
+    "duracion_con_reintentos_s": 80.89271559996996,
+    "ok": true
+  }
+}

@@ -1,0 +1,10 @@
+fase,modelo_clave,modelo,ejecuciones,task_success_rate,quality_gate_score_media,consistency_sd_quality_gate,constraint_violation_rate,hallucination_rate,schema_compliance,ttft_respuesta_media_s,latencia_media_s,latencia_sd_s,tokens_entrada_media,tokens_salida_media,costo_usd_total,intentos_totales,ejecuciones_fallidas,ram_proceso_max_mb,vram_modelo_mb,gpu_uso_max_pct,quality_gate_otro_juez_media
+1,cloud_generalista,moonshotai/kimi-k3,3,1.0,85.33,5.51,0.0,0.0,1.0,23.69,64.12,15.63,1257,1164,0.0,4,0,,,,88.5
+1,cloud_razonamiento,nvidia/nemotron-3-super-120b-a12b,3,0.667,88.83,5.75,0.0,0.333,1.0,24.61,30.26,9.5,1005,3260.67,0.0,3,0,,,,88.67
+1,local,qwen2.5-coder:7b,3,0.0,68.33,3.51,0.0,1.0,1.0,1.05,35.95,1.14,1086,596.33,0.0,3,0,1748.7,4053.0,93.0,75.33
+3,cloud_generalista,moonshotai/kimi-k3,3,1.0,93.0,3.46,0.0,1.0,1.0,25.41,188.16,5.66,1812,4302.67,0.0,3,0,,,,96.0
+3,cloud_razonamiento,nvidia/nemotron-3-super-120b-a12b,3,1.0,92.0,1.73,0.0,1.0,1.0,27.44,69.61,23.65,1493,6347.33,0.0,3,0,,,,96.0
+3,local,qwen2.5-coder:7b,3,0.667,82.67,7.23,0.333,0.0,1.0,1.07,86.17,8.16,1604,1450.33,0.0,3,0,1738.2,4053.0,95.0,72.0
+4,cloud_generalista,moonshotai/kimi-k3,3,1.0,100.0,0.0,0.0,0.0,1.0,24.29,82.01,0.73,2701,1620,0.0,3,0,,,,
+4,cloud_razonamiento,nvidia/nemotron-3-super-120b-a12b,3,0.333,83.63,1.19,0.0,0.0,1.0,7.39,21.05,4.66,2367,2675.67,0.0,3,0,,,,
+4,local,qwen2.5-coder:7b,3,0.0,69.22,1.19,0.0,0.0,1.0,1.31,55.13,2.37,2433,784.33,0.0,3,0,1578.9,4053.0,96.0,

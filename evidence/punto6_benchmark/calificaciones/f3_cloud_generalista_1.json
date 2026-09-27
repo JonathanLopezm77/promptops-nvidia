@@ -1,0 +1,285 @@
+{
+  "id": "f3_cloud_generalista_1",
+  "fase": 3,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 1,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.894005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "documentado en la sección 1 y en los diagramas que los componentes residen en el mismo monolito FastAPI"
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "se menciona en la sección 2 que el repositorio usa PostgreSQL y no se referencian bases NoSQL ni Redis"
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "la sección 3 y 5 indican que la tarea horaria se ejecuta en-proceso sin usar Celery/Kafka/etc."
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "se especifica el uso de POST /internal/mail/send en el adaptador de correo interno"
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "se describe la tarea programada cada hora dentro de la misma aplicación en la sección 5 y 6"
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "se subraya que sólo se reutilizan los servicios existentes y no se integran terceros nuevos"
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "el endpoint POST /wishlist/items en ARCH-01 y la lógica en ARCH-02/ARCH-03 garantizan unicidad, límite 50 y guardado de precio"
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "el endpoint DELETE /wishlist/items/{product_id} devuelve 204 o 404 según presencia del ítem"
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "el endpoint GET /wishlist muestra items ordenados por added_at con precio actual"
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": true,
+            "evidencia": "ARCH-05 consulta precios actuales y aplica umbral configurable de 10%"
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": true,
+            "evidencia": "ARCH-05 envía correo vía ARCH-06 y registra last_notified_at para limitar a 1 aviso cada 24h"
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": true,
+            "evidencia": "ARCH-07 controla acceso y el frontend muestra el mensaje exacto cuando no hay sesión"
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 9,
+        "justificacion": "La arquitectura cubre 100% de los requisitos y restricciones, con contratos claros y sin invenciones."
+      },
+      "error": null,
+      "latencia_s": 58.808675199979916,
+      "raw": {
+        "id": "chatcmpl-9b437537ec4d47bc",
+        "object": "chat.completion",
+        "created": 1790541857,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"documentado en la sección 1 y en los diagramas que los componentes residen en el mismo monolito FastAPI\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"se menciona en la sección 2 que el repositorio usa PostgreSQL y no se referencian bases NoSQL ni Redis\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"la sección 3 y 5 indican que la tarea horaria se ejecuta en-proceso sin usar Celery/Kafka/etc.\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"se especifica el uso de POST /internal/mail/send en el adaptador de correo interno\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"se describe la tarea programada cada hora dentro de la misma aplicación en la sección 5 y 6\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"se subraya que sólo se reutilizan los servicios existentes y no se integran terceros nuevos\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": true,\n      \"evidencia\": \"el endpoint POST /wishlist/items en ARCH-01 y la lógica en ARCH-02/ARCH-03 garantizan unicidad, límite 50 y guardado de precio\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"el endpoint DELETE /wishlist/items/{product_id} devuelve 204 o 404 según presencia del ítem\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"el endpoint GET /wishlist muestra items ordenados por added_at con precio actual\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-05 consulta precios actuales y aplica umbral configurable de 10%\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-05 envía correo vía ARCH-06 y registra last_notified_at para limitar a 1 aviso cada 24h\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-07 controla acceso y el frontend muestra el mensaje exacto cuando no hay sesión\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 9,\n  \"justificacion\": \"La arquitectura cubre 100% de los requisitos y restricciones, con contratos claros y sin invenciones.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "We need evaluate. Likely satisfies all restrictions, specs covered, no invented functionalities? No SMS etc. No extra data. contracts complete? seems defined. So puntuación 9. Provide JSON.",
+              "reasoning_content": "We need evaluate. Likely satisfies all restrictions, specs covered, no invented functionalities? No SMS etc. No extra data. contracts complete? seems defined. So puntuación 9. Provide JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 5010,
+          "total_tokens": 5735,
+          "completion_tokens": 725,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "Se adopta un monolito modular en Python 3.12 con FastAPI"
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "ARCH-03 es el único almacén; no hay Redis ni NoSQL"
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "La tarea horaria y el correo son síncronos; no hay colas ni brokers"
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "ARCH-06 envía mediante POST /internal/mail/send con JSON {to,subject,body}"
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "ARCH-05 se ejecuta con planificador interno horario cada hora"
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "Solo se reutilizan catálogo, sesión y correo interno existentes"
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "POST /wishlist/items guarda precio vigente, responde 409 si duplicado y 422 si límite 50"
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "DELETE /wishlist/items/{product_id} devuelve 404 con reason PRODUCT_NOT_IN_WISHLIST si no existía"
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "GET /wishlist devuelve items ordenados por added_at ASC con saved_price y current_price"
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": true,
+            "evidencia": "ARCH-05 compara precio actual vs guardado usando umbral PRICE_DROP_THRESHOLD (default 0.10)"
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": true,
+            "evidencia": "ARCH-05 verifica last_notified_at y ARCH-06 envía correo vía servicio interno"
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": true,
+            "evidencia": "ARCH-07 indica estado de sesión; frontend muestra opción deshabilitada con texto exacto"
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 9,
+        "justificacion": "La arquitectura cubre todas las especificaciones, respeta todas las restricciones técnicas y no introduce funcionalidades ni datos inventados; los contratos están bien definidos."
+      },
+      "error": null,
+      "latencia_s": 18.514239100040868,
+      "raw": {
+        "id": "chatcmpl-03596645-aa2c-444a-8405-1efbd223bb72",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"Se adopta un monolito modular en Python 3.12 con FastAPI\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"ARCH-03 es el único almacén; no hay Redis ni NoSQL\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"La tarea horaria y el correo son síncronos; no hay colas ni brokers\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"ARCH-06 envía mediante POST /internal/mail/send con JSON {to,subject,body}\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"ARCH-05 se ejecuta con planificador interno horario cada hora\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"Solo se reutilizan catálogo, sesión y correo interno existentes\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": true,\n      \"evidencia\": \"POST /wishlist/items guarda precio vigente, responde 409 si duplicado y 422 si límite 50\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"DELETE /wishlist/items/{product_id} devuelve 404 con reason PRODUCT_NOT_IN_WISHLIST si no existía\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"GET /wishlist devuelve items ordenados por added_at ASC con saved_price y current_price\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-05 compara precio actual vs guardado usando umbral PRICE_DROP_THRESHOLD (default 0.10)\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-05 verifica last_notified_at y ARCH-06 envía correo vía servicio interno\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-07 indica estado de sesión; frontend muestra opción deshabilitada con texto exacto\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 9,\n  \"justificacion\": \"La arquitectura cubre todas las especificaciones, respeta todas las restricciones técnicas y no introduce funcionalidades ni datos inventados; los contratos están bien definidos.\"\n}",
+              "role": "assistant",
+              "reasoning_content": "We need to evaluate the architecture documentation against constraints and specs, list invented functionalities and data, contracts completeness, score, justification.\n\nWe must output JSON only.\n\nFirst, check constraints:\n\nR1: Monolito modular: a single Python 3.12 FastAPI application. The documentation says monolito modular, Python 3.12 FastAPI, yes. Evidence: section 1 \"Se adopta un monolito modular en Python 3.12 con FastAPI\". So R1 cumple.\n\nR2: Only PostgreSQL existing database, no other DBs. Documentation says ARCH-03 is the only store, no Redis nor NoSQL. Evidence: section 2 ARCH-03 description, also decision D2, verification table. So R2 cumple.\n\nR3: No queues nor message brokers. Documentation says task internal, email synchronous, no Celery/Kafka etc. Evidence: sections and verification. So R3 cumple.\n\nR4: Emails only via internal service POST /internal/mail/send. Documentation says ARCH-06 does that. Evidence: section 3.4 and decision D4. So R4 cumple.\n\nR5: Detection of price drops runs as hourly scheduled task within same application. Documentation says ARCH-05 runs each hour via internal scheduler. Evidence: section 2 ARCH-05, decision D3, verification. So R5 cumple.\n\nR6: No new third-party services integrated. Documentation says only reuse existing catalog, session, internal mail. Evidence: decision D1, D4, D6, verification. So R6 cumple.\n\nNow specs:\n\nSPEC-01: Add to wishlist: registered verified email client adds product, saves price at moment, list no duplicates nor >50, informs reason.\n\nEvidence: ARCH-01 POST /wishlist/items with 409 duplicate, 422 limit reached, also ARCH-02 applies uniqueness and limit, ARCH-03 persists with UNIQUE constraint, ARCH-04 provides current price. Also ARCH-07 ensures registered verified. So covered.\n\nSPEC-02: Delete product; if not present inform client.\n\nEvidence: DELETE endpoint returns 404 with reason PRODUCT_NOT_IN_WISHLIST. ARCH-02 remove_item returns False if not existed. So covered.\n\nSPEC-03: Consult list: see products ordered by date added ascending, with saved price and current price.\n\nEvidence: GET /wishlist returns items sorted by added_at ascending, includes saved_price and current_price. ARCH-02 list_items orders by added_at ASC. ARCH-04 provides current price. So covered.\n\nSPEC-04: Detect price drops: compare current price vs saved price, detect drops >= threshold configurable, default 10%.\n\nEvidence: ARCH-05 does that, uses threshold config PRICE_DROP_THRESHOLD default 0.10, compares saved vs current via ARCH-04. Also ARCH-03 persists saved price. So covered.\n\nSPEC-05: Notify by email: for each detected drop send email with product, saved price, current price; at most one notice per client-product each 24h.\n\nEvidence: ARCH-05 checks last_notified_at, ARCH-06 sends email via internal service, ARCH-03 stores last_notified_at timestamp. So covered.\n\nSPEC-06: Guest clients see wishlist option disabled with message \"Inicia sesión para usar tu lista de deseos\".\n\nEvidence: ARCH-07 provides auth state, frontend shows disabled with that exact text when no session. Also endpoints return 401 for unauthenticated. So covered.\n\nNow functionalities_invented: any user-facing capability not in spec. The docs mention maybe nothing extra like SMS, push notifications, mobile app, payments, recommendations. I don't see any. They only implement wishlist features. So empty list.\n\nDatos_inventados: any business values presented as requirements not in spec. They mention threshold default 10% (spec says that). They mention limit 50 (spec). They mention 24h (spec). They mention hourly task (spec). No extra values like different limits or times. So empty.\n\nContratos_completos: need each relevant interface defines input, output, errors. The docs define contracts for ARCH-01 endpoints, ARCH-02 service methods, ARCH-03 repository, ARCH-04 price service, ARCH-05 task, ARCH-06 email adapter, ARCH-07 auth. They seem to define inputs/outputs and errors. So true.\n\nNow puntaje_revision: evaluate coverage, coherence, clarity, absence of inventions. The architecture seems thorough, covers all specs, respects constraints, no inventions. So high score maybe 9. However some minor issues: maybe missing explicit error handling for email failures (they mention not updating last_notified_at on error, which is fine). Also maybe missing explicit definition of threshold configurability source (environment variable). But overall solid. I'd give 9.\n\nJustificacion: 1-3 frases.\n\nNow produce JSON.\n\nMake sure arrays have objects in order R1-R6, SPEC-01 to SPEC-06.\n\nProvide evidencia as brief quote.\n\nLet's craft.\n\n"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541857,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 5560,
+          "completion_tokens": 1825,
+          "total_tokens": 7385
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 97.0,
+  "componentes": {
+    "cobertura_spec": 25.0,
+    "estructura": 15.0,
+    "identificadores": 10,
+    "restricciones": 20,
+    "revision": 27
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [
+    "- [x] Se recomienda y se declara como paso de validación ejecutar el diagrama en mermaid.live/mermaid-cli y cruzar IDs SPEC/ARCH con un script de trazabilidad; la correspondencia de IDs fue verificada manualmente sección por sección en este documento (no se dispone de ejecución de herramientas externas en este entorno)."
+  ],
+  "detalle": {
+    "secciones_presentes": [
+      "resumen",
+      "componentes",
+      "contratos",
+      "decisiones",
+      "verificación de restricciones",
+      "diagrama",
+      "supuestos y riesgos",
+      "brechas de cobertura",
+      "lista de comprobación"
+    ],
+    "specs_cubiertos": [
+      "SPEC-01",
+      "SPEC-02",
+      "SPEC-03",
+      "SPEC-04",
+      "SPEC-05",
+      "SPEC-06"
+    ],
+    "ids_arch": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "arch_secuenciales": true,
+    "arch_en_diagrama": true,
+    "tiene_mermaid": true,
+    "bloques_implementacion": [],
+    "afirma_verificacion_no_realizada": [
+      "- [x] Se recomienda y se declara como paso de validación ejecutar el diagrama en mermaid.live/mermaid-cli y cruzar IDs SPEC/ARCH con un script de trazabilidad; la correspondencia de IDs fue verificada manualmente sección por sección en este documento (no se dispone de ejecución de herramientas externas en este entorno)."
+    ],
+    "restricciones_violadas_segun_juez": [],
+    "specs_no_cubiertos_segun_juez": []
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 97.0
+  }
+}

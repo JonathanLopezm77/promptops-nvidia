@@ -1,0 +1,281 @@
+{
+  "id": "f3_local_2",
+  "fase": 3,
+  "modelo_clave": "local",
+  "corrida": 2,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:49:33.368701+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "Resumen indica \"Monolito Modular\" con Python 3.12 y FastAPI"
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "Componentes incluyen \"Base de Datos\" que es la única BD PostgreSQL"
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "Se menciona \"Sin colas ni brokers de mensajes\" y no se utiliza ninguna tecnología prohibida"
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "Servicio de Correo Interno usa POST /internal/mail/send"
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "Se declara \"Tarea Programada\" que ejecuta detección de bajas cada hora"
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "No se integran servicios de terceros nuevos"
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/add con limitación 50 y 409/413"
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/remove con 404 si producto no encontrado"
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/get devuelve productos ordenados por dateAdded"
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/detect_price_drops con threshold configurable"
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": true,
+            "evidencia": "Service de Correo Interno usado por detección de baja y límite de 24h implícito en lógica de servicio"
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": false,
+            "evidencia": "Brechas de cobertura indica \"SPEC-06 no se cubre\""
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 7,
+        "justificacion": "La arquitectura cumple las restricciones y cubre la mayoría de los specs, pero falta soporte explícito para clientes invitados (SPEC-06) y la política de 24 h se infiere, no está detallada."
+      },
+      "error": null,
+      "latencia_s": 73.04684850003105,
+      "raw": {
+        "id": "chatcmpl-9b896e55d69201ca",
+        "object": "chat.completion",
+        "created": 1790542172,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"Resumen indica \\\"Monolito Modular\\\" con Python 3.12 y FastAPI\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"Componentes incluyen \\\"Base de Datos\\\" que es la única BD PostgreSQL\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"Se menciona \\\"Sin colas ni brokers de mensajes\\\" y no se utiliza ninguna tecnología prohibida\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"Servicio de Correo Interno usa POST /internal/mail/send\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"Se declara \\\"Tarea Programada\\\" que ejecuta detección de bajas cada hora\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"No se integran servicios de terceros nuevos\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/add con limitación 50 y 409/413\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/remove con 404 si producto no encontrado\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/get devuelve productos ordenados por dateAdded\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/detect_price_drops con threshold configurable\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": true,\n      \"evidencia\": \"Service de Correo Interno usado por detección de baja y límite de 24h implícito en lógica de servicio\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": false,\n      \"evidencia\": \"Brechas de cobertura indica \\\"SPEC-06 no se cubre\\\"\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 7,\n  \"justificacion\": \"La arquitectura cumple las restricciones y cubre la mayoría de los specs, pero falta soporte explícito para clientes invitados (SPEC-06) y la política de 24 h se infiere, no está detallada.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "Need JSON. Some are missing: SPEC-06 not covered. So cubierta false. Also R3 not mentioned but no violation. We'll follow. Also need contratos_completos: yes all endpoints specify. So true. Puntaje? There's a breach SPEC-06 and no handling of guests but not violation. Score maybe 7.",
+              "reasoning_content": "Need JSON. Some are missing: SPEC-06 not covered. So cubierta false. Also R3 not mentioned but no violation. We'll follow. Also need contratos_completos: yes all endpoints specify. So true. Puntaje? There's a breach SPEC-06 and no handling of guests but not violation. Score maybe 7."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 2742,
+          "total_tokens": 3437,
+          "completion_tokens": 695,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "La arquitectura elegida es el Monolito Modular utilizando Python 3.12 y FastAPI."
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "R2: Base de Datos única - Cumplido por ARCH-02."
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "R3: Sin colas ni brokers de mensajes - No se requiere."
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "R4: Servicio de correo interno - Cumplido por ARCH-03."
+          },
+          {
+            "id": "R5",
+            "cumple": false,
+            "evidencia": "R5: Tarea programada - Cumplido por ARCH-04 (no se indica ejecución cada hora)."
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "R6: No se contratan ni integran servicios de terceros nuevos - No se requiere."
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/add con errores 409 (duplicado) y 413 (límite 50)."
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "Endpoint /api/wishlist/remove con error 404 si producto no está en lista."
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": false,
+            "evidencia": "No se especifica ordenación por fecha de agregado en la salida de /api/wishlist/get."
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": false,
+            "evidencia": "Endpoint /api/wishlist/detect_price_drops acepta threshold pero no se muestra ejecución horaria ni envío de correos."
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": false,
+            "evidencia": "No se evidencia límite de un aviso por cliente/producto cada 24 horas."
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": false,
+            "evidencia": "Brechas de cobertura indica que SPEC-06 no está cubierta."
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 3,
+        "justificacion": "Cubre parcialmente los requisitos; omite SPEC-03, SPEC-04, SPEC-05, SPEC-06 y no evidencia la ejecución horaria de la detección de bajas."
+      },
+      "error": null,
+      "latencia_s": 17.096499899984337,
+      "raw": {
+        "id": "chatcmpl-76751917-d777-4a7a-86b7-bee7c5ccd461",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"La arquitectura elegida es el Monolito Modular utilizando Python 3.12 y FastAPI.\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"R2: Base de Datos única - Cumplido por ARCH-02.\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"R3: Sin colas ni brokers de mensajes - No se requiere.\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"R4: Servicio de correo interno - Cumplido por ARCH-03.\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": false,\n      \"evidencia\": \"R5: Tarea programada - Cumplido por ARCH-04 (no se indica ejecución cada hora).\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"R6: No se contratan ni integran servicios de terceros nuevos - No se requiere.\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/add con errores 409 (duplicado) y 413 (límite 50).\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"Endpoint /api/wishlist/remove con error 404 si producto no está en lista.\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se especifica ordenación por fecha de agregado en la salida de /api/wishlist/get.\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": false,\n      \"evidencia\": \"Endpoint /api/wishlist/detect_price_drops acepta threshold pero no se muestra ejecución horaria ni envío de correos.\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se evidencia límite de un aviso por cliente/producto cada 24 horas.\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": false,\n      \"evidencia\": \"Brechas de cobertura indica que SPEC-06 no está cubierta.\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 3,\n  \"justificacion\": \"Cubre parcialmente los requisitos; omite SPEC-03, SPEC-04, SPEC-05, SPEC-06 y no evidencia la ejecución horaria de la detección de bajas.\"\n \n}",
+              "role": "assistant",
+              "reasoning_content": "We need to produce JSON with evaluation of constraints and specs.\n\nWe must check each R1-R6 if architecture complies: Architecture says Monolith Modular using Python 3.12 FastAPI -> satisfies R1.\n\nR2: Base de datos PostgreSQL existing is only DB, no others -> they said Base de Datos (presumably PostgreSQL) and no others -> complies.\n\nR3: No queues or brokers: Architecture does not mention any; they say \"Sin colas ni brokers de mensajes - No se requiere.\" That suggests they aren't using any; comply.\n\nR4: Correos via internal service POST /internal/mail/send: They have Servicio de Correo Interno responsible for sending emails, and they list endpoint /internal/mail/send; they claim compliance.\n\nR5: Detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación: They have ARCH-04 Tarea Programada justified; they say task scheduled each hour; but we need evidence that it's hourly. The documentation says: \"ARCH-04: Tarea Programada\" with justification \"Cumple con la restricción R5 (Tarea programada)\". No explicit mention of each hour, but presumably it's scheduled each hour. However we need to cite evidence. The doc doesn't state frequency. The constraint says \"se ejecuta como tarea programada cada hora\". The architecture doc only says \"Tarea Programada\". Might be insufficient. But we need to decide if it's considered fulfilled. Usually need explicit mention of each hour. Could interpret that \"Tarea Programada\" inside same app satisfies R5 if we assume it's hourly as per spec? But we must be strict: only if architecture explicitly states hourly. It doesn't. So maybe R5 not fully satisfied.\n\nR6: No third-party services: They say no se requieren; they only use internal services; comply.\n\nNow SPEC coverage:\n\nWe need to see if each spec is covered concretely, not just naming identifier.\n\nSPEC-01: Agregar a lista de deseos: They have endpoint /api/wishlist/add with input userId, productId, output status/message, error codes for duplicate (409) and limit exceeded (413). They also mention that list does not admit duplicate nor >50. That's covered.\n\nSPEC-02: Eliminar: endpoint /api/wishlist/remove with error 404 if not found. Covered.\n\nSPEC-03: Consultar lista: endpoint /api/wishlist/get returns products with priceAtAdd, currentPrice, dateAdded; they mention ordering? The output does not specify order; they need ordered by date added oldest to newest. The architecture does not mention ordering. So spec not fully covered.\n\nSPEC-04: Detectar bajas de precio: endpoint /api/wishlist/detect_price_drops with input threshold, output status/message. This seems to be a manual trigger? The spec says detection runs as scheduled task each hour, compare price actual with saved price, detect drops >= threshold (default 10%). The endpoint allows threshold param; but does it actually perform detection and send emails? The architecture shows Servicio de Correo Interno interacts with Lista de Deseos Service for sending avisos; but detection endpoint may just compute and return status. Not clear if it sends emails. The spec requires that for each drop detected, send email. The architecture might be missing that link: they have Servicio de Correo Interno but not explicitly called from detection task. However they said ARCH-01 interacts with Servicio de Correo Interno for enviar avisos de bajas de precio. That suggests the Lista de Deseos Service calls correo service when detection finds drops. But detection endpoint is POST; maybe the scheduled task calls that endpoint. Not explicit. Might be partially covered but not concrete.\n\nSPEC-05: Avisar por correo: maximum one notice per client/product each 24h. The architecture does not mention any deduplication or rate limiting. No evidence.\n\nSPEC-06: Clientes invitados: they have a note in Brechas de cobertura: \"SPEC-06: No se cubre porque los clientes invitados no tienen acceso a la lista de deseos.\" So they explicitly say not covered. So spec not covered.\n\nThus many specs not fully covered.\n\nNow functionalidades_inventadas: any user-facing capabilities not in spec. They didn't mention SMS, push, mobile app, payments, recommendations. Nothing obvious. So empty list.\n\nDatos_inventados: any values or policies presented as requirements that spec does not give. They didn't introduce any new thresholds like 50 products is from spec; threshold default 10% from spec; 24h limit from spec. No extra.\n\nContratos_completos: need each interface relevant define input, output, errors. Interfaces: endpoints listed; each has input, output, error codes. However some may lack certain errors: e.g., /api/wishlist/get error 404 (User not found) okay. /api/wishlist/add error 403 (User not verified) etc. /api/wishlist/remove error 400, 404. /api/wishlist/detect_price_drops error 400. /internal/mail/send error 400,500. Seems complete. However missing error for missing auth? But spec didn't require. So we can set true.\n\nNow puntaje_revision: Considering coverage low, many specs not covered, constraints partially maybe R5 not fully. So score low, maybe 3-4. Let's assign 3.\n\nJustificacion: \"Cubre parcialmente los requisitos, omite SPEC-03, SPEC-04, SPEC-05, SPEC-06 y no evidencia ejecución horaria de detección.\"\n\nNow produce JSON.\n\nNeed to include evidencia citations brief from doc.\n\nWe'll extract citations:\n\n- R1: \"La arquitectura elegida es el Monolito Modular utilizando Python 3.12 y FastAPI.\" (evidence)\n- R2: \"Base de Datos existente es la única base de datos\" from Verificación de Restricciones: \"R2: Base de Datos única - Cumplido por ARCH-02.\"\n- R3: \"Sin colas ni brokers de mensajes - No se requiere.\"\n- R4: \"Servicio de correo interno - Cumplido por ARCH-03.\"\n- R5: \"Tarea programada - Cumplido por ARCH-04.\" (but not hourly)\n- R6: \"No se contratan ni integran servicios de terceros nuevos - No se requiere.\"\n\nSPEC coverage evidences:\n\n- SPEC-01: endpoint /api/wishlist/add with error 409 duplicate, 413 limit exceeded. Evidence: from contracts.\n- SPEC-02: endpoint /api/wishlist/remove with error 404 if not found.\n- SPEC-03: Not covered; maybe we say not covered.\n- SPEC-04: endpoint /api/wishlist/detect_price_drops with threshold input; but not evidence of scheduled hourly detection or email sending. We'll note not fully covered.\n- SPEC-05: no evidence of rate limiting 24h.\n- SPEC-06: Brechas de cobertura says not covered.\n\nNow functionalidades_inventadas: [].\n\ndatos_inventados: [].\n\ncontratos_completos: true.\n\npuntaje_revision: 3.\n\njustificacion: brief.\n\nNow produce JSON only.\n\n"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790542171,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 2865,
+          "completion_tokens": 2321,
+          "total_tokens": 5186
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 91.0,
+  "componentes": {
+    "cobertura_spec": 25.0,
+    "estructura": 15.0,
+    "identificadores": 10,
+    "restricciones": 20,
+    "revision": 21
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "secciones_presentes": [
+      "resumen",
+      "componentes",
+      "contratos",
+      "decisiones",
+      "verificación de restricciones",
+      "diagrama",
+      "supuestos y riesgos",
+      "brechas de cobertura",
+      "lista de comprobación"
+    ],
+    "specs_cubiertos": [
+      "SPEC-01",
+      "SPEC-02",
+      "SPEC-03",
+      "SPEC-04",
+      "SPEC-05",
+      "SPEC-06"
+    ],
+    "ids_arch": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arch_secuenciales": true,
+    "arch_en_diagrama": true,
+    "tiene_mermaid": true,
+    "bloques_implementacion": [],
+    "afirma_verificacion_no_realizada": [],
+    "restricciones_violadas_segun_juez": [],
+    "specs_no_cubiertos_segun_juez": [
+      "SPEC-06"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 72.0
+  }
+}

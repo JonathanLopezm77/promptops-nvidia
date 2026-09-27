@@ -1,0 +1,284 @@
+{
+  "id": "f3_local_3",
+  "fase": 3,
+  "modelo_clave": "local",
+  "corrida": 3,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.896558+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "Arquitectura monolito modular con FastAPI (sección \"Resumen de la arquitectura\")"
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "Usa solo PostgreSQL (ARCH-04, sección \"Componentes\")"
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "No se menciona ninguna cola o broker de mensajes"
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "Correos enviados a través de /internal/mail/send (CONTRATOS, sección \"Contratos de Interfaces\")"
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "Tarea programada cada hora dentro de la misma aplicación (Decisiones de diseño, R5)"
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "No se citan servicios de terceros nuevos"
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": false,
+            "evidencia": "Contrato /add define error 400 para producto repetido, pero no se menciona límite de 50 productos ni guardado de precio."
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "Contrato /remove permite eliminar y error 404 cuando no existe."
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "Contrato /get devuelve lista ordenada por dateAdded."
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": false,
+            "evidencia": "No se menciona la lógica de umbral configurable ni comparación de precios guardados."
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": false,
+            "evidencia": "Contrato /detect y uso de /internal/mail/send, pero no se indica límite de 1 aviso por cliente-producto cada 24h."
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": false,
+            "evidencia": "No se abordan clientes invitados ni deshabilitación de lista de deseos."
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 3,
+        "justificacion": "El diseño cumple con las restricciones técnicas, pero falla en cubrir varios requisitos específicos de la especificación (límites de productos, umbral de detección y control de notificaciones)."
+      },
+      "error": null,
+      "latencia_s": 103.86531859997194,
+      "raw": {
+        "id": "chatcmpl-8d7fb75b8e00ce25",
+        "object": "chat.completion",
+        "created": 1790541999,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"Arquitectura monolito modular con FastAPI (sección \\\"Resumen de la arquitectura\\\")\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"Usa solo PostgreSQL (ARCH-04, sección \\\"Componentes\\\")\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"No se menciona ninguna cola o broker de mensajes\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"Correos enviados a través de /internal/mail/send (CONTRATOS, sección \\\"Contratos de Interfaces\\\")\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"Tarea programada cada hora dentro de la misma aplicación (Decisiones de diseño, R5)\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"No se citan servicios de terceros nuevos\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": false,\n      \"evidencia\": \"Contrato /add define error 400 para producto repetido, pero no se menciona límite de 50 productos ni guardado de precio.\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"Contrato /remove permite eliminar y error 404 cuando no existe.\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"Contrato /get devuelve lista ordenada por dateAdded.\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se menciona la lógica de umbral configurable ni comparación de precios guardados.\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": false,\n      \"evidencia\": \"Contrato /detect y uso de /internal/mail/send, pero no se indica límite de 1 aviso por cliente-producto cada 24h.\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se abordan clientes invitados ni deshabilitación de lista de deseos.\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 3,\n  \"justificacion\": \"El diseño cumple con las restricciones técnicas, pero falla en cubrir varios requisitos específicos de la especificación (límites de productos, umbral de detección y control de notificaciones).\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "We need evaluate. Restrictions: R1: monolito modular. They have multiple services but all within monolith? They separate into components but still same app? It's okay.\n\nR2: only PostgreSQL. They use ARCH-04 only. OK.\n\nR3: no queues. They don't mention queues. ok.\n\nR4: mails via /internal/mail/send. they use that. OK.\n\nR5: detection task scheduled each hour within app. They say ARCH-03 detection executed as scheduled task each hour. okay.\n\nR6: no new third party services. They use only internal services. ok.\n\nSpec coverage: SPEC-01: add to wishlist, price saved, no duplicates, limit 50. They have /add endpoint, but not mention limit 50 or duplicate check? But statement by contract includes error 400 for repeat. Not mention limit 50. So SPEC-01 partially covered? Not fully. We'll mark covered? Needs info. Probably not covered. SPEC-02: remove; they have endpoint. ok. SPEC-03: query list; endpoint. ok. SPEC-04: detect price drop threshold 10% default; not in architecture description. not covered. SPEC-05: send email; contract uses /internal/mail. yes. But limit 24h per client-product not mentioned. So not fully covered. SPEC-06: invited clients disabled. Not mentioned. So missing.\n\nThus many uncovered.\n\nFunctionalities invented: maybe none? They didn't add extra.\n\nDatos inventados: none.\n\nContratos completos: endpoints show input, output and error. Yes each has. ok.\n\nScore low, maybe 3-4. Provide JSON.\n\n",
+              "reasoning_content": "We need evaluate. Restrictions: R1: monolito modular. They have multiple services but all within monolith? They separate into components but still same app? It's okay.\n\nR2: only PostgreSQL. They use ARCH-04 only. OK.\n\nR3: no queues. They don't mention queues. ok.\n\nR4: mails via /internal/mail/send. they use that. OK.\n\nR5: detection task scheduled each hour within app. They say ARCH-03 detection executed as scheduled task each hour. okay.\n\nR6: no new third party services. They use only internal services. ok.\n\nSpec coverage: SPEC-01: add to wishlist, price saved, no duplicates, limit 50. They have /add endpoint, but not mention limit 50 or duplicate check? But statement by contract includes error 400 for repeat. Not mention limit 50. So SPEC-01 partially covered? Not fully. We'll mark covered? Needs info. Probably not covered. SPEC-02: remove; they have endpoint. ok. SPEC-03: query list; endpoint. ok. SPEC-04: detect price drop threshold 10% default; not in architecture description. not covered. SPEC-05: send email; contract uses /internal/mail. yes. But limit 24h per client-product not mentioned. So not fully covered. SPEC-06: invited clients disabled. Not mentioned. So missing.\n\nThus many uncovered.\n\nFunctionalities invented: maybe none? They didn't add extra.\n\nDatos inventados: none.\n\nContratos completos: endpoints show input, output and error. Yes each has. ok.\n\nScore low, maybe 3-4. Provide JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 2828,
+          "total_tokens": 3807,
+          "completion_tokens": 979,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "La arquitectura elegida es Monolito Modular utilizando FastAPI en Python 3.12."
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "Base de Datos (ARCH-04) ... La base de datos PostgreSQL existente es la única base de datos."
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "Sin colas ni brokers de mensajes: ARCH-03"
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "Correos internos: ARCH-03 y contrato /internal/mail/send"
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación."
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "Sin servicios de terceros nuevos: Todas las decisiones siguen las restricciones técnicas o son necesarias por otras razones."
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": false,
+            "evidencia": "El contrato /api/v1/wishlist/add no incluye guardar el precio vigente ni verificar el límite de 50 productos ni informar el motivo."
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "Contrato /api/v1/wishlist/remove elimina el producto y devuelve error 404 si no estaba en la lista."
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "Contrato /api/v1/wishlist/get devuelve lista con priceSaved, priceCurrent y dateAdded, permitiendo mostrar productos ordenados por fecha de agregado."
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": false,
+            "evidencia": "No se menciona comparación con precio guardado, umbral configurable del 10% ni ejecución para todos los productos de las listas de deseos."
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": false,
+            "evidencia": "No se limita a un aviso cada 24h por cliente‑producto ni se incluye en el correo el precio guardado y el actual."
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": false,
+            "evidencia": "Brechas de cobertura indica que SPEC-06 no se cubre explícitamente."
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": false,
+        "puntaje_revision": 3,
+        "justificacion": "Cumple todas las restricciones técnicas pero deja varios SPEC sin cobertura concreta y los contratos de API están incompletos, generando huecos importantes."
+      },
+      "error": null,
+      "latencia_s": 30.24223820003681,
+      "raw": {
+        "id": "chatcmpl-37ea5e40-b383-46cd-9636-1b7bba0fd216",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"La arquitectura elegida es Monolito Modular utilizando FastAPI en Python 3.12.\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"Base de Datos (ARCH-04) ... La base de datos PostgreSQL existente es la única base de datos.\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"Sin colas ni brokers de mensajes: ARCH-03\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"Correos internos: ARCH-03 y contrato /internal/mail/send\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación.\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"Sin servicios de terceros nuevos: Todas las decisiones siguen las restricciones técnicas o son necesarias por otras razones.\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": false,\n      \"evidencia\": \"El contrato /api/v1/wishlist/add no incluye guardar el precio vigente ni verificar el límite de 50 productos ni informar el motivo.\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"Contrato /api/v1/wishlist/remove elimina el producto y devuelve error 404 si no estaba en la lista.\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"Contrato /api/v1/wishlist/get devuelve lista con priceSaved, priceCurrent y dateAdded, permitiendo mostrar productos ordenados por fecha de agregado.\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se menciona comparación con precio guardado, umbral configurable del 10% ni ejecución para todos los productos de las listas de deseos.\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": false,\n      \"evidencia\": \"No se limita a un aviso cada 24h por cliente‑producto ni se incluye en el correo el precio guardado y el actual.\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": false,\n      \"evidencia\": \"Brechas de cobertura indica que SPEC-06 no se cubre explícitamente.\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": false,\n  \"puntaje_revision\": 3,\n  \"justificacion\": \"Cumple todas las restricciones técnicas pero deja varios SPEC sin cobertura concreta y los contratos de API están incompletos, generando huecos importantes.\"\n}",
+              "role": "assistant",
+              "reasoning_content": "We need to evaluate the architecture documentation.\n\nWe need to produce JSON with restrictions (R1-R6), specs (SPEC-01 to SPEC-06), functionalities_invented, datos_inventados, contratos_completos, puntaje_revision, justificacion.\n\nWe must check each restriction: whether architecture violates it by using or introducing prohibited tech.\n\nThe architecture description:\n\n- Monolith modular using FastAPI Python 3.12. Good. R1 satisfied? Yes.\n\n- R2: only PostgreSQL existing database; they have Base de Datos (ARCH-04). They say uses existing PostgreSQL. No other DB mentioned. So R2 satisfied.\n\n- R3: No queues or message brokers. They have ARCH-03 price detection, but they state \"Sin colas ni brokers de mensajes\". They say detection runs as scheduled task each hour inside same app, not using external broker. So R3 satisfied.\n\n- R4: Emails sent only via internal service POST /internal/mail/send with JSON. They list that contract under Contratos de Interfaces: /internal/mail/send. Yes. So R4 satisfied.\n\n- R5: Price detection runs as scheduled task each hour within same application. They say in Decisiones que siguen restricciones técnicas: ARCH-03: La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación. R5: Sin colas ni brokers de mensajes. Actually they mis-assigned; but they say detection runs as scheduled task each hour inside same application. So R5 satisfied.\n\n- R6: No third-party services integrated. They say all decisions follow technical restrictions or justified. No mention of third-party. So satisfied.\n\nNow SPEC coverage: Need each SPEC covered concretely, not just naming identifier.\n\nCheck architecture documentation for each spec.\n\nSPEC-01: Add to wishlist: registered verified email client adds product, saves price at that moment, no duplicates, max 50, inform reason.\n\nIs there component that handles this? ARCH-02 Servicio de Listas de Deseos handles creation, deletion, query of wishlists. Contract /api/v1/wishlist/add. Input: userId, productId. Output message. Error codes: 400 (Producto repetido), 403 (Cliente no autenticado). Does it cover price saved at that moment? Not mentioned. The contract does not include price saved. Also no mention of checking max 50 and informing reason. So SPEC-01 not fully covered.\n\nBut we need to see if any other part covers price saved: maybe DB stores priceSaved; but not explicit. However the requirement is to save price at moment of addition. The architecture does not show that. So not covered concretely.\n\nSPEC-02: Delete from wishlist: client deletes product; if not present, inform client. Contract /api/v1/wishlist/remove, DELETE, input userId, productId, output message, error 404 (Producto no encontrado). That matches. So SPEC-02 covered.\n\nSPEC-03: Consult list: client sees products ordered by date added, oldest to newest, with saved price and current price. Contract /api/v1/wishlist/get returns list of objects with productId, priceSaved, priceCurrent, dateAdded. That's correct ordering? Not explicit but likely sorted by dateAdded. The contract includes priceSaved and priceCurrent. So SPEC-03 covered.\n\nSPEC-04: Detect price drops: system compares current price of each product in wishlists with saved price, detect drops >= threshold configurable, default 10%. They have ARCH-03 Servicio de Detección de Bajas de Precio responsible for detecting price drops and sending email alerts. Contract /api/v1/price/detect POST input productId output message. But that contract seems per product, not per wishlist. The spec requires scanning all wishlist items, compare saved vs current, detect drops >= threshold. The architecture doesn't mention threshold configurable, default 10%, nor scanning all items. The contract only takes productId, not userId, and returns message. Not covering spec fully. So SPEC-04 not covered concretely.\n\nSPEC-05: Notify by email: for each detected drop send email to client with product, saved price, current price; at most one notice per client/product each 24h. Architecture: they have internal mail send contract; ARCH-03 responsible for detecting and sending emails. However no mention of rate limiting per 24h, nor email content includes product, saved price, current price. Not covered concretely.\n\nSPEC-06: Guest clients see wishlist option disabled with message \"Inicia sesión para usar tu lista de deseos.\" Architecture: they have ARCH-05 Servicio de Autenticación. But no explicit handling for guest users. They have breach of coverage listed: SPEC-06 not covered explicitly. So not covered.\n\nThus SPEC coverage: SPEC-02 and SPEC-03 covered; SPEC-01,04,05,06 not covered.\n\nFunctionalities invented: Any user-facing capabilities not in spec? The architecture mentions API Gateway centralizing requests; that's internal. No SMS, push notifications, mobile app, payments, recommendations. So none.\n\nDatos inventados: Any business values/policies presented as requirements not in spec? They mention threshold configurable default 10% (that's from spec). They mention max 50 products (spec). They mention 24h limit (spec). They mention price saved at moment (spec). They don't invent new values. However they might have introduced \"priceCurrent\" field (spec includes that). That's fine. So none.\n\nContratos completos: Need each relevant interface defines input, output, errors. Let's examine contracts:\n\n- /api/v1/wishlist/add: input {userId,int productId,int}, output {message:string}, errors 400 (Producto repetido), 403 (Cliente no autenticado). Does it define all needed? It lacks maybe 400 for exceeding 50 items? Not defined. Also missing error for unverified email? Spec says client registrado con correo verificado. Not covered. So contract incomplete.\n\n- /api/v1/wishlist/remove: input userId, productId, output message, error 404 (Producto no encontrado). Missing error for not authenticated? Should be 403 maybe. Not defined.\n\n- /api/v1/wishlist/get: input userId, output array of objects with productId, priceSaved, priceCurrent, dateAdded. Errors 403 (Cliente no autenticado). Missing error for user not found? Not needed maybe. But missing ordering guarantee? Not part of contract.\n\n- /api/v1/price/detect: input productId, output message, errors 400 (Producto no encontrado). Missing errors for auth, etc. Also missing threshold param.\n\n- /internal/mail/send: input to, subject, body, output message, error 500. Missing maybe 400 for missing fields.\n\nThus contracts are incomplete. So contratos_completos = false.\n\nNow puntaje_revision: Considering coverage, coherence with restrictions, clarity, absence of inventions.\n\nWe have restrictions all satisfied (good). Specs coverage low (2/6). Contracts incomplete. No inventions. So score maybe 4? According to scale: 9-10 ready; 7-8 minor changes; 5-6 important gaps; 3-4 essential fail; 1-2 unusable.\n\nWe have essential fails: missing core specs, contracts incomplete. So 3-4. Let's choose 3.\n\nJustificacion: \"Cumple todas las restricciones técnicas pero deja varios SPEC sin cobertura concreta y los contratos de API están incompletos, lo que genera huecos importantes.\"\n\nNow produce JSON.\n\nMake sure to cite evidence brief from documentation.\n\nWe need to provide evidencia for each restriction and spec.\n\nFor restrictions:\n\n- R1: evidencia: \"La arquitectura elegida es Monolito Modular utilizando FastAPI en Python 3.12.\" (from Resumen)\n\n- R2: evidencia: \"Base de Datos (ARCH-04) ... La base de datos PostgreSQL existente es la única base de datos.\" (from Decisiones)\n\n- R3: evidencia: \"Sin colas ni brokers de mensajes: ARCH-03\" (from Verificación de Restricciones)\n\n- R4: evidencia: \"Correos internos: ARCH-03\" and contract /internal/mail/send (from Contratos)\n\n- R5: evidencia: \"La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación.\" (from Decisiones que siguen restricciones técnicas)\n\n- R6: evidencia: \"Sin servicios de terceros nuevos: Todas las decisiones siguen las restricciones técnicas o son necesarias por otras razones.\" (from Verificación)\n\nFor specs:\n\n- SPEC-01: need evidencia if covered. It's not covered. So cubierto false, evidencia maybe \"No se menciona guardar precio vigente ni límite de 50 productos ni mensaje de motivo.\" We can cite from Brechas de Cobertura? Actually they only list SPEC-06 as breach. But we can cite missing evidence: \"En los contratos /api/v1/wishlist/add no se incluye precio guardado ni verificación de límite de 50.\" Provide that.\n\n- SPEC-02: cubierta true, evidencia: \"Contrato /api/v1/wishlist/remove elimina producto y devuelve error 404 si no existe.\"\n\n- SPEC-03: cubierta true, evidencia: \"Contrato /api/v1/wishlist/get devuelve lista con priceSaved, priceCurrent y dateAdded, permitiendo ordenar por fecha.\"\n\n- SPEC-04: cubierta false, evidencia: \"No se menciona comparación con precio guardado ni umbral configurable del 10% ni ejecución para todos los productos de las listas.\"\n\n- SPEC-05: cubierta false, evidencia: \"No se limita a un aviso cada 24h ni se incluye contenido del correo con precio guardado y actual.\"\n\n- SPEC-06: cubierta false, evidencia: \"Brechas de cobertura indica que SPEC-06 no se cubre explícitamente.\"\n\nFuncionalidades_inventadas: empty list.\n\nDatos_inventados: empty list.\n\nContratos_completos: false.\n\nPuntaje_revision: 3.\n\nJustificacion: short.\n\nNow produce JSON exactly as required.\n\nCheck JSON formatting: array of objects with ids.\n\nLet's craft.\n\n"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541999,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 2976,
+          "completion_tokens": 3025,
+          "total_tokens": 6001
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 79.0,
+  "componentes": {
+    "cobertura_spec": 25.0,
+    "estructura": 15.0,
+    "identificadores": 10,
+    "restricciones": 20,
+    "revision": 9
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "secciones_presentes": [
+      "resumen",
+      "componentes",
+      "contratos",
+      "decisiones",
+      "verificación de restricciones",
+      "diagrama",
+      "supuestos y riesgos",
+      "brechas de cobertura",
+      "lista de comprobación"
+    ],
+    "specs_cubiertos": [
+      "SPEC-01",
+      "SPEC-02",
+      "SPEC-03",
+      "SPEC-04",
+      "SPEC-05",
+      "SPEC-06"
+    ],
+    "ids_arch": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arch_secuenciales": true,
+    "arch_en_diagrama": true,
+    "tiene_mermaid": true,
+    "bloques_implementacion": [],
+    "afirma_verificacion_no_realizada": [],
+    "restricciones_violadas_segun_juez": [],
+    "specs_no_cubiertos_segun_juez": [
+      "SPEC-01",
+      "SPEC-04",
+      "SPEC-05",
+      "SPEC-06"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 79.0
+  }
+}

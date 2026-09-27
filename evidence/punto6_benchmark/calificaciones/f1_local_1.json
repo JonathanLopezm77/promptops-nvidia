@@ -1,0 +1,165 @@
+{
+  "id": "f1_local_1",
+  "fase": 1,
+  "modelo_clave": "local",
+  "corrida": 1,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.894005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "global_score": 66,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 6,
+          "especificidad": 5,
+          "atomicidad": 9,
+          "completitud": 5,
+          "consistencia": 8,
+          "factibilidad": 7,
+          "verificabilidad": 6,
+          "trazabilidad": 9,
+          "ausencia_ambiguedad": 5,
+          "criterios_aceptacion": 6
+        },
+        "ambiguous_terms": [
+          "clara",
+          "ordenada",
+          "rápido"
+        ],
+        "summary": "Los requisitos funcionales y no funcionales presentan una buena escala de claridad y atomicidad, pero carecen de especificaciones críticas, lo que dificulta su desarrollo y verificación. Se necesitan datos concretos sobre límites, reglas de precios y manejo de estado de productos."
+      },
+      "error": null,
+      "latencia_s": 165.690545200021,
+      "raw": {
+        "id": "chatcmpl-87e452d58a112c4c",
+        "object": "chat.completion",
+        "created": 1790541749,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"Los requisitos RF-01 a RF-04 describen la función principal pero usan frases como \\\"interfaz clara y ordenada\\\" que no definen cómo se presentará la lista, lo que deja espacio para interpretaciones.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 5,\n      \"finding\": \"RF-03 menciona notificación por correo cuando un producto \\\"baje de precio\\\", pero no define el umbral exacto de disminución ni el contenido del mensaje.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"Cada requisito RF-01 a RF-04 afirma una única funcionalidad sin combinar varias en una sola oración.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 5,\n      \"finding\": \"Faltan datos críticos como el límite máximo de productos en la lista de deseos y el tratamiento de productos ya comprados o eliminados.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"El requisito RNF-02 afirma que la lista debe mantenerse durante 30 días desde la última utilización, lo que es coherente con la información del proyecto.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 7,\n      \"finding\": \"Los objetivos de rendimiento de RNF-01 son razonables dada la infraestructura descrita, aunque dependerán de la definición de \\\"respuesta\\\".\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 6,\n      \"finding\": \"Los criterios de aceptación definen acciones y resultados observables, pero carecen de métricas numéricas (p. ej., tiempo exacto de notificación).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 9,\n      \"finding\": \"Los requisitos tienen identificadores únicos (RF-01, RNF-02, etc.) y están vinculados a una necesidad general del proyecto.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"Terminos como \\\"interfaz clara y ordenada\\\" y \\\"rápido\\\" son vagos.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 6,\n      \"finding\": \"Los criterios de aceptación describen el resultado esperado pero para algunos requisitos faltan valores medibles (p. ej., tiempo de notificación, cantidad de productos).\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"clara\",\n      \"reason\": \"no especifica los criterios visuales o de usabilidad.\"\n    },\n    {\n      \"term\": \"ordenada\",\n      \"reason\": \"no define el orden (alfabético, por fecha, etc.).\"\n    },\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"no indica un intervalo de tiempo medible.\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Límite máximo de productos por lista de deseos.\",\n    \"Reglas de negocio para productos ya comprados dentro de la lista.\",\n    \"Manejo de productos eliminados pero existentes en el catálogo.\",\n    \"Criterio exacto que determina un precio \\\"bajado\\\".\",\n    \"Formato y contenido del mensaje de notificación.\",\n    \"Tamaño de la pantalla y diseño de la interfaz de la lista.\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el número máximo de productos que un cliente puede agregar a su lista de deseos?\",\n    \"¿Cómo se determina que un producto ha bajado de precio? ¿Es un descenso respecto al precio de compra inicial, al último precio mostrado al cliente, o a otro algoritmo?\",\n    \"¿Cuál es el contenido exacto del correo de notificación (título, cuerpo, enlace)?\",\n    \"¿Qué ocurre con los productos ya comprados que siguen en la lista de deseos?\",\n    \"¿Cómo debe reaccionar la lista cuando un cliente elimina un producto pero éste sigue en el catálogo?\"\n  ],\n  \"summary\": \"Los requisitos funcionales y no funcionales presentan una buena escala de claridad y atomicidad, pero carecen de especificaciones críticas, lo que dificulta su desarrollo y verificación. Se necesitan datos concretos sobre límites, reglas de precios y manejo de estado de productos.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "We need evaluate each requirement? Likely all together. Provide JSON with criteria scores. We'll consider each RF and RNF. Probably overall. Let's evaluate. There are missing info: product limit, handling purchased items, removed items, price drop criteria. So not fully specified. Scores moderate. We'll do 5-6. Also ambiguous terms? Not many; \"rápido\" not present. Maybe \"ordenada\" vague. \"clara y ordenada\" ambiguous. So ambiguous_terms: \"ordenada\". \"clara\". Also \"rápido\" comment. Provide missing info list from given missing items. Clarification questions: ask for product limit, price drop criteria, handling purchased items, removed items. Provide summary.\n\nLet's craft JSON.",
+              "reasoning_content": "We need evaluate each requirement? Likely all together. Provide JSON with criteria scores. We'll consider each RF and RNF. Probably overall. Let's evaluate. There are missing info: product limit, handling purchased items, removed items, price drop criteria. So not fully specified. Scores moderate. We'll do 5-6. Also ambiguous terms? Not many; \"rápido\" not present. Maybe \"ordenada\" vague. \"clara y ordenada\" ambiguous. So ambiguous_terms: \"ordenada\". \"clara\". Also \"rápido\" comment. Provide missing info list from given missing items. Clarification questions: ask for product limit, price drop criteria, handling purchased items, removed items. Provide summary.\n\nLet's craft JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 2706,
+          "total_tokens": 3888,
+          "completion_tokens": 1182,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "global_score": 77,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 9,
+          "especificidad": 7,
+          "atomicidad": 10,
+          "completitud": 6,
+          "consistencia": 8,
+          "factibilidad": 9,
+          "verificabilidad": 8,
+          "trazabilidad": 7,
+          "ausencia_ambiguedad": 5,
+          "criterios_aceptacion": 8
+        },
+        "ambiguous_terms": [
+          "interfaz clara y ordenada"
+        ],
+        "summary": "Los requisitos son claros, atómicos y verificables, pero pierden especificidad debido a términos subjetivos como 'interfaz clara y ordenada' y carecen de información esencial sobre límites y manejo de productos comprados. Se necesita aclarar esos puntos para alcanzar un desarrollo sin supuestos."
+      },
+      "error": null,
+      "latencia_s": 9.944992899894714,
+      "raw": {
+        "id": "chatcmpl-20a713fd-dfc0-4119-ba57-d45eadf19e79",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 9,\n      \"finding\": \"Los requisitos son claros y comprensibles sin interpretaciones contradictorias. Por ejemplo, RF-01: 'El sistema deberá permitir a los clientes registrados y invitados agregar productos a una lista de deseos' es directo y no admite ambigüedad en su intención.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 7,\n      \"finding\": \"Aunque los requisitos describen el comportamiento, carecen de especificidad en detalles como límites o condiciones exactas. Por ejemplo, RF-02 no especifica qué se entiende por 'interfaz clara y ordenada'.\",\n      \"recommendation\": \"Definir qué constituye una 'interfaz clara y ordenada' o eliminar el término si es subjetivo.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 10,\n      \"finding\": \"Cada requisito (RF-01 a RF-04 y RNF-01, RNF-02) expresa un solo comportamiento independiente. No hay combinación de múltiples requisitos en una sola oración.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 6,\n      \"finding\": \"Falta información esencial para el desarrollo, como el límite máximo de productos por lista de deseos y el manejo de productos ya comprados, indicados como faltantes en la sección 'Información faltante'.\",\n      \"recommendation\": \"Responder las preguntas de información faltante: límite máximo de productos y manejo de productos comprados.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"No hay contradicciones internas ni con el contexto del proyecto. Los requisitos son coherentes entre sí y con el escenario descrito (tienda en línea de artículos deportivos).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 9,\n      \"finding\": \"Los requisitos son factibles dadas las tecnologías existentes (servicio de correo ya disponible, panel interno para actualización de precios). Los plazos y cargas (ej. 10.000 usuarios simultáneos) son razonables.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 8,\n      \"finding\": \"Los criterios de aceptación permiten verificar objetivamente el cumplimiento. Por ejemplo, RNF-01 tiene un criterio medible: 'El 95% de las búsquedas... responde en ≤2 segundos'.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 7,\n      \"finding\": \"Los requisitos tienen identificadores únicos (RF-01, RF-02, etc.), pero no vinculan explícitamente el origen de la necesidad (ej. qué stakeholder o objetivo de negocio los generó), aunque el contexto lo implica parcialmente.\",\n      \"recommendation\": \"Agregar trazabilidad explícita a necesidades del stakeholder (ej. 'Según solicitud del gerente comercial...').\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"Se encuentran términos subjetivos: 'interfaz clara y ordenada' en RF-02 y 'rápido' implícito en el pedido del gerente comercial (aunque no está en el texto del requisito, sí influye en la interpretación). En el texto explícito, 'interfaz clara y ordenada' es ambiguo.\",\n      \"recommendation\": \"Reemplazar 'interfaz clara y ordenada' por criterios medibles (ej. 'con productos listados en orden alfabético o por fecha de adición').\",\n      \"ambiguous_terms\": [\n        {\n          \"term\": \"interfaz clara y ordenada\",\n          \"reason\": \"no define qué atributos hacen que una interfaz sea clara u ordenada (ej. orden alfabético, grupos por categoría, etc.)\"\n        }\n      ]\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 8,\n      \"finding\": \"Cada requisito funcional y no funcional incluye un criterio de aceptación verificable. Por ejemplo, RF-03: 'El cliente recibe un correo electrónico con el producto que ha bajado de precio y su nuevo precio' es verificable mediante prueba de envío de correo.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"interfaz clara y ordenada\",\n      \"reason\": \"no define qué atributos hacen que una interfaz sea clara u ordenada (ej. orden alfabético, grupos por categoría, etc.)\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"límite máximo de productos que un cliente puede agregar a su lista de deseos\",\n    \"cómo se manejarán los productos que el cliente ya ha comprado pero aún están en su lista de deseos\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el límite máximo de productos que un cliente puede agregar a su lista de deseos?\",\n    \"¿Cómo se manejarán los productos que el cliente ya ha comprado pero aún están en su lista de deseos?\"\n  ],\n  \"summary\": \"Los requisitos son claros, atómicos y verificables, pero pierden especificidad debido a términos subjetivos como 'interfaz clara y ordenada' y carecen de información esencial sobre límites y manejo de productos comprados. Se necesita aclarar esos puntos para alcanzar un desarrollo sin supuestos.\"\n}",
+              "role": "assistant",
+              "reasoning_content": null
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541749,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 2868,
+          "completion_tokens": 1291,
+          "total_tokens": 4159
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 68.0,
+  "componentes": {
+    "quality_score": 33.0,
+    "verificabilidad": 20.0,
+    "trazabilidad": 15.0,
+    "no_inventar": 0
+  },
+  "cumple_tarea": false,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [
+    "2",
+    "10.000",
+    "95",
+    "30"
+  ],
+  "detalle": {
+    "secciones_presentes": [
+      "requisitos funcionales",
+      "requisitos no funcionales",
+      "información faltante",
+      "aclaraciones sobre información ambigua"
+    ],
+    "secciones_en_orden": true,
+    "requisitos": 6,
+    "rf": 4,
+    "rnf": 2,
+    "verificabilidad": 1.0,
+    "trazabilidad": 1.0,
+    "huecos_preguntados": [
+      "tamaño de la lista"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 73.5
+  }
+}

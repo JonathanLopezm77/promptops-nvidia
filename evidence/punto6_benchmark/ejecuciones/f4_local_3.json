@@ -1,0 +1,91 @@
+{
+  "id": "f4_local_3",
+  "fase": 4,
+  "modelo_clave": "local",
+  "corrida": 3,
+  "posicion_en_orden": 15,
+  "modelo": {
+    "clave": "local",
+    "tipo": "Modelo local / open-weight ejecutado on-premise",
+    "proveedor": "ollama",
+    "modelo": "qwen2.5-coder:7b",
+    "extra": {
+      "options": {
+        "num_ctx": 16384
+      },
+      "keep_alive": "60m"
+    },
+    "justificacion": "Open-weight (licencia Apache 2.0, según /api/show de Ollama), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "prompt_enviado": "Eres un desarrollador senior especializado en el stack indicado. Tu única tarea es implementar el código fuente a partir del diseño y los contratos entregados. No expliques el diseño ni agregues funcionalidades fuera de él.\n\n## Entradas\n\nDiseño y contratos (incluye identificadores ARCH-xx y SPEC-xx):\nMódulo único: wishlist_service.py\n\nARCH-01 WishlistService: guarda en memoria la lista de deseos de cada cliente. Cubre SPEC-01, SPEC-02 y SPEC-03.\nARCH-02 detect_price_drops: calcula las bajas de precio de una lista de deseos. Cubre SPEC-04.\n\nSPEC-01: Un cliente agrega un producto a su lista de deseos con el precio vigente; la lista no admite productos repetidos ni más de max_items productos.\nSPEC-02: Un cliente elimina un producto de su lista de deseos.\nSPEC-03: Un cliente consulta su lista de deseos ordenada por fecha de agregado, del más antiguo al más reciente.\nSPEC-04: Dados los precios actuales, se detectan los productos cuyo precio bajó al menos un porcentaje mínimo respecto del precio con que se agregaron.\n\nContratos (Python; usar exactamente estos nombres, firmas y tipos):\n\n1. Excepciones:\n   class WishlistError(Exception)             # base de los errores del módulo\n   class DuplicateItemError(WishlistError)    # el producto ya está en la lista del cliente\n   class WishlistFullError(WishlistError)     # la lista del cliente ya tiene max_items productos\n   class ItemNotFoundError(WishlistError)     # el producto no está en la lista del cliente\n   class InvalidPriceError(WishlistError)     # precio menor o igual a cero\n\n2. @dataclass(frozen=True) class WishlistItem:\n   product_id: str\n   added_at: datetime\n   price_at_add: Decimal\n\n3. @dataclass(frozen=True) class PriceDrop:\n   product_id: str\n   old_price: Decimal\n   new_price: Decimal\n   drop_pct: Decimal   # (old_price - new_price) / old_price * 100, redondeado a 2 decimales con ROUND_HALF_UP\n\n4. class WishlistService:\n   __init__(self, max_items: int = 50) -> None\n       - ValueError si max_items < 1.\n   add_item(self, customer_id: str, product_id: str, price: Decimal, now: datetime) -> WishlistItem\n       - ValueError si customer_id o product_id están vacíos o solo tienen espacios.\n       - InvalidPriceError si price <= 0.\n       - DuplicateItemError si el producto ya está en la lista de ese cliente.\n       - WishlistFullError si la lista de ese cliente ya tiene max_items productos.\n       - Las validaciones se aplican en ese orden. Devuelve el WishlistItem creado (added_at = now, price_at_add = price).\n       - Las listas de clientes distintos son independientes.\n   remove_item(self, customer_id: str, product_id: str) -> None\n       - ItemNotFoundError si el producto no está en la lista de ese cliente (también si el cliente no tiene lista).\n   list_items(self, customer_id: str) -> list[WishlistItem]\n       - Ordenada por added_at ascendente; si dos tienen el mismo added_at, se conserva el orden en que se agregaron.\n       - Lista vacía si el cliente no tiene productos. Devuelve una lista nueva: modificarla no altera el servicio.\n\n5. def detect_price_drops(items: list[WishlistItem], current_prices: dict[str, Decimal], min_drop_pct: Decimal) -> list[PriceDrop]\n       - ValueError si min_drop_pct <= 0 o min_drop_pct > 100.\n       - Ignora los productos sin precio actual en current_prices.\n       - Incluye un producto solo si su precio actual es menor que price_at_add y drop_pct >= min_drop_pct.\n       - Resultado ordenado por drop_pct descendente y, a igual drop_pct, por product_id ascendente.\n\nNo se requieren pruebas en la salida: el equipo tiene su propia suite.\n\nStack tecnológico (lenguaje, versión, frameworks y herramientas de lint/build/test):\nPython 3.12. Solo biblioteca estándar (dataclasses, datetime, decimal). Un único archivo: wishlist_service.py. Lint con ruff (configuración por defecto). Pruebas con pytest (las escribe el equipo, no el modelo). Sin dependencias externas, sin acceso a red, disco ni base de datos.\n\n## Convenciones del stack\n\nAplica las convenciones de nombramiento, estructura de proyectos y organización de código típicas del stack indicado en Python 3.12. Solo biblioteca estándar (dataclasses, datetime, decimal). Un único archivo: wishlist_service.py. Lint con ruff (configuración por defecto). Pruebas con pytest (las escribe el equipo, no el modelo). Sin dependencias externas, sin acceso a red, disco ni base de datos.. Ejemplos orientativos: en TypeScript, usa interfaces/types para los contratos y exports explícitos; en Java, organiza en paquetes por dominio; en Python, sigue PEP 8 y type hints; en Go, paquetes pequeños y errores como valores. Si el stack no se reconoce, usa las convenciones más extendidas del lenguaje principal.\n\n## Requisitos de implementación\n\n1. Cobertura total: implementa TODOS los contratos y componentes definidos en el diseño, sin omisiones ni funcionalidades adicionales.\n2. Trazabilidad: al inicio de cada archivo incluye un comentario con los identificadores ARCH-xx y SPEC-xx que implementa (formato: `// Implements: ARCH-01, SPEC-03`, adaptado al estilo de comentario del lenguaje). Si una función implementa un contrato específico distinto del del archivo, indícalo también en su documentación.\n3. Tipado estricto: explota al máximo el sistema de tipos del lenguaje. En lenguajes con tipado estático, declara tipos explícitos en todas las firmas públicas (parámetros, retornos, estructuras de datos), evita `any`/equivalentes y respeta el modo estricto del compilador (p. ej. `strict` en TypeScript, `mypy`-friendly en Python). En lenguajes dinámicos, añade validación de tipos en tiempo de ejecución en los puntos de entrada (fronteras de módulos, handlers, deserialización), acorde a los contratos.\n4. Calidad: código limpio e idiomático para el stack indicado, con nombres descriptivos. Comenta únicamente lógica no evidente (decisiones, casos borde, invariantes); no comentes lo obvio.\n5. Robustez: maneja los errores definidos en los contratos (tipos de error, códigos y mensajes exactos si se especifican). Valida entradas en los límites indicados por los contratos.\n6. Verificabilidad: el código debe compilar sin errores ni warnings de tipos, y pasar el linter y las reglas de formato del stack con la configuración por defecto. Si el diseño o los contratos definen pruebas unitarias o de integración, impleméntalas con las herramientas de test del stack, verificando cada contrato contra sus criterios de aceptación; coloca estos archivos de prueba al final de la salida, tras el código de implementación. No inventes pruebas que el diseño no mencione.\n7. Coherencia: respeta exactamente los nombres de módulos, clases, funciones, firmas y tipos definidos en los contratos.\n\n## Documentación\n\nDocumenta las interfaces públicas (tipos, clases, funciones exportadas) usando el formato estándar del lenguaje: JSDoc/TSDoc en TypeScript/JavaScript, Javadoc en Java, docstrings estilo Google en Python, doc comments en Go, XML doc comments en C#. Incluye: propósito breve, parámetros y valor de retorno, y errores que puede lanzar. Documenta solo APIs públicas y lógica no evidente; no documentes lo trivial.\n\n## Formato de salida\n\n- Devuelve únicamente código, sin explicaciones previas ni posteriores.\n- Un archivo por bloque de código. Cada bloque debe abrirse con una línea que indique la ruta relativa del archivo (formato: `# File: ruta/al/archivo.ext` o el comentario equivalente del lenguaje).\n- Ordena los archivos de menor a mayor dependencia (primero tipos/contratos base, luego implementaciones, al final puntos de entrada); después, pruebas (si el diseño las incluye) y, por último, archivos de configuración de build o dependencias (p. ej. package.json, pom.xml, requirements.txt).\n- No inventes archivos, módulos ni dependencias externas que no estén justificados por el diseño o el stack.\n\n### Ejemplo mínimo del formato esperado (ilustrativo, no lo copies)\n\n```ts\n// File: src/domain/user.ts\n// Implements: ARCH-02, SPEC-01\n\nexport interface User {\n  id: string;\n  email: string;\n}\n\n/**\n * Crea un usuario validando su email.\n * @throws {Error} INVALID_EMAIL si el email no contiene '@'.\n */\n// ASSUMPTION: el email se valida aquí porque el contrato no indica la capa de validación.\nexport function createUser(id: string, email: string): User {\n  if (!email.includes(\"@\")) throw new Error(\"INVALID_EMAIL\");\n  return { id, email };\n}\n```\n\nEl ejemplo muestra: encabezado `# File:`, comentario de trazabilidad `// Implements: ...`, documentación pública en JSDoc, y uso de `// ASSUMPTION: ...` donde aplica.\n\n## Ambigüedad y bloqueos\n\n- Ambigüedad resoluble: si un contrato es ambiguo o está incompleto, no preguntes: elige la interpretación más razonable según el resto del diseño y documéntala con un comentario `// ASSUMPTION: ...` en el punto afectado.\n- Bloqueo total: genera código siempre que sea posible. Solo si es literalmente imposible continuar (p. ej. stack no especificado, diseño vacío o contratos contradictorios entre sí), detente en ese punto y deja como salida un bloque de código con un comentario destacado `// BLOCKED: <descripción concreta de qué falta y qué se necesita para continuar>`, sin código inventado alrededor. Este caso debe ser excepcional; no lo uses para contratos simplemente ambiguos.\n\n## Plantilla\n\nLas variables {{...}} son placeholders que deben estar ya sustituidas por sus valores reales al ejecutar este prompt; no deben aparecer literalmente en la salida del código generado.\n",
+  "resultado": {
+    "modelo": "qwen2.5-coder:7b",
+    "proveedor": "ollama",
+    "contenido": "```python\n# File: wishlist_service.py\n# Implements: ARCH-01, SPEC-01, SPEC-02, SPEC-03, SPEC-04\n\nfrom dataclasses import dataclass, field\nfrom datetime import datetime\nfrom decimal import Decimal, ROUND_HALF_UP\nfrom typing import Dict, List, Optional\n\nclass WishlistError(Exception):\n    \"\"\"Base de los errores del módulo.\"\"\"\n\nclass DuplicateItemError(WishlistError):\n    \"\"\"El producto ya está en la lista del cliente.\"\"\"\n\nclass WishlistFullError(WishlistError):\n    \"\"\"La lista del cliente ya tiene max_items productos.\"\"\"\n\nclass ItemNotFoundError(WishlistError):\n    \"\"\"El producto no está en la lista del cliente.\"\"\"\n\nclass InvalidPriceError(WishlistError):\n    \"\"\"Precio menor o igual a cero.\"\"\"\n\n@dataclass(frozen=True)\nclass WishlistItem:\n    product_id: str\n    added_at: datetime\n    price_at_add: Decimal\n\n@dataclass(frozen=True)\nclass PriceDrop:\n    product_id: str\n    old_price: Decimal\n    new_price: Decimal\n    drop_pct: Decimal\n\nclass WishlistService:\n    def __init__(self, max_items: int = 50) -> None:\n        if max_items < 1:\n            raise ValueError(\"max_items debe ser mayor que 0\")\n        self.max_items = max_items\n        self.wishlists: Dict[str, List[WishlistItem]] = {}\n\n    def add_item(self, customer_id: str, product_id: str, price: Decimal, now: datetime) -> WishlistItem:\n        if not customer_id.strip() or not product_id.strip():\n            raise ValueError(\"customer_id y product_id no pueden estar vacíos o solo tener espacios\")\n        if price <= 0:\n            raise InvalidPriceError(\"El precio debe ser mayor que 0\")\n        if customer_id not in self.wishlists:\n            self.wishlists[customer_id] = []\n        if any(item.product_id == product_id for item in self.wishlists[customer_id]):\n            raise DuplicateItemError(\"El producto ya está en la lista del cliente\")\n        if len(self.wishlists[customer_id]) >= self.max_items:\n            raise WishlistFullError(\"La lista del cliente ya tiene el máximo número de productos\")\n        item = WishlistItem(product_id, now, price)\n        self.wishlists[customer_id].append(item)\n        return item\n\n    def remove_item(self, customer_id: str, product_id: str) -> None:\n        if customer_id not in self.wishlists or not any(item.product_id == product_id for item in self.wishlists[customer_id]):\n            raise ItemNotFoundError(\"El producto no está en la lista del cliente\")\n        self.wishlists[customer_id] = [item for item in self.wishlists[customer_id] if item.product_id != product_id]\n\n    def list_items(self, customer_id: str) -> List[WishlistItem]:\n        return self.wishlists.get(customer_id, [])\n\ndef detect_price_drops(items: List[WishlistItem], current_prices: Dict[str, Decimal], min_drop_pct: Decimal) -> List[PriceDrop]:\n    if min_drop_pct <= 0 or min_drop_pct > 100:\n        raise ValueError(\"min_drop_pct debe estar entre 0 y 100\")\n    price_drops = []\n    for item in items:\n        if item.product_id not in current_prices:\n            continue\n        current_price = current_prices[item.product_id]\n        if current_price >= item.price_at_add:\n            continue\n        drop_pct = round((item.price_at_add - current_price) / item.price_at_add * 100, 2, ROUND_HALF_UP)\n        if drop_pct >= min_drop_pct:\n            price_drops.append(PriceDrop(item.product_id, item.price_at_add, current_price, drop_pct))\n    price_drops.sort(key=lambda x: (-x.drop_pct, x.product_id))\n    return price_drops\n```",
+    "razonamiento": "",
+    "ttft_s": 0.1066885000327602,
+    "ttft_contenido_s": 0.10668960004113615,
+    "latencia_total_s": 57.370164199965075,
+    "tokens_entrada": 2433,
+    "tokens_salida": 829,
+    "tokens_razonamiento": null,
+    "finish_reason": "stop",
+    "carga_modelo_s": 0.0090161,
+    "modelo_reportado": "qwen2.5-coder:7b",
+    "inicio_utc": "2026-09-27T20:22:19.577839+00:00",
+    "fin_utc": "2026-09-27T20:23:16.949268+00:00",
+    "error": null,
+    "detalle_final": {
+      "model": "qwen2.5-coder:7b",
+      "created_at": "2026-09-27T20:23:16.9481341Z",
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 57368289000,
+      "load_duration": 9016100,
+      "prompt_eval_count": 2433,
+      "prompt_eval_cached_count": 2432,
+      "prompt_eval_duration": 74074000,
+      "eval_count": 829,
+      "eval_duration": 57263578000
+    },
+    "recursos": {
+      "muestras": 100,
+      "intervalo_s": 0.5,
+      "ram_proceso_mb": {
+        "max": 1496.6,
+        "media": 1495.5
+      },
+      "cpu_proceso_pct": {
+        "max": 614.1,
+        "media": 581.1
+      },
+      "nucleos_logicos": 12,
+      "vram_gpu_total_usada_mb": {
+        "max": 4191.0,
+        "media": 4191.0
+      },
+      "gpu_uso_pct": {
+        "max": 45.0,
+        "media": 40.6
+      },
+      "modelos_cargados_ollama": [
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "tamano_mb": 5543.929997444153,
+          "vram_mb": 4052.979998588562,
+          "fraccion_gpu": 0.731,
+          "contexto": 16384
+        }
+      ]
+    },
+    "intentos": 1,
+    "errores_previos": [],
+    "duracion_con_reintentos_s": 58.063596500083804,
+    "ok": true
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": "f1_cloud_generalista_2",
+  "fase": 1,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 2,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.892005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "global_score": 60,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 6,
+          "especificidad": 6,
+          "atomicidad": 7,
+          "completitud": 4,
+          "consistencia": 6,
+          "factibilidad": 7,
+          "verificabilidad": 5,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 5,
+          "criterios_aceptacion": 6
+        },
+        "ambiguous_terms": [
+          "\"rápido\"",
+          "\"no demasiado grande\"",
+          "\"bajada de precio\""
+        ],
+        "summary": "Los requisitos funcionales están bien definidos y verificables. Los no funcionales carecen de valores medibles críticos, creando ambigüedad y falta de completitud. Se necesita clarificar los umbrales de tiempo, de tamaño de lista y de reducción de precio, así como los derechos de clientes invitados y opciones de notificación."
+      },
+      "error": null,
+      "latencia_s": 138.05294349999167,
+      "raw": {
+        "id": "chatcmpl-a60c0fc9d5f626f7",
+        "object": "chat.completion",
+        "created": 1790541549,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"Los requisitos funcionales están claros en cuanto a las acciones del cliente y las respuestas del sistema, pero en los no funcionales hay términos indefinidos como \\\"rápido\\\" (RNF-01) y \\\"no demasiado grande\\\" (RNF-02) que introducen ambigüedad.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 6,\n      \"finding\": \"RF-01 a RF-06 describen claramente los comportamientos esperados, aunque la especificidad de los umbrales de tiempo y de tamaño de lista son indefinidos.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 7,\n      \"finding\": \"Cada requisito funcional describe una sola acción o comportamiento; los no funcionales están independientes (RNF-01 y RNF-02).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 4,\n      \"finding\": \"Faltan valores críticos: el umbral de tiempo para RNF-01, el límite numérico para RNF-02, el criterio de reducción de precio (umbral o pequeño cambio).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 6,\n      \"finding\": \"No hay contradicciones internas entre los requisitos; solo falta aclarar si los clientes invitados tienen acceso a la lista de deseos, pero eso no genera incoherencia interna.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 7,\n      \"finding\": \"Las funciones propuestas son técnicamente factibles con la arquitectura existente (servicio de correo, panel interno). El requisito de tiempo en RNF-01 podría requerir optimización, pero es razonable.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 5,\n      \"finding\": \"Los criterios de aceptación para RF-01 a RF-06 son verificables, pero RNF-01 y RNF-02 carecen de criterios medibles claros.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"Cada requisito tiene un identificador (RF-01..RF-06, RNF-01..RNF-02) y describe la fuente (cliente, panel interno).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"Ambigüedad presente en términos \\\"rápido\\\", \\\"no demasiado grande\\\" y el índice de reducción de precio no definido.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 6,\n      \"finding\": \"Los requisitos funcionales tienen criterios de aceptación claros; los no funcionales tienen criterios pendientes de definir, lo que limita la verificación.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"\\\"rápido\\\"\",\n      \"reason\": \"no define un tiempo medible\"\n    },\n    {\n      \"term\": \"\\\"no demasiado grande\\\"\",\n      \"reason\": \"no especifica un límite numérico\"\n    },\n    {\n      \"term\": \"\\\"bajada de precio\\\"\",\n      \"reason\": \"no indica si se requiere un umbral mínimo de reducción\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Umbral de tiempo máximo para el envío de notificación (RNF-01)\",\n    \"Valor numérico máximo de productos por lista de deseos (RNF-02)\",\n    \"Umbral mínimo de reducción de precio que dispara notificación\",\n    \"Acceso de clientes invitados a la lista de deseos y notificaciones\",\n    \"Opciones para activar/desactivar notificaciones de bajada de precio\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el tiempo máximo aceptable entre la actualización del precio en el panel interno y el envío del correo de notificación (RNF-01)?\",\n    \"¿Cuál es el número máximo de productos permitido en una lista de deseos (RNF-02)?\",\n    \"¿Se debe notificar cualquier reducción de precio, o solo si la reducción supera un umbral (porcentaje o cantidad)?\",\n    \"¿Los clientes invitados pueden usar la lista de deseos y recibir notificaciones de bajada de precio?\",\n    \"¿Los clientes tienen la opción de activar o desactivar las notificaciones de bajada de precio, y si es así, a nivel global o por producto?\"\n  ],\n  \"summary\": \"Los requisitos funcionales están bien definidos y verificables. Los no funcionales carecen de valores medibles críticos, creando ambigüedad y falta de completitud. Se necesita clarificar los umbrales de tiempo, de tamaño de lista y de reducción de precio, así como los derechos de clientes invitados y opciones de notificación.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "Need evaluate each criterion with scores. Provide JSON.",
+              "reasoning_content": "Need evaluate each criterion with scores. Provide JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 3076,
+          "total_tokens": 4202,
+          "completion_tokens": 1126,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "global_score": 77,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 8,
+          "especificidad": 7,
+          "atomicidad": 9,
+          "completitud": 6,
+          "consistencia": 8,
+          "factibilidad": 8,
+          "verificabilidad": 7,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 9,
+          "criterios_aceptacion": 7
+        },
+        "ambiguous_terms": [],
+        "summary": "Los requisitos funcionales son claros, específicos, atómicos y verificables. Los no funcionales RNF-01 y RNF-02 carecen de valores críticos marcados como [POR DEFINIR], afectando completitud y especificidad. Hay información faltante sobre alcance (clientes invitados) y configuración de avisos que debe resolverse. No hay ambigüedad en términos ni contradicciones internas."
+      },
+      "error": null,
+      "latencia_s": 25.14047850004863,
+      "raw": {
+        "id": "chatcmpl-f612188c-9109-4ff3-ad3a-cf933e544e26",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 8,\n      \"finding\": \"Los requisitos funcionales (RF-01 a RF-06) son claros y directos en su redacción. Por ejemplo, RF-01: 'El sistema deberá permitir al cliente registrado añadir un producto del catálogo a su lista de deseos desde la página del producto' es inequívoco en quién, qué acción y dónde. Los no funcionales RNF-01 y RNF-02 usan marcadores [POR DEFINIR] que, aunque indican información pendiente, no generan ambigüedad en el significado del requisito, solo en su cuantificación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 7,\n      \"finding\": \"Los requisitos funcionales especifican actor, acción y objeto con suficiente detalle (ej. RF-03: 'eliminar un producto de su lista de deseos'). Los no funcionales RNF-01 y RNF-02 carecen de valores específicos para 'tiempo máximo' y 'número máximo', lo que reduce su especificidad pese a usar marcadores explícitos [POR DEFINIR].\",\n      \"recommendation\": \"Definir los valores pendientes para los marcadores [POR DEFINIR] en RNF-01 y RNF-02.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"Cada requisito (RF-01 a RF-06, RNF-01, RNF-02) expresa un único comportamiento o condición. Por ejemplo, RF-01 solo trata de añadir un producto a la lista de deseos; RF-06 solo trata de impedir duplicados. No hay combinaciones indebidas de requisitos independientes en una sola oración.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 6,\n      \"finding\": \"Los requisitos funcionales son completos en cuanto a actor, acción y resultado observable. Sin embargo, RNF-01 y RNF-02 dejan pendientes valores críticos (tiempo máximo de envío y número máximo de productos) marcados como [POR DEFINIR], lo que impide completar la implementación y prueba sin esa información. Además, la información faltante sobre clientes invitados y activación/desactivación de avisos afecta al alcance de RF-05 y RNF-01.\",\n      \"recommendation\": \"Resolver las preguntas de información faltante y definir los valores pendientes en los marcadores [POR DEFINIR].\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"No hay contradicciones internas en los requisitos. RF-05 establece que se notifica a 'cada cliente registrado que tenga en su lista de deseos un producto cuyo precio haya bajado', lo cual es consistente con RF-01 a RF-04 que operan sobre clientes registrados. Los marcadores [POR DEFINIR] en RNF-01 y RNF-02 no generan inconsistencia, solo incertidumbre cuantitativa. El contexto del proyecto confirma el enfoque en clientes registrados.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Dado el contexto (servicio de correo existente, panel interno de precios, catálogo de 20000 productos), los requisitos son factiblemente implementables. Los marcadores [POR DEFINIR] en RNF-01 y RNF-02 no afectan la factibilidad técnica, solo requieren definición de umbrales. Las preguntas sobre invitados y activación/desactivación de avisos son resolvibles sin cambiar la arquitectura base.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 7,\n      \"finding\": \"Los criterios de aceptación son verificables mediante pruebas funcionales (ej. RF-01: se puede probar que al pulsar 'añadir', el producto aparece en la lista). RNF-01 y RNF-02 tienen criterios de aceptación condicionados a la definición de umbrales ('Pendiente de definir el umbral de \\\"rápido\\\"' y 'Pendiente de definir el límite de \\\"no demasiado grande\\\"'), lo que permite verificar una vez definidos, pero actualmente impide una verificación completa.\",\n      \"recommendation\": \"Definir los umbrales pendientes en RNF-01 y RNF-02 para permitir una verificabilidad total.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"Cada requisito tiene un identificador único (RF-01, RF-02, etc.) que permite relacionarlo con diseño, implementación y pruebas. El actor ('cliente registrado') y la necesidad (guardar productos interesantes y recibir avisos de bajada de precio) están explícitos, facilitando el vínculo con el origen de la necesidad.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 9,\n      \"finding\": \"No hay términos subjetivos o vagos como 'rápido', 'fácil', 'adecuado' en los requisitos escritos. Los marcadores [POR DEFINIR] en RNF-01 y RNF-02 no son ambiguos, sino datos pendientes de definición explícita. El contexto del proyecto menciona 'rápido' y 'no demasiado grande', pero esos son aclaraciones externas, no parte del texto del requisito evaluado.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 7,\n      \"finding\": \"Cada requisito incluye un criterio de aceptación que permite determinar cuándo está satisfecho (ej. RF-01: 'Al pulsar la acción de añadir en un producto del catálogo, el producto aparece en la lista de deseos del cliente registrado en la misma sesión'). RNF-01 y RNF-02 tienen criterios de aceptación condicionados a valores por definir ('Pendiente de definir el umbral de \\\"rápido\\\"' y 'Pendiente de definir el límite de \\\"no demasiado grande\\\"'), lo que reduce su verificabilidad inmediata pero no elimina la estructura de criterio.\",\n      \"recommendation\": \"Definir los valores pendientes en los marcadores [POR DEFINIR] de RNF-01 y RNF-02 para completar los criterios de aceptación.\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Valor concreto para el tiempo máximo de envío de notificación en RNF-01\",\n    \"Valor concreto para el número máximo de productos por lista de deseos en RNF-02\",\n    \"¿Los clientes invitados podrán usar la lista de deseos y recibir avisos?\",\n    \"¿El cliente podrá activar o desactivar la recepción de avisos de bajada de precio?\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el tiempo máximo aceptable para enviar la notificación de bajada de precio desde la actualización del precio en el panel interno?\",\n    \"¿Cuál es el número máximo de productos permitido por lista de deseos?\",\n    \"¿Los clientes invitados (sin cuenta) podrán usar la lista de deseos y recibir avisos de bajada de precio, o la funcionalidad está restringida exclusivamente a clientes registrados con correo verificado?\",\n    \"¿El cliente debe poder activar o desactivar la recepción de avisos de bajada de precio (de forma global o por producto), o el aviso se envía siempre de forma automática?\"\n  ],\n  \"summary\": \"Los requisitos funcionales son claros, específicos, atómicos y verificables. Los no funcionales RNF-01 y RNF-02 carecen de valores críticos marcados como [POR DEFINIR], afectando completitud y especificidad. Hay información faltante sobre alcance (clientes invitados) y configuración de avisos que debe resolverse. No hay ambigüedad en términos ni contradicciones internas.\"\n}",
+              "role": "assistant",
+              "reasoning_content": null
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541559,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 4732,
+          "completion_tokens": 1871,
+          "total_tokens": 6603
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 80.0,
+  "componentes": {
+    "quality_score": 30.0,
+    "verificabilidad": 20.0,
+    "trazabilidad": 15.0,
+    "no_inventar": 15
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "secciones_presentes": [
+      "requisitos funcionales",
+      "requisitos no funcionales",
+      "información faltante",
+      "aclaraciones sobre información ambigua"
+    ],
+    "secciones_en_orden": true,
+    "requisitos": 8,
+    "rf": 6,
+    "rnf": 2,
+    "verificabilidad": 1.0,
+    "trazabilidad": 1.0,
+    "huecos_preguntados": [
+      "plazo del aviso",
+      "tamaño de la lista",
+      "umbral de baja",
+      "clientes invitados"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 88.5
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "id": "f1_local_2",
+  "fase": 1,
+  "modelo_clave": "local",
+  "corrida": 2,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.894005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "global_score": 60,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 6,
+          "especificidad": 5,
+          "atomicidad": 9,
+          "completitud": 5,
+          "consistencia": 6,
+          "factibilidad": 8,
+          "verificabilidad": 6,
+          "trazabilidad": 5,
+          "ausencia_ambiguedad": 5,
+          "criterios_aceptacion": 5
+        },
+        "ambiguous_terms": [
+          "cualquier dispositivo y navegador",
+          "rápido"
+        ],
+        "summary": "Los requisitos son mayormente claros y atómicos, pero carecen de algunos datos críticos y presentan ambigüedades en la definición de dispositivos compatibles y en la gestión de clientes invitados. Se requiere confirmar valores específicos y vincular los requisitos a necesidades de negocio para una trazabilidad completa."
+      },
+      "error": null,
+      "latencia_s": 96.83658020000439,
+      "raw": {
+        "id": "chatcmpl-9bae833905081ac6",
+        "object": "chat.completion",
+        "created": 1790541761,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"Se entiende que el cliente puede guardar productos (RF-01), pero la frase \\\"la lista de deseos desde cualquier dispositivo y navegador\\\" (RF-02) no especifica cómo se controla la autenticación ni la disponibilidad offline.\",\n      \"recommendation\": \"Agregar información sobre la autenticación y el acceso sin cuenta.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 5,\n      \"finding\": \"El requisito RF-04 menciona un \\\"umbral de precio\\\" pero sin definir si es por producto, categoría o por cliente.\",\n      \"recommendation\": \"Especificar la granularidad del umbral.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"Cada requisito está enfocado a una única funcionalidad por requisito.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 5,\n      \"finding\": \"Faltan datos críticos: límite de productos en la lista, umbral inicial, tratamiento de clientes invitados.\",\n      \"recommendation\": \"Incluir y definir esos valores.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 6,\n      \"finding\": \"El RNF-02 dice \\\"menos de 10 minutos\\\" y el RF-03 dice \\\"en el momento que el precio baje\\\", lo que sugiere una discrepancia temporal entre envío y detección.\",\n      \"recommendation\": \"Alinear la semántica temporal entre los requisitos.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"El límite de 2 segundos para 10.000 usuarios simultáneos es tecnicamente posible con los recursos actuales.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 6,\n      \"finding\": \"Los criterios de aceptación son observables, pero no cuantifican valores específicos (p. ej. 95% de las búsquedas).\",\n      \"recommendation\": \"Incluir métricas explícitas en cada criterio.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 5,\n      \"finding\": \"Los requisitos tienen identificadores (RF-01, RNF-01) pero no están vinculados a una necesidad de negocio ni a un caso de uso.\",\n      \"recommendation\": \"Agregar links a documentos de arquitectura o historias de usuario.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"El término \\\"cualquier dispositivo y navegador\\\" es vago respecto a soporte mínimo.\",\n      \"recommendation\": \"Definir los dispositivos compatibles y los navegadores soportados.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 5,\n      \"finding\": \"Los criterios de aceptación están presentes pero carecen de valores medibles y controles de calidad.\",\n      \"recommendation\": \"Añadir métricas y criterios de prueba definidos.\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"cualquier dispositivo y navegador\",\n      \"reason\": \"no especifica qué dispositivos ni navegadores son compatibles\"\n    },\n    {\n      \"term\": \"rápido\",\n      \"reason\": \"no define un tiempo medible para el envío de correos\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"el umbral de precio inicial que se establecerá para los productos en la lista de deseos\",\n    \"el manejo de productos en la lista de deseos de los clientes invitados\",\n    \"el límite de productos que un cliente puede agregar a su lista de deseos\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el umbral de precio inicial que se establecerá para los productos en la lista de deseos?\",\n    \"¿Cómo se manejarán los productos en la lista de deseos de los clientes invitados?\",\n    \"¿Cuál es el límite de productos que un cliente puede agregar a su lista de deseos?\",\n    \"¿Qué dispositivos y navegadores deben ser compatibles con la funcionalidad de la lista de deseos?\",\n    \"¿Qué tiempo se considera \\\"rápido\\\" para el envío de correos de alerta?\"\n  ],\n  \"summary\": \"Los requisitos son mayormente claros y atómicos, pero carecen de algunos datos críticos y presentan ambigüedades en la definición de dispositivos compatibles y en la gestión de clientes invitados. Se requiere confirmar valores específicos y vincular los requisitos a necesidades de negocio para una trazabilidad completa.\"\n}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "Need to evaluate each RF and RNF? Probably all. Provide scores. Determine missing info per criterion. We'll produce JSON. We'll list each criterion and overall. Probably evaluate each requirement? But spec says evaluate the requirement that receives. But there are multiple. Summaries? Probably evaluate overall. I'll give average? But need each criterion separate as per structure. So provide overall evaluation of all. Provide ambiguous terms list etc. We'll assume potential issues: RF-04 ambiguous thresholds. RF-02-device ambiguous. RNF-01 unclear \"cualquier consulta de búsqueda\" includes search queries. missing info about maximum products, etc. Provide missing_information list: initial threshold, handling invited customers, limit products. Provide clarification_questions for each. Provide recommendations.\n\nWe'll set scores: clarity 6, especificidad 5, atomicidad 9, completitud 5, consistencia 6, factibilidad 8, verificabilidad 6, trazabilidad 5, ausencia_ambiguedad 5, criterios_aceptacion 5. Provide findings citing text.\n\nLet's craft json.",
+              "reasoning_content": "Need to evaluate each RF and RNF? Probably all. Provide scores. Determine missing info per criterion. We'll produce JSON. We'll list each criterion and overall. Probably evaluate each requirement? But spec says evaluate the requirement that receives. But there are multiple. Summaries? Probably evaluate overall. I'll give average? But need each criterion separate as per structure. So provide overall evaluation of all. Provide ambiguous terms list etc. We'll assume potential issues: RF-04 ambiguous thresholds. RF-02-device ambiguous. RNF-01 unclear \"cualquier consulta de búsqueda\" includes search queries. missing info about maximum products, etc. Provide missing_information list: initial threshold, handling invited customers, limit products. Provide clarification_questions for each. Provide recommendations.\n\nWe'll set scores: clarity 6, especificidad 5, atomicidad 9, completitud 5, consistencia 6, factibilidad 8, verificabilidad 6, trazabilidad 5, ausencia_ambiguedad 5, criterios_aceptacion 5. Provide findings citing text.\n\nLet's craft json."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 2729,
+          "total_tokens": 3953,
+          "completion_tokens": 1224,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "global_score": 79,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 8,
+          "especificidad": 7,
+          "atomicidad": 9,
+          "completitud": 6,
+          "consistencia": 9,
+          "factibilidad": 8,
+          "verificabilidad": 8,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 8,
+          "criterios_aceptacion": 8
+        },
+        "ambiguous_terms": [],
+        "summary": "RF-01 es un requisito funcional claro, atómico y verificable, con buen cumplimiento en la mayoría de criterios. Falta especificar detalles de datos almacenados y reglas de negocio como límites o manejo de duplicados, lo que afecta ligeramente la completitud. No hay ambigüedad ni inconsistencia."
+      },
+      "error": null,
+      "latencia_s": 9.122010099934414,
+      "raw": {
+        "id": "chatcmpl-8ffe4f10-19aa-483f-acc3-fc7687afa624",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 8,\n      \"finding\": \"El requisito RF-01 es claro: 'El sistema deberá permitir a los clientes registrados guardar productos en una lista de deseos'. No hay interpretaciones contradictorias.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 7,\n      \"finding\": \"RF-01 especifica quién (clientes registrados), qué (guardar productos en una lista de deseos) y dónde (implícitamente en el sistema), pero no detalla cómo se guarda ni qué información se almacena del producto.\",\n      \"recommendation\": \"Podría especificarse qué datos del producto se almacenan (ID, nombre, precio) y si se permite cantidad o variantes.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 9,\n      \"finding\": \"RF-01 expresa una sola acción: permitir guardar productos en una lista de deseos. No mezcla requerimientos independientes.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 6,\n      \"finding\": \"RF-01 omite detalles como la información mínima que se guarda del producto, si se permite duplicados, o si hay validaciones al agregar. Aunque el criterio de aceptación cubre el flujo básico, falta especificar límites o reglas de negocio.\",\n      \"recommendation\": \"Agregar detalles sobre qué información se guarda del producto y si existen restricciones (ej. máximo de productos).\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 9,\n      \"finding\": \"RF-01 es consistente consigo mismo y con el contexto: los clientes registrados pueden guardar productos, y el contexto menciona que hay clientes registrados con correo verificado. No hay contradicciones internas ni con el contexto proporcionado.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Guardar productos en una lista de deseos para clientes registrados es factible con las tecnologías habituales de una tienda en línea. El contexto confirma que el sistema ya maneja usuarios registrados y envío de correos.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 es verificable mediante prueba funcional: se puede comprobar que un cliente registrado agrega un producto y lo ve en su perfil. El criterio de aceptación lo respalda: 'El cliente puede agregar un producto a la lista de deseos y ver la lista en su perfil'.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 tiene un identificador único (RF-01) y claramente se relaciona con la necesidad del cliente de guardar productos para comprar más tarde, mencionada en el contexto. Permite vincularse con diseño (base de datos, UI), implementación y pruebas.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 no contiene términos subjetivos como 'rápido', 'fácil' o 'suficiente'. El lenguaje es directo y operativo.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 8,\n      \"finding\": \"RF-01 incluye un criterio de aceptación claro y verificable: 'El cliente puede agregar un producto a la lista de deseos y ver la lista en su perfil'. Permite determinar cuándo el requisito está satisfecho mediante prueba funcional.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"información específica del producto que se guarda en la lista de deseos (ID, nombre, precio, etc.)\",\n    \"si se permiten productos duplicados en la lista de deseos\",\n    \"límite máximo de productos que un cliente puede guardar en su lista de deseos\"\n  ],\n  \"clarification_questions\": [\n    \"¿Qué información del producto se guarda exactamente en la lista de deseos (por ejemplo, ID, nombre, precio actual, imagen)?\",\n    \"¿Se permite que un cliente agregue el mismo producto múltiples veces a su lista de deseos?\",\n    \"¿Existe un límite máximo de productos que un cliente puede guardar en su lista de deseos?\"\n  ],\n  \"summary\": \"RF-01 es un requisito funcional claro, atómico y verificable, con buen cumplimiento en la mayoría de criterios. Falta especificar detalles de datos almacenados y reglas de negocio como límites o manejo de duplicados, lo que afecta ligeramente la completitud. No hay ambigüedad ni inconsistencia.\"\n}",
+              "role": "assistant",
+              "reasoning_content": null
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541761,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 2893,
+          "completion_tokens": 1118,
+          "total_tokens": 4011
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 65.0,
+  "componentes": {
+    "quality_score": 30.0,
+    "verificabilidad": 20.0,
+    "trazabilidad": 15.0,
+    "no_inventar": 0
+  },
+  "cumple_tarea": false,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [
+    "2",
+    "10.000",
+    "95",
+    "10"
+  ],
+  "detalle": {
+    "secciones_presentes": [
+      "requisitos funcionales",
+      "requisitos no funcionales",
+      "información faltante",
+      "aclaraciones sobre información ambigua"
+    ],
+    "secciones_en_orden": true,
+    "requisitos": 7,
+    "rf": 5,
+    "rnf": 2,
+    "verificabilidad": 1.0,
+    "trazabilidad": 1.0,
+    "huecos_preguntados": [
+      "tamaño de la lista",
+      "umbral de baja",
+      "clientes invitados"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 74.5
+  }
+}

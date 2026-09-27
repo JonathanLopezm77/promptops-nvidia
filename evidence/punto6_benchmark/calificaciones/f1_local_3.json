@@ -1,0 +1,165 @@
+{
+  "id": "f1_local_3",
+  "fase": 1,
+  "modelo_clave": "local",
+  "corrida": 3,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.894005+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "global_score": 74,
+        "is_high_quality": false,
+        "criterios": {
+          "claridad": 6,
+          "especificidad": 7,
+          "atomicidad": 9,
+          "completitud": 5,
+          "consistencia": 8,
+          "factibilidad": 9,
+          "verificabilidad": 7,
+          "trazabilidad": 9,
+          "ausencia_ambiguedad": 7,
+          "criterios_aceptacion": 7
+        },
+        "ambiguous_terms": [
+          "invitado",
+          "producto"
+        ],
+        "summary": "El requisito AF-01 presenta buena claridad y trazabilidad, pero carece de especificidad en la identificación de usuarios y productos, y los criterios de aceptación son parcialmente verificables. Se recomienda clarificar la diferencia entre clientes registrados e invitados y definir el identificador del producto."
+      },
+      "error": null,
+      "latencia_s": 133.27321849996224,
+      "raw": {
+        "id": "chatcmpl-afcd5bbaa3ee710a",
+        "object": "chat.completion",
+        "created": 1790541851,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"criteria\":[{\"criterion\":\"claridad\",\"score\":6,\"finding\":\"El requisito afirma que el sistema permitirá a clientes registrados e invitados guardar productos en una lista de deseos, pero la distinción entre estos dos tipos de usuarios no se explora en los criterios de aceptación, causando ambigüedad sobre si la funcionalidad se aplica igualmente a ambos.\",\"recommendation\":\"Indicar explícitamente si la lógica de guardado difiere entre clientes registrados e invitados.\"},{\"criterion\":\"especificidad\",\"score\":7,\"finding\":\"Se describe el comportamiento (“guardar productos en una lista de deseos”), pero no especifica cómo se determina el producto a guardar (por ID, SKU), ni la estructura de la lista.\",\"recommendation\":\"Añadir la referencia al identificador único del producto y la forma de acceso a la lista.\"},{\"criterion\":\"atomicidad\",\"score\":9,\"finding\":\"El requisito se centra en un solo comportamiento: permitir guardar productos. No mezcla funciones adicionales.\",\"recommendation\":\"\"},{\"criterion\":\"completitud\",\"score\":5,\"finding\":\"Falta información sobre límite máximo de productos y sobre diferencia de comportamiento entre usuarios registrados e invitados.\",\"recommendation\":\"Incluir la referencia al límite y al manejo de invitados.\"},{\"criterion\":\"consistencia\",\"score\":8,\"finding\":\"No hay contradicciones internas. Sin embargo, se hace referencia a la lista de deseos, pero el RNF-02 establece un límite de 100 productos que debe cumplirse.\",\"recommendation\":\"Verificar coherencia con RNF-02.\"},{\"criterion\":\"factibilidad\",\"score\":9,\"finding\":\"Guardar artículos en una lista es técnicamente viable con el sistema existente de catálogo y correo.\",\"recommendation\":\"\"},{\"criterion\":\"verificabilidad\",\"score\":7,\"finding\":\"El criterio de aceptación permite comprobar la adición y mensajes de confirmación. Falta una condición medible para duplicados.\",\"recommendation\":\"Definir qué constituye “ya está guardado” con precisión.\"},{\"criterion\":\"trazabilidad\",\"score\":9,\"finding\":\"El requisito tiene identificador RF-01, lo que facilita su trazabilidad a la necesidad y a la prueba.\",\"recommendation\":\"\"},{\"criterion\":\"ausencia_ambiguedad\",\"score\":7,\"finding\":\"El término \\\"invitado\\\" aunque se menciona, su definición no está clara: si posee la misma interfaz de usuario o solo se puede añadir sin registrar. También el término \\\"producto\\\" no especifica si se refiere a SKU único.\",\"recommendation\":\"Definir claramente el concepto de invitado y del producto.\"},{\"criterion\":\"criterios_aceptacion\",\"score\":7,\"finding\":\"Los criterios de aceptación describen los mensajes a mostrar, pero no miden cómo se determina la lista de deseos, ni el paso de control de duplicados.\",\"recommendation\":\"Incluir condiciones de éxito cuantificables y criterios de error adicionales.\"}],\"ambiguous_terms\":[{\"term\":\"invitado\",\"reason\":\"No se especifica si el usuario posee las mismas funcionalidades de registro.\"},{\"term\":\"producto\",\"reason\":\"No se especifica si se refiere al SKU único.\"}],\"is_compound\":false,\"missing_information\":[\"Límite máximo de productos guardados por cliente\"],\"clarification_questions\":[\"¿El sistema debe permitir a los clientes invitados guardar productos en la lista de deseos con la misma experiencia y restricciones que los clientes registrados?\",\"¿Qué identificador único del producto se debe usar para añadirlo a la lista de deseos?\"],\"summary\":\"El requisito AF-01 presenta buena claridad y trazabilidad, pero carece de especificidad en la identificación de usuarios y productos, y los criterios de aceptación son parcialmente verificables. Se recomienda clarificar la diferencia entre clientes registrados e invitados y definir el identificador del producto.\"}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "We need to evaluate each RF and RNF? The instructions: evaluate the requisito that receives. It seems we have multiple requisitos. Probably evaluate each? But schema expects one requirement.\n\nMaybe we evaluate each individually? But output expects single JSON. I think we evaluate the entire set? But criteria: \"trazabilidad\" requires identifier unique etc. We have identifiers.\n\nI'll evaluate overall set? But atomicity? Mixed.\n\nBetter treat each as separate? Hard.\n\nI'll output for whole block? I'll interpret as evaluating RF-01 only? It's ambiguous.\n\nWe'll evaluate RF-01 as sample.\n\nLet's produce JSON accordingly.\n\n",
+              "reasoning_content": "We need to evaluate each RF and RNF? The instructions: evaluate the requisito that receives. It seems we have multiple requisitos. Probably evaluate each? But schema expects one requirement.\n\nMaybe we evaluate each individually? But output expects single JSON. I think we evaluate the entire set? But criteria: \"trazabilidad\" requires identifier unique etc. We have identifiers.\n\nI'll evaluate overall set? But atomicity? Mixed.\n\nBetter treat each as separate? Hard.\n\nI'll output for whole block? I'll interpret as evaluating RF-01 only? It's ambiguous.\n\nWe'll evaluate RF-01 as sample.\n\nLet's produce JSON accordingly.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 2813,
+          "total_tokens": 3706,
+          "completion_tokens": 893,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "global_score": 86,
+        "is_high_quality": true,
+        "criterios": {
+          "claridad": 9,
+          "especificidad": 8,
+          "atomicidad": 10,
+          "completitud": 7,
+          "consistencia": 10,
+          "factibilidad": 9,
+          "verificabilidad": 8,
+          "trazabilidad": 8,
+          "ausencia_ambiguedad": 9,
+          "criterios_aceptacion": 8
+        },
+        "ambiguous_terms": [],
+        "summary": "RF-01 es un requisito bien formulado: claro, específico, atómico, verificable y trazable. Solo falta definir cómo se gestiona la lista de deseos para clientes invitados, lo que afecta la completitud pero no impide su verificabilidad ni factibilidad."
+      },
+      "error": null,
+      "latencia_s": 9.244796200073324,
+      "raw": {
+        "id": "chatcmpl-dd3704bc-ef00-445b-b7be-cc946284510c",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 9,\n      \"finding\": \"El requisito RF-01 es claro: 'El sistema deberá permitir a los clientes registrados y invitados guardar productos en una lista de deseos.' No hay interpretaciones contradictorias en su redacción.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 especifica el comportamiento: guardar productos en una lista de deseos por clientes registrados e invitados. Aunque no detalla el mecanismo (botón, gesto, etc.), el nivel es suficiente para desarrollo.\",\n      \"recommendation\": \"Podría especificarse cómo se guarda (pulsar ícono de corazón, botón 'Guardar', etc.).\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 10,\n      \"finding\": \"RF-01 expresa una sola acción: permitir guardar productos en lista de deseos. No combina múltiples requisitos independientes.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 7,\n      \"finding\": \"RF-01 cumple con la acción principal, pero falta definir qué ocurre si el cliente no está autenticado (invitado) y cómo se asocia la lista a su sesión o dispositivo, información necesaria para desarrollo y prueba.\",\n      \"recommendation\": \"Definir cómo se maneja la lista de deseos para clientes invitados (por ejemplo, mediante cookies o session storage).\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 10,\n      \"finding\": \"RF-01 no contradice otras partes del requisito ni el contexto del proyecto. Es coherente con RF-02, RF-03 y RF-04, y con el objetivo de permitir guardar productos para futuras compras y recibir avisos de bajada de precio.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 9,\n      \"finding\": \"Es factible permitir guardar productos en una lista de deseos para clientes registrados e invitados, dada la infraestructura típica de una tienda en línea y las tecnologías disponibles (cookies, almacenamiento local, base de datos asociada a sesión o usuario).\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 es verificable mediante prueba: se puede intentar guardar un producto como cliente registrado e invitado y validar que se añada a la lista de deseos. El criterio de aceptación asociado refuerza esto al especificar el comportamiento esperado y el mensaje de confirmación.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 8,\n      \"finding\": \"RF-01 tiene un identificador único (RF-01) y claramente indica el actor (clientes registrados e invitados) y la necesidad (guardar productos para futura compra), lo que permite relacionarlo con diseño, implementación y prueba.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 9,\n      \"finding\": \"No contiene términos subjetivos o vagos como 'rápido', 'fácil', 'adecuado', etc. El lenguaje es preciso y orientado a la acción.\",\n      \"recommendation\": \"\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 8,\n      \"finding\": \"RF-01 incluye un criterio de aceptación claro: 'El producto se añade a la lista de deseos y se muestra un mensaje de confirmación; si el producto ya está en la lista, se muestra un mensaje indicando que el producto ya está guardado.' Es verificable y define condiciones de éxito y alternativas.\",\n      \"recommendation\": \"\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Cómo se asocia la lista de deseos a un cliente invitado (por ejemplo, mediante cookies, session storage, o token temporal).\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cómo debe el sistema manejar la lista de deseos para clientes invitados (sin cuenta registrada)? ¿Se almacena en el navegador (cookies/local storage), se asocia a una sesión temporal, o requiere algún otro mecanismo?\"\n  ],\n  \"summary\": \"RF-01 es un requisito bien formulado: claro, específico, atómico, verificable y trazable. Solo falta definir cómo se gestiona la lista de deseos para clientes invitados, lo que afecta la completitud pero no impide su verificabilidad ni factibilidad.\"\n}",
+              "role": "assistant",
+              "reasoning_content": null
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541790,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 2984,
+          "completion_tokens": 1080,
+          "total_tokens": 4064
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 72.0,
+  "componentes": {
+    "quality_score": 37.0,
+    "verificabilidad": 20.0,
+    "trazabilidad": 15.0,
+    "no_inventar": 0
+  },
+  "cumple_tarea": false,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [
+    "15",
+    "2",
+    "10.000",
+    "95",
+    "100"
+  ],
+  "detalle": {
+    "secciones_presentes": [
+      "requisitos funcionales",
+      "requisitos no funcionales",
+      "información faltante",
+      "aclaraciones sobre información ambigua"
+    ],
+    "secciones_en_orden": true,
+    "requisitos": 6,
+    "rf": 4,
+    "rnf": 2,
+    "verificabilidad": 1.0,
+    "trazabilidad": 1.0,
+    "huecos_preguntados": [
+      "plazo del aviso",
+      "tamaño de la lista",
+      "umbral de baja"
+    ]
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 78.0
+  }
+}

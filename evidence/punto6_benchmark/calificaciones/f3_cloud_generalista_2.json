@@ -1,0 +1,286 @@
+{
+  "id": "f3_cloud_generalista_2",
+  "fase": 3,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 2,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.895539+00:00",
+  "jueces": {
+    "openai/gpt-oss-20b": {
+      "juez": "openai/gpt-oss-20b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "Se adoptan \"monolito modular en Python 3.12 con FastAPI\" (p. 2, D1)."
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "El repositorio ARCH-03 usa únicamente PostgreSQL y no se menciona otro SGBD (p. 3, ARCH-03)."
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "La tarea programada está embebida en el proceso y no se usan colas ni brokers; correo se envía sin cola (p. 5, D3 y D4)."
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "Se envía correo mediante POST /internal/mail/send de ARCH-07 (p. 5, D4)."
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "Detector de bajas es tarea horaria dentro de la misma aplicación (p. 5, D3)."
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "Se reutiliza catálogo, autenticación y correo existentes sin integrar terceros (p. 5, D1, D4, D7)."
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "ARCH-01 POST /wishlist/items, ARCH-02 agrega con precio guardado, ARCH-03 persiste, y se controla unicidad y límite (p. 3‑4)."
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "ARCH-01 DELETE /wishlist/items/{product_id}, ARCH-02 elimina, ARCH-03 elimina (p. 3)."
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "GET /wishlist devuelve items con precio actual y ordenado por added_at (p. 3)."
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": true,
+            "evidencia": "ARCH-05 compara precio actual vs. guardado y detecta bajas ≥ umbral (p. 4)."
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": true,
+            "evidencia": "ARCH-06 envía correo con producto y precios, registra notificación y respeta 24 h (p. 4)."
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": true,
+            "evidencia": "ARCH-01 rechaza peticiones no autenticadas y UI deshabilita opción (p. 3, D7)."
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 7,
+        "justificacion": "Arquitectura sigue todas las restricciones y cubre cada SPEC sin inventar funcionalidades ni datos adicionales, aunque requiere aclaraciones menores sobre bloqueo del scheduler en despliegues múltiples. "
+      },
+      "error": null,
+      "latencia_s": 55.99863999988884,
+      "raw": {
+        "id": "chatcmpl-8c2ef94ef45fd0f3",
+        "object": "chat.completion",
+        "created": 1790541879,
+        "model": "openai/gpt-oss-20b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"restricciones\":[{\"id\":\"R1\",\"cumple\":true,\"evidencia\":\"Se adoptan \\\"monolito modular en Python 3.12 con FastAPI\\\" (p. 2, D1).\"},{\"id\":\"R2\",\"cumple\":true,\"evidencia\":\"El repositorio ARCH-03 usa únicamente PostgreSQL y no se menciona otro SGBD (p. 3, ARCH-03).\"},{\"id\":\"R3\",\"cumple\":true,\"evidencia\":\"La tarea programada está embebida en el proceso y no se usan colas ni brokers; correo se envía sin cola (p. 5, D3 y D4).\"},{\"id\":\"R4\",\"cumple\":true,\"evidencia\":\"Se envía correo mediante POST /internal/mail/send de ARCH-07 (p. 5, D4).\"},{\"id\":\"R5\",\"cumple\":true,\"evidencia\":\"Detector de bajas es tarea horaria dentro de la misma aplicación (p. 5, D3).\"},{\"id\":\"R6\",\"cumple\":true,\"evidencia\":\"Se reutiliza catálogo, autenticación y correo existentes sin integrar terceros (p. 5, D1, D4, D7).\"}],\"specs\":[{\"id\":\"SPEC-01\",\"cubierto\":true,\"evidencia\":\"ARCH-01 POST /wishlist/items, ARCH-02 agrega con precio guardado, ARCH-03 persiste, y se controla unicidad y límite (p. 3‑4).\"},{\"id\":\"SPEC-02\",\"cubierto\":true,\"evidencia\":\"ARCH-01 DELETE /wishlist/items/{product_id}, ARCH-02 elimina, ARCH-03 elimina (p. 3).\"},{\"id\":\"SPEC-03\",\"cubierto\":true,\"evidencia\":\"GET /wishlist devuelve items con precio actual y ordenado por added_at (p. 3).\"},{\"id\":\"SPEC-04\",\"cubierto\":true,\"evidencia\":\"ARCH-05 compara precio actual vs. guardado y detecta bajas ≥ umbral (p. 4).\"},{\"id\":\"SPEC-05\",\"cubierto\":true,\"evidencia\":\"ARCH-06 envía correo con producto y precios, registra notificación y respeta 24 h (p. 4).\"},{\"id\":\"SPEC-06\",\"cubierto\":true,\"evidencia\":\"ARCH-01 rechaza peticiones no autenticadas y UI deshabilita opción (p. 3, D7).\"}],\"funcionalidades_inventadas\":[],\"datos_inventados\":[],\"contratos_completos\":true,\"puntaje_revision\":7,\"justificacion\":\"Arquitectura sigue todas las restricciones y cubre cada SPEC sin inventar funcionalidades ni datos adicionales, aunque requiere aclaraciones menores sobre bloqueo del scheduler en despliegues múltiples. \"}",
+              "refusal": null,
+              "annotations": null,
+              "audio": null,
+              "function_call": null,
+              "tool_calls": [],
+              "reasoning": "Need to produce JSON. Evaluate restrictions, specs, etc. All seem satisfied. functionalities_inventadas none. datos_inventados none. contratos_completos: yes. puntaje_revision: likely 8? but original suggests 7. We'll follow 7.",
+              "reasoning_content": "Need to produce JSON. Evaluate restrictions, specs, etc. All seem satisfied. functionalities_inventadas none. datos_inventados none. contratos_completos: yes. puntaje_revision: likely 8? but original suggests 7. We'll follow 7."
+            },
+            "logprobs": null,
+            "finish_reason": "stop",
+            "stop_reason": null,
+            "token_ids": null
+          }
+        ],
+        "service_tier": null,
+        "system_fingerprint": null,
+        "usage": {
+          "prompt_tokens": 4829,
+          "total_tokens": 5482,
+          "completion_tokens": 653,
+          "prompt_tokens_details": null
+        },
+        "prompt_logprobs": null,
+        "prompt_token_ids": null,
+        "kv_transfer_params": null
+      }
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "juez": "nvidia/nemotron-3-super-120b-a12b",
+      "ok": true,
+      "datos": {
+        "restricciones": [
+          {
+            "id": "R1",
+            "cumple": true,
+            "evidencia": "Se adopta un monolito modular en Python 3.12 con FastAPI, coherente con la arquitectura existente de la tienda (R1)."
+          },
+          {
+            "id": "R2",
+            "cumple": true,
+            "evidencia": "La persistencia usa exclusivamente el PostgreSQL existente (R2)."
+          },
+          {
+            "id": "R3",
+            "cumple": true,
+            "evidencia": "Sin colas ni brokers: scheduler embebido (D3) y envío síncrono de correo (D4)."
+          },
+          {
+            "id": "R4",
+            "cumple": true,
+            "evidencia": "Los correos se envían únicamente vía el servicio interno existente (R4)."
+          },
+          {
+            "id": "R5",
+            "cumple": true,
+            "evidencia": "La detección de bajas corre como tarea programada horaria dentro del mismo proceso (R5)."
+          },
+          {
+            "id": "R6",
+            "cumple": true,
+            "evidencia": "No se introduce ningún servicio externo nuevo (R6)."
+          }
+        ],
+        "specs": [
+          {
+            "id": "SPEC-01",
+            "cubierto": true,
+            "evidencia": "POST /wishlist/items — Agregar producto (SPEC-01) … Errores: 409 { \"error\": \"PRODUCT_ALREADY_IN_WISHLIST\" }; 422 { \"error\": \"WISHLIST_LIMIT_REACHED\" } (límite 50). ARCH-02 captura el precio vigente al agregar."
+          },
+          {
+            "id": "SPEC-02",
+            "cubierto": true,
+            "evidencia": "DELETE /wishlist/items/{product_id} — Eliminar producto (SPEC-02) … Errores: 401; 404 { \"error\": \"PRODUCT_NOT_IN_WISHLIST\" }. ARCH-02.remove_item devuelve bool."
+          },
+          {
+            "id": "SPEC-03",
+            "cubierto": true,
+            "evidencia": "GET /wishlist — Consultar lista (SPEC-03) … Salida 200: { \"items\": [ { \"product_id\": ..., \"saved_price\": ..., \"current_price\": ..., \"added_at\": ... } ] }, ordenado por added_at ascendente. ARCH-02.list_items ordenado; ARCH-04 proporciona precio actual."
+          },
+          {
+            "id": "SPEC-04",
+            "cubierto": true,
+            "evidencia": "ARCH-05 — Detector de Bajas de Precio (tarea programada horaria) … ejecutarse cada hora, comparar precio actual vs. guardado y detectar bajas ≥ umbral configurable (10 % por defecto)."
+          },
+          {
+            "id": "SPEC-05",
+            "cubierto": true,
+            "evidencia": "ARCH-06 — Servicio de Notificación de Bajas … construir el correo (producto, precio guardado, precio actual), aplicar regla de máximo un aviso por cliente y producto cada 24 h y enviarlo vía POST /internal/mail/send."
+          },
+          {
+            "id": "SPEC-06",
+            "cubierto": true,
+            "evidencia": "ARCH-01 rechaza peticiones no autenticadas (SPEC-06) y ARCH-08 indica que para invitados la capa de presentación muestra la opción deshabilitada con el mensaje \"Inicia sesión para usar tu lista de deseos\"."
+          }
+        ],
+        "funcionalidades_inventadas": [],
+        "datos_inventados": [],
+        "contratos_completos": true,
+        "puntaje_revision": 8,
+        "justificacion": "Cubre todos los SPEC y respeta todas las restricciones; solo se basan en suposiciones menores sobre UI y bloqueo de scheduler, por lo que se requieren cambios menores."
+      },
+      "error": null,
+      "latencia_s": 57.88341490004677,
+      "raw": {
+        "id": "chatcmpl-ce7a2f27-3a23-43ab-b172-2a9645b34afc",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "content": "{\n  \"restricciones\": [\n    {\n      \"id\": \"R1\",\n      \"cumple\": true,\n      \"evidencia\": \"Se adopta un monolito modular en Python 3.12 con FastAPI, coherente con la arquitectura existente de la tienda (R1).\"\n    },\n    {\n      \"id\": \"R2\",\n      \"cumple\": true,\n      \"evidencia\": \"La persistencia usa exclusivamente el PostgreSQL existente (R2).\"\n    },\n    {\n      \"id\": \"R3\",\n      \"cumple\": true,\n      \"evidencia\": \"Sin colas ni brokers: scheduler embebido (D3) y envío síncrono de correo (D4).\"\n    },\n    {\n      \"id\": \"R4\",\n      \"cumple\": true,\n      \"evidencia\": \"Los correos se envían únicamente vía el servicio interno existente (R4).\"\n    },\n    {\n      \"id\": \"R5\",\n      \"cumple\": true,\n      \"evidencia\": \"La detección de bajas corre como tarea programada horaria dentro del mismo proceso (R5).\"\n    },\n    {\n      \"id\": \"R6\",\n      \"cumple\": true,\n      \"evidencia\": \"No se introduce ningún servicio externo nuevo (R6).\"\n    }\n  ],\n  \"specs\": [\n    {\n      \"id\": \"SPEC-01\",\n      \"cubierto\": true,\n      \"evidencia\": \"POST /wishlist/items — Agregar producto (SPEC-01) … Errores: 409 { \\\"error\\\": \\\"PRODUCT_ALREADY_IN_WISHLIST\\\" }; 422 { \\\"error\\\": \\\"WISHLIST_LIMIT_REACHED\\\" } (límite 50). ARCH-02 captura el precio vigente al agregar.\"\n    },\n    {\n      \"id\": \"SPEC-02\",\n      \"cubierto\": true,\n      \"evidencia\": \"DELETE /wishlist/items/{product_id} — Eliminar producto (SPEC-02) … Errores: 401; 404 { \\\"error\\\": \\\"PRODUCT_NOT_IN_WISHLIST\\\" }. ARCH-02.remove_item devuelve bool.\"\n    },\n    {\n      \"id\": \"SPEC-03\",\n      \"cubierto\": true,\n      \"evidencia\": \"GET /wishlist — Consultar lista (SPEC-03) … Salida 200: { \\\"items\\\": [ { \\\"product_id\\\": ..., \\\"saved_price\\\": ..., \\\"current_price\\\": ..., \\\"added_at\\\": ... } ] }, ordenado por added_at ascendente. ARCH-02.list_items ordenado; ARCH-04 proporciona precio actual.\"\n    },\n    {\n      \"id\": \"SPEC-04\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-05 — Detector de Bajas de Precio (tarea programada horaria) … ejecutarse cada hora, comparar precio actual vs. guardado y detectar bajas ≥ umbral configurable (10 % por defecto).\"\n    },\n    {\n      \"id\": \"SPEC-05\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-06 — Servicio de Notificación de Bajas … construir el correo (producto, precio guardado, precio actual), aplicar regla de máximo un aviso por cliente y producto cada 24 h y enviarlo vía POST /internal/mail/send.\"\n    },\n    {\n      \"id\": \"SPEC-06\",\n      \"cubierto\": true,\n      \"evidencia\": \"ARCH-01 rechaza peticiones no autenticadas (SPEC-06) y ARCH-08 indica que para invitados la capa de presentación muestra la opción deshabilitada con el mensaje \\\"Inicia sesión para usar tu lista de deseos\\\".\"\n    }\n  ],\n  \"funcionalidades_inventadas\": [],\n  \"datos_inventados\": [],\n  \"contratos_completos\": true,\n  \"puntaje_revision\": 8,\n  \"justificacion\": \"Cubre todos los SPEC y respeta todas las restricciones; solo se basan en suposiciones menores sobre UI y bloqueo de scheduler, por lo que se requieren cambios menores.\"\n}",
+              "role": "assistant",
+              "reasoning_content": "We need to produce a JSON with evaluations for each restriction and spec, list of invented functionalities and data, contracts_completos, score, justification.\n\nWe must check the provided architecture documentation against constraints.\n\nFirst, restrictions:\n\nR1: Monolito modular: single Python 3.12 FastAPI app. The doc says \"monolito modular ... FastAPI ... R1\". Evidence: section 1 says monolito modular Python 3.12 with FastAPI. So cumple true.\n\nR2: Only PostgreSQL existing DB; no other DBs. The doc says persistence uses exclusively the existing PostgreSQL (R2). Also ARCH-03 uses PostgreSQL only. No mention of Redis or other. So cumple true.\n\nR3: No queues nor message brokers. The doc says sin colas ni brokers: scheduler embebido (D3) and envío síncrono de correo (D4). So cumple true.\n\nR4: Emails only via internal service POST /internal/mail/send. The doc says ARCH-06 -> ARCH-07 via that endpoint; ARCH-07 defined accordingly. So cumple true.\n\nR5: Price drop detection runs as hourly scheduled task within same application. The doc says ARCH-05 runs each hour inside the application (scheduler embebido). So cumple true.\n\nR6: No new third-party services integrated. The doc says no new external services introduced; reuses existing catalog, auth, mail. So cumple true.\n\nNow SPECs:\n\nSPEC-01: Add to wishlist: registered verified email client adds product, saves price at that moment; list does not admit duplicates nor >50 products; informs reason.\n\nWe need to see if architecture covers it concretely. ARCH-01 POST /wishlist/items endpoint with validation for duplicate (409) and limit (422). ARCH-02 applies business rules: uniqueness, limit, capture price vigente. ARCH-03 persists items with saved_price. ARCH-04 provides current price. ARCH-08 auth ensures verified email. So covered. Provide evidence: maybe cite \"POST /wishlist/items — ... Errores: 409 duplicate, 422 limit reached\" and \"ARCH-02 ... capturar precio vigente al agregar\". So cubierto true.\n\nSPEC-02: Delete product; if product not in list, inform client. ARCH-01 DELETE endpoint returns 404 with error PRODUCT_NOT_IN_WISHLIST. ARCH-02 remove_item returns bool. So covered.\n\nSPEC-03: Consult list: client sees products ordered by date added oldest to newest, with saved price and current price. ARCH-01 GET /wishlist returns items with saved_price, current_price, ordered by added_at ASC. ARCH-02 list_items ordered; ARCH-03 retrieves; ARCH-04 provides current price. So covered.\n\nSPEC-04: Detect price drops: system compares current price of each product in lists with saved price and detects drops >= configurable threshold, default 10%. ARCH-05 does that: runs hourly, iterates items, compares price actual vs guardado, detects bajas >= umbral configurable (default 10%). ARCH-03 provides items; ARCH-04 provides current price. So covered.\n\nSPEC-05: Notify by email: for each detected drop send email to client with product, saved price, current price; max one notice per client and product every 24h. ARCH-06 builds email, applies rule of max one notice per 24h using ARCH-03 get_last_notification and record_notification, then sends via ARCH-07 POST /internal/mail/send. So covered.\n\nSPEC-06: Guest clients see wishlist option disabled with message \"Inicia sesión para usar tu lista de deseos\". ARCH-01 likely returns 401 for unauthenticated; ARCH-08 verifies registered and email verified; UI shows disabled message. The doc mentions ARCH-08 and UI layer. So covered.\n\nNow functionalities_inventadas: Are there any user-facing capabilities not in spec? The doc doesn't mention SMS, push notifications, mobile app, payments, recommendations. It only describes wishlist features. So none invented.\n\nDatos_inventados: Any business values presented as requirements that spec doesn't give? The doc mentions configurable threshold default 10% (spec gives that). It mentions limit of 50 products (spec). It mentions 24h interval (spec). It mentions hourly schedule (spec). It mentions price saved at moment (spec). No extra values like specific timeouts, etc. So none invented.\n\nContratos_completos: Need to verify if each relevant interface defines input, output, errors. The doc provides contracts for ARCH-01 (HTTP endpoints) with inputs, outputs, errors. ARCH-02 -> ARCH-03 defined functions with return types and errors. ARCH-04 defined. ARCH-05 -> ARCH-06 defined? It says ARCH-05 invokes ARCH-06 per baja detected. Not fully detailed but we can assume contract. ARCH-06 -> ARCH-07 defined with POST internal/mail/send. ARCH-07 defined. So likely true. We'll mark true.\n\nNow puntaje_revision: Considering coverage, coherence with restrictions, clarity, absence of inventions. The architecture seems to fully cover specs, respects restrictions, clear, no inventions. So high score maybe 9 or 10. However, there might be minor gaps: The doc assumes UI can show disabled message; but it's noted as assumption. That's not a violation but could be a minor gap. Also scheduler multi-instance requires advisory lock; assumption. Might be minor. So maybe 8 or 9. Since they ask for 9-10 listo para implementar sin cambios; 7-8 cambios menores. Given the assumptions noted, maybe 8. Let's choose 8.\n\nJustificacion: brief 1-3 sentences.\n\nNow produce JSON.\n\nMake sure evidence citations are brief quotes from doc.\n\nWe'll need to extract evidence strings.\n\nFor each restriction:\n\nR1 evidencia: \"Se adopta un monolito modular en Python 3.12 con FastAPI, coherente con la arquitectura existente de la tienda (R1).\" (from section 1)\n\nR2 evidencia: \"La persistencia usa exclusivamente el PostgreSQL existente (R2)\" (section 1)\n\nR3 evidencia: \"sin Celery por R3\" and \"Sin colas ni brokers: scheduler embebido (D3) y envío síncrono de correo (D4).\" (section 5)\n\nR4 evidencia: \"Los correos se envían únicamente vía el servicio interno existente (R4).\" (section 1) or \"ARCH-06 ... envía a través del servicio interno de correo.\" (section 2)\n\nR5 evidencia: \"la detección de bajas corre como tarea programada horaria dentro del mismo proceso (R5)\" (section 1)\n\nR6 evidencia: \"No se introduce ningún servicio externo nuevo (R6).\" (section 1)\n\nNow specs:\n\nSPEC-01 evidencia: maybe cite \"POST /wishlist/items — Agregar producto (SPEC-01) ... Errores: 409 ... 422 ...\" and \"ARCH-02 ... capturar precio vigente al agregar\". We'll choose a concise quote: \"POST /wishlist/items — Agregar producto (SPEC-01) ... Errores: 409 ... 422 (límite 50).\" plus \"ARCH-02 ... capturar precio vigente al agregar\". But we need single evidencia string; we can combine.\n\nSPEC-02 evidencia: \"DELETE /wishlist/items/{product_id} — Eliminar producto (SPEC-02) ... Errores: 404 { \\\"error\\\": \\\"PRODUCT_NOT_IN_WISHLIST\\\" }.\"\n\nSPEC-03 evidencia: \"GET /wishlist — Consultar lista (SPEC-03) ... Salida 200: { \\\"items\\\": [ { \\\"product_id\\\": ..., \\\"saved_price\\\": ..., \\\"current_price\\\": ..., \\\"added_at\\\": ... } ], ordenado por added_at ascendente.\"\n\nSPEC-04 evidencia: \"ARCH-05 — Detector de Bajas de Precio (tarea programada horaria) ... ejecutarse cada hora ... detectar bajas ≥ umbral configurable (10 % por defecto).\"\n\nSPEC-05 evidencia: \"ARCH-06 — Servicio de Notificación de Bajas ... construir el correo ... aplicar la regla de máximo un aviso por cliente y producto cada 24 horas, y enviarlo a través del servicio interno de correo.\"\n\nSPEC-06 evidencia: \"ARCH-08 — Módulo de Autenticación y Sesión (existente) ... para invitados, la capa de presentación muestra la opción deshabilitada con el mensaje \\\"Inicia sesión para usar tu lista de deseos\\\".\" Also \"ARCH-01 ... trazabilidad: SPEC-06 (rechazo de peticiones no autenticadas a nivel API).\"\n\nNow funcionalidades_inventadas: empty list.\n\ndatos_inventados: empty list.\n\ncontratos_completos: true.\n\npuntaje_revision: 8.\n\njustificacion: \"Cubre todos los SPEC y respeta todas las restricciones; solo se basan en suposiciones menores sobre UI y bloqueo de scheduler, por lo que se requieren cambios menores.\"\n\nNow ensure JSON is valid.\n\nLet's craft.\n\n"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "created": 1790541878,
+        "model": "nvidia/nemotron-3-super-120b-a12b",
+        "service_tier": null,
+        "system_fingerprint": null,
+        "object": "chat.completion",
+        "usage": {
+          "prompt_tokens": 5393,
+          "completion_tokens": 3043,
+          "total_tokens": 8436
+        }
+      }
+    }
+  },
+  "juez_usado": "openai/gpt-oss-20b",
+  "autoevaluacion": false,
+  "puntaje": 91.0,
+  "componentes": {
+    "cobertura_spec": 25.0,
+    "estructura": 15.0,
+    "identificadores": 10,
+    "restricciones": 20,
+    "revision": 21
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [
+    "- [x] Se recomienda y se ha aplicado el criterio de validación: el diagrama fue revisado contra las reglas de sintaxis de Mermaid (equivalente a mermaid.live/mermaid-cli) y la correspondencia de IDs SPEC↔ARCH fue cruzada sistemáticamente en la sección 8 (equivalente al script de trazabilidad)."
+  ],
+  "detalle": {
+    "secciones_presentes": [
+      "resumen",
+      "componentes",
+      "contratos",
+      "decisiones",
+      "verificación de restricciones",
+      "diagrama",
+      "supuestos y riesgos",
+      "brechas de cobertura",
+      "lista de comprobación"
+    ],
+    "specs_cubiertos": [
+      "SPEC-01",
+      "SPEC-02",
+      "SPEC-03",
+      "SPEC-04",
+      "SPEC-05",
+      "SPEC-06"
+    ],
+    "ids_arch": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "arch_secuenciales": true,
+    "arch_en_diagrama": true,
+    "tiene_mermaid": true,
+    "bloques_implementacion": [],
+    "afirma_verificacion_no_realizada": [
+      "- [x] Se recomienda y se ha aplicado el criterio de validación: el diagrama fue revisado contra las reglas de sintaxis de Mermaid (equivalente a mermaid.live/mermaid-cli) y la correspondencia de IDs SPEC↔ARCH fue cruzada sistemáticamente en la sección 8 (equivalente al script de trazabilidad)."
+    ],
+    "restricciones_violadas_segun_juez": [],
+    "specs_no_cubiertos_segun_juez": []
+  },
+  "puntaje_otro_juez": {
+    "juez": "nvidia/nemotron-3-super-120b-a12b",
+    "puntaje": 94.0
+  }
+}

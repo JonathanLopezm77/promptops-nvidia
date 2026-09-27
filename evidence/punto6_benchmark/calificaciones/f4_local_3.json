@@ -1,0 +1,70 @@
+{
+  "id": "f4_local_3",
+  "fase": 4,
+  "modelo_clave": "local",
+  "corrida": 3,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.922145+00:00",
+  "puntaje": 68.53,
+  "componentes": {
+    "tests": 53.53,
+    "lint": 0.0,
+    "formato": 15
+  },
+  "cumple_tarea": false,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "estatico": {
+      "sintaxis_ok": true,
+      "importados": [
+        "dataclasses",
+        "datetime",
+        "decimal",
+        "typing"
+      ],
+      "no_estandar": [],
+      "peligrosos": [],
+      "nombres_publicos_extra": [],
+      "faltan_del_contrato": [],
+      "asunciones": 0
+    },
+    "encabezado_file": true,
+    "archivos": [
+      [
+        "wishlist_service.py",
+        "python"
+      ]
+    ],
+    "compila": true,
+    "tests_total": 34,
+    "tests_pasadas": 26,
+    "tests_fallidas": [
+      "test_spec03_orden_por_fecha_ascendente",
+      "test_spec03_devuelve_una_copia",
+      "test_spec04_calcula_y_redondea_half_up",
+      "test_spec04_redondeo_half_up_en_el_limite",
+      "test_spec04_umbral_inclusivo",
+      "test_spec04_bajo_el_umbral_o_sube_o_igual_no_se_incluye",
+      "test_spec04_ignora_productos_sin_precio_actual",
+      "test_spec04_orden_por_porcentaje_desc_y_luego_id"
+    ],
+    "avisos_lint": [
+      "I001: Import block is un-sorted or un-formatted",
+      "F401: `dataclasses.field` imported but unused",
+      "UP035: `typing.Dict` is deprecated, use `dict` instead",
+      "UP035: `typing.List` is deprecated, use `list` instead",
+      "F401: `typing.Optional` imported but unused",
+      "UP006: Use `dict` instead of `Dict` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation",
+      "UP006: Use `dict` instead of `Dict` for type annotation",
+      "UP006: Use `list` instead of `List` for type annotation"
+    ],
+    "implements": true,
+    "archivos_implementacion": 1,
+    "incluye_pruebas": false
+  }
+}

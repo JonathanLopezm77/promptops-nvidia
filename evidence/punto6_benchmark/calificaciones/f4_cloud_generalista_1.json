@@ -1,0 +1,48 @@
+{
+  "id": "f4_cloud_generalista_1",
+  "fase": 4,
+  "modelo_clave": "cloud_generalista",
+  "corrida": 1,
+  "ejecucion_ok": true,
+  "calificado_en": "2026-09-27T20:39:08.896558+00:00",
+  "puntaje": 100.0,
+  "componentes": {
+    "tests": 70.0,
+    "lint": 15.0,
+    "formato": 15
+  },
+  "cumple_tarea": true,
+  "schema_ok": true,
+  "violaciones": [],
+  "supuestos_no_sustentados": [],
+  "detalle": {
+    "estatico": {
+      "sintaxis_ok": true,
+      "importados": [
+        "dataclasses",
+        "datetime",
+        "decimal"
+      ],
+      "no_estandar": [],
+      "peligrosos": [],
+      "nombres_publicos_extra": [],
+      "faltan_del_contrato": [],
+      "asunciones": 0
+    },
+    "encabezado_file": true,
+    "archivos": [
+      [
+        "wishlist_service.py",
+        "python"
+      ]
+    ],
+    "compila": true,
+    "tests_total": 34,
+    "tests_pasadas": 34,
+    "tests_fallidas": [],
+    "avisos_lint": [],
+    "implements": true,
+    "archivos_implementacion": 1,
+    "incluye_pruebas": false
+  }
+}
