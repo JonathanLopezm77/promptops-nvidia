@@ -48,6 +48,8 @@ def _mensaje_transicion(exc: InvalidTransitionError) -> str:
             f"Solo se pueden responder las preguntas de un análisis COMPLETED "
             f"(este está en {exc.current_status})."
         )
+    if exc.target_status == "TTS":
+        return f"El análisis todavía no terminó (está en {exc.current_status}): no hay resultado que leer."
     return f"No se puede pasar de {exc.current_status} a {exc.target_status}."
 
 

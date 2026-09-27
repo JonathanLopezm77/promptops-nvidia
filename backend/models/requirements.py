@@ -40,6 +40,7 @@ class RequirementAnalysis(Base):
     improvement_tokens: Mapped[int | None] = mapped_column(Integer, default=None)
     improvement_latency_ms: Mapped[int | None] = mapped_column(Integer, default=None)
     error_message: Mapped[str | None] = mapped_column(Text, default=None)
+    tts_log: Mapped[list] = mapped_column(JSONB, server_default=text("'[]'::jsonb"))
 
     evaluations: Mapped[list["RequirementEvaluation"]] = relationship(
         back_populates="analysis",

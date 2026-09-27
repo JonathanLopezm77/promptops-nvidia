@@ -72,6 +72,52 @@ def test_metadata_de_stt_en_entrada_de_texto_es_rechazada(client):
     assert r.status_code == 422
 
 
+TTS = {
+    "engine": "speechSynthesis (navegador)",
+    "voice": "Microsoft Sabina - Spanish (Mexico)",
+    "language": "es-MX",
+    "processing": "local",
+    "script": "Análisis completado. El requisito original obtuvo 40 de 100 puntos.",
+}
+
+
+def _marcar(analysis_id: str, status: str) -> None:
+    db = SessionLocal()
+    try:
+        db.get(RequirementAnalysis, uuid.UUID(analysis_id)).status = status
+        db.commit()
+    finally:
+        db.close()
+
+
+def test_registra_cada_lectura_en_voz_alta(client):
+    r = _crear(client, requirement="El sistema debe ser rápido.", input_mode="voice", stt_metadata=STT)
+    _marcar(r.json()["id"], "COMPLETED")
+
+    primera = client.post(f"/api/requirements/{r.json()['id']}/tts", json=TTS)
+    segunda = client.post(f"/api/requirements/{r.json()['id']}/tts", json={**TTS, "processing": "remote"})
+
+    assert primera.status_code == 201 and segunda.status_code == 201
+    log = client.get(f"/api/requirements/{r.json()['id']}").json()["tts_log"]
+    assert [e["processing"] for e in log] == ["local", "remote"]
+    assert log[0]["voice"] == TTS["voice"] and log[0]["script"] == TTS["script"]
+    assert all(e["played_at"] for e in log)
+
+
+def test_no_se_registra_lectura_de_un_analisis_sin_terminar(client):
+    r = _crear(client, requirement="El sistema debe ser rápido.")
+    respuesta = client.post(f"/api/requirements/{r.json()['id']}/tts", json=TTS)
+    assert respuesta.status_code == 409
+    assert "no hay resultado que leer" in respuesta.json()["detail"]
+
+
+def test_lectura_con_procesamiento_invalido_es_rechazada(client):
+    r = _crear(client, requirement="El sistema debe ser rápido.")
+    _marcar(r.json()["id"], "COMPLETED")
+    respuesta = client.post(f"/api/requirements/{r.json()['id']}/tts", json={**TTS, "processing": "nube"})
+    assert respuesta.status_code == 422
+
+
 def test_la_aclaracion_de_un_analisis_por_voz_conserva_su_origen(client):
     r = _crear(client, requirement="El sistema debe ser rápido.", input_mode="voice", stt_metadata=STT)
     db = SessionLocal()

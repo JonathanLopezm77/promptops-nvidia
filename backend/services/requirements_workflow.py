@@ -243,6 +243,19 @@ async def run_analysis_background(analysis_id: uuid.UUID) -> None:
         db.close()
 
 
+def register_tts_playback(db: Session, analysis: RequirementAnalysis, event: dict) -> None:
+    """Registra una lectura en voz alta del resultado. Solo sobre análisis
+    terminados: antes no hay resultado que leer."""
+    if analysis.status not in _ESTADOS_TERMINALES:
+        raise InvalidTransitionError(analysis.status, "TTS")
+    registro = {**event, "played_at": datetime.now(timezone.utc).isoformat()}
+    # Lista nueva (no .append) para que SQLAlchemy detecte el cambio en JSONB.
+    analysis.tts_log = [*(analysis.tts_log or []), registro]
+    db.add(analysis)
+    db.commit()
+    db.refresh(analysis)
+
+
 def start_clarification(
     db: Session, previous: RequirementAnalysis, answers: str
 ) -> RequirementAnalysis:

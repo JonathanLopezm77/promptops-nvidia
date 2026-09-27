@@ -216,6 +216,14 @@ def test_no_marca_valores_respaldados_por_default_ni_la_numeracion():
     assert mejora.unsupported_values("debe ser rápido", None, "Máximo 2 segundos.") == []
 
 
+def test_mismo_numero_con_otra_notacion_no_es_inventado():
+    mejora = _mejora("El catálogo tendrá hasta 20.000 productos y 1,500 marcas; tiempo 2,5 s.")
+    fuente = "Catálogo de hasta 20000 productos, 1500 marcas y respuesta en 2.5 segundos."
+    assert mejora.unsupported_values(fuente) == []
+    # Un valor realmente distinto se sigue detectando.
+    assert _mejora("Hasta 30.000 productos.").unsupported_values(fuente) == ["30.000"]
+
+
 def test_sub_requisitos_en_lista_se_unen_en_un_texto():
     mejora = RequirementImprovementResponse.model_validate(
         {

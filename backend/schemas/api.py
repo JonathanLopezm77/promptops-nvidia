@@ -154,6 +154,16 @@ class ClarifyRequirementRequest(BaseModel):
     answers: str = Field(min_length=1)
 
 
+class TtsPlaybackRequest(BaseModel):
+    """Una lectura en voz alta del resultado (retroalimentación hablada)."""
+
+    engine: str = Field(min_length=1)
+    voice: str = Field(min_length=1)
+    language: str = Field(min_length=1)
+    processing: Literal["local", "remote", "desconocido"]
+    script: str = Field(min_length=1)
+
+
 class RequirementEvaluationOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -205,6 +215,7 @@ class RequirementAnalysisDetailOut(RequirementAnalysisOut):
     improvement_raw: dict[str, Any] | None
     improvement_tokens: int | None
     improvement_latency_ms: int | None
+    tts_log: list[dict[str, Any]] = []
     evaluations: list[RequirementEvaluationOut] = []
 
     @computed_field

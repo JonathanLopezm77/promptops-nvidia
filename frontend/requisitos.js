@@ -308,6 +308,17 @@ function describirStt(m) {
   return html;
 }
 
+function describirTts(log) {
+  if (!log.length) return null;
+  const ultima = log[log.length - 1];
+  return (
+    `${log.length} ${log.length === 1 ? "lectura" : "lecturas"} · última: ` +
+    `${escapeHtml(ultima.voice)} (${escapeHtml(ultima.language)}) · ` +
+    `procesamiento ${ultima.processing === "local" ? "LOCAL" : ultima.processing === "remote" ? "REMOTO" : "desconocido"} · ` +
+    new Date(ultima.played_at).toLocaleString("es-ES")
+  );
+}
+
 function renderTrazabilidad(a) {
   document.getElementById("panel-trazabilidad").hidden = false;
   const fila = (k, v) => (v == null || v === "" ? "" : `<div><span>${k}</span>${v}</div>`);
@@ -340,6 +351,7 @@ function renderTrazabilidad(a) {
     fila("Aclaraciones", a.clarifications ? escapeHtml(a.clarifications) : null),
     fila("Evaluador", evs || escapeHtml(a.evaluator_model)),
     fila("Mejorador", mejora),
+    fila("Lecturas en voz", describirTts(a.tts_log || [])),
   ].join("");
 
   document.querySelectorAll(".link-analisis").forEach((el) =>
@@ -443,10 +455,11 @@ function guionResultado(a) {
   return partes.join("\n");
 }
 
-function leerResultado(a) {
+async function leerResultado(a) {
   const estado = document.getElementById("estado-tts");
   const detener = document.getElementById("btn-detener-voz");
-  const info = Voz.hablar(guionResultado(a), {
+  const guion = guionResultado(a);
+  const info = Voz.hablar(guion, {
     alTerminar: () => {
       detener.hidden = true;
     },
@@ -459,6 +472,21 @@ function leerResultado(a) {
   estado.textContent =
     `Voz: ${info.voice} (${info.language}) · ${info.engine} · ` +
     `procesamiento ${info.processing === "local" ? "LOCAL" : info.processing === "remote" ? "REMOTO" : "desconocido"}`;
+
+  // Evidencia de la retroalimentación hablada (caso D del parcial).
+  try {
+    await apiFetch(`/requirements/${a.id}/tts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...info, script: guion }),
+    });
+    if (a.id === analisisId) {
+      detenerPolling();
+      cargarYQuizasSeguirSondeando(a.id);
+    }
+  } catch (err) {
+    estado.textContent += ` · No se pudo registrar la lectura: ${err.message}`;
+  }
 }
 
 function actualizarBotonDictar() {

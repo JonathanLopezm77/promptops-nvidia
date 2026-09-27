@@ -48,6 +48,13 @@ CREATE TABLE IF NOT EXISTS requirement_analyses (
 CREATE INDEX IF NOT EXISTS idx_requirement_analyses_created_at
     ON requirement_analyses(created_at DESC);
 
+-- Cada vez que el resultado se lee en voz alta (TTS) se registra motor,
+-- voz, si es local o remota, el texto leído y la hora: es la evidencia de
+-- la retroalimentación hablada (caso D). Se agrega con ALTER ... IF NOT
+-- EXISTS para que también llegue a las bases de datos ya creadas.
+ALTER TABLE requirement_analyses
+    ADD COLUMN IF NOT EXISTS tts_log JSONB NOT NULL DEFAULT '[]'::jsonb;
+
 -- ---------------------------------------------------------------------------
 -- requirement_evaluations: la evaluación de los 10 criterios de calidad,
 -- una para el requisito original y (si hubo mejora) otra para el mejorado.

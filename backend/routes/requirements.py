@@ -17,6 +17,7 @@ from backend.schemas.api import (
     CreateRequirementRequest,
     RequirementAnalysisDetailOut,
     RequirementAnalysisOut,
+    TtsPlaybackRequest,
 )
 from backend.services import requirements_workflow
 
@@ -55,6 +56,18 @@ def listar_analisis(db: Session = Depends(get_db)) -> list[RequirementAnalysis]:
 @router.get("/{analysis_id}", response_model=RequirementAnalysisDetailOut)
 def obtener_analisis(analysis_id: uuid.UUID, db: Session = Depends(get_db)) -> RequirementAnalysis:
     return _obtener_o_404(db, analysis_id)
+
+
+@router.post("/{analysis_id}/tts", response_model=RequirementAnalysisDetailOut, status_code=201)
+def registrar_lectura(
+    analysis_id: uuid.UUID, body: TtsPlaybackRequest, db: Session = Depends(get_db)
+) -> RequirementAnalysis:
+    """Registra que el resultado se leyó en voz alta (motor, voz, local o
+    remota, texto leído). La síntesis ocurre en el navegador; esto solo
+    deja la evidencia en la base de datos."""
+    analysis = _obtener_o_404(db, analysis_id)
+    requirements_workflow.register_tts_playback(db, analysis, body.model_dump())
+    return analysis
 
 
 @router.post("/{analysis_id}/clarify", response_model=RequirementAnalysisDetailOut, status_code=202)

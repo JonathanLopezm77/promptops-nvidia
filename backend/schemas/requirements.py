@@ -17,7 +17,7 @@ import unicodedata
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-_NUMERO = re.compile(r"\d+(?:[.,]\d+)?")
+_NUMERO = re.compile(r"\d+(?:[.,]\d+)*")
 _POR_DEFINIR = re.compile(r"\[POR DEFINIR[^\]]*\]", re.IGNORECASE)
 # Numeración de sub-requisitos (REQ-1, REQ-2.1) que exige el Mejorador.
 _NUMERACION_REQ = re.compile(r"\bREQ-[\d.]+", re.IGNORECASE)
@@ -68,6 +68,10 @@ REQUIREMENT_CRITERIA: dict[str, tuple[str, str]] = {
 
 HIGH_QUALITY_MIN_GLOBAL = 80
 HIGH_QUALITY_MIN_CRITERION = 6
+
+
+def _sin_separadores(numero: str) -> str:
+    return numero.replace(".", "").replace(",", "")
 
 
 def _normalizar(texto: str) -> str:
@@ -182,10 +186,15 @@ class RequirementImprovementResponse(BaseModel):
         texto = "\n".join([self.improved_requirement, *self.acceptance_criteria])
         texto = _POR_DEFINIR.sub(" ", texto)
         texto = _NUMERACION_REQ.sub(" ", texto)
-        respaldados = set(_NUMERO.findall(" ".join(f for f in fuentes if f)))
+        # Se comparan sin separadores para que "20000", "20.000" y "20,000"
+        # cuenten como el mismo valor (el stakeholder y el modelo no siempre
+        # usan la misma notación).
+        respaldados = {
+            _sin_separadores(v) for v in _NUMERO.findall(" ".join(f for f in fuentes if f))
+        }
         vistos: list[str] = []
         for valor in _NUMERO.findall(texto):
-            if valor not in respaldados and valor not in vistos:
+            if _sin_separadores(valor) not in respaldados and valor not in vistos:
                 vistos.append(valor)
         return vistos
 
