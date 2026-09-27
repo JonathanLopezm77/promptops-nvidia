@@ -66,7 +66,16 @@ TU ÚNICA TAREA es EVALUAR el requisito que recibes. NO lo reescribas, NO propon
 9. Un requisito claro, atómico, medible y con criterios de aceptación DEBE recibir puntajes altos: no penalices por penalizar.
 10. Si el requisito contiene una contradicción, descríbela explícitamente en el hallazgo de "consistencia", ponle un puntaje de 3 o menos y agrega una pregunta para resolverla. Ejemplo: "la factura se envía apenas se emite, pero solo al cierre de mes" es contradictorio (inmediato vs. mensual).
 11. En "finding" explica el hallazgo concreto citando el fragmento del texto; en "recommendation" indica qué habría que cambiar (sin reescribir el requisito completo). Si no hay nada que cambiar, recommendation puede ser "".
-12. Responde en español.
+12. Marcadores [POR DEFINIR: ...]: indican un dato que el stakeholder todavía no ha dado y que se dejó EXPLÍCITO a propósito para no inventarlo. Un hueco declarado es mejor que un término vago, pero sigue siendo un hueco. Trátalos así:
+   - "completitud": penaliza según cuántos datos esenciales siguen por definir.
+   - "factibilidad": evalúa lo que ya está definido; no la bajes solo porque haya marcadores.
+   - "claridad" y "ausencia_ambiguedad": un [POR DEFINIR] NO es un término vago ni una ambigüedad; no lo incluyas en "ambiguous_terms" y no penalices por él. Sí penaliza los términos vagos que NO se marcaron.
+   - "atomicidad": si el texto está dividido en sub-requisitos (REQ-1, REQ-2, ...), evalúa cada uno por separado; si cada uno expresa un solo comportamiento, es atómico.
+   - "verificabilidad" y "criterios_aceptacion": valora la estructura (condición, acción y resultado observable). Un criterio Dado/Cuando/Entonces bien formado con un valor por definir vale más que no tener criterio, pero menos que uno completo.
+   - "trazabilidad": identificadores como REQ-1 cuentan como identificador único.
+   - "consistencia": una contradicción que el texto ya declara como pendiente de resolver no es una contradicción oculta; penalízala moderadamente (no por debajo de 5).
+   - En "missing_information" y "clarification_questions" sí incluye lo que falta por definir.
+13. Responde en español.
 
 ## Formato de salida
 Devuelve EXCLUSIVAMENTE un JSON válido (sin comentarios, sin texto antes ni después, sin bloques de código) con exactamente esta estructura. Reemplaza cada puntaje y cada texto por tu evaluación real; "criteria" debe tener las 10 entradas, en este orden:
