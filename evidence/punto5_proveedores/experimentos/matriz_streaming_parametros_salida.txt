@@ -1,0 +1,33 @@
+﻿kimi-k3                  stream=False params=[] extra={}
+     contenido=True razonamiento=194 chars 28.0s
+     contenido=True razonamiento=21 chars 22.0s
+     contenido=True razonamiento=242 chars 23.5s
+kimi-k3                  stream=False params=['max_tokens', 'temperature', 'top_p'] extra={}
+     contenido=True razonamiento=21 chars 24.1s
+     contenido=True razonamiento=21 chars 24.7s
+     'choices'
+kimi-k3                  stream=True  params=[] extra={}
+     contenido=False razonamiento=42 chars 21.3s
+     contenido=False razonamiento=32 chars 21.2s
+     contenido=False razonamiento=32 chars 21.4s
+kimi-k3                  stream=True  params=['max_tokens', 'temperature', 'top_p'] extra={}
+     contenido=True razonamiento=21 chars 20.5s
+     contenido=True razonamiento=21 chars 21.0s
+     contenido=False razonamiento=32 chars 25.7s
+kimi-k3                  stream=True  params=['max_tokens', 'seed', 'temperature', 'top_p'] extra={}
+     contenido=False razonamiento=32 chars 21.8s
+     contenido=False razonamiento=32 chars 24.5s
+     contenido=False razonamiento=0 chars 0.4s
+nemotron-3-super-120b-a12b stream=True  params=['max_tokens', 'temperature', 'top_p'] extra={}
+     contenido=True razonamiento=239 chars 0.9s
+     contenido=True razonamiento=207 chars 0.7s
+     contenido=True razonamiento=203 chars 0.9s
+nemotron-3-super-120b-a12b stream=True  params=['max_tokens', 'temperature', 'top_p'] extra={"chat_template_kwargs": {"thinking": false}}
+     contenido=True razonamiento=0 chars 0.4s
+     contenido=True razonamiento=0 chars 0.5s
+     contenido=True razonamiento=0 chars 0.7s
+nemotron-3-super-120b-a12b stream=True  params=['max_tokens', 'temperature', 'top_p'] extra={"chat_template_kwargs": {"enable_thinking": false}}
+     contenido=True razonamiento=0 chars 1.2s
+     contenido=True razonamiento=0 chars 0.5s
+     contenido=True razonamiento=0 chars 0.5s
+

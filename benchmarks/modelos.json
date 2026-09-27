@@ -1,0 +1,39 @@
+{
+  "descripcion": "Modelos y parámetros del benchmark (Parcial 1, sección 7). Los parámetros comunes son idénticos para los 3 modelos; 'extra' son parámetros propios de cada modelo que se envían tal cual y quedan registrados en cada ejecución.",
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "nota_parametros": "temperature 0.2 y top_p 0.95: baja aleatoriedad para favorecer la reproducibilidad sin volver deterministas las 3 corridas (la variabilidad entre corridas es una métrica del enunciado). No se envía seed: con kimi-k3 en streaming empeoró las respuestas vacías (0 de 3 correctas). max_tokens 8192: con 4096, nemotron-3.5-lightning llegó al límite en las 3 llamadas de prueba (respuesta probablemente truncada), y la fase de Implementación genera código largo. Ver evidence/punto5_proveedores/experimentos/.",
+  "reintentos": {
+    "max_intentos": 3,
+    "politica": "Solo ante fallos del servicio (respuesta vacía, HTTP 429/5xx, timeout, corte de red); nunca por la calidad de la respuesta. Igual para los 3 modelos. Cada ejecución registra sus intentos y los errores previos."
+  },
+  "modelos": [
+    {
+      "clave": "local",
+      "tipo": "Modelo local / open-weight ejecutado on-premise",
+      "proveedor": "ollama",
+      "modelo": "qwen2.5-coder:7b",
+      "extra": {"options": {"num_ctx": 16384}, "keep_alive": "60m"},
+      "justificacion": "Open-weight (licencia Apache 2.0, según /api/show de Ollama), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+    },
+    {
+      "clave": "cloud_generalista",
+      "tipo": "Modelo cloud generalista",
+      "proveedor": "nvidia",
+      "modelo": "moonshotai/kimi-k3",
+      "extra": {},
+      "justificacion": "Modelo generalista de gran tamaño en NVIDIA; es además el Optimizer de la plataforma. En la prueba con un caso real respondió en ~56 s (primer token de respuesta a ~22 s), frente a 68-335 s de openai/gpt-oss-20b; nemotron-3.5-lightning llegó al límite de 4096 tokens en las 3 llamadas (180-367 s). Limitación medida: en streaming devuelve content vacío de forma intermitente (1 de 3 con el caso real), cubierta con la política de reintentos registrados."
+    },
+    {
+      "clave": "cloud_razonamiento",
+      "tipo": "Modelo cloud orientado a razonamiento y/o codificación",
+      "proveedor": "nvidia",
+      "modelo": "nvidia/nemotron-3-super-120b-a12b",
+      "extra": {},
+      "justificacion": "Modelo de razonamiento de NVIDIA (120B, MoE con 12B activos). Se deja el razonamiento ACTIVADO (valor por defecto) porque es la característica que define su categoría; NVIDIA no informa sus tokens de razonamiento (solo el total de salida), así que se registra el texto de razonamiento y su longitud. En la matriz respondió en streaming 9 de 9 veces; en la prueba final, 3 de 3 con un reintento por una respuesta cortada. Es también el Auditor de la plataforma: en el benchmark actúa solo como modelo evaluado."
+    }
+  ]
+}

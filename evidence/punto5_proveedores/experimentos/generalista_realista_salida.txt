@@ -1,0 +1,16 @@
+﻿moonshotai/kimi-k3 stream=True
+     VACÍO total= 59.1s ttft=45.5s ttft_contenido=Nones tokens=1159/33 chars=0
+     OK    total= 55.6s ttft=20.5s ttft_contenido=22.2s tokens=1159/924 chars=3020
+     OK    total= 56.3s ttft=20.2s ttft_contenido=21.7s tokens=1159/997 chars=3352
+moonshotai/kimi-k3 stream=False
+     OK    total= 60.8s ttft=n/d tokens=1159/1178 chars=4042
+     OK    total= 58.3s ttft=n/d tokens=1159/1009 chars=3426
+     OK    total= 53.4s ttft=n/d tokens=1159/914 chars=2974
+openai/gpt-oss-20b stream=True
+     OK    total= 68.5s ttft=0.3s ttft_contenido=27.4s tokens=892/1561 chars=3271
+     OK    total=141.8s ttft=0.5s ttft_contenido=73.0s tokens=892/1691 chars=3761
+     OK    total=335.4s ttft=2.0s ttft_contenido=236.3s tokens=892/3848 chars=4973
+nvidia/nemotron-3.5-lightning-30b-a3b stream=True
+     OK    total=366.9s ttft=88.5s ttft_contenido=366.9s tokens=929/4096 chars=5930
+     OK    total=179.9s ttft=69.3s ttft_contenido=179.8s tokens=929/4096 chars=6
+     OK    total=179.9s ttft=69.3s ttft_contenido=179.8s tokens=929/4096 chars=4996

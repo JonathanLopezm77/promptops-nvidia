@@ -1,0 +1,503 @@
+{
+  "ejecutado_en": "2026-09-27T19:14:57.024795+00:00",
+  "maquina_antes": {
+    "so": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "nucleos_logicos": 12,
+    "ram_total_gb": 23.7,
+    "ram_disponible_gb": 3.8,
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU, 577.00, 6144 MiB, 5602 MiB"
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "nota_parametros": "temperature 0.2 y top_p 0.95: baja aleatoriedad para favorecer la reproducibilidad sin volver deterministas las 3 corridas (la variabilidad entre corridas es una métrica del enunciado). No se envía seed: con kimi-k3 en streaming empeoró las respuestas vacías (0 de 3 correctas). max_tokens 8192: con 4096, nemotron-3.5-lightning agotó el límite razonando sin terminar la respuesta, y la fase de Implementación genera código largo. Ver evidence/punto5_proveedores/experimentos/.",
+  "tarea": [
+    {
+      "role": "system",
+      "content": "Eres un Ingeniero de Requisitos. Responde en español."
+    },
+    {
+      "role": "user",
+      "content": "Necesidad del stakeholder: los clientes quieren guardar productos en una lista de deseos.\nEscribe exactamente 2 requisitos con la forma 'REQ-01: El sistema deberá ...', cada uno con un criterio de aceptación en la línea siguiente que empiece por 'Criterio:'. No agregues nada más."
+    }
+  ],
+  "modelos": [
+    {
+      "config": {
+        "clave": "local",
+        "tipo": "Modelo local / open-weight ejecutado on-premise",
+        "proveedor": "ollama",
+        "modelo": "qwen2.5-coder:7b",
+        "extra": {
+          "options": {
+            "num_ctx": 16384
+          },
+          "keep_alive": "60m"
+        },
+        "justificacion": "Open-weight (Apache 2.0), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+      },
+      "version": {
+        "modelo": "qwen2.5-coder:7b",
+        "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+        "tamano_bytes": 4683087561,
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen2",
+        "families": [
+          "qwen2"
+        ],
+        "parameter_size": "7.6B",
+        "quantization_level": "Q4_K_M",
+        "contexto_maximo": 32768,
+        "ollama_version": "0.34.4"
+      },
+      "ejecuciones": [
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "proveedor": "ollama",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes agregar productos a una lista de deseos.\n\nCriterio: El sistema debe mostrar una notificación de éxito cuando un producto se agrega correctamente a la lista de deseos.\n\nREQ-02: El sistema deberá permitir a los clientes ver su lista de deseos en cualquier momento.\n\nCriterio: El sistema debe mostrar todos los productos agregados a la lista de deseos en una interfaz clara y ordenada.",
+          "razonamiento": "",
+          "ttft_s": 0.11809360003098845,
+          "ttft_contenido_s": 0.11809560004621744,
+          "latencia_total_s": 6.088774399948306,
+          "tokens_entrada": 100,
+          "tokens_salida": 102,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": 0.0077673,
+          "modelo_reportado": "qwen2.5-coder:7b",
+          "inicio_utc": "2026-09-27T19:14:58.062041+00:00",
+          "fin_utc": "2026-09-27T19:15:04.151762+00:00",
+          "error": null,
+          "detalle_final": {
+            "model": "qwen2.5-coder:7b",
+            "created_at": "2026-09-27T19:15:04.1501488Z",
+            "done": true,
+            "done_reason": "stop",
+            "total_duration": 6085597000,
+            "load_duration": 7767300,
+            "prompt_eval_count": 100,
+            "prompt_eval_cached_count": 99,
+            "prompt_eval_duration": 89699000,
+            "eval_count": 102,
+            "eval_duration": 5974653000
+          },
+          "recursos": {
+            "muestras": 11,
+            "intervalo_s": 0.5,
+            "ram_proceso_mb": {
+              "max": 2034.6,
+              "media": 2026.3
+            },
+            "cpu_proceso_pct": {
+              "max": 602.8,
+              "media": 520.5
+            },
+            "nucleos_logicos": 12,
+            "vram_gpu_total_usada_mb": {
+              "max": 5602.0,
+              "media": 5602.0
+            },
+            "gpu_uso_pct": {
+              "max": 58.0,
+              "media": 51.9
+            },
+            "modelos_cargados_ollama": [
+              {
+                "modelo": "qwen2.5-coder:7b",
+                "tamano_mb": 5543.929997444153,
+                "vram_mb": 4052.979998588562,
+                "fraccion_gpu": 0.731,
+                "contexto": 16384
+              }
+            ]
+          },
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 6.978684999980032,
+          "ok": true
+        },
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "proveedor": "ollama",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes agregar productos a una lista de deseos.\n\nCriterio: El sistema debe mostrar un mensaje de confirmación una vez que el producto se ha añadido exitosamente a la lista de deseos.\n\nREQ-02: El sistema deberá permitir a los clientes ver su lista de deseos en cualquier momento.\n\nCriterio: El sistema debe mostrar todos los productos guardados en la lista de deseos del cliente en una interfaz clara y ordenada.",
+          "razonamiento": "",
+          "ttft_s": 0.14774730009958148,
+          "ttft_contenido_s": 0.14774909999687225,
+          "latencia_total_s": 8.182507900055498,
+          "tokens_entrada": 100,
+          "tokens_salida": 110,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": 0.0181508,
+          "modelo_reportado": "qwen2.5-coder:7b",
+          "inicio_utc": "2026-09-27T19:15:05.022009+00:00",
+          "fin_utc": "2026-09-27T19:15:13.205549+00:00",
+          "error": null,
+          "detalle_final": {
+            "model": "qwen2.5-coder:7b",
+            "created_at": "2026-09-27T19:15:13.2024019Z",
+            "done": true,
+            "done_reason": "stop",
+            "total_duration": 8166741500,
+            "load_duration": 18150800,
+            "prompt_eval_count": 100,
+            "prompt_eval_cached_count": 99,
+            "prompt_eval_duration": 69114000,
+            "eval_count": 110,
+            "eval_duration": 8042009000
+          },
+          "recursos": {
+            "muestras": 9,
+            "intervalo_s": 0.5,
+            "ram_proceso_mb": {
+              "max": 2036.5,
+              "media": 2035.3
+            },
+            "cpu_proceso_pct": {
+              "max": 553.3,
+              "media": 449.1
+            },
+            "nucleos_logicos": 12,
+            "vram_gpu_total_usada_mb": {
+              "max": 5611.0,
+              "media": 5576.6
+            },
+            "gpu_uso_pct": {
+              "max": 43.0,
+              "media": 34.6
+            },
+            "modelos_cargados_ollama": [
+              {
+                "modelo": "qwen2.5-coder:7b",
+                "tamano_mb": 5543.929997444153,
+                "vram_mb": 4052.979998588562,
+                "fraccion_gpu": 0.731,
+                "contexto": 16384
+              }
+            ]
+          },
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 9.308986700023524,
+          "ok": true
+        },
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "proveedor": "ollama",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes agregar productos a una lista de deseos.\n\nCriterio: El sistema debe mostrar una opción clara y accesible para agregar productos a la lista de deseos.\n\nREQ-02: El sistema deberá permitir a los clientes ver su lista de deseos en cualquier momento.\n\nCriterio: El sistema debe mostrar la lista de deseos del cliente en una interfaz fácil de usar y accesible.",
+          "razonamiento": "",
+          "ttft_s": 0.1038399999961257,
+          "ttft_contenido_s": 0.10384119988884777,
+          "latencia_total_s": 6.049241399974562,
+          "tokens_entrada": 100,
+          "tokens_salida": 97,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": 0.0089558,
+          "modelo_reportado": "qwen2.5-coder:7b",
+          "inicio_utc": "2026-09-27T19:15:14.315536+00:00",
+          "fin_utc": "2026-09-27T19:15:20.365226+00:00",
+          "error": null,
+          "detalle_final": {
+            "model": "qwen2.5-coder:7b",
+            "created_at": "2026-09-27T19:15:20.3636642Z",
+            "done": true,
+            "done_reason": "stop",
+            "total_duration": 6044091900,
+            "load_duration": 8955800,
+            "prompt_eval_count": 100,
+            "prompt_eval_cached_count": 99,
+            "prompt_eval_duration": 75809000,
+            "eval_count": 97,
+            "eval_duration": 5945968000
+          },
+          "recursos": {
+            "muestras": 10,
+            "intervalo_s": 0.5,
+            "ram_proceso_mb": {
+              "max": 2048.0,
+              "media": 2046.8
+            },
+            "cpu_proceso_pct": {
+              "max": 594.5,
+              "media": 498.9
+            },
+            "nucleos_logicos": 12,
+            "vram_gpu_total_usada_mb": {
+              "max": 5602.0,
+              "media": 5588.4
+            },
+            "gpu_uso_pct": {
+              "max": 50.0,
+              "media": 41.0
+            },
+            "modelos_cargados_ollama": [
+              {
+                "modelo": "qwen2.5-coder:7b",
+                "tamano_mb": 5543.929997444153,
+                "vram_mb": 4052.979998588562,
+                "fraccion_gpu": 0.731,
+                "contexto": 16384
+              }
+            ]
+          },
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 6.7060897999908775,
+          "ok": true
+        }
+      ],
+      "carga_al_calentar_s": 0.00536,
+      "modelo_ya_cargado_antes_de_calentar": true,
+      "nota": "Campo renombrado después de la ejecución (antes 'carga_en_frio_s'): el modelo ya estaba en memoria por la prueba anterior, así que 0.005 s no es una carga en frío. Cargas medidas antes: 20.0 s en la primera llamada tras descargar el modelo (exploración inicial) y 8.3 s en experimentos/prueba_1_degenerada_contada_como_ok.json, donde no se comprobó si el modelo seguía en memoria."
+    },
+    {
+      "config": {
+        "clave": "cloud_generalista",
+        "tipo": "Modelo cloud generalista",
+        "proveedor": "nvidia",
+        "modelo": "moonshotai/kimi-k3",
+        "extra": {},
+        "justificacion": "Modelo generalista de gran tamaño en NVIDIA; es además el Optimizer de la plataforma. En la prueba con un caso real respondió en ~56 s (primer token de respuesta a ~22 s), frente a 68-335 s de openai/gpt-oss-20b; nemotron-3.5-lightning no llegó a responder dentro de 4096 tokens. Limitación medida: en streaming devuelve content vacío de forma intermitente (1 de 3 con el caso real), cubierta con la política de reintentos registrados."
+      },
+      "version": {
+        "modelo": "moonshotai/kimi-k3",
+        "owned_by": "moonshotai",
+        "en_catalogo": true,
+        "version": "no publicada por NVIDIA: se registra el id del modelo y la fecha de ejecución"
+      },
+      "ejecuciones": [
+        {
+          "modelo": "moonshotai/kimi-k3",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes agregar productos a una lista de deseos personal asociada a su cuenta.\nCriterio: Dado un cliente autenticado que visualiza un producto, cuando selecciona la opción \"Agregar a lista de deseos\", entonces el producto queda registrado en su lista y se muestra una confirmación en pantalla.\n\nREQ-02: El sistema deberá permitir a los clientes consultar y eliminar productos de su lista de deseos en cualquier momento.\nCriterio: Dado un cliente autenticado con productos en su lista de deseos, cuando accede a la lista y selecciona \"Eliminar\" sobre un producto, entonces el producto desaparece de la lista y la vista se actualiza sin errores.",
+          "razonamiento": "Write exactly 2 requirements.",
+          "ttft_s": 36.3991591000231,
+          "ttft_contenido_s": 36.72442370001227,
+          "latencia_total_s": 44.272542999940924,
+          "tokens_entrada": 196,
+          "tokens_salida": 206,
+          "tokens_razonamiento": 10,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "moonshotai/kimi-k3",
+          "inicio_utc": "2026-09-27T19:15:21.403793+00:00",
+          "fin_utc": "2026-09-27T19:16:05.676300+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 196,
+              "completion_tokens": 206,
+              "total_tokens": 402,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 10
+              }
+            }
+          },
+          "recursos": null,
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 44.2726308000274,
+          "ok": true
+        },
+        {
+          "modelo": "moonshotai/kimi-k3",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes autenticados agregar productos a una lista de deseos personal.\nCriterio: Dado un cliente autenticado que visualiza un producto, cuando selecciona la opción \"Agregar a lista de deseos\", entonces el producto se guarda en su lista y se muestra una confirmación en menos de 2 segundos.\n\nREQ-02: El sistema deberá permitir a los clientes consultar y eliminar productos de su lista de deseos.\nCriterio: Dado un cliente con productos en su lista de deseos, cuando accede a la lista y selecciona eliminar un producto, entonces el producto desaparece de la lista y ya no se muestra en consultas posteriores.",
+          "razonamiento": "Write exactly 2 requirements in Spanish.",
+          "ttft_s": 28.41218750004191,
+          "ttft_contenido_s": 29.090886599966325,
+          "latencia_total_s": 34.73006900004111,
+          "tokens_entrada": 196,
+          "tokens_salida": 202,
+          "tokens_razonamiento": 12,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "moonshotai/kimi-k3",
+          "inicio_utc": "2026-09-27T19:16:05.676300+00:00",
+          "fin_utc": "2026-09-27T19:16:40.406563+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 196,
+              "completion_tokens": 202,
+              "total_tokens": 398,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 12
+              }
+            }
+          },
+          "recursos": null,
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 34.730160400038585,
+          "ok": true
+        },
+        {
+          "modelo": "moonshotai/kimi-k3",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes autenticados agregar productos a una lista de deseos desde la página de detalle del producto.\nCriterio: Dado un cliente autenticado en la página de un producto, cuando pulsa el botón \"Agregar a lista de deseos\", entonces el producto se añade a su lista y se muestra una confirmación visual en menos de 2 segundos.\n\nREQ-02: El sistema deberá permitir a los clientes consultar y eliminar productos de su lista de deseos en cualquier momento.\nCriterio: Dado un cliente con productos en su lista de deseos, cuando accede a la sección \"Mi lista de deseos\" y selecciona eliminar un producto, entonces el producto desaparece de la lista y ya no se muestra al recargar la página.",
+          "razonamiento": "Exact format, two requirements.",
+          "ttft_s": 27.685463300091214,
+          "ttft_contenido_s": 28.005376400076784,
+          "latencia_total_s": 34.98679400002584,
+          "tokens_entrada": 196,
+          "tokens_salida": 222,
+          "tokens_razonamiento": 10,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "moonshotai/kimi-k3",
+          "inicio_utc": "2026-09-27T19:16:40.406563+00:00",
+          "fin_utc": "2026-09-27T19:17:15.393717+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 196,
+              "completion_tokens": 222,
+              "total_tokens": 418,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 10
+              }
+            }
+          },
+          "recursos": null,
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 34.98687069991138,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "config": {
+        "clave": "cloud_razonamiento",
+        "tipo": "Modelo cloud orientado a razonamiento y/o codificación",
+        "proveedor": "nvidia",
+        "modelo": "nvidia/nemotron-3-super-120b-a12b",
+        "extra": {},
+        "justificacion": "Modelo de razonamiento de NVIDIA (120B, MoE con 12B activos). Se deja el razonamiento ACTIVADO (valor por defecto) porque es la característica que define su categoría; sus tokens de razonamiento se registran aparte. En las pruebas respondió en streaming 9 de 9 veces. Es también el Auditor de la plataforma: en el benchmark actúa solo como modelo evaluado."
+      },
+      "version": {
+        "modelo": "nvidia/nemotron-3-super-120b-a12b",
+        "owned_by": "nvidia",
+        "en_catalogo": true,
+        "version": "no publicada por NVIDIA: se registra el id del modelo y la fecha de ejecución"
+      },
+      "ejecuciones": [
+        {
+          "modelo": "nvidia/nemotron-3-super-120b-a12b",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los usuarios agregar productos a su lista de deseos desde la página de detalle del producto.\nCriterio: Cuando el usuario haga clic en el botón \"Agregar a deseos\" en la página de producto, el producto aparecerá en su lista de deseos y se mostrará un mensaje de confirmación.\nREQ-02: El sistema deberá permitir a los usuarios visualizar y gestionar su lista de deseos desde su perfil.\nCriterio: Al acceder a la sección \"Lista de deseos\" en el perfil, el usuario verá todos los productos guardados, podrá eliminarlos individualmente y moverlos al carrito de compras.",
+          "razonamiento": "We need to output exactly 2 requirements, each line: 'REQ-01: El sistema deberá ...' then next line: 'Criterio: ...'. Then second requirement: 'REQ-02: El sistema deberá ...' then next line: 'Criterio: ...'. No extra text. Ensure no extra spaces or lines. Probably each requirement block two lines. So total 4 lines. Ensure Spanish. Let's craft.\n\nREQ-01: El sistema deberá permitir a los usuarios agregar productos a su lista de deseos desde la página de detalle del producto.\nCriterio: Cuando el usuario haga clic en el botón \"Agregar a deseos\" en la página de producto, el producto aparecerá en su lista de deseos y se mostrará un mensaje de confirmación.\n\nREQ-02: El sistema deberá permitir a los usuarios visualizar y gestionar su lista de deseos desde su perfil.\nCriterio: Al acceder a la sección \"Lista de deseos\" en el perfil, el usuario verá todos los productos guardados, podrá eliminarlos individualmente y moverlos al carrito de compras.\n\nMake sure no extra lines at end? Probably fine.\n\n",
+          "ttft_s": 0.39572879998013377,
+          "ttft_contenido_s": 3.523729300010018,
+          "latencia_total_s": 4.462438800022937,
+          "tokens_entrada": 103,
+          "tokens_salida": 409,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "nvidia/nemotron-3-super-120b-a12b",
+          "inicio_utc": "2026-09-27T19:17:15.713574+00:00",
+          "fin_utc": "2026-09-27T19:17:20.175965+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 103,
+              "completion_tokens": 409,
+              "total_tokens": 512
+            }
+          },
+          "recursos": null,
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 4.462512300000526,
+          "ok": true
+        },
+        {
+          "modelo": "nvidia/nemotron-3-super-120b-a12b",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los usuarios agregar productos a una lista de deseos personal.\nCriterio: El usuario podrá seleccionar un producto y, al pulsar el botón \"Añadir a deseos\", el producto aparecerá en su lista de deseos y permanecerá allí hasta que lo elimine.\nREQ-02: El sistema deberá permitir a los usuarios visualizar su lista de deseos en cualquier momento desde su perfil.\nCriterio: Al acceder a la sección \"Lista de deseos\" del perfil, el usuario verá todos los productos guardados, con su nombre, imagen y precio, y podrá eliminarlos individualmente.",
+          "razonamiento": "We need to output exactly 2 requirements, each line: 'REQ-01: El sistema deberá ...' then next line: 'Criterio: ...' Then second requirement: 'REQ-02: ...' then line: 'Criterio: ...' No extra text. Ensure no extra spaces or lines. Probably each requirement block two lines. No extra blank lines. Let's craft.\n\nREQ-01: El sistema deberá permitir a los usuarios agregar productos a una lista de deseos personal.\nCriterio: El usuario podrá seleccionar un producto y, al pulsar el botón \"Añadir a deseos\", el producto aparecerá en su lista de deseos y permanecerá allí hasta que lo elimine.\n\nREQ-02: El sistema deberá permitir a los usuarios visualizar su lista de deseos en cualquier momento desde su perfil.\nCriterio: Al acceder a la sección \"Lista de deseos\" del perfil, el usuario verá todos los productos guardados, con su nombre, imagen y precio, y podrá eliminarlos individualmente.\n\nMake sure exactly that. No extra lines at end? Probably fine.\n\n",
+          "ttft_s": 3.8458640999160707,
+          "ttft_contenido_s": 6.655525999958627,
+          "latencia_total_s": 7.349100099992938,
+          "tokens_entrada": 103,
+          "tokens_salida": 387,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "nvidia/nemotron-3-super-120b-a12b",
+          "inicio_utc": "2026-09-27T19:17:22.696944+00:00",
+          "fin_utc": "2026-09-27T19:17:30.045710+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 103,
+              "completion_tokens": 387,
+              "total_tokens": 490
+            }
+          },
+          "recursos": null,
+          "intentos": 2,
+          "errores_previos": [
+            "Respuesta vacía (finish_reason=None, razonamiento=0 chars)"
+          ],
+          "duracion_con_reintentos_s": 9.869750900077634,
+          "ok": true
+        },
+        {
+          "modelo": "nvidia/nemotron-3-super-120b-a12b",
+          "proveedor": "nvidia",
+          "contenido": "REQ-01: El sistema deberá permitir a los clientes agregar productos a su lista de deseos desde la página de detalle del producto.\nCriterio: Al hacer clic en el botón \"Agregar a deseos\" en la página de producto, el producto aparece en la lista de deseos del usuario y se muestra un mensaje de confirmación.\nREQ-02: El sistema deberá permitir a los clientes visualizar y gestionar su lista de deseos en una sección dedicada de su cuenta.\nCriterio: Al acceder a la sección \"Lista de deseos\" en el perfil del usuario, se listan todos los productos guardados con opciones para eliminar o mover cada ítem al carrito de compras.",
+          "razonamiento": "We need to output exactly 2 requirements, each line: 'REQ-01: El sistema deberá ...' then next line 'Criterio: ...' then second requirement: 'REQ-02: ...' then line 'Criterio: ...'. No extra text. Ensure no extra spaces or lines. Probably each requirement block two lines. No extra blank lines. Let's produce.\n\n",
+          "ttft_s": 0.5592842000769451,
+          "ttft_contenido_s": 1.3443532000528648,
+          "latencia_total_s": 4.1427342999959365,
+          "tokens_entrada": 103,
+          "tokens_salida": 240,
+          "tokens_razonamiento": null,
+          "finish_reason": "stop",
+          "carga_modelo_s": null,
+          "modelo_reportado": "nvidia/nemotron-3-super-120b-a12b",
+          "inicio_utc": "2026-09-27T19:17:30.045710+00:00",
+          "fin_utc": "2026-09-27T19:17:34.188372+00:00",
+          "error": null,
+          "detalle_final": {
+            "usage": {
+              "prompt_tokens": 103,
+              "completion_tokens": 240,
+              "total_tokens": 343
+            }
+          },
+          "recursos": null,
+          "intentos": 1,
+          "errores_previos": [],
+          "duracion_con_reintentos_s": 4.142801500041969,
+          "ok": true
+        }
+      ]
+    }
+  ],
+  "maquina_despues": {
+    "so": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "nucleos_logicos": 12,
+    "ram_total_gb": 23.7,
+    "ram_disponible_gb": 3.8,
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU, 577.00, 6144 MiB, 5606 MiB"
+  }
+}
