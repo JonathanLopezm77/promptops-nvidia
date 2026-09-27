@@ -24,6 +24,9 @@ TRANSICIONES_ESPERADAS = [
     ("APPROVED", "EXECUTING"),
     ("EXECUTING", "COMPLETED"),
     ("WAITING_HUMAN", "REJECTED"),
+    # Auditoría de línea base del prompt original (Parcial 1, punto 4).
+    ("CREATED", "AUDITING"),
+    ("AUDITING", "OPTIMIZING"),
 ]
 
 # "cualquiera -> ERROR" = todo estado activo (no los terminales).

@@ -590,3 +590,19 @@ mark.por-definir {
 .centrado {
   text-align: center;
 }
+/* Casilla de opciones */
+
+.casilla {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.casilla input {
+  accent-color: var(--accent);
+  margin-top: 0.2rem;
+}

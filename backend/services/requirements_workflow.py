@@ -330,19 +330,19 @@ MENSAJE_INTERRUMPIDO = (
 )
 
 
-def recover_interrupted(db: Session) -> int:
+def recover_interrupted(db: Session, ids: list[uuid.UUID] | None = None) -> int:
     """Marca como ERROR los análisis que quedaron en un estado activo.
 
     Se llama al arrancar el servidor: el procesamiento corre en
     BackgroundTasks dentro del mismo proceso, así que tras un reinicio nadie
     va a continuar esos análisis y quedarían "Evaluando..." para siempre
     (visto en Render). Asume un único proceso de servidor, como en este
-    proyecto (uvicorn sin --workers)."""
-    colgados = (
-        db.query(RequirementAnalysis)
-        .filter(RequirementAnalysis.status.in_(_ESTADOS_ACTIVOS))
-        .all()
-    )
+    proyecto (uvicorn sin --workers). `ids` limita la recuperación a esos
+    análisis (lo usan los tests para no tocar otros datos de la BD)."""
+    consulta = db.query(RequirementAnalysis).filter(RequirementAnalysis.status.in_(_ESTADOS_ACTIVOS))
+    if ids is not None:
+        consulta = consulta.filter(RequirementAnalysis.id.in_(ids))
+    colgados = consulta.all()
     for analysis in colgados:
         fail_analysis(db, analysis, MENSAJE_INTERRUMPIDO)
     return len(colgados)

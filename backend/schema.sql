@@ -7,7 +7,9 @@ CREATE TYPE run_status AS ENUM (
     'ITERATING', 'APPROVED', 'EXECUTING', 'COMPLETED', 'REJECTED', 'ERROR'
 );
 
-CREATE TYPE iteration_source AS ENUM ('optimizer', 'human_edit');
+-- 'original': auditoría de línea base del prompt sin optimizar (Parcial 1,
+-- punto 4; las bases ya creadas lo reciben con schema_updates.sql).
+CREATE TYPE iteration_source AS ENUM ('optimizer', 'human_edit', 'original');
 
 CREATE TYPE human_decision_type AS ENUM ('approve', 'iterate', 'edit', 'reject');
 

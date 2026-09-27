@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.exc import SQLAlchemyError
 
 from backend.database import SessionLocal, engine
-from backend.services import requirements_workflow
+from backend.services import requirements_workflow, workflow
 from backend.routes.requirements import router as requirements_router
 from backend.routes.runs import router as runs_router
 from backend.services.nvidia_client import NvidiaClientError
@@ -21,6 +21,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("promptops")
 
 _SCHEMA_REQUISITOS = Path(__file__).parent / "schema_requirements.sql"
+_SCHEMA_ACTUALIZACIONES = Path(__file__).parent / "schema_updates.sql"
 
 
 @asynccontextmanager
@@ -35,13 +36,21 @@ async def _lifespan(app: FastAPI):
     except SQLAlchemyError:
         logger.exception("No se pudo aplicar schema_requirements.sql al arrancar")
     try:
+        with engine.begin() as conn:
+            conn.exec_driver_sql(_SCHEMA_ACTUALIZACIONES.read_text(encoding="utf-8"))
+    except SQLAlchemyError:
+        logger.exception("No se pudo aplicar schema_updates.sql al arrancar")
+    try:
         db = SessionLocal()
         try:
             recuperados = requirements_workflow.recover_interrupted(db)
+            runs_recuperados = workflow.recover_interrupted_runs(db)
         finally:
             db.close()
         if recuperados:
             logger.warning("%d análisis de requisitos interrumpidos por el reinicio quedaron en ERROR", recuperados)
+        if runs_recuperados:
+            logger.warning("%d runs interrumpidos por el reinicio quedaron en ERROR", runs_recuperados)
     except SQLAlchemyError:
         logger.exception("No se pudieron cerrar los análisis interrumpidos al arrancar")
     yield

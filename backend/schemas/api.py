@@ -17,6 +17,9 @@ from pydantic import BaseModel, ConfigDict, Field, computed_field, model_validat
 
 class CreateRunRequest(BaseModel):
     prompt: str = Field(min_length=1)
+    # Audita también el prompt original antes de optimizarlo (línea base),
+    # para medir el delta de la optimización (Parcial 1, sección 6.1).
+    baseline_audit: bool = False
 
 
 class IterateRequest(BaseModel):

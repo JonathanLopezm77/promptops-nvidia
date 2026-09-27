@@ -34,15 +34,33 @@ def _obtener_run_o_404(db: Session, run_id: uuid.UUID) -> Run:
     return run
 
 
+def _responder_y_liberar(
+    db: Session, run: Run, background_tasks: BackgroundTasks, tarea, *args
+) -> RunDetailOut:
+    """Arma la respuesta, devuelve la conexión al pool y agenda la tarea.
+
+    FastAPI cierra get_db DESPUÉS de las BackgroundTasks: sin este
+    `db.close()` la conexión de la petición quedaba retenida los minutos
+    que tarda la IA y, con varios runs simultáneos, se agotaba el pool y el
+    servidor se bloqueaba (defecto encontrado en el punto 3)."""
+    respuesta = RunDetailOut.model_validate(run)
+    db.close()
+    background_tasks.add_task(tarea, *args)
+    return respuesta
+
+
 @router.post("", response_model=RunDetailOut, status_code=202)
-def crear_run(body: CreateRunRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> Run:
+def crear_run(
+    body: CreateRunRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
+) -> RunDetailOut:
     """Crea el run (rápido) y agenda el ciclo Optimizer+Auditor en segundo
     plano (~170s reales con NVIDIA: bloquear el request ese tiempo no es
     viable). El cliente debe hacer polling a GET /api/runs/{id} (y
     /events) hasta que status llegue a WAITING_HUMAN o ERROR."""
     run = workflow.start_run(db, body.prompt)
-    background_tasks.add_task(workflow.run_new_run_pipeline_background, run.id)
-    return run
+    return _responder_y_liberar(
+        db, run, background_tasks, workflow.run_new_run_pipeline_background, run.id, body.baseline_audit
+    )
 
 
 @router.get("", response_model=list[RunOut])
@@ -65,15 +83,15 @@ def eventos_run(run_id: uuid.UUID, db: Session = Depends(get_db)):
 @router.post("/{run_id}/iterate", response_model=RunDetailOut, status_code=202)
 def iterar_run(
     run_id: uuid.UUID, body: IterateRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
-) -> Run:
+) -> RunDetailOut:
     """Registra la decisión y transiciona a OPTIMIZING (rápido); el ciclo
     Optimizer+Auditor real corre en segundo plano, igual que en /runs."""
     run = _obtener_run_o_404(db, run_id)
     ultima_iteracion = workflow.start_iteration(db, run, body.feedback)
-    background_tasks.add_task(
-        workflow.run_iteration_pipeline_background, run.id, ultima_iteracion.id, body.feedback
+    return _responder_y_liberar(
+        db, run, background_tasks,
+        workflow.run_iteration_pipeline_background, run.id, ultima_iteracion.id, body.feedback,
     )
-    return run
 
 
 @router.post("/{run_id}/auto-iterate", response_model=RunDetailOut, status_code=202)
@@ -82,7 +100,7 @@ def auto_iterar_run(
     body: AutoIterateRequest,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
-) -> Run:
+) -> RunDetailOut:
     """Repite NUEVA ITERACIÓN automáticamente (feedback = recomendaciones
     reales del Auditor) hasta llegar a target_score o agotar
     max_attempts. Siempre se detiene en WAITING_HUMAN: no es parte de la
@@ -90,22 +108,23 @@ def auto_iterar_run(
     siendo una decisión humana explícita, nunca automática."""
     run = _obtener_run_o_404(db, run_id)
     workflow.ensure_can_start_iteration(run)
-    background_tasks.add_task(
-        workflow.run_auto_iterate_pipeline_background, run.id, body.target_score, body.max_attempts
+    return _responder_y_liberar(
+        db, run, background_tasks,
+        workflow.run_auto_iterate_pipeline_background, run.id, body.target_score, body.max_attempts,
     )
-    return run
 
 
 @router.post("/{run_id}/edit", response_model=RunDetailOut, status_code=202)
 def editar_run(
     run_id: uuid.UUID, body: EditRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
-) -> Run:
+) -> RunDetailOut:
     """Registra la edición y transiciona a AUDITING (rápido); la
     reauditoría real corre en segundo plano."""
     run = _obtener_run_o_404(db, run_id)
     nueva_iteracion = workflow.start_edit(db, run, body.prompt)
-    background_tasks.add_task(workflow.run_edit_pipeline_background, run.id, nueva_iteracion.id)
-    return run
+    return _responder_y_liberar(
+        db, run, background_tasks, workflow.run_edit_pipeline_background, run.id, nueva_iteracion.id
+    )
 
 
 @router.post("/{run_id}/approve", response_model=RunDetailOut)
@@ -125,10 +144,11 @@ def rechazar_run(run_id: uuid.UUID, body: RejectRequest, db: Session = Depends(g
 
 
 @router.post("/{run_id}/execute", response_model=RunDetailOut, status_code=202)
-def ejecutar_run(run_id: uuid.UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)) -> Run:
+def ejecutar_run(
+    run_id: uuid.UUID, background_tasks: BackgroundTasks, db: Session = Depends(get_db)
+) -> RunDetailOut:
     """APPROVED -> EXECUTING (rápido); el Executor real corre en segundo
     plano y persiste el Result al completar (EXECUTING -> COMPLETED)."""
     run = _obtener_run_o_404(db, run_id)
     run = workflow.start_execution(db, run)
-    background_tasks.add_task(workflow.run_execution_pipeline_background, run.id)
-    return run
+    return _responder_y_liberar(db, run, background_tasks, workflow.run_execution_pipeline_background, run.id)

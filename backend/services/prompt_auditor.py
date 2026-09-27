@@ -60,9 +60,14 @@ async def audit_prompt(prompt_to_audit: str) -> AuditorResult:
         {"role": "system", "content": AUDITOR_SYSTEM_PROMPT},
         {"role": "user", "content": f"PROMPT A AUDITAR:\n{prompt_to_audit}"},
     ]
+    # JSON forzado solo para los modelos de LLM_JSON_MODE_MODELS (depende
+    # del modelo: ver backend/config.py).
+    extra_payload = dict(_EXTRA_PAYLOAD)
+    if settings.json_mode_for(settings.auditor_model):
+        extra_payload["response_format"] = {"type": "json_object"}
 
     resultado_llm = await chat_completion(
-        model=settings.auditor_model, messages=messages, extra_payload=_EXTRA_PAYLOAD
+        model=settings.auditor_model, messages=messages, extra_payload=extra_payload
     )
 
     try:
@@ -81,7 +86,7 @@ async def audit_prompt(prompt_to_audit: str) -> AuditorResult:
             }
         )
         resultado_llm = await chat_completion(
-            model=settings.auditor_model, messages=messages, extra_payload=_EXTRA_PAYLOAD
+            model=settings.auditor_model, messages=messages, extra_payload=extra_payload
         )
         try:
             return _a_resultado(resultado_llm, settings.auditor_model)

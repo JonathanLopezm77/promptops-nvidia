@@ -640,11 +640,12 @@ def test_al_arrancar_se_cierran_los_analisis_interrumpidos(db):
     terminado.status = "COMPLETED"
     db.commit()
 
-    recuperados = requirements_workflow.recover_interrupted(db)
+    # Limitado a los análisis del test: no toca datos reales de la BD.
+    recuperados = requirements_workflow.recover_interrupted(db, ids=[colgado.id, terminado.id])
 
     db.refresh(colgado)
     db.refresh(terminado)
-    assert recuperados >= 1
+    assert recuperados == 1
     assert colgado.status == "ERROR"
     assert colgado.error_message == requirements_workflow.MENSAJE_INTERRUMPIDO
     assert colgado.finished_at is not None

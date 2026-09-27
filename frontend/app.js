@@ -47,6 +47,12 @@ const ETIQUETA_DECISION = {
   reject: "Rechazó el prompt",
 };
 
+const ETIQUETA_FUENTE = {
+  original: "Línea base: prompt original sin optimizar",
+  optimizer: "Optimizer",
+  human_edit: "Edición manual",
+};
+
 const POLL_MS = 3000;
 
 let runId = null;
@@ -188,7 +194,7 @@ function renderIteraciones(run) {
   panel.hidden = false;
   contenedor.innerHTML = run.iterations
     .map((it) => {
-      const fuente = it.source === "optimizer" ? "Optimizer" : "Edición manual";
+      const fuente = ETIQUETA_FUENTE[it.source] || it.source;
       const salida = it.output_prompt ?? "(el Optimizer no devolvió un prompt válido)";
       const auditoria = it.audits[0];
       let badge = "";
@@ -270,6 +276,21 @@ function renderPropiedades(properties) {
     .join("");
 }
 
+/** Delta de la auditoría actual frente a la línea base (prompt original sin
+ * optimizar), si el run se creó con línea base. Solo compara datos reales
+ * de la API; no recalcula scores. */
+function textoDeltaLineaBase(run, audit) {
+  const base = run.iterations.find((it) => it.source === "original");
+  const auditBase = base?.audits.find((a) => a.parse_ok);
+  if (!auditBase || auditBase.id === audit.id) return "";
+  const delta = audit.total_score - auditBase.total_score;
+  const pasadosBase = `${auditBase.gates_passed}/${auditBase.gates_passed + auditBase.gates_failed}`;
+  return (
+    `<br />Línea base (original): ${auditBase.total_score}/100, ${pasadosBase} Gates — ` +
+    `<strong>delta ${delta > 0 ? "+" : ""}${delta}</strong>`
+  );
+}
+
 function renderAuditoria(run) {
   const panel = document.getElementById("panel-auditoria");
   const audit = ultimaAuditoria(run);
@@ -294,7 +315,8 @@ function renderAuditoria(run) {
   resumen.innerHTML =
     `Score total: <strong>${audit.total_score}/100</strong> — ` +
     `${audit.gates_passed} PASS / ${audit.gates_failed} FAIL / ${audit.gates_not_applicable} N/A ` +
-    `(gates_score: ${gatesScore})`;
+    `(gates_score: ${gatesScore})` +
+    textoDeltaLineaBase(run, audit);
 
   renderGates(audit.gates);
   renderPropiedades(audit.properties);
@@ -379,10 +401,11 @@ async function iniciarRun() {
   const boton = document.getElementById("btn-iniciar");
   boton.disabled = true;
   try {
+    const baseline_audit = document.getElementById("chk-linea-base").checked;
     const run = await apiFetch("/runs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, baseline_audit }),
     });
     runId = run.id;
     detenerPolling();

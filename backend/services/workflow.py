@@ -52,9 +52,11 @@ _ESTADOS_ACTIVOS = (
 _ESTADOS_TERMINALES = ("COMPLETED", "REJECTED", "ERROR")
 
 _TRANSICIONES_BASE: dict[str, set[str]] = {
-    "CREATED": {"OPTIMIZING"},
+    # CREATED -> AUDITING y AUDITING -> OPTIMIZING: auditoría de línea base
+    # del prompt original antes de optimizarlo (Parcial 1, punto 4).
+    "CREATED": {"OPTIMIZING", "AUDITING"},
     "OPTIMIZING": {"AUDITING"},
-    "AUDITING": {"GATING"},
+    "AUDITING": {"GATING", "OPTIMIZING"},
     "GATING": {"WAITING_HUMAN"},
     "WAITING_HUMAN": {"ITERATING", "AUDITING", "APPROVED", "REJECTED"},
     "ITERATING": {"OPTIMIZING"},
@@ -105,6 +107,40 @@ def fail_run(db: Session, run: Run, error_message: str) -> Run:
     run.error_message = error_message
     _set_status(db, run, "ERROR")
     return run
+
+
+def _soltar_conexion(db: Session) -> None:
+    """Termina la transacción abierta para devolver la conexión al pool
+    ANTES de esperar a una IA (minutos). Sin esto, cada run retenía su
+    conexión durante toda la espera y con varios runs simultáneos se agotó
+    el pool y el servidor se bloqueó (mismo defecto encontrado en la capa
+    de requisitos durante el punto 3). Los valores que se pasan a la IA
+    deben leerse antes de llamar a esta función."""
+    db.commit()
+
+
+# Estados en los que un proceso en segundo plano está trabajando. No
+# incluye WAITING_HUMAN ni APPROVED: esos esperan a una persona, no a un
+# proceso, y siguen siendo válidos tras un reinicio.
+_ESTADOS_EN_PROCESO = ("CREATED", "OPTIMIZING", "AUDITING", "GATING", "ITERATING", "EXECUTING")
+
+MENSAJE_RUN_INTERRUMPIDO = (
+    "El run quedó interrumpido porque el servidor se reinició mientras se procesaba "
+    "(p. ej. Render reinicia o duerme el servicio). Crea un run nuevo con el mismo prompt."
+)
+
+
+def recover_interrupted_runs(db: Session, ids: list[uuid.UUID] | None = None) -> int:
+    """Al arrancar el servidor, pasa a ERROR los runs que quedaron a mitad de
+    un proceso en segundo plano: tras un reinicio nadie los va a continuar.
+    Asume un único proceso de servidor. `ids` limita la recuperación (tests)."""
+    consulta = db.query(Run).filter(Run.status.in_(_ESTADOS_EN_PROCESO))
+    if ids is not None:
+        consulta = consulta.filter(Run.id.in_(ids))
+    colgados = consulta.all()
+    for run in colgados:
+        fail_run(db, run, MENSAJE_RUN_INTERRUMPIDO)
+    return len(colgados)
 
 
 # ---------------------------------------------------------------------------
@@ -163,9 +199,11 @@ async def _ciclo_optimizar_y_auditar(
     audit_feedback: str | None,
     human_feedback: str | None,
 ) -> None:
+    original_prompt = run.original_prompt
+    _soltar_conexion(db)
     try:
         resultado_opt = await optimize_prompt(
-            run.original_prompt,
+            original_prompt,
             previous_prompt=previous_prompt,
             audit_feedback=audit_feedback,
             human_feedback=human_feedback,
@@ -204,17 +242,31 @@ async def _ciclo_optimizar_y_auditar(
 
 
 async def _auditar_iteracion(db: Session, run: Run, iteracion: Iteration) -> None:
+    if await _auditar_y_guardar(db, run, iteracion):
+        _set_status(db, run, "GATING")
+        _set_status(db, run, "WAITING_HUMAN")
+
+
+async def _auditar_y_guardar(db: Session, run: Run, iteracion: Iteration) -> bool:
+    """Audita la salida de la iteración y persiste la auditoría. Devuelve
+    False si falló (el run ya queda en ERROR). No mueve el run a GATING:
+    la auditoría de línea base la reutiliza sin pasar al humano."""
+    prompt_a_auditar = iteracion.output_prompt
+    _soltar_conexion(db)
     try:
-        resultado_aud = await audit_prompt(iteracion.output_prompt)
+        resultado_aud = await audit_prompt(prompt_a_auditar)
     except AuditorParseError as e:
         audit = Audit(iteration_id=iteracion.id, parse_ok=False, raw_response=e.raw_response)
         db.add(audit)
         db.commit()
         fail_run(db, run, f"El Auditor no devolvió JSON válido tras reintentar: {e}")
-        return
+        return False
     except NvidiaClientError as e:
+        if getattr(e, "raw_response", None) is not None:
+            db.add(Audit(iteration_id=iteracion.id, parse_ok=False, raw_response=e.raw_response))
+            db.commit()
         fail_run(db, run, f"Error del Auditor al llamar a NVIDIA: {e}")
-        return
+        return False
 
     a = resultado_aud.audit_response
     audit = Audit(
@@ -233,9 +285,7 @@ async def _auditar_iteracion(db: Session, run: Run, iteracion: Iteration) -> Non
     )
     db.add(audit)
     db.commit()
-
-    _set_status(db, run, "GATING")
-    _set_status(db, run, "WAITING_HUMAN")
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -263,13 +313,37 @@ def start_run(db: Session, original_prompt: str) -> Run:
     return run
 
 
-async def advance_new_run(db: Session, run: Run) -> None:
-    """CREATED -> OPTIMIZING -> ... -> WAITING_HUMAN/ERROR."""
+async def advance_new_run(db: Session, run: Run, *, baseline_audit: bool = False) -> None:
+    """CREATED -> OPTIMIZING -> ... -> WAITING_HUMAN/ERROR.
+
+    Con `baseline_audit`, antes de optimizar se audita el prompt original
+    tal cual (iteración 1, source 'original'):
+    CREATED -> AUDITING (línea base) -> OPTIMIZING -> AUDITING -> GATING ...
+    Es solo medición: el Optimizer NO recibe esa auditoría, así que la
+    optimización es idéntica con o sin línea base, y el delta compara la
+    misma versión optimizada contra el original (Parcial 1, sección 6.1)."""
+    numero_optimizacion = 1
+    if baseline_audit:
+        _set_status(db, run, "AUDITING")
+        linea_base = Iteration(
+            run_id=run.id,
+            iteration_number=1,
+            input_prompt=run.original_prompt,
+            output_prompt=run.original_prompt,
+            source="original",
+        )
+        db.add(linea_base)
+        db.commit()
+        db.refresh(linea_base)
+        if not await _auditar_y_guardar(db, run, linea_base):
+            return
+        numero_optimizacion = 2
+
     _set_status(db, run, "OPTIMIZING")
     await _ciclo_optimizar_y_auditar(
         db,
         run,
-        iteration_number=1,
+        iteration_number=numero_optimizacion,
         db_input_prompt=run.original_prompt,
         previous_prompt=None,
         audit_feedback=None,
@@ -277,26 +351,26 @@ async def advance_new_run(db: Session, run: Run) -> None:
     )
 
 
-async def create_run(db: Session, original_prompt: str) -> Run:
+async def create_run(db: Session, original_prompt: str, *, baseline_audit: bool = False) -> Run:
     """Versión síncrona (usada por los tests y por quien prefiera esperar
     el ciclo completo en el mismo request): crea el run y corre la
     primera iteración completa hasta WAITING_HUMAN o ERROR."""
     run = start_run(db, original_prompt)
-    await advance_new_run(db, run)
+    await advance_new_run(db, run, baseline_audit=baseline_audit)
     return run
 
 
-async def run_new_run_pipeline_background(run_id: uuid.UUID) -> None:
+async def run_new_run_pipeline_background(run_id: uuid.UUID, baseline_audit: bool = False) -> None:
     """Pensada para FastAPI BackgroundTasks: abre su PROPIA sesión de BD
     (la del request ya habrá terminado cuando esto corra) y avanza el run
     recién creado hasta WAITING_HUMAN/ERROR."""
-    db = SessionLocal()
+    db = SessionLocal(expire_on_commit=False)  # ver _soltar_conexion
     try:
         run = db.get(Run, run_id)
         if run is None:
             return
         try:
-            await advance_new_run(db, run)
+            await advance_new_run(db, run, baseline_audit=baseline_audit)
         except Exception as exc:  # última red de seguridad: nunca dejar el run colgado
             logger.exception("Error inesperado avanzando el run %s en segundo plano", run_id)
             fail_run(db, run, f"Error inesperado: {exc}")
@@ -341,7 +415,7 @@ async def iterate_run(db: Session, run: Run, human_feedback: str) -> Run:
 
 
 async def run_iteration_pipeline_background(run_id: uuid.UUID, ultima_iteracion_id: uuid.UUID, human_feedback: str) -> None:
-    db = SessionLocal()
+    db = SessionLocal(expire_on_commit=False)  # ver _soltar_conexion
     try:
         run = db.get(Run, run_id)
         ultima_iteracion = db.get(Iteration, ultima_iteracion_id)
@@ -412,7 +486,7 @@ async def run_auto_iterate_pipeline_background(
     target_score: int = DEFAULT_AUTO_ITERATE_TARGET_SCORE,
     max_attempts: int = DEFAULT_AUTO_ITERATE_MAX_ATTEMPTS,
 ) -> None:
-    db = SessionLocal()
+    db = SessionLocal(expire_on_commit=False)  # ver _soltar_conexion
     try:
         run = db.get(Run, run_id)
         if run is None:
@@ -464,7 +538,7 @@ async def edit_run(db: Session, run: Run, edited_prompt: str) -> Run:
 
 
 async def run_edit_pipeline_background(run_id: uuid.UUID, iteracion_id: uuid.UUID) -> None:
-    db = SessionLocal()
+    db = SessionLocal(expire_on_commit=False)  # ver _soltar_conexion
     try:
         run = db.get(Run, run_id)
         iteracion = db.get(Iteration, iteracion_id)
@@ -527,9 +601,10 @@ async def advance_execution(db: Session, run: Run) -> None:
     """EXECUTING -> COMPLETED (o ERROR). Llama al Executor con
     EXCLUSIVAMENTE el prompt aprobado (la última iteración), sin
     contexto de auditoría ni de iteraciones anteriores."""
-    ultima_iteracion = _ultima_iteracion(db, run)
+    prompt_aprobado = _ultima_iteracion(db, run).output_prompt
+    _soltar_conexion(db)
     try:
-        resultado = await execute_prompt(ultima_iteracion.output_prompt)
+        resultado = await execute_prompt(prompt_aprobado)
     except ExecutorParseError as e:
         fail_run(db, run, f"El Executor no devolvió JSON válido tras reintentar: {e}")
         return
@@ -548,7 +623,7 @@ async def advance_execution(db: Session, run: Run) -> None:
 async def run_execution_pipeline_background(run_id: uuid.UUID) -> None:
     """Pensada para FastAPI BackgroundTasks: abre su PROPIA sesión de BD
     y avanza un run ya EXECUTING hasta COMPLETED/ERROR."""
-    db = SessionLocal()
+    db = SessionLocal(expire_on_commit=False)  # ver _soltar_conexion
     try:
         run = db.get(Run, run_id)
         if run is None:
@@ -586,7 +661,11 @@ def build_timeline(run: Run) -> list[TimelineEvent]:
     eventos: list[TimelineEvent] = [TimelineEvent(run.created_at, "Prompt recibido.")]
 
     for iteracion in run.iterations:
-        if iteracion.source == "optimizer":
+        if iteracion.source == "original":
+            descripcion = (
+                f"Iteración {iteracion.iteration_number}: línea base, se audita el prompt original sin optimizar."
+            )
+        elif iteracion.source == "optimizer":
             if iteracion.output_prompt is not None:
                 descripcion = f"Iteración {iteracion.iteration_number}: el Optimizer generó una versión mejorada."
             else:

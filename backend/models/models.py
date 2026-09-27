@@ -33,7 +33,7 @@ RunStatus = Enum(
 )
 
 IterationSource = Enum(
-    "optimizer", "human_edit", name="iteration_source", create_type=False
+    "optimizer", "human_edit", "original", name="iteration_source", create_type=False
 )
 
 HumanDecisionType = Enum(
