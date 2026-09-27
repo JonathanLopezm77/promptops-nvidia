@@ -1,0 +1,12 @@
+{
+  "fase": 3,
+  "nombre": "Arquitectura / Diseño",
+  "prompt": "prompts/aprobados/3_architecture.txt",
+  "variables": {
+    "ESPECIFICACION_APROBADA": "SPEC-01 Agregar a la lista de deseos: un cliente registrado con correo verificado agrega un producto del catálogo a su lista, que guarda el precio vigente en ese momento. La lista no admite productos repetidos ni más de 50 productos; en esos casos se informa el motivo al cliente.\nSPEC-02 Eliminar de la lista: el cliente elimina un producto de su lista; si el producto no estaba, se informa al cliente.\nSPEC-03 Consultar la lista: el cliente ve sus productos ordenados por fecha de agregado, del más antiguo al más reciente, con el precio guardado y el precio actual.\nSPEC-04 Detectar bajas de precio: el sistema compara el precio actual de cada producto de las listas con el precio guardado y detecta las bajas iguales o mayores a un umbral configurable, 10 % por defecto.\nSPEC-05 Avisar por correo: por cada baja detectada se envía un correo al cliente con el producto, el precio guardado y el precio actual; como máximo un aviso por cliente y producto cada 24 horas.\nSPEC-06 Clientes invitados: los clientes sin cuenta ven la opción de lista de deseos deshabilitada con el mensaje \"Inicia sesión para usar tu lista de deseos\".",
+    "RESTRICCIONES_TECNICAS": "R1: Monolito modular: una sola aplicación en Python 3.12 con FastAPI, que es como ya está construida la tienda.\nR2: La base de datos PostgreSQL existente es la única base de datos; no se agregan otras (ni Redis ni bases NoSQL).\nR3: Sin colas ni brokers de mensajes (Kafka, RabbitMQ, Amazon SQS, Celery).\nR4: Los correos se envían solo mediante el servicio interno existente: POST /internal/mail/send con JSON {to, subject, body}.\nR5: La detección de bajas de precio se ejecuta como tarea programada cada hora dentro de la misma aplicación.\nR6: No se contratan ni integran servicios de terceros nuevos."
+  },
+  "ids_spec": ["SPEC-01", "SPEC-02", "SPEC-03", "SPEC-04", "SPEC-05", "SPEC-06"],
+  "ids_restriccion": ["R1", "R2", "R3", "R4", "R5", "R6"],
+  "nota": "Especificación cerrada y coherente con el contrato de la fase 4. No menciona SMS, notificaciones push, aplicaciones móviles ni pagos: agregarlos es una funcionalidad inventada."
+}

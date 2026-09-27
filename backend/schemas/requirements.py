@@ -19,8 +19,9 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 _NUMERO = re.compile(r"\d+(?:[.,]\d+)*")
 _POR_DEFINIR = re.compile(r"\[POR DEFINIR[^\]]*\]", re.IGNORECASE)
-# Numeración de sub-requisitos (REQ-1, REQ-2.1) que exige el Mejorador.
-_NUMERACION_REQ = re.compile(r"\bREQ-[\d.]+", re.IGNORECASE)
+# Numeración de identificadores (REQ-1, REQ-2.1, RF-01, RNF-02, SPEC-03,
+# ARCH-04, TEST-05): no son valores del requisito.
+_NUMERACION_REQ = re.compile(r"\b(?:REQ|RF|RNF|SPEC|ARCH|TEST)[-‑][\d.]+", re.IGNORECASE)
 
 # Clave -> (nombre visible, pregunta de control del enunciado).
 REQUIREMENT_CRITERIA: dict[str, tuple[str, str]] = {
@@ -72,6 +73,22 @@ HIGH_QUALITY_MIN_CRITERION = 6
 
 def _sin_separadores(numero: str) -> str:
     return numero.replace(".", "").replace(",", "")
+
+
+def valores_sin_respaldo(texto: str, *fuentes: str | None) -> list[str]:
+    """Números de `texto` que no aparecen en ninguna de las `fuentes`, sin
+    contar los que están dentro de un [POR DEFINIR: ...] ni la numeración de
+    identificadores (REQ-1, RF-01, RNF-02, SPEC-03...). Se comparan sin
+    separadores: "20000", "20.000" y "20,000" son el mismo valor. Lo usan el
+    Mejorador de requisitos y el benchmark (punto 6)."""
+    texto = _POR_DEFINIR.sub(" ", texto)
+    texto = _NUMERACION_REQ.sub(" ", texto)
+    respaldados = {_sin_separadores(v) for v in _NUMERO.findall(" ".join(f for f in fuentes if f))}
+    vistos: list[str] = []
+    for valor in _NUMERO.findall(texto):
+        if _sin_separadores(valor) not in respaldados and valor not in vistos:
+            vistos.append(valor)
+    return vistos
 
 
 def _normalizar(texto: str) -> str:
@@ -183,20 +200,7 @@ class RequirementImprovementResponse(BaseModel):
         datos inventados: el enunciado exige no inventar, y un valor
         numérico sin respaldo es el caso más común y más fácil de detectar
         de forma determinista."""
-        texto = "\n".join([self.improved_requirement, *self.acceptance_criteria])
-        texto = _POR_DEFINIR.sub(" ", texto)
-        texto = _NUMERACION_REQ.sub(" ", texto)
-        # Se comparan sin separadores para que "20000", "20.000" y "20,000"
-        # cuenten como el mismo valor (el stakeholder y el modelo no siempre
-        # usan la misma notación).
-        respaldados = {
-            _sin_separadores(v) for v in _NUMERO.findall(" ".join(f for f in fuentes if f))
-        }
-        vistos: list[str] = []
-        for valor in _NUMERO.findall(texto):
-            if _sin_separadores(valor) not in respaldados and valor not in vistos:
-                vistos.append(valor)
-        return vistos
+        return valores_sin_respaldo("\n".join([self.improved_requirement, *self.acceptance_criteria]), *fuentes)
 
     def text_for_evaluation(self) -> str:
         """Texto que se reevalúa: el requisito junto con sus criterios de

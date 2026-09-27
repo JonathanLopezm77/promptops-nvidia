@@ -1,0 +1,20 @@
+{
+  "fase": 1,
+  "nombre": "Requisitos",
+  "prompt": "prompts/aprobados/1_requirements.txt",
+  "variables": {
+    "NECESIDAD_DEL_STAKEHOLDER": "Los clientes quieren guardar los productos que les interesan en una lista de deseos para comprarlos más adelante, y que la tienda les avise cuando alguno de esos productos baje de precio. El gerente comercial pide que el aviso llegue rápido y que la lista no sea demasiado grande.",
+    "CONTEXTO_DEL_PROYECTO": "Tienda en línea de artículos deportivos con un catálogo público de 20000 productos. Hay clientes registrados, con correo verificado, y clientes invitados que compran sin cuenta. La tienda ya envía correos transaccionales mediante un servicio de correo existente. El equipo comercial actualiza los precios desde un panel interno."
+  },
+  "huecos_esperados": {
+    "descripcion": "Información que la entrada NO da a propósito: un buen resultado la pregunta en lugar de inventarla (instrucción 6 del prompt aprobado).",
+    "vagos": ["rápido", "demasiado grande"],
+    "faltantes": [
+      "tiempo máximo entre el cambio de precio y el aviso",
+      "cantidad máxima de productos en la lista",
+      "cuánto debe bajar el precio para avisar (umbral)"
+    ],
+    "ambiguos": ["si los clientes invitados pueden usar la lista de deseos"]
+  },
+  "nota": "Los números de la entrada son solo 20000. Cualquier otro valor numérico en los requisitos (plazos, límites, porcentajes) no está sustentado por la entrada."
+}

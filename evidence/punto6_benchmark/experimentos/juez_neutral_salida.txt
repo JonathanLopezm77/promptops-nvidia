@@ -1,0 +1,8 @@
+﻿openai/gpt-oss-20b                   buena OK    score= 86  149.9s
+openai/gpt-oss-20b                   buena OK    score= 88  347.1s
+openai/gpt-oss-20b                   mala  OK    score= 41  160.8s
+openai/gpt-oss-20b                   mala  FALLO NvidiaTimeoutError: NVIDIA no respondió en 180s tras 3 intento(s).  544.8s
+nvidia/nemotron-3-super-120b-a12b    buena OK    score= 81   24.6s
+nvidia/nemotron-3-super-120b-a12b    buena OK    score= 79   20.2s
+nvidia/nemotron-3-super-120b-a12b    mala  OK    score= 43   12.6s
+nvidia/nemotron-3-super-120b-a12b    mala  OK    score= 33   16.2s

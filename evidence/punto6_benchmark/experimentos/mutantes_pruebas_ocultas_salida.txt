@@ -1,0 +1,14 @@
+﻿referencia: 34 passed in 0.03s
+  DETECTADO  redondeo bancario (ROUND_HALF_EVEN)    1 failed, 33 passed in 0.08s
+  DETECTADO  umbral exclusivo (>)                   1 failed, 33 passed in 0.06s
+  DETECTADO  lista llena antes que duplicado        1 failed, 33 passed in 0.06s
+  DETECTADO  devuelve la lista interna              1 failed, 33 passed in 0.06s
+  DETECTADO  orden descendente por fecha            1 failed, 33 passed in 0.06s
+  DETECTADO  desempate por id descendente           1 failed, 33 passed in 0.06s
+  DETECTADO  max_items por defecto 100              1 failed, 33 passed in 0.07s
+  DETECTADO  no valida espacios en ids              2 failed, 32 passed in 0.06s
+  DETECTADO  umbral 100 invalido                    1 failed, 33 passed in 0.06s
+  DETECTADO  eliminar inexistente silencioso        2 failed, 32 passed in 0.07s
+  DETECTADO  precio cero permitido                  2 failed, 32 passed in 0.07s
+  DETECTADO  sin redondeo                           2 failed, 32 passed in 0.07s
+mutantes detectados: 12/12
