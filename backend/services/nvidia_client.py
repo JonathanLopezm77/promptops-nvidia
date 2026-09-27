@@ -118,8 +118,14 @@ async def chat_completion(
                 raise NvidiaAuthError("NVIDIA_API_KEY inválida o ausente (401 Unauthorized).")
 
             if response.status_code == 404:
+                # NVIDIA también responde 404 cuando el modelo existe en el
+                # catálogo pero la cuenta de la API key no tiene acceso a él
+                # ("Not found for account"): el cuerpo es lo único que
+                # distingue ambos casos, así que se incluye en el mensaje.
                 raise NvidiaModelNotFoundError(
-                    f"El modelo '{model}' no existe en NVIDIA (404). Revisa el nombre en .env."
+                    f"NVIDIA respondió 404 para el modelo '{model}': no existe o tu API key "
+                    f"no tiene acceso a él. Revisa el nombre en .env. "
+                    f"Respuesta de NVIDIA: {response.text.strip()[:300] or '(vacía)'}"
                 )
 
             if response.status_code in _ESTADOS_REINTENTABLES:
