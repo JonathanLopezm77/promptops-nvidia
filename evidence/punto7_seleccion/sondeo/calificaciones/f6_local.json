@@ -1,0 +1,40 @@
+{
+  "id": "f6_local",
+  "fase": 6,
+  "modelo_clave": "local",
+  "calificado_en": "2026-09-27T21:46:01.380787+00:00",
+  "puntaje": 72.73,
+  "chequeos": {
+    "pipeline de CI/CD": true,
+    "Dockerfile": true,
+    "Dockerfile multietapa": false,
+    "imágenes base con versión fija (sin latest)": true,
+    "contenedor sin root (USER)": false,
+    "configuración del entorno (render.yaml u otra)": true,
+    "YAML sintácticamente válido": true,
+    "sin secretos en claro": true,
+    "verificación del despliegue (health/smoke)": false,
+    "rollback con pasos numerados": true,
+    "tabla de variables de entorno": true
+  },
+  "schema_ok": true,
+  "cumple_tarea": false,
+  "detalle": {
+    "archivos": [
+      ".github/workflows/deploy.yml",
+      "Dockerfile",
+      ".render.yaml",
+      "Dockerfile",
+      ".render.yaml",
+      null,
+      null
+    ],
+    "froms": [
+      "python:3.12-slim"
+    ],
+    "usuario": [],
+    "errores_yaml": [],
+    "posibles_secretos": [],
+    "afirma_validaciones_no_ejecutadas": []
+  }
+}

@@ -9,3 +9,4 @@ pytest
 pytest-asyncio
 psutil
 ruff
+coverage

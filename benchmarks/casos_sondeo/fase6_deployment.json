@@ -1,0 +1,16 @@
+{
+  "fase": 6,
+  "nombre": "Deployment",
+  "prompt": "prompts/aprobados/6_deployment.txt",
+  "variables": {
+    "ARTEFACTO_PROBADO": "Laboratorio de PromptOps (este repositorio): aplicación web en Python 3.12 con FastAPI.\n- Punto de entrada: uvicorn backend.main:app (sirve la API en /api/... y el frontend estático de la carpeta frontend/ en /).\n- Dependencias: requirements.txt (fastapi, uvicorn[standard], sqlalchemy>=2.0, psycopg[binary], pydantic>=2, python-dotenv, httpx).\n- Base de datos: PostgreSQL. Al arrancar, la aplicación aplica sus scripts SQL idempotentes (schema_requirements.sql, schema_updates.sql).\n- Configuración solo por variables de entorno: DATABASE_URL, NVIDIA_API_KEY, NVIDIA_BASE_URL, OPTIMIZER_MODEL, AUDITOR_MODEL, EXECUTOR_MODEL, LLM_TIMEOUT_SECONDS, LLM_MAX_RETRIES, LLM_JSON_MODE_MODELS, IMPROVER_FALLBACK_MODEL.\n- Endpoints de solo lectura aptos para verificar el despliegue: GET /api/runs y GET /api/requirements (devuelven listas JSON).\n- Pruebas: pytest (222 pruebas) y ruff, ya ejecutadas con éxito sobre este commit.",
+    "ENTORNO_OBJETIVO": "- Render (render.com): Web Service desplegado desde el repositorio de GitHub, rama main, con despliegue automático en cada push.\n- Base de datos: PostgreSQL administrado por Render, ya existente.\n- El equipo quiere construir la aplicación como contenedor Docker y validar cada cambio en GitHub Actions antes de que Render lo despliegue.\n- Sin Kubernetes ni otros servicios de terceros."
+  },
+  "esperado": {
+    "variables_obligatorias": [
+      "DATABASE_URL",
+      "NVIDIA_API_KEY"
+    ]
+  },
+  "nota": "Artefacto real (esta plataforma) y entorno real (Render). No hay Docker en la máquina de pruebas: se valida estructura, sintaxis YAML y reglas de seguridad, no se construye la imagen."
+}

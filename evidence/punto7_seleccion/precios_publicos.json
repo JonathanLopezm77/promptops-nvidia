@@ -1,0 +1,26 @@
+{
+  "fuente": "https://openrouter.ai/api/v1/models",
+  "consultado_utc": "2026-09-27T21:12:32.957476+00:00",
+  "nota": "Precios públicos en USD por token (pricing.prompt = entrada, pricing.completion = salida). Las 27 ejecuciones se hicieron en la capa gratuita de NVIDIA (costo real 0); estos precios solo se usan para el escenario de costo en una capa de pago.",
+  "modelos": [
+    {
+      "id": "moonshotai/kimi-k3",
+      "name": "MoonshotAI: Kimi K3",
+      "context_length": 1048576,
+      "pricing": {
+        "prompt": "0.000003",
+        "completion": "0.000015",
+        "input_cache_read": "0.0000003"
+      }
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b",
+      "name": "NVIDIA: Nemotron 3 Super",
+      "context_length": 262144,
+      "pricing": {
+        "prompt": "0.00000008",
+        "completion": "0.00000045"
+      }
+    }
+  ]
+}

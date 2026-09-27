@@ -1,0 +1,18 @@
+{
+  "fase": 7,
+  "nombre": "Mantenimiento",
+  "prompt": "prompts/aprobados/7_maintenance.txt",
+  "variables": {
+    "CODIGO_ACTUAL": "@benchmarks/casos_sondeo/fase7_codigo_actual.py",
+    "INCIDENCIA_O_CAMBIO": "INC-231 (afecta SPEC-03, componente ARCH-01 WishlistService): al migrar las listas de deseos del sistema anterior, los productos se agregan con su fecha original (parámetro now) y no en orden cronológico. Desde entonces list_items devuelve los productos en el orden de importación y no ordenados por fecha de agregado, del más antiguo al más reciente, como exige SPEC-03. Si dos productos tienen la misma fecha, debe conservarse el orden en que se agregaron.",
+    "METRICAS": "- Suite de regresión (34 pruebas, pytest): 33 pasan, 1 falla: test_spec03_orden_por_fecha_ascendente.\n- Cobertura de líneas (coverage.py con esa suite): 100 % (59 de 59 sentencias).\n- ruff (configuración por defecto): 0 avisos.\n- Complejidad ciclomática (ruff C901): máximo 5, en add_item y detect_price_drops; list_items tiene 1."
+  },
+  "esperado": {
+    "funcion_afectada": "list_items",
+    "ids": [
+      "SPEC-03",
+      "ARCH-01"
+    ]
+  },
+  "nota": "Defecto real: el que cometió nemotron en el punto 6 (f4_cloud_razonamiento_1 y _3). Métricas medidas de verdad sobre este código. Se aplica el cambio propuesto y se corren las 34 pruebas ocultas."
+}

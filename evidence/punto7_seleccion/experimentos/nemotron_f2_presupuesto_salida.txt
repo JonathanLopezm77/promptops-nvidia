@@ -1,0 +1,4 @@
+corrida 1: finish=stop tokens=2180/11152 total=84s solo_razonamiento=False puntaje=88.89 cumple=False
+   fallidos: ['cada SPEC con >= 2 criterios Gherkin']
+corrida 2: finish=stop tokens=2180/7084 total=66s solo_razonamiento=False puntaje=100.0 cumple=True
+   fallidos: []

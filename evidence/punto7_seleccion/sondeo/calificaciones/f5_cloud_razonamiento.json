@@ -1,0 +1,45 @@
+{
+  "id": "f5_cloud_razonamiento",
+  "fase": 5,
+  "modelo_clave": "cloud_razonamiento",
+  "calificado_en": "2026-09-27T21:45:53.249424+00:00",
+  "puntaje": 85.0,
+  "componentes": {
+    "validez_suite": 20.0,
+    "mutacion": 20.0,
+    "defectos_detectados_por_la_suite": 20,
+    "defectos_reportados_en_texto": 10,
+    "cobertura_lineas": 10.0,
+    "trazabilidad": 5
+  },
+  "schema_ok": true,
+  "cumple_tarea": true,
+  "detalle": {
+    "tests_total": 23,
+    "tests_validos_en_referencia": 23,
+    "tests_que_fallan_con_codigo_correcto": [],
+    "mutantes_detectados": {
+      "redondeo bancario (ROUND_HALF_EVEN)": false,
+      "umbral exclusivo (>)": true,
+      "lista llena antes que duplicado": false,
+      "devuelve la lista interna": true,
+      "orden descendente por fecha": true,
+      "desempate por id descendente": true,
+      "max_items por defecto 100": false,
+      "no valida espacios en ids": true,
+      "umbral 100 invalido": false,
+      "eliminar inexistente silencioso": true,
+      "precio cero permitido": true,
+      "sin redondeo": true
+    },
+    "defectos_plantados_detectados": {
+      "umbral exclusivo (>)": true,
+      "devuelve la lista interna": true
+    },
+    "defectos_reportados": {
+      "umbral exclusivo (>)": true,
+      "devuelve la lista interna": true
+    },
+    "cobertura_pct": 100.0
+  }
+}

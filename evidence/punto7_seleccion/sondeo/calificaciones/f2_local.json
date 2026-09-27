@@ -1,0 +1,35 @@
+{
+  "id": "f2_local",
+  "fase": 2,
+  "modelo_clave": "local",
+  "calificado_en": "2026-09-27T21:45:36.904122+00:00",
+  "puntaje": 66.67,
+  "chequeos": {
+    "schema: JSON con las 4 claves": true,
+    "numeración exacta (respeta huecos, sin SPEC inventados)": true,
+    "cada SPEC con su REQ de origen": true,
+    "cada SPEC con campos completos": true,
+    "cada SPEC con >= 2 criterios Gherkin": true,
+    "dependencia SPEC-06 -> REQ-02": true,
+    "referencia rota REQ-07 -> REQ-09": false,
+    "contradicción REQ-03 / REQ-08": false,
+    "alerta legal REQ-10": false
+  },
+  "schema_ok": true,
+  "cumple_tarea": false,
+  "detalle": {
+    "ids_spec": [
+      "SPEC-01",
+      "SPEC-02",
+      "SPEC-03",
+      "SPEC-05",
+      "SPEC-06",
+      "SPEC-07",
+      "SPEC-08",
+      "SPEC-10"
+    ],
+    "n_inconsistencias": 0,
+    "n_alertas": 0,
+    "n_supuestos": 0
+  }
+}

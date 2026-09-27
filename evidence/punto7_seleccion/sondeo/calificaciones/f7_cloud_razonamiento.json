@@ -1,0 +1,26 @@
+{
+  "id": "f7_cloud_razonamiento",
+  "fase": 7,
+  "modelo_clave": "cloud_razonamiento",
+  "calificado_en": "2026-09-27T21:46:02.596868+00:00",
+  "puntaje": 100.0,
+  "componentes": {
+    "regresion": 60.0,
+    "alcance_minimo": 10,
+    "secciones": 15.0,
+    "trazabilidad": 15.0
+  },
+  "schema_ok": true,
+  "cumple_tarea": true,
+  "detalle": {
+    "funciones_cambiadas": [
+      "list_items"
+    ],
+    "tests_total": 34,
+    "tests_pasadas": 34,
+    "tests_fallidas": [],
+    "secciones_presentes": 7,
+    "ids_req_inventados": [],
+    "codigo_resultante": "# File: wishlist_service.py\n# Implements: ARCH-01, ARCH-02, SPEC-01, SPEC-02, SPEC-03, SPEC-04\n\"\"\"Lista de deseos en memoria y detección de bajas de precio.\"\"\"\n\nfrom dataclasses import dataclass\nfrom datetime import datetime\nfrom decimal import ROUND_HALF_UP, Decimal\n\n\nclass WishlistError(Exception):\n    \"\"\"Base de los errores del módulo.\"\"\"\n\n\nclass DuplicateItemError(WishlistError):\n    \"\"\"El producto ya está en la lista del cliente.\"\"\"\n\n\nclass WishlistFullError(WishlistError):\n    \"\"\"La lista del cliente ya tiene max_items productos.\"\"\"\n\n\nclass ItemNotFoundError(WishlistError):\n    \"\"\"El producto no está en la lista del cliente.\"\"\"\n\n\nclass InvalidPriceError(WishlistError):\n    \"\"\"Precio menor o igual a cero.\"\"\"\n\n\n@dataclass(frozen=True)\nclass WishlistItem:\n    product_id: str\n    added_at: datetime\n    price_at_add: Decimal\n\n\n@dataclass(frozen=True)\nclass PriceDrop:\n    product_id: str\n    old_price: Decimal\n    new_price: Decimal\n    drop_pct: Decimal\n\n\nclass WishlistService:\n    def __init__(self, max_items: int = 50) -> None:\n        if max_items < 1:\n            raise ValueError(\"max_items debe ser >= 1\")\n        self._max_items = max_items\n        self._listas: dict[str, list[WishlistItem]] = {}\n\n    def add_item(self, customer_id: str, product_id: str, price: Decimal, now: datetime) -> WishlistItem:\n        if not customer_id or not customer_id.strip() or not product_id or not product_id.strip():\n            raise ValueError(\"customer_id y product_id son obligatorios\")\n        if price <= 0:\n            raise InvalidPriceError(\"el precio debe ser mayor que cero\")\n        lista = self._listas.setdefault(customer_id, [])\n        if any(item.product_id == product_id for item in lista):\n            raise DuplicateItemError(product_id)\n        if len(lista) >= self._max_items:\n            raise WishlistFullError(customer_id)\n        item = WishlistItem(product_id=product_id, added_at=now, price_at_add=price)\n        lista.append(item)\n        return item\n\n    def remove_item(self, customer_id: str, product_id: str) -> None:\n        lista = self._listas.get(customer_id, [])\n        for i, item in enumerate(lista):\n            if item.product_id == product_id:\n                del lista[i]\n                return\n        raise ItemNotFoundError(product_id)\n\n    def list_items(self, customer_id: str) -> list[WishlistItem]:\n        # Devolver los elementos ordenados por fecha de agregado (más antiguo primero).\n        # sorted() es estable, por lo que conserva el orden de inserción para fechas iguales.\n        return sorted(self._listas.get(customer_id, []), key=lambda item: item.added_at)\n\n\ndef detect_price_drops(\n    items: list[WishlistItem], current_prices: dict[str, Decimal], min_drop_pct: Decimal\n) -> list[PriceDrop]:\n    if min_drop_pct <= 0 or min_drop_pct > 100:\n        raise ValueError(\"min_drop_pct debe estar en (0, 100]\")\n    bajas = []\n    for item in items:\n        actual = current_prices.get(item.product_id)\n        if actual is None or actual >= item.price_at_add:\n            continue\n        pct = ((item.price_at_add - actual) / item.price_at_add * 100).quantize(\n            Decimal(\"0.01\"), rounding=ROUND_HALF_UP\n        )\n        if pct >= min_drop_pct:\n            bajas.append(PriceDrop(item.product_id, item.price_at_add, actual, pct))\n    return sorted(bajas, key=lambda b: (-b.drop_pct, b.product_id))\n"
+  }
+}

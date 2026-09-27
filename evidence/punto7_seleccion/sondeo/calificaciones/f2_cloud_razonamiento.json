@@ -1,0 +1,12 @@
+{
+  "id": "f2_cloud_razonamiento",
+  "fase": 2,
+  "modelo_clave": "cloud_razonamiento",
+  "calificado_en": "2026-09-27T21:45:36.903096+00:00",
+  "puntaje": 0.0,
+  "cumple_tarea": false,
+  "schema_ok": false,
+  "detalle": {
+    "error": "agotó max_tokens razonando (finish_reason='length'): la respuesta es su razonamiento, no el entregable"
+  }
+}

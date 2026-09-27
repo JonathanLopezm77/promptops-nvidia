@@ -1,0 +1,45 @@
+{
+  "id": "f5_local",
+  "fase": 5,
+  "modelo_clave": "local",
+  "calificado_en": "2026-09-27T21:46:01.119848+00:00",
+  "puntaje": 54.66,
+  "componentes": {
+    "validez_suite": 20.0,
+    "mutacion": 10.0,
+    "defectos_detectados_por_la_suite": 10,
+    "defectos_reportados_en_texto": 0,
+    "cobertura_lineas": 9.66,
+    "trazabilidad": 5
+  },
+  "schema_ok": true,
+  "cumple_tarea": false,
+  "detalle": {
+    "tests_total": 14,
+    "tests_validos_en_referencia": 14,
+    "tests_que_fallan_con_codigo_correcto": [],
+    "mutantes_detectados": {
+      "redondeo bancario (ROUND_HALF_EVEN)": false,
+      "umbral exclusivo (>)": true,
+      "lista llena antes que duplicado": false,
+      "devuelve la lista interna": false,
+      "orden descendente por fecha": true,
+      "desempate por id descendente": false,
+      "max_items por defecto 100": false,
+      "no valida espacios en ids": false,
+      "umbral 100 invalido": false,
+      "eliminar inexistente silencioso": true,
+      "precio cero permitido": true,
+      "sin redondeo": false
+    },
+    "defectos_plantados_detectados": {
+      "umbral exclusivo (>)": true,
+      "devuelve la lista interna": false
+    },
+    "defectos_reportados": {
+      "umbral exclusivo (>)": false,
+      "devuelve la lista interna": false
+    },
+    "cobertura_pct": 96.61016949152543
+  }
+}

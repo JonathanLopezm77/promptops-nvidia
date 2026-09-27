@@ -1,0 +1,43 @@
+{
+  "id": "f6_cloud_razonamiento",
+  "fase": 6,
+  "modelo_clave": "cloud_razonamiento",
+  "calificado_en": "2026-09-27T21:46:01.351202+00:00",
+  "puntaje": 100.0,
+  "chequeos": {
+    "pipeline de CI/CD": true,
+    "Dockerfile": true,
+    "Dockerfile multietapa": true,
+    "imágenes base con versión fija (sin latest)": true,
+    "contenedor sin root (USER)": true,
+    "configuración del entorno (render.yaml u otra)": true,
+    "YAML sintácticamente válido": true,
+    "sin secretos en claro": true,
+    "verificación del despliegue (health/smoke)": true,
+    "rollback con pasos numerados": true,
+    "tabla de variables de entorno": true
+  },
+  "schema_ok": true,
+  "cumple_tarea": true,
+  "detalle": {
+    "archivos": [
+      ".github/workflows/deploy.yml",
+      "Dockerfile",
+      "render.yaml",
+      null,
+      null,
+      null,
+      null
+    ],
+    "froms": [
+      "python:3.12-slim",
+      "python:3.12-slim"
+    ],
+    "usuario": [
+      "appuser"
+    ],
+    "errores_yaml": [],
+    "posibles_secretos": [],
+    "afirma_validaciones_no_ejecutadas": []
+  }
+}

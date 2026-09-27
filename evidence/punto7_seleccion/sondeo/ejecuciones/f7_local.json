@@ -1,0 +1,89 @@
+{
+  "id": "f7_local",
+  "fase": 7,
+  "modelo_clave": "local",
+  "modelo": {
+    "clave": "local",
+    "tipo": "Modelo local / open-weight ejecutado on-premise",
+    "proveedor": "ollama",
+    "modelo": "qwen2.5-coder:7b",
+    "extra": {
+      "options": {
+        "num_ctx": 16384
+      },
+      "keep_alive": "60m"
+    },
+    "justificacion": "Open-weight (licencia Apache 2.0, según /api/show de Ollama), servido por Ollama en la propia máquina (RTX 3050 6 GB). 7B en Q4_K_M es el tamaño que cabe mayormente en 6 GB de VRAM. num_ctx 16384 porque Ollama usa 4096 por defecto y recortaría en silencio el prompt aprobado más la entrada y la salida; el modelo admite 32768. keep_alive evita descargar el modelo entre corridas (la carga en frío tomó 20 s)."
+  },
+  "parametros": {
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 8192
+  },
+  "prompt_enviado": "Actúa como ingeniero de mantenimiento de software senior. Tu tarea es analizar el código actual, la incidencia o solicitud de cambio y las métricas del sistema, y proponer la modificación mínima y segura que resuelva la incidencia.\n\n## Entradas\n\nCódigo actual:\n# File: wishlist_service.py\n# Implements: ARCH-01, ARCH-02, SPEC-01, SPEC-02, SPEC-03, SPEC-04\n\"\"\"Lista de deseos en memoria y detección de bajas de precio.\"\"\"\n\nfrom dataclasses import dataclass\nfrom datetime import datetime\nfrom decimal import ROUND_HALF_UP, Decimal\n\n\nclass WishlistError(Exception):\n    \"\"\"Base de los errores del módulo.\"\"\"\n\n\nclass DuplicateItemError(WishlistError):\n    \"\"\"El producto ya está en la lista del cliente.\"\"\"\n\n\nclass WishlistFullError(WishlistError):\n    \"\"\"La lista del cliente ya tiene max_items productos.\"\"\"\n\n\nclass ItemNotFoundError(WishlistError):\n    \"\"\"El producto no está en la lista del cliente.\"\"\"\n\n\nclass InvalidPriceError(WishlistError):\n    \"\"\"Precio menor o igual a cero.\"\"\"\n\n\n@dataclass(frozen=True)\nclass WishlistItem:\n    product_id: str\n    added_at: datetime\n    price_at_add: Decimal\n\n\n@dataclass(frozen=True)\nclass PriceDrop:\n    product_id: str\n    old_price: Decimal\n    new_price: Decimal\n    drop_pct: Decimal\n\n\nclass WishlistService:\n    def __init__(self, max_items: int = 50) -> None:\n        if max_items < 1:\n            raise ValueError(\"max_items debe ser >= 1\")\n        self._max_items = max_items\n        self._listas: dict[str, list[WishlistItem]] = {}\n\n    def add_item(self, customer_id: str, product_id: str, price: Decimal, now: datetime) -> WishlistItem:\n        if not customer_id or not customer_id.strip() or not product_id or not product_id.strip():\n            raise ValueError(\"customer_id y product_id son obligatorios\")\n        if price <= 0:\n            raise InvalidPriceError(\"el precio debe ser mayor que cero\")\n        lista = self._listas.setdefault(customer_id, [])\n        if any(item.product_id == product_id for item in lista):\n            raise DuplicateItemError(product_id)\n        if len(lista) >= self._max_items:\n            raise WishlistFullError(customer_id)\n        item = WishlistItem(product_id=product_id, added_at=now, price_at_add=price)\n        lista.append(item)\n        return item\n\n    def remove_item(self, customer_id: str, product_id: str) -> None:\n        lista = self._listas.get(customer_id, [])\n        for i, item in enumerate(lista):\n            if item.product_id == product_id:\n                del lista[i]\n                return\n        raise ItemNotFoundError(product_id)\n\n    def list_items(self, customer_id: str) -> list[WishlistItem]:\n        # La lista interna conserva el orden de inserción, que coincide con el orden por fecha.\n        return list(self._listas.get(customer_id, []))\n\n\ndef detect_price_drops(\n    items: list[WishlistItem], current_prices: dict[str, Decimal], min_drop_pct: Decimal\n) -> list[PriceDrop]:\n    if min_drop_pct <= 0 or min_drop_pct > 100:\n        raise ValueError(\"min_drop_pct debe estar en (0, 100]\")\n    bajas = []\n    for item in items:\n        actual = current_prices.get(item.product_id)\n        if actual is None or actual >= item.price_at_add:\n            continue\n        pct = ((item.price_at_add - actual) / item.price_at_add * 100).quantize(\n            Decimal(\"0.01\"), rounding=ROUND_HALF_UP\n        )\n        if pct >= min_drop_pct:\n            bajas.append(PriceDrop(item.product_id, item.price_at_add, actual, pct))\n    return sorted(bajas, key=lambda b: (-b.drop_pct, b.product_id))\n\n\nIncidencia o solicitud de cambio:\nINC-231 (afecta SPEC-03, componente ARCH-01 WishlistService): al migrar las listas de deseos del sistema anterior, los productos se agregan con su fecha original (parámetro now) y no en orden cronológico. Desde entonces list_items devuelve los productos en el orden de importación y no ordenados por fecha de agregado, del más antiguo al más reciente, como exige SPEC-03. Si dos productos tienen la misma fecha, debe conservarse el orden en que se agregaron.\n\nMétricas del sistema:\n- Suite de regresión (34 pruebas, pytest): 33 pasan, 1 falla: test_spec03_orden_por_fecha_ascendente.\n- Cobertura de líneas (coverage.py con esa suite): 100 % (59 de 59 sentencias).\n- ruff (configuración por defecto): 0 avisos.\n- Complejidad ciclomática (ruff C901): máximo 5, en add_item y detect_price_drops; list_items tiene 1.\n\n## Instrucciones\n1. Identifica la causa raíz de la incidencia (o la justificación del cambio) citando las líneas, funciones o módulos concretos del código actual. Si la información es insuficiente o ambigua, indícalo explícitamente en la sección 'Supuestos y dudas' en lugar de inventar datos.\n2. Fundamenta el diagnóstico con evidencia objetiva: cruza las métricas proporcionadas (complejidad ciclomática, cobertura, duplicación, deuda, tiempos de respuesta, tasas de error) con el código afectado. Si las métricas son las típicas de herramientas de análisis estático (p. ej., SonarQube, ESLint, PMD, CodeClimate) o de monitorización (p. ej., APM, percentiles de latencia), úsalas explícitamente como soporte del diagnóstico; no inventes valores de métricas que no estén en las entradas.\n3. Propón el cambio o refactorización como diff unificado o bloques de código 'antes/después', sin modificar código que no esté relacionado con la incidencia.\n4. Explica el impacto: comportamiento funcional, rendimiento (apoyándote en las métricas si son relevantes), compatibilidad hacia atrás y riesgos.\n5. Lista las pruebas de regresión a ejecutar: suites existentes afectadas y pruebas nuevas recomendadas, con el motivo de cada una.\n6. Evalúa la deuda técnica: cuál se reduce, cuál se agrega y cómo mitigarla.\n7. Mantén la trazabilidad: identifica los identificadores REQ (requisitos), SPEC (especificaciones) y ARCH (decisiones de arquitectura) afectados, indicando si cada uno queda cumplido, modificado o violado.\n\n## Ejemplos de comportamiento esperado\n\n### Ejemplo 1: diff claro y mínimo\nIncidencia: 'NullPointerException al procesar pedidos sin dirección de envío.'\nCambio propuesto (formato correcto):\n```diff\n public Money total(Pedido p) {\n-    return p.getDireccion().getCosteEnvio().add(p.getSubtotal());\n+    Money envio = p.getDireccion() != null\n+        ? p.getDireccion().getCosteEnvio()\n+        : Money.ZERO;\n+    return envio.add(p.getSubtotal());\n }\n```\nNota: el cambio toca únicamente el método afectado, sin refactorizar código adyacente.\n\n### Ejemplo 2: información ambigua o insuficiente\nIncidencia: 'El informe va lento.' (sin trazas, sin volumen de datos, sin métricas de rendimiento útiles)\nRespuesta correcta: no se propone código como solución definitiva. En 'Diagnóstico / causa raíz' se señalan como hipótesis los puntos del código con complejidad ciclomática alta según - Suite de regresión (34 pruebas, pytest): 33 pasan, 1 falla: test_spec03_orden_por_fecha_ascendente.\n- Cobertura de líneas (coverage.py con esa suite): 100 % (59 de 59 sentencias).\n- ruff (configuración por defecto): 0 avisos.\n- Complejidad ciclomática (ruff C901): máximo 5, en add_item y detect_price_drops; list_items tiene 1., y en 'Supuestos y dudas' se lista: 'Falta definir umbral aceptable de latencia; falta volumen de datos reales; no hay identificadores REQ/SPEC/ARCH proporcionados'. Igualmente se proponen pruebas de carga como regresión y se deja el cambio definitivo condicionado a confirmar el cuello de botella.\n\n## Formato de salida\nResponde usando exactamente estas secciones en este orden:\n1. **Diagnóstico / causa raíz** (citas del código + evidencia de métricas)\n2. **Cambio propuesto** (diff o antes/después)\n3. **Impacto** (funcional, rendimiento, compatibilidad, riesgos)\n4. **Pruebas de regresión**\n5. **Deuda técnica** (reducida / agregada / mitigación)\n6. **Trazabilidad** (tabla: ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio)\n7. **Supuestos y dudas** (vacío si no aplica)\n\n## Restricciones\n- No introduzcas cambios fuera del alcance de la incidencia.\n- No inventes identificadores REQ/SPEC/ARCH: si no se proporcionan en las entradas, indícalo.\n- No inventes valores de métricas ni resultados de herramientas de análisis que no figuren en las entradas.\n\nNota: las variables {{...}} de la plantilla son marcadores de posición y no deben modificarse.\n",
+  "resultado": {
+    "modelo": "qwen2.5-coder:7b",
+    "proveedor": "ollama",
+    "contenido": "### Diagnóstico / causa raíz\nLa incidencia INC-231 se debe a que la función `list_items` devuelve los productos en el orden de importación, no ordenados por fecha de agregado. Esto se debe a que la lista interna `_listas` conserva el orden de inserción, que coincide con el orden por fecha. Sin embargo, la función `list_items` simplemente devuelve una copia de esta lista interna, sin ordenarla.\n\nLa función `list_items` se define así:\n```python\ndef list_items(self, customer_id: str) -> list[WishlistItem]:\n    # La lista interna conserva el orden de inserción, que coincide con el orden por fecha.\n    return list(self._listas.get(customer_id, []))\n```\n\nLa métrica de complejidad ciclomática de 1 para esta función es baja, lo que sugiere que no hay un problema de complejidad estructural. Sin embargo, la falta de ordenación explícita es el problema subyacente.\n\n### Cambio propuesto\nPara solucionar esto, podemos modificar la función `list_items` para ordenar los productos por fecha de agregado antes de devolverlos. Esto se puede hacer utilizando la función `sorted` con una clave que tome la fecha de agregado.\n\n```diff\ndiff --git a/wishlist_service.py b/wishlist_service.py\nindex 1234567..89abcde 100644\n--- a/wishlist_service.py\n+++ b/wishlist_service.py\n@@ -102,7 +102,7 @@ class WishlistService:\n     def list_items(self, customer_id: str) -> list[WishlistItem]:\n         # La lista interna conserva el orden de inserción, que coincide con el orden por fecha.\n         lista = self._listas.get(customer_id, [])\n-        return list(self._listas.get(customer_id, []))\n+        return sorted(lista, key=lambda item: item.added_at)\n```\n\n### Impacto\n- **Funcional**: La función `list_items` ahora devolverá los productos ordenados por fecha de agregado, del más antiguo al más reciente.\n- **Rendimiento**: La complejidad de la función `list_items` aumentará a O(n log n) debido a la operación de ordenación. Sin embargo, esto es aceptable ya que la lista de deseos no es muy grande y la complejidad de la operación de inserción (O(1)) es dominante.\n- **Compatibilidad**: El cambio es retrocompatible ya que no se ha cambiado el comportamiento de las otras funciones.\n- **Riesgos**: El cambio podría tener un impacto negativo en el rendimiento si la lista de deseos es muy grande. Sin embargo, esto es un riesgo aceptable ya que la complejidad de la operación de inserción es dominante.\n\n### Pruebas de regresión\n- **Suites existentes afectadas**: `test_spec03_orden_por_fecha_ascendente`\n- **Pruebas nuevas recomendadas**: \n  - Una prueba que verifica que los productos se devuelvan ordenados por fecha de agregado.\n  - Una prueba que verifica que la función `list_items` no altere el orden de los productos si no se especifica un `customer_id`.\n\n### Deuda técnica\n- **Reducida**: No se ha añadido ninguna nueva deuda técnica.\n- **Agregada**: Se ha añadido una nueva operación de ordenación, lo que podría aumentar la complejidad de la función `list_items`.\n- **Mitigación**: La complejidad de la operación de ordenación es aceptable ya que la lista de deseos no es muy grande y la complejidad de la operación de inserción (O(1)) es dominante.\n\n### Trazabilidad\n| ID | Tipo (REQ/SPEC/ARCH) | Estado tras el cambio |\n|----|----------------------|-----------------------|\n| SPEC-03 | Especificación | Cumplido |\n| ARCH-01 | Decision de arquitectura | Modificado |\n\n### Supuestos y dudas\nNo hay supuestos o dudas adicionales.",
+    "razonamiento": "",
+    "ttft_s": 2.741849399986677,
+    "ttft_contenido_s": 2.741850499995053,
+    "latencia_total_s": 66.29290969995782,
+    "tokens_entrada": 2234,
+    "tokens_salida": 906,
+    "tokens_razonamiento": null,
+    "finish_reason": "stop",
+    "carga_modelo_s": 0.0045943,
+    "modelo_reportado": "qwen2.5-coder:7b",
+    "inicio_utc": "2026-09-27T21:14:02.498025+00:00",
+    "fin_utc": "2026-09-27T21:15:08.791356+00:00",
+    "error": null,
+    "detalle_final": {
+      "model": "qwen2.5-coder:7b",
+      "created_at": "2026-09-27T21:15:08.7889881Z",
+      "done": true,
+      "done_reason": "stop",
+      "total_duration": 66035301800,
+      "load_duration": 4594300,
+      "prompt_eval_count": 2234,
+      "prompt_eval_cached_count": 24,
+      "prompt_eval_duration": 2377790000,
+      "eval_count": 906,
+      "eval_duration": 63547848000
+    },
+    "recursos": {
+      "muestras": 110,
+      "intervalo_s": 0.5,
+      "ram_proceso_mb": {
+        "max": 1690.2,
+        "media": 1667.1
+      },
+      "cpu_proceso_pct": {
+        "max": 615.5,
+        "media": 553.2
+      },
+      "nucleos_logicos": 12,
+      "vram_gpu_total_usada_mb": {
+        "max": 5523.0,
+        "media": 5523.0
+      },
+      "gpu_uso_pct": {
+        "max": 97.0,
+        "media": 46.5
+      },
+      "modelos_cargados_ollama": [
+        {
+          "modelo": "qwen2.5-coder:7b",
+          "tamano_mb": 5543.929997444153,
+          "vram_mb": 4052.979998588562,
+          "fraccion_gpu": 0.731,
+          "contexto": 16384
+        }
+      ]
+    },
+    "intentos": 1,
+    "errores_previos": [],
+    "duracion_con_reintentos_s": 67.26305379997939,
+    "ok": true
+  }
+}

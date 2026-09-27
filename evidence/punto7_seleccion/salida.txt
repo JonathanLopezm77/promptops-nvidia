@@ -1,0 +1,39 @@
+=== Fase 1
+  base                             ganador=cloud_razonamiento   cloud_razonamiento=0.866 cloud_generalista=0.831 local=0.600 (no elegible)
+  calidad_primero                  ganador=cloud_generalista    cloud_generalista=0.849 cloud_razonamiento=0.832 local=0.580 (no elegible)
+  interactivo                      ganador=cloud_razonamiento   cloud_razonamiento=0.905 cloud_generalista=0.704 local=0.658 (no elegible)
+  costo_y_recursos                 ganador=cloud_razonamiento   cloud_razonamiento=0.905 cloud_generalista=0.881 local=0.612 (no elegible)
+  iguales                          ganador=cloud_razonamiento   cloud_razonamiento=0.922 cloud_generalista=0.842 local=0.630 (no elegible)
+  base+costo_con_precio_publico    ganador=cloud_razonamiento   cloud_razonamiento=0.866 cloud_generalista=0.738 local=0.600 (no elegible)
+  costo_y_recursos+precio_publico  ganador=cloud_razonamiento   cloud_razonamiento=0.905 cloud_generalista=0.695 local=0.612 (no elegible)
+  base+notas_del_otro_juez         ganador=cloud_razonamiento   cloud_razonamiento=0.868 cloud_generalista=0.860 local=0.633 (no elegible)
+  pesos aleatorios (20000): cloud_razonamiento=75.8%, cloud_generalista=24.2%
+  pesos aleatorios SIN regla de elegibilidad: cloud_razonamiento=75.8%, cloud_generalista=24.2%
+  bootstrap corridas (10000, pesos base): cloud_razonamiento=70.9%, cloud_generalista=29.1%
+
+=== Fase 3
+  base                             ganador=cloud_razonamiento   cloud_razonamiento=0.911 cloud_generalista=0.814 local=0.772
+  calidad_primero                  ganador=cloud_razonamiento   cloud_razonamiento=0.892 cloud_generalista=0.856 local=0.776
+  interactivo                      ganador=cloud_razonamiento   cloud_razonamiento=0.937 local=0.769 cloud_generalista=0.683
+  costo_y_recursos                 ganador=cloud_razonamiento   cloud_razonamiento=0.937 cloud_generalista=0.872 local=0.730
+  iguales                          ganador=cloud_razonamiento   cloud_razonamiento=0.947 cloud_generalista=0.820 local=0.735
+  base+costo_con_precio_publico    ganador=cloud_razonamiento   cloud_razonamiento=0.911 local=0.772 cloud_generalista=0.718
+  costo_y_recursos+precio_publico  ganador=cloud_razonamiento   cloud_razonamiento=0.937 local=0.730 cloud_generalista=0.681
+  base+notas_del_otro_juez         ganador=cloud_razonamiento   cloud_razonamiento=0.916 cloud_generalista=0.833 local=0.731
+  pesos aleatorios (20000): cloud_razonamiento=100.0%
+  pesos aleatorios SIN regla de elegibilidad: cloud_razonamiento=100.0%
+  bootstrap corridas (10000, pesos base): cloud_razonamiento=99.0%, local=1.0%
+
+=== Fase 4
+  base                             ganador=cloud_generalista    cloud_generalista=0.888 cloud_razonamiento=0.830 (no elegible) local=0.596 (no elegible)
+  calidad_primero                  ganador=cloud_generalista    cloud_generalista=0.963 cloud_razonamiento=0.795 (no elegible) local=0.627 (no elegible)
+  interactivo                      ganador=cloud_generalista    cloud_razonamiento=0.881 (no elegible) cloud_generalista=0.703 local=0.522 (no elegible)
+  costo_y_recursos                 ganador=cloud_generalista    cloud_generalista=0.926 cloud_razonamiento=0.881 (no elegible) local=0.610 (no elegible)
+  iguales                          ganador=cloud_generalista    cloud_razonamiento=0.898 (no elegible) cloud_generalista=0.851 local=0.579 (no elegible)
+  base+costo_con_precio_publico    ganador=cloud_generalista    cloud_razonamiento=0.830 (no elegible) cloud_generalista=0.793 local=0.596 (no elegible)
+  costo_y_recursos+precio_publico  ganador=cloud_generalista    cloud_razonamiento=0.881 (no elegible) cloud_generalista=0.734 local=0.610 (no elegible)
+  base+notas_del_otro_juez         ganador=cloud_generalista    cloud_generalista=0.888 cloud_razonamiento=0.830 (no elegible) local=0.596 (no elegible)
+  pesos aleatorios (20000): cloud_generalista=100.0%
+  pesos aleatorios SIN regla de elegibilidad: cloud_razonamiento=55.5%, cloud_generalista=44.5%
+  bootstrap corridas (10000, pesos base): cloud_generalista=96.2%, cloud_razonamiento=3.8%
+

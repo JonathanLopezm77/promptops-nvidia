@@ -1,0 +1,93 @@
+{
+  "descripcion": "Modelo elegido por fase del SDLC (punto 7). Justificación: evidence/punto7_seleccion/SELECCION.md.",
+  "parametros_comunes": {
+    "temperature": 0.2,
+    "top_p": 0.95
+  },
+  "fases": [
+    {
+      "fase": 1,
+      "nombre": "Requisitos",
+      "prompt": "prompts/aprobados/1_requirements.txt",
+      "modelo": "nvidia/nemotron-3-super-120b-a12b",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "benchmark (función objetivo)",
+      "alternativa": "moonshotai/kimi-k3",
+      "condiciones": "Usar con el detector de valores sin respaldo y la aprobación humana."
+    },
+    {
+      "fase": 2,
+      "nombre": "Análisis / Especificación",
+      "prompt": "prompts/aprobados/2_analysis_specification.txt",
+      "modelo": "moonshotai/kimi-k3",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "selección argumentada + sondeo",
+      "alternativa": "nvidia/nemotron-3-super-120b-a12b",
+      "condiciones": "Nemotron solo con max_tokens >= 16384 y reintento si el JSON no valida."
+    },
+    {
+      "fase": 3,
+      "nombre": "Arquitectura / Diseño",
+      "prompt": "prompts/aprobados/3_architecture.txt",
+      "modelo": "nvidia/nemotron-3-super-120b-a12b",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "benchmark (función objetivo)",
+      "alternativa": "moonshotai/kimi-k3",
+      "condiciones": "Corregir el checklist del prompt aprobado (pide afirmar verificaciones no realizadas)."
+    },
+    {
+      "fase": 4,
+      "nombre": "Implementación",
+      "prompt": "prompts/aprobados/4_implementation.txt",
+      "modelo": "moonshotai/kimi-k3",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "benchmark (función objetivo)",
+      "alternativa": null,
+      "condiciones": "Compilación + lint + pruebas como Quality Gate obligatorio."
+    },
+    {
+      "fase": 5,
+      "nombre": "Testing / QA",
+      "prompt": "prompts/aprobados/5_testing.txt",
+      "modelo": "moonshotai/kimi-k3",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "selección argumentada + sondeo",
+      "alternativa": "nvidia/nemotron-3-super-120b-a12b",
+      "condiciones": "Ejecutar en segundo plano (~8 min)."
+    },
+    {
+      "fase": 6,
+      "nombre": "Deployment",
+      "prompt": "prompts/aprobados/6_deployment.txt",
+      "modelo": "moonshotai/kimi-k3",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "selección argumentada + sondeo + revisión manual",
+      "alternativa": null,
+      "condiciones": "No desplegar sin docker build real en CI y revisión humana."
+    },
+    {
+      "fase": 7,
+      "nombre": "Mantenimiento",
+      "prompt": "prompts/aprobados/7_maintenance.txt",
+      "modelo": "nvidia/nemotron-3-super-120b-a12b",
+      "parametros": {
+        "max_tokens": 8192
+      },
+      "base_de_la_decision": "selección argumentada + sondeo",
+      "alternativa": "qwen2.5-coder:7b",
+      "condiciones": "Suite de regresión como Quality Gate; local solo para correcciones pequeñas on-premise."
+    }
+  ]
+}

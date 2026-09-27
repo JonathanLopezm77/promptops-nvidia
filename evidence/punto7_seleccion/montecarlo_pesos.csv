@@ -1,0 +1,10 @@
+fase,regla_elegibilidad,modelo,victorias
+1,True,cloud_razonamiento,0.7583
+1,True,cloud_generalista,0.2417
+1,False,cloud_razonamiento,0.7583
+1,False,cloud_generalista,0.2417
+3,True,cloud_razonamiento,1.0
+3,False,cloud_razonamiento,1.0
+4,True,cloud_generalista,1.0
+4,False,cloud_razonamiento,0.5552
+4,False,cloud_generalista,0.4449

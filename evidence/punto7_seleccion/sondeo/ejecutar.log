@@ -1,0 +1,13 @@
+12 de 12 ejecuciones pendientes
+f6_local                   OK    total=91s tokens=1654/1312 intentos=1 (92s)
+f5_cloud_razonamiento      OK    total=63s tokens=2716/7607 intentos=1 (63s)
+f7_local                   OK    total=66s tokens=2234/906 intentos=1 (67s)
+f2_cloud_generalista       OK    total=282s tokens=2430/5333 intentos=1 (282s)
+f2_cloud_razonamiento      OK    total=70s tokens=2180/8192 intentos=1 (70s)
+f6_cloud_generalista       OK    total=217s tokens=1805/5071 intentos=1 (217s)
+f7_cloud_razonamiento      OK    total=21s tokens=2191/1370 intentos=1 (21s)
+f5_local                   OK    total=297s tokens=2693/3681 intentos=1 (298s)
+f2_local                   OK    total=206s tokens=2194/2652 intentos=1 (207s)
+f5_cloud_generalista       OK    total=480s tokens=2909/8039 intentos=1 (480s)
+f6_cloud_razonamiento      OK    total=41s tokens=1585/5297 intentos=1 (41s)
+f7_cloud_generalista       OK    total=90s tokens=2435/1550 intentos=1 (90s)
