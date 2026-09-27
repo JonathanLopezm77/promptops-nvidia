@@ -24,7 +24,11 @@
   <section id="panel-entrada" class="panel">
     <h2>1. Requisito</h2>
     <textarea id="input-requisito" rows="4"
-      placeholder="Ej.: El sistema debe ser rápido y fácil de usar para los clientes."></textarea>
+      placeholder="Escribe el requisito o díctalo con el micrófono. Ej.: El sistema debe ser rápido y fácil de usar para los clientes."></textarea>
+    <div class="botonera">
+      <button id="btn-dictar" class="btn btn-secondary" type="button">🎤 DICTAR</button>
+      <span id="estado-voz" class="nota estado-voz"></span>
+    </div>
     <details>
       <summary>Contexto del proyecto (opcional)</summary>
       <textarea id="input-contexto" rows="3"
@@ -48,6 +52,11 @@
     </div>
     <div id="estado-analisis" class="estado-run"></div>
     <div id="error-analisis" class="error-banner" hidden></div>
+    <div class="botonera botonera-centro">
+      <button id="btn-escuchar" class="btn btn-secondary" type="button" hidden>🔊 ESCUCHAR RESULTADO</button>
+      <button id="btn-detener-voz" class="btn btn-secondary" type="button" hidden>⏹ DETENER</button>
+    </div>
+    <div id="estado-tts" class="nota estado-voz centrado"></div>
   </section>
 
   <section id="panel-resultado" class="panel" hidden>
@@ -93,6 +102,7 @@
   </section>
 </main>
 
+<script src="voz.js"></script>
 <script src="requisitos.js"></script>
 </body>
 </html>

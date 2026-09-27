@@ -8,7 +8,7 @@ import uuid
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, computed_field
+from pydantic import BaseModel, ConfigDict, Field, computed_field, model_validator
 
 # ---------------------------------------------------------------------------
 # Request bodies
@@ -137,8 +137,17 @@ class CreateRequirementRequest(BaseModel):
     requirement: str = Field(min_length=1)
     project_context: str | None = None
     input_mode: Literal["text", "voice"] = "text"
-    # Solo para input_mode = "voice": motor de STT, idioma, duración, etc.
+    # Solo para input_mode = "voice": motor de STT, proveedor, si es local o
+    # remoto, idioma, tiempos, etc. El enunciado exige registrarlo.
     stt_metadata: dict[str, Any] | None = None
+
+    @model_validator(mode="after")
+    def _voz_exige_metadata(self) -> "CreateRequirementRequest":
+        if self.input_mode == "voice" and not self.stt_metadata:
+            raise ValueError("una entrada por voz debe incluir stt_metadata (motor, proveedor, idioma...)")
+        if self.input_mode == "text" and self.stt_metadata:
+            raise ValueError("stt_metadata solo aplica a entradas por voz")
+        return self
 
 
 class ClarifyRequirementRequest(BaseModel):

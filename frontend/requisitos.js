@@ -43,6 +43,15 @@ const CRITERIOS = {
 let analisisId = null;
 let pollTimer = null;
 let ultimoPayloadSerializado = null;
+let ultimoAnalisis = null;
+
+// Último dictado aceptado ({texto, metadata}); se envía como input_mode
+// "voice" en el próximo ANALIZAR y luego se descarta.
+let ultimoDictado = null;
+let dictando = false;
+// Id del análisis iniciado por voz: al terminar se lee en voz alta solo,
+// porque el flujo del enunciado (4.1) cierra con retroalimentación hablada.
+let hablarAlTerminar = null;
 
 function escapeHtml(str) {
   const div = document.createElement("div");
@@ -282,6 +291,23 @@ function renderMejorado(a) {
     : "";
 }
 
+function describirStt(m) {
+  const partes = [
+    `${escapeHtml(m.engine)} · ${escapeHtml(m.provider)}`,
+    `procesamiento ${m.processing === "remote" ? "REMOTO" : escapeHtml(m.processing)}`,
+    `idioma ${escapeHtml(m.language)}`,
+    escapeHtml(m.browser),
+  ];
+  if (m.recording_ms != null) partes.push(`grabación ${(m.recording_ms / 1000).toFixed(1)} s`);
+  if (m.transcription_ms != null) partes.push(`transcripción ${(m.transcription_ms / 1000).toFixed(2)} s`);
+  if (m.confidence != null) partes.push(`confianza ${m.confidence}`);
+  let html = partes.join(" · ");
+  if (m.edited) {
+    html += `<br />Transcripción corregida a mano. Original: «${escapeHtml(m.original_transcript)}»`;
+  }
+  return html;
+}
+
 function renderTrazabilidad(a) {
   document.getElementById("panel-trazabilidad").hidden = false;
   const fila = (k, v) => (v == null || v === "" ? "" : `<div><span>${k}</span>${v}</div>`);
@@ -307,6 +333,7 @@ function renderTrazabilidad(a) {
       a.parent_id ? `<a href="#" data-id="${a.parent_id}" class="link-analisis"><code>${a.parent_id}</code></a>` : null
     ),
     fila("Entrada", a.input_mode === "voice" ? "Voz (STT)" : "Texto"),
+    fila("Motor STT", a.stt_metadata ? describirStt(a.stt_metadata) : null),
     fila("Creado", new Date(a.created_at).toLocaleString("es-ES")),
     fila("Terminado", a.finished_at ? new Date(a.finished_at).toLocaleString("es-ES") : null),
     fila("Contexto", a.project_context ? escapeHtml(a.project_context) : null),
@@ -323,7 +350,14 @@ function renderTrazabilidad(a) {
   );
 }
 
+function renderBotonesVoz(a) {
+  const terminado = a.status === "COMPLETED" || a.status === "ERROR";
+  document.getElementById("btn-escuchar").hidden = !(terminado && Voz.soportaSintesis);
+}
+
 function render(a) {
+  ultimoAnalisis = a;
+  renderBotonesVoz(a);
   renderPipeline(a);
   renderDiagnostico(a);
   renderPreguntas(a);
@@ -350,7 +384,122 @@ async function cargarYQuizasSeguirSondeando(id) {
   }
   if (ESTADOS_EN_PROGRESO.has(analisis.status)) {
     pollTimer = setTimeout(() => cargarYQuizasSeguirSondeando(id), POLL_MS);
+  } else if (hablarAlTerminar === analisis.id) {
+    hablarAlTerminar = null;
+    leerResultado(analisis);
   }
+}
+
+// ---------------------------------------------------------------------------
+// Voz
+// ---------------------------------------------------------------------------
+
+function textoParaVoz(texto) {
+  return (texto || "").replace(/\[POR DEFINIR:?\s*([^\]]*)\]/gi, " (por definir: $1) ").replace(/\s+/g, " ");
+}
+
+/** Guion de la retroalimentación hablada, derivado solo de la respuesta de la API. */
+function guionResultado(a) {
+  if (a.status === "ERROR") {
+    // Solo la causa general: el detalle técnico (validación, cuerpo HTTP) no
+    // se entiende hablado y ya está completo en pantalla.
+    const causa = (a.error_message || "").split(":")[0].trim();
+    return `El análisis terminó con un error. ${causa}. El detalle está en la pantalla.`;
+  }
+  const orig = evaluacion(a, "original");
+  if (!orig) return "El análisis todavía no tiene resultados.";
+
+  const partes = [`Análisis completado. El requisito original obtuvo ${orig.global_score} de 100 puntos.`];
+  if (a.improvement_skipped) {
+    partes.push("Es un requisito de alta calidad, así que no se modificó.");
+  } else {
+    const mej = evaluacion(a, "improved");
+    if (mej) {
+      partes.push(`La versión mejorada obtuvo ${mej.global_score} de 100, una diferencia de ${a.score_delta} puntos.`);
+    }
+    partes.push(
+      a.recommended_version === "improved"
+        ? "Se recomienda usar la versión mejorada."
+        : "Se recomienda conservar el requisito original y revisarlo a mano."
+    );
+  }
+
+  const debiles = [...orig.criteria].sort((x, y) => x.score - y.score).filter((c) => c.score < 6).slice(0, 3);
+  if (debiles.length) {
+    partes.push("Los criterios más débiles son:");
+    debiles.forEach((c) => partes.push(`${CRITERIOS[c.criterion]}, con ${c.score} de 10. ${c.finding}`));
+  }
+  if (orig.ambiguous_terms?.length) {
+    partes.push(`Términos ambiguos: ${orig.ambiguous_terms.map((t) => t.term).join(", ")}.`);
+  }
+  const preguntas = orig.clarification_questions || [];
+  if (preguntas.length) {
+    partes.push(`Tengo ${preguntas.length} ${preguntas.length === 1 ? "pregunta" : "preguntas"} de aclaración.`);
+    preguntas.forEach((p, i) => partes.push(`Pregunta ${i + 1}: ${p}`));
+  }
+  if (a.improved_requirement && a.recommended_version === "improved") {
+    partes.push(`Requisito mejorado: ${textoParaVoz(a.improved_requirement)}`);
+  }
+  return partes.join("\n");
+}
+
+function leerResultado(a) {
+  const estado = document.getElementById("estado-tts");
+  const detener = document.getElementById("btn-detener-voz");
+  const info = Voz.hablar(guionResultado(a), {
+    alTerminar: () => {
+      detener.hidden = true;
+    },
+  });
+  if (!info) {
+    estado.textContent = "Este navegador no soporta lectura en voz alta.";
+    return;
+  }
+  detener.hidden = false;
+  estado.textContent =
+    `Voz: ${info.voice} (${info.language}) · ${info.engine} · ` +
+    `procesamiento ${info.processing === "local" ? "LOCAL" : info.processing === "remote" ? "REMOTO" : "desconocido"}`;
+}
+
+function actualizarBotonDictar() {
+  const boton = document.getElementById("btn-dictar");
+  boton.textContent = dictando ? "⏹ TERMINAR DICTADO" : "🎤 DICTAR";
+  boton.classList.toggle("grabando", dictando);
+}
+
+function alternarDictado() {
+  const estado = document.getElementById("estado-voz");
+  const campo = document.getElementById("input-requisito");
+  if (dictando) {
+    Voz.detenerDictado();
+    estado.textContent = "Procesando la transcripción…";
+    return;
+  }
+  Voz.detenerHabla();
+  dictando = true;
+  ultimoDictado = null;
+  actualizarBotonDictar();
+  estado.textContent = "Escuchando… habla y pulsa TERMINAR DICTADO al acabar.";
+  Voz.iniciarDictado({
+    alParcial: (texto) => {
+      campo.value = texto;
+    },
+    alTerminar: (resultado, error) => {
+      dictando = false;
+      actualizarBotonDictar();
+      if (error) {
+        estado.textContent = error;
+        return;
+      }
+      campo.value = resultado.texto;
+      ultimoDictado = resultado;
+      const m = resultado.metadata;
+      estado.textContent =
+        `Transcrito con ${m.provider} (remoto)` +
+        (m.transcription_ms != null ? ` en ${(m.transcription_ms / 1000).toFixed(2)} s` : "") +
+        ". Revisa el texto y pulsa ANALIZAR.";
+    },
+  });
 }
 
 function abrirAnalisis(id) {
@@ -368,14 +517,27 @@ async function analizar() {
   if (!requirement) return;
   const contexto = document.getElementById("input-contexto").value.trim();
 
+  const cuerpo = { requirement, project_context: contexto || null, input_mode: "text" };
+  if (ultimoDictado) {
+    cuerpo.input_mode = "voice";
+    cuerpo.stt_metadata = {
+      ...ultimoDictado.metadata,
+      edited: requirement !== ultimoDictado.texto,
+      original_transcript: ultimoDictado.texto,
+    };
+  }
+
   const boton = document.getElementById("btn-analizar");
   boton.disabled = true;
   try {
     const a = await apiFetch("/requirements", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ requirement, project_context: contexto || null, input_mode: "text" }),
+      body: JSON.stringify(cuerpo),
     });
+    ultimoDictado = null;
+    document.getElementById("estado-voz").textContent = "";
+    if (cuerpo.input_mode === "voice") hablarAlTerminar = a.id;
     abrirAnalisis(a.id);
   } catch (err) {
     mostrarError(err.message);
@@ -400,6 +562,7 @@ async function responderPreguntas() {
       body: JSON.stringify({ answers }),
     });
     campo.value = "";
+    if (nuevo.input_mode === "voice") hablarAlTerminar = nuevo.id;
     abrirAnalisis(nuevo.id);
   } catch (err) {
     mostrarError(err.message);
@@ -434,6 +597,22 @@ async function cargarHistorial() {
 }
 
 document.getElementById("btn-analizar").addEventListener("click", analizar);
+
+const botonDictar = document.getElementById("btn-dictar");
+if (Voz.soportaDictado) {
+  botonDictar.addEventListener("click", alternarDictado);
+} else {
+  botonDictar.disabled = true;
+  document.getElementById("estado-voz").textContent =
+    "Este navegador no soporta dictado por voz. Usa Chrome o Edge.";
+}
+document.getElementById("btn-escuchar").addEventListener("click", () => {
+  if (ultimoAnalisis) leerResultado(ultimoAnalisis);
+});
+document.getElementById("btn-detener-voz").addEventListener("click", () => {
+  Voz.detenerHabla();
+  document.getElementById("btn-detener-voz").hidden = true;
+});
 document.getElementById("btn-responder").addEventListener("click", responderPreguntas);
 document.getElementById("btn-historial-toggle").addEventListener("click", async () => {
   const panel = document.getElementById("panel-historial");

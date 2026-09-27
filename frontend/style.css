@@ -570,3 +570,23 @@ mark.por-definir {
     gap: 0;
   }
 }
+/* Voz */
+
+.estado-voz {
+  align-self: center;
+  margin-top: 0.6rem;
+}
+
+.btn.grabando {
+  border-color: var(--danger);
+  color: var(--danger);
+  animation: pulso 1.4s ease-in-out infinite;
+}
+
+.botonera-centro {
+  justify-content: center;
+}
+
+.centrado {
+  text-align: center;
+}
