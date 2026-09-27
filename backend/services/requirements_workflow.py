@@ -324,6 +324,30 @@ async def run_analysis_background(analysis_id: uuid.UUID) -> None:
         db.close()
 
 
+MENSAJE_INTERRUMPIDO = (
+    "El análisis quedó interrumpido porque el servidor se reinició mientras se procesaba "
+    "(p. ej. Render reinicia o duerme el servicio). Vuelve a analizar el requisito."
+)
+
+
+def recover_interrupted(db: Session) -> int:
+    """Marca como ERROR los análisis que quedaron en un estado activo.
+
+    Se llama al arrancar el servidor: el procesamiento corre en
+    BackgroundTasks dentro del mismo proceso, así que tras un reinicio nadie
+    va a continuar esos análisis y quedarían "Evaluando..." para siempre
+    (visto en Render). Asume un único proceso de servidor, como en este
+    proyecto (uvicorn sin --workers)."""
+    colgados = (
+        db.query(RequirementAnalysis)
+        .filter(RequirementAnalysis.status.in_(_ESTADOS_ACTIVOS))
+        .all()
+    )
+    for analysis in colgados:
+        fail_analysis(db, analysis, MENSAJE_INTERRUMPIDO)
+    return len(colgados)
+
+
 def register_tts_playback(db: Session, analysis: RequirementAnalysis, event: dict) -> None:
     """Registra una lectura en voz alta del resultado. Solo sobre análisis
     terminados: antes no hay resultado que leer."""

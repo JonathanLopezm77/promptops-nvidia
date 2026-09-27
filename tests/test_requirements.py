@@ -631,6 +631,26 @@ async def test_el_proceso_en_segundo_plano_no_ocupa_conexiones_mientras_espera_a
     assert db.get(RequirementAnalysis, analysis_id).status == "COMPLETED"
 
 
+def test_al_arrancar_se_cierran_los_analisis_interrumpidos(db):
+    """Visto en Render: tras un reinicio, un análisis quedó "Evaluando..."
+    para siempre porque su BackgroundTask murió con el proceso."""
+    colgado = _nuevo_analisis(db)
+    colgado.status = "EVALUATING"
+    terminado = _nuevo_analisis(db)
+    terminado.status = "COMPLETED"
+    db.commit()
+
+    recuperados = requirements_workflow.recover_interrupted(db)
+
+    db.refresh(colgado)
+    db.refresh(terminado)
+    assert recuperados >= 1
+    assert colgado.status == "ERROR"
+    assert colgado.error_message == requirements_workflow.MENSAJE_INTERRUMPIDO
+    assert colgado.finished_at is not None
+    assert terminado.status == "COMPLETED"  # los terminados no se tocan
+
+
 def test_no_se_puede_aclarar_un_analisis_sin_terminar(db):
     analysis = _nuevo_analisis(db)
     with pytest.raises(InvalidTransitionError):

@@ -10,7 +10,8 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.exc import SQLAlchemyError
 
-from backend.database import engine
+from backend.database import SessionLocal, engine
+from backend.services import requirements_workflow
 from backend.routes.requirements import router as requirements_router
 from backend.routes.runs import router as runs_router
 from backend.services.nvidia_client import NvidiaClientError
@@ -33,6 +34,16 @@ async def _lifespan(app: FastAPI):
             conn.exec_driver_sql(_SCHEMA_REQUISITOS.read_text(encoding="utf-8"))
     except SQLAlchemyError:
         logger.exception("No se pudo aplicar schema_requirements.sql al arrancar")
+    try:
+        db = SessionLocal()
+        try:
+            recuperados = requirements_workflow.recover_interrupted(db)
+        finally:
+            db.close()
+        if recuperados:
+            logger.warning("%d análisis de requisitos interrumpidos por el reinicio quedaron en ERROR", recuperados)
+    except SQLAlchemyError:
+        logger.exception("No se pudieron cerrar los análisis interrumpidos al arrancar")
     yield
 
 
