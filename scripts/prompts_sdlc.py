@@ -155,11 +155,33 @@ async def _esperar(client, run_id, etiqueta, condicion, limite_s=2400) -> dict:
         await asyncio.sleep(4)
 
 
+def registrar_run(fase_clave: str, run_id: str) -> None:
+    """Anota el run de una fase en el manifiesto en cuanto se crea (si el
+    script se interrumpe, el run sigue en el servidor y no se pierde). Un
+    run anterior de la misma fase queda como intento previo, no se borra."""
+    DIR_EVIDENCIA.mkdir(parents=True, exist_ok=True)
+    manifiesto = json.loads(MANIFIESTO.read_text(encoding="utf-8")) if MANIFIESTO.exists() else {"fases": {}}
+    anterior = manifiesto["fases"].get(fase_clave)
+    previos = []
+    if anterior and anterior["run_id"] != run_id:
+        previos = anterior.get("intentos_previos", []) + [
+            {k: v for k, v in anterior.items() if k != "intentos_previos"}
+        ]
+    elif anterior:
+        previos = anterior.get("intentos_previos", [])
+    manifiesto["fases"][fase_clave] = {
+        "run_id": run_id, "validado_en": datetime.now(timezone.utc).isoformat(), **_commit(),
+        **({"intentos_previos": previos} if previos else {}),
+    }
+    MANIFIESTO.write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 async def _validar_fase(client, fase, objetivo, intentos) -> dict:
     etiqueta = f"{fase['n']}-{fase['clave']}"
     r = await client.post("/api/runs", json={"prompt": _prompt_inicial(fase), "baseline_audit": True})
     r.raise_for_status()
     run_id = r.json()["id"]
+    registrar_run(fase["clave"], run_id)
     run = await _esperar(client, run_id, etiqueta, lambda x: x["status"] in _ESPERANDO)
 
     if run["status"] == "WAITING_HUMAN" and (mejor_score(run) or 0) < objetivo and intentos > 0:
@@ -193,6 +215,7 @@ async def validar(base_url: str, objetivo: int, intentos: int, solo: list[str] |
         "servidor": base_url, "objetivo_auto_iteracion": objetivo, "intentos_auto_iteracion": intentos,
         "temperatura": "no se envía: valor por defecto de cada modelo en NVIDIA",
     })
+    MANIFIESTO.write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
     fases = [f for f in FASES if not solo or f["clave"] in solo]
     print(f"Validando {len(fases)} prompts contra {base_url} (objetivo {objetivo}, hasta {intentos} auto-iteraciones)...")
     async with httpx.AsyncClient(base_url=base_url, timeout=60) as client:
@@ -202,20 +225,6 @@ async def validar(base_url: str, objetivo: int, intentos: int, solo: list[str] |
     for fase, res in zip(fases, resultados):
         if isinstance(res, Exception):
             print(f"  FALLO {fase['clave']}: {type(res).__name__}: {res}")
-            continue
-        anterior = manifiesto["fases"].get(fase["clave"])
-        previos = []
-        if anterior:
-            # Revalidar no borra el intento anterior (p. ej. un run en ERROR):
-            # queda registrado como evidencia.
-            previos = anterior.get("intentos_previos", []) + [
-                {k: v for k, v in anterior.items() if k != "intentos_previos"}
-            ]
-        manifiesto["fases"][fase["clave"]] = {
-            "run_id": res["run_id"], "validado_en": datetime.now(timezone.utc).isoformat(), **_commit(),
-            **({"intentos_previos": previos} if previos else {}),
-        }
-    MANIFIESTO.write_text(json.dumps(manifiesto, ensure_ascii=False, indent=2), encoding="utf-8")
     estado(base_url)
 
 
