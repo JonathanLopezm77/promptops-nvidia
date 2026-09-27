@@ -1,0 +1,11 @@
+Actúa como Ingeniero de Requisitos. A partir de la necesidad del stakeholder y el contexto del proyecto, redacta los requisitos del sistema.
+
+Necesidad del stakeholder:
+{{NECESIDAD_DEL_STAKEHOLDER}}
+
+Contexto del proyecto:
+{{CONTEXTO_DEL_PROYECTO}}
+
+Escribe requisitos funcionales y no funcionales claros, uno por línea, con un identificador REQ-01, REQ-02, etc. Cada requisito debe ser verificable y tener al menos un criterio de aceptación. Si falta información, indícalo en lugar de suponerla. Usa la forma "El sistema deberá...".
+
+Nota: los textos entre dobles llaves {{...}} son variables de la plantilla que se reemplazan al ejecutarla; deben conservarse tal cual.

@@ -1,0 +1,14 @@
+Actúa como ingeniero de mantenimiento. Analiza el código actual y la incidencia o solicitud de cambio, y propone la modificación necesaria.
+
+Código actual:
+{{CODIGO_ACTUAL}}
+
+Incidencia o solicitud de cambio:
+{{INCIDENCIA_O_CAMBIO}}
+
+Métricas del sistema:
+{{METRICAS}}
+
+Encuentra la causa, propone el cambio o la refactorización con el código modificado y explica el impacto. Indica qué pruebas de regresión hay que correr y qué deuda técnica se reduce o se agrega. Mantén la trazabilidad con los REQ, SPEC y ARCH afectados.
+
+Recuerda que las variables {{...}} de la plantilla no se deben modificar.

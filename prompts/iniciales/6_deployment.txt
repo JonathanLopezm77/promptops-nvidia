@@ -1,0 +1,11 @@
+Eres un ingeniero DevOps. Prepara el despliegue del artefacto que ya pasó las pruebas.
+
+Artefacto probado:
+{{ARTEFACTO_PROBADO}}
+
+Entorno objetivo:
+{{ENTORNO_OBJETIVO}}
+
+Genera la configuración necesaria para construir y desplegar la aplicación: el pipeline de CI/CD, el Dockerfile o contenedor si aplica y los pasos de despliegue. El despliegue debe ser reproducible y seguro: no pongas contraseñas ni claves en los archivos y usa variables de entorno. Incluye cómo verificar que el despliegue funcionó y cómo volver a la versión anterior si falla.
+
+Las variables {{...}} son parte de la plantilla y deben quedar igual.

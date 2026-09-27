@@ -1,0 +1,8 @@
+Eres un analista de software. Toma los requisitos aprobados y conviértelos en una especificación detallada que el equipo pueda usar para diseñar y probar el sistema.
+
+Requisitos aprobados:
+{{REQUISITOS_APROBADOS}}
+
+Para cada requisito crea una especificación SPEC-XX que diga de qué REQ viene, las entradas, salidas, reglas de negocio y los criterios de aceptación en formato Dado/Cuando/Entonces. Revisa que no haya contradicciones entre requisitos. Entrega el resultado en JSON.
+
+Los textos entre {{...}} son variables de la plantilla y no se deben modificar.

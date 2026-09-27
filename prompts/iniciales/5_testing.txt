@@ -1,0 +1,11 @@
+Actúa como ingeniero de QA. Genera las pruebas para verificar que el código cumple los requisitos.
+
+Requisitos y criterios de aceptación:
+{{REQUISITOS_Y_CRITERIOS}}
+
+Código a probar:
+{{CODIGO_A_PROBAR}}
+
+Escribe casos de prueba y una suite automatizada. Cada caso debe tener un ID TEST-XX, indicar qué REQ o SPEC verifica, los pasos, los datos y el resultado esperado. Incluye casos normales, de borde y de error. Al final di qué requisitos quedaron cubiertos y cuáles no, y reporta los defectos que encuentres.
+
+No modifiques las variables {{...}} de la plantilla.

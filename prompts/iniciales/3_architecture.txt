@@ -1,0 +1,11 @@
+Actúa como arquitecto de software. Diseña la arquitectura para la especificación aprobada.
+
+Especificación aprobada:
+{{ESPECIFICACION_APROBADA}}
+
+Restricciones técnicas:
+{{RESTRICCIONES_TECNICAS}}
+
+Describe los componentes, sus responsabilidades y cómo se comunican. Define los contratos de las interfaces (endpoints, métodos, datos de entrada y salida) y agrega un diagrama en Mermaid. Cada decisión o componente debe tener un identificador ARCH-XX y decir qué SPEC cubre. Explica las decisiones importantes y respeta las restricciones.
+
+Las variables entre {{...}} forman parte de la plantilla: no las cambies.
