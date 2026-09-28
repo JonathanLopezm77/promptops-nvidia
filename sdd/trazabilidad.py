@@ -150,7 +150,7 @@ def matriz(spec: Especificacion, r: Resultado) -> str:
     for c in spec.criterios_aceptacion:
         cubren = [a for a, rbs in r.reglas_por_arch.items() if rbs & set(c.reglas)]
         archs = ", ".join(cubren) or "**ninguno**"
-        codigo = ", ".join(f"`{r.arch_modulo[a].removeprefix('src/')}`" for a in cubren)
+        codigo = ", ".join(f"`{r.arch_modulo[a]}`" for a in cubren)
         filas.append(f"| {spec.requisito_origen} | {c.id} | {', '.join(c.reglas)} | {spec.id} | {archs} | {codigo} | "
                      + "<br>".join(r.pruebas_por_ac.get(c.id, [])) + " |")
     arch_filas = [f"| {a} | `{m}` | {'sí' if m in r.modulos_por_arch.get(a, []) else '**no**'} |"

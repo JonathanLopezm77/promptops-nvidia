@@ -77,7 +77,7 @@ modificarlos, y los parámetros del benchmark (`temperature 0.2`, `top_p 0.95`,
 
 ## §4. Architecture Contract → Implementation
 
-- **Primera generación** (`descartadas/4_implementacion_contrato_v1.json`):
+- **Primera generación** (`ejecuciones/descartadas/4_implementacion_contrato_v1.json`):
   compiló, pero ruff dio 3 avisos. **Dos eran defectos del contrato aprobado en
   §3, no del modelo**, que lo siguió al pie de la letra: una llamada como valor
   por defecto (`policy = PolicyConfiguration()`, B008) y `ValueError` para tipos
@@ -92,7 +92,7 @@ modificarlos, y los parámetros del benchmark (`temperature 0.2`, `top_p 0.95`,
 
 ## §5. Implementation → Tests
 
-- **Primer intento** (`descartadas/5_pruebas_fallo_de_red.json`): falló el
+- **Primer intento** (`ejecuciones/descartadas/5_pruebas_fallo_de_red.json`): falló el
   servicio, no el modelo (sin respuesta y luego sin conexión a internet:
   `getaddrinfo failed`). Se repitió con la conexión restablecida.
 - **Suite generada** (16 pruebas, TEST-01 a TEST-16, cada una con su criterio

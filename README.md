@@ -15,6 +15,26 @@ y [`docs/auditor_system_prompt.md`](docs/auditor_system_prompt.md).
 
 ---
 
+## Parcial 1 — Ingeniería de Software Aumentada con IA
+
+La plataforma se **amplió** (no se reemplazó) para el parcial. Estado de cada
+entrega, con su evidencia:
+
+| # | Entrega | Dónde | Estado |
+|---|---|---|---|
+| 0 | Preparación del repositorio | `AGENTS.md`, estructura de carpetas | ✅ |
+| 1 | Motor de requisitos (10 criterios ISO/IEC/IEEE 29148, mejora y reevaluación) | [`requirements_engine/`](requirements_engine/README.md), pantalla `/requisitos.html` | ✅ |
+| 2 | Voz: STT y TTS | [`requirements_engine/VOZ.md`](requirements_engine/VOZ.md) | ✅ opción A (navegador); opción B local pendiente (opcional) |
+| 3 | Casos mínimos A-D | [`evidence/punto3_casos/`](evidence/punto3_casos/RESULTADOS.md) | ✅ A, B, C (9/9); D probado en Render, falta exportar la evidencia |
+| 4 | 7 prompts del SDLC validados en la plataforma | [`prompts/`](prompts/README.md), `prompts/validation_metrics.csv` | ✅ |
+| 5 | Modelo local (Ollama) y cloud, medición | [`evidence/punto5_proveedores/`](evidence/punto5_proveedores/README.md) | ✅ |
+| 6 | Benchmark 3 modelos × 3 fases × 3 corridas | [`benchmarks/`](benchmarks/DISENO.md), [`evidence/punto6_benchmark/`](evidence/punto6_benchmark/RESULTADOS.md) | ✅ 27/27 |
+| 7 | Selección de modelo por fase (función objetivo) | [`evidence/punto7_seleccion/`](evidence/punto7_seleccion/SELECCION.md) | ✅ |
+| 8 | SDD: REQ → SPEC → ARCH → CODE → TEST | [`specs/`](specs/README.md), `src/`, `tests/sdd/`, [`evidence/punto8_sdd/`](evidence/punto8_sdd/README.md) | ✅ cadena CONFORME |
+| 9-12 | Mapa mental, informe, video, ensayo individual | — | Pendientes |
+
+---
+
 ## 1. Requisitos
 
 - Python 3.11+
@@ -132,11 +152,14 @@ La documentación interactiva de la API (Swagger) está en
 pytest -v
 ```
 
-58 tests: schemas Pydantic de las tres IAs (JSON correcto/incompleto/
-malformado), el cliente de reintentos del Auditor mockeado, y la máquina
-de estados completa (transiciones válidas e inválidas) contra PostgreSQL
-real con los servicios de LLM mockeados — ningún test llama a la API real
-de NVIDIA, así que corren rápido y sin costo.
+Cubren los schemas Pydantic de las IAs (JSON correcto/incompleto/
+malformado), el cliente de reintentos, la máquina de estados completa
+contra PostgreSQL real, el motor de requisitos, los calificadores y la
+función objetivo del benchmark, y la cadena SDD (incluido el verificador de
+trazabilidad: una cadena rota hace fallar la suite). Los servicios de LLM
+se mockean: ningún test llama a la API real de NVIDIA, así que corren rápido
+y sin costo. `tests/conftest.py` fija una configuración neutra y desactiva
+la recuperación de arranque para que las pruebas nunca toquen datos reales.
 
 ---
 
@@ -178,6 +201,17 @@ promptops-lab/
 │
 ├── tests/
 ├── docs/                          SPEC.md, quality_gates.md, auditor_system_prompt.md
+│
+│   Agregado en el Parcial 1:
+├── requirements_engine/           índice del motor de requisitos y documentación de la voz
+├── prompts/                       7 prompts del SDLC (iniciales, aprobados) y validation_metrics.csv
+├── context/                       paquetes de contexto por fase
+├── benchmarks/                    diseño, casos, calificadores, results.csv, execution_log.csv
+├── specs/                         especificación SDD (fuente de verdad) y trazabilidad
+├── sdd/                           herramientas SDD: esquema, render, trazabilidad, mutación
+├── src/                           código gobernado por la especificación (auth_lockout)
+├── scripts/                       casos, prompts, benchmark, selección, cadena SDD
+├── evidence/                      evidencia de cada punto (ver evidence/README.md)
 ├── .env.example
 ├── requirements.txt
 └── pytest.ini
