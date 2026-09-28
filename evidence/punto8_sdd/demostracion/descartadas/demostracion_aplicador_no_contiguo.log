@@ -1,0 +1,9 @@
+A0 cadena aprobada: 30 passed in 0.20s | trazabilidad: 0 problemas
+A1 cambio del modelo aplicado en ningún archivo: 30 passed in 0.14s | trazabilidad: 0 problemas
+B1 REQ-AUT-03 v2 validado: estado=COMPLETED puntaje=100 alta_calidad=True
+B2 especificación v1.1.0 (huella 78f967ade537 → cbeaf5ca154b): 4 failed, 26 passed in 0.26s | trazabilidad: 4 problemas
+B3 código adecuado en ['src/auth_lockout/__init__.py'] (antes de sellar): 4 failed, 26 passed in 0.18s | trazabilidad: 3 problemas
+B3b pruebas regeneradas desde v1.1.0 (suite reemplazada): 7 failed, 23 passed in 0.21s | trazabilidad: 3 problemas
+B4 NO sellado (pruebas fallidas): 7 failed, 23 passed in 0.19s | trazabilidad: 3 problemas
+evidencia en evidence/punto8_sdd/demostracion/demostracion.json
+exit=0

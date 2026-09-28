@@ -1,0 +1,265 @@
+{
+  "id": "SPEC-AUT-03",
+  "version": "1.0.1",
+  "estado": "aprobada",
+  "necesidad": "NEC-AUT-01",
+  "requisito_origen": "REQ-AUT-03",
+  "generada_por": {
+    "paso": "evidence/punto8_sdd/ejecuciones/2_especificacion.json",
+    "modelo": "moonshotai/kimi-k3",
+    "prompt": "prompts/aprobados/2_analysis_specification.txt",
+    "revision": "DECISIONES.md §2"
+  },
+  "descripcion": "Bloqueo temporal de cuenta de cliente registrado tras 5 intentos fallidos consecutivos de inicio de sesión dentro de una ventana de 10 minutos. El bloqueo dura 15 minutos, durante los cuales se rechaza todo intento de inicio de sesión de esa cuenta. Un inicio de sesión exitoso reinicia el contador de intentos fallidos a 0. Al expirar el bloqueo, el cliente puede autenticarse normalmente con su contraseña correcta.",
+  "alcance": "Solo el inicio de sesión de clientes registrados (D-09).",
+  "parametros": {
+    "max_intentos_fallidos": 5,
+    "ventana_minutos": 10,
+    "bloqueo_minutos": 15
+  },
+  "entradas": [
+    {
+      "nombre": "identificador_cuenta",
+      "tipo": "string (RFC 5322, correo electrónico del cliente registrado)",
+      "validaciones": "formato de email válido; debe corresponder a una cuenta registrada en el sistema"
+    },
+    {
+      "nombre": "contrasena",
+      "tipo": "string",
+      "validaciones": "no vacía; comparación contra el hash almacenado de la cuenta"
+    },
+    {
+      "nombre": "timestamp_intento",
+      "tipo": "string (ISO 8601, YYYY-MM-DDTHH:MM:SSZ)",
+      "validaciones": "fecha-hora válida generada por el servidor en el momento del intento; no modificable por el cliente"
+    }
+  ],
+  "salidas": [
+    {
+      "nombre": "resultado_autenticacion",
+      "tipo": "enum (EXITOSO | CREDENCIALES_INVALIDAS | CUENTA_BLOQUEADA)"
+    },
+    {
+      "nombre": "cuenta_bloqueada_hasta",
+      "tipo": "string (ISO 8601, YYYY-MM-DDTHH:MM:SSZ) | null"
+    },
+    {
+      "nombre": "contador_intentos_fallidos",
+      "tipo": "integer (rango 0-5; mientras la cuenta está bloqueada vale max_intentos_fallidos: D-10)"
+    },
+    {
+      "nombre": "mensaje",
+      "tipo": "string (mensaje informativo para el cliente)"
+    }
+  ],
+  "reglas_negocio": [
+    {
+      "id": "RB-1",
+      "texto": "El sistema registra cada intento fallido de inicio de sesión con su timestamp (ISO 8601) asociado a la cuenta del cliente.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-2",
+      "texto": "Solo se consideran los intentos fallidos ocurridos dentro de una ventana deslizante de 10 minutos respecto al intento actual; los intentos fuera de esa ventana no cuentan.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-3",
+      "texto": "Al alcanzarse el quinto intento fallido consecutivo dentro de la ventana de 10 minutos, la cuenta queda bloqueada durante 15 minutos a partir del momento del quinto intento.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-4",
+      "texto": "Mientras la cuenta esté bloqueada, el sistema rechaza todo intento de inicio de sesión de esa cuenta, incluidos los intentos con contraseña correcta, devolviendo CUENTA_BLOQUEADA.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-5",
+      "texto": "Un inicio de sesión exitoso (cuenta no bloqueada y credenciales válidas) reinicia el contador de intentos fallidos a 0.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-6",
+      "texto": "Transcurridos 15 minutos o más desde el inicio del bloqueo, el bloqueo expira automáticamente y el cliente puede autenticarse con su contraseña correcta; el contador de intentos fallidos se reinicia a 0.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-7",
+      "texto": "El contador de intentos fallidos es por cuenta, independiente del dispositivo o dirección IP de origen.",
+      "origen": "fase de especificación (Kimi K3, paso 2_especificacion)"
+    },
+    {
+      "id": "RB-8",
+      "texto": "Los intentos de inicio de sesión que ocurren mientras la cuenta está bloqueada se rechazan sin modificar el bloqueo: no lo extienden ni cuentan como intentos fallidos para un bloqueo posterior.",
+      "origen": "revisión humana (decisión D-08)"
+    }
+  ],
+  "criterios_aceptacion": [
+    {
+      "id": "AC-AUT-03-01",
+      "origen": "REQ-AUT-03, criterio 1",
+      "gherkin": {
+        "dado": "un cliente registrado con 4 intentos fallidos consecutivos en los últimos 10 minutos",
+        "cuando": "falla el quinto intento de inicio de sesión",
+        "entonces": "la cuenta queda bloqueada durante 15 minutos y el sistema devuelve CUENTA_BLOQUEADA con la fecha-hora de fin de bloqueo en formato ISO 8601"
+      },
+      "reglas": [
+        "RB-1",
+        "RB-2",
+        "RB-3"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-02",
+      "origen": "fase de especificación (Kimi K3): explicita el 'rechaza todo inicio de sesión' del criterio 1",
+      "gherkin": {
+        "dado": "una cuenta bloqueada",
+        "cuando": "el cliente intenta iniciar sesión con su contraseña correcta antes de que transcurran los 15 minutos de bloqueo",
+        "entonces": "el sistema rechaza el inicio de sesión y devuelve CUENTA_BLOQUEADA"
+      },
+      "reglas": [
+        "RB-4"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-03",
+      "origen": "REQ-AUT-03, criterio 2",
+      "gherkin": {
+        "dado": "una cuenta cuyo bloqueo se inició hace 15 minutos o más",
+        "cuando": "el cliente ingresa su contraseña correcta",
+        "entonces": "el inicio de sesión es exitoso y el contador de intentos fallidos queda en 0"
+      },
+      "reglas": [
+        "RB-6"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-04",
+      "origen": "REQ-AUT-03, criterio 3",
+      "gherkin": {
+        "dado": "un cliente con 4 intentos fallidos consecutivos dentro de la ventana de 10 minutos",
+        "cuando": "inicia sesión correctamente",
+        "entonces": "el contador de intentos fallidos vuelve a 0 y la cuenta no se bloquea"
+      },
+      "reglas": [
+        "RB-5"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-05",
+      "origen": "fase de especificación (Kimi K3): caso borde de la ventana",
+      "gherkin": {
+        "dado": "un cliente con 4 intentos fallidos donde el más antiguo ocurrió hace más de 10 minutos",
+        "cuando": "falla un nuevo intento",
+        "entonces": "el intento antiguo se descarta de la ventana, el contador efectivo es menor a 5 y la cuenta no se bloquea"
+      },
+      "reglas": [
+        "RB-2"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-06",
+      "origen": "revisión humana: RB-7 no tenía ningún criterio que la verificara",
+      "gherkin": {
+        "dado": "la cuenta A bloqueada por 5 intentos fallidos consecutivos",
+        "cuando": "el cliente de la cuenta B inicia sesión con su contraseña correcta",
+        "entonces": "el inicio de sesión de la cuenta B es exitoso y los intentos de la cuenta A no afectan a la cuenta B"
+      },
+      "reglas": [
+        "RB-7"
+      ]
+    },
+    {
+      "id": "AC-AUT-03-07",
+      "origen": "revisión humana (decisión D-08): caso borde no cubierto por el modelo",
+      "gherkin": {
+        "dado": "una cuenta bloqueada hace 5 minutos",
+        "cuando": "el cliente falla otro intento de inicio de sesión",
+        "entonces": "el sistema devuelve CUENTA_BLOQUEADA, la fecha-hora de fin de bloqueo no cambia y, al expirar el bloqueo, el contador de intentos fallidos está en 0"
+      },
+      "reglas": [
+        "RB-4",
+        "RB-8"
+      ]
+    }
+  ],
+  "decisiones": [
+    {
+      "id": "D-01",
+      "tema": "Identificador de la cuenta",
+      "supuesto_del_modelo": "Se asume que el identificador de la cuenta es el correo electrónico del cliente (RFC 5322), dado que el requisito no especifica el mecanismo de identificación.",
+      "decision": "Se acepta: la cuenta se identifica con el correo del cliente registrado. El componente lo trata como un identificador opaco no vacío; validar el formato del correo es responsabilidad del backend de inicio de sesión.",
+      "fundamento": "R4: el módulo no gestiona credenciales ni sesiones."
+    },
+    {
+      "id": "D-02",
+      "tema": "Tipo de ventana y su límite",
+      "supuesto_del_modelo": "Se asume que la ventana de 10 minutos es deslizante (se evalúa respecto al intento actual) y no una ventana fija de calendario.",
+      "decision": "Se acepta la ventana deslizante. Límite: un intento fallido ocurrido exactamente 10 minutos antes todavía cuenta; solo se descartan los ocurridos hace MÁS de 10 minutos.",
+      "fundamento": "El requisito dice 'dentro de un periodo de 10 minutos' y AC-AUT-03-05 descarta solo los de 'hace más de 10 minutos'."
+    },
+    {
+      "id": "D-03",
+      "tema": "Inicio y fin del bloqueo",
+      "supuesto_del_modelo": "Se asume que los 15 minutos de bloqueo se cuentan desde el momento del quinto intento fallido.",
+      "decision": "Se acepta: el bloqueo empieza en el instante del quinto intento fallido y termina exactamente 15 minutos después; en ese instante ya se permite iniciar sesión.",
+      "fundamento": "Criterio 2 del requisito: 'bloqueada hace 15 minutos o más ... el inicio de sesión es exitoso'."
+    },
+    {
+      "id": "D-04",
+      "tema": "Significado de 'consecutivos'",
+      "supuesto_del_modelo": "Se asume que 'consecutivos' implica que un inicio de sesión exitoso intermedio rompe la racha y reinicia el contador (coherente con el criterio de aceptación 3).",
+      "decision": "Se acepta: un inicio de sesión exitoso interrumpe la racha y reinicia el contador a 0.",
+      "fundamento": "Criterio 3 del requisito."
+    },
+    {
+      "id": "D-05",
+      "tema": "Contador al expirar el bloqueo",
+      "supuesto_del_modelo": "Se asume que al expirar el bloqueo el contador de intentos fallidos se reinicia a 0, dado que el requisito no lo indica explícitamente.",
+      "decision": "Se acepta: al expirar el bloqueo el contador queda en 0 (el cliente vuelve a tener 5 intentos).",
+      "fundamento": "Un bloqueo cumplido cierra la racha que lo provocó; si no se reiniciara, un único fallo posterior volvería a bloquear la cuenta, lo que contradice la necesidad NEC-AUT-01 (no castigar de más al cliente legítimo)."
+    },
+    {
+      "id": "D-06",
+      "tema": "Alcance del contador",
+      "supuesto_del_modelo": "Se asume que el contador es por cuenta y no por dispositivo o IP, al tratarse de bloqueo de la cuenta del cliente.",
+      "decision": "Se acepta: el contador y el bloqueo son por cuenta, sin importar dispositivo o IP. Se agrega el criterio AC-AUT-03-06 porque RB-7 no tenía ninguno.",
+      "fundamento": "El requisito habla de 'la cuenta de un cliente'."
+    },
+    {
+      "id": "D-07",
+      "tema": "Origen del tiempo",
+      "supuesto_del_modelo": "Se asume que los timestamps se generan en el servidor en UTC con formato ISO 8601 (YYYY-MM-DDTHH:MM:SSZ) para evitar manipulación por el cliente.",
+      "decision": "Se acepta: el instante lo genera el servidor en UTC y se recibe como parámetro; un instante sin zona horaria se rechaza.",
+      "fundamento": "R2: el módulo nunca lee el reloj del sistema."
+    },
+    {
+      "id": "D-08",
+      "tema": "Intentos durante el bloqueo",
+      "supuesto_del_modelo": null,
+      "decision": "Los intentos durante el bloqueo se rechazan y no modifican nada: no extienden el bloqueo ni cuentan para uno posterior (RB-8, AC-AUT-03-07).",
+      "fundamento": "El requisito fija el bloqueo en 'durante 15 minutos'; extenderlo lo contradiría. Hueco no mencionado por el modelo: detectado en la revisión."
+    },
+    {
+      "id": "D-09",
+      "tema": "Alcance del bloqueo",
+      "supuesto_del_modelo": null,
+      "decision": "El bloqueo afecta solo al inicio de sesión, no a otras operaciones.",
+      "fundamento": "Pregunta del motor de requisitos en la validación (paso 1); el texto del requisito ya lo responde: 'rechaza todo inicio de sesión'."
+    },
+    {
+      "id": "D-10",
+      "tema": "Contador durante el bloqueo",
+      "supuesto_del_modelo": null,
+      "decision": "Mientras la cuenta está bloqueada, la salida contador_intentos_fallidos vale max_intentos_fallidos (los intentos que provocaron el bloqueo); los intentos durante el bloqueo no lo incrementan (RB-8).",
+      "fundamento": "Hallazgo OBS-01 del reporte de defectos de la fase de Testing (paso 5_pruebas): la especificación v1.0.0 no definía este valor; solo el contrato de arquitectura (C-07). Se lleva a la fuente de verdad."
+    }
+  ],
+  "alertas": [
+    {
+      "tipo": "legal",
+      "descripcion": "El registro de intentos fallidos de inicio de sesión con timestamps asociados a cuentas de clientes constituye tratamiento de datos personales (registros de actividad/seguridad), potencialmente sujeto a normativas de protección de datos (ej. RGPD/GDPR, LFPDPPP u otras leyes locales aplicables), que exigen base jurídica, minimización, plazos de retención definidos e información al titular. En Colombia aplica la Ley 1581 de 2012 (protección de datos personales).",
+      "tratamiento": "Revisar con el responsable de protección de datos la base jurídica (interés legítimo en seguridad), definir y documentar el periodo de retención de los registros de intentos fallidos, e incluir este tratamiento en el aviso de privacidad de la tienda en línea. Minimización ya incluida en el diseño: solo se conservan los intentos dentro de la ventana y el fin del bloqueo vigente. El plazo de retención queda como pendiente del equipo con el responsable de datos."
+    }
+  ]
+}

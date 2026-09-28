@@ -30,7 +30,17 @@ psql promptops -f backend/schema.sql
 
 uvicorn backend.main:app --reload # http://localhost:8000
 pytest -q                         # debe quedar en verde antes de cada commit
+
+# Cadena SDD (punto 8): la especificación es la fuente de verdad
+python -m sdd.render              # regenera specs/*.md y el .feature desde specs/specification.json
+python -m sdd.trazabilidad        # verifica REQ → AC → SPEC → ARCH → CODE → TEST y escribe la matriz
+python -m sdd.trazabilidad --sellar  # SOLO tras revisión humana y pruebas en verde
 ```
+
+**Regla SDD para agentes:** no cambies el comportamiento de `src/auth_lockout/`
+directamente. Cambia primero `specs/specification.json` (nueva versión), luego
+el código y las pruebas. No edites la línea `# Spec:` de los módulos: el sello
+lo emite la herramienta y un sello escrito a mano no pasa la verificación.
 
 ## Estructura
 
@@ -43,6 +53,8 @@ pytest -q                         # debe quedar en verde antes de cada commit
 | `prompts/` | los 7 prompts del SDLC y su evidencia de validación |
 | `context/` | paquetes de contexto que recibe cada fase del SDLC |
 | `specs/` | artefactos SDD: requisito, criterios de aceptación, especificación, contrato |
+| `sdd/` | herramientas SDD: esquema de la especificación, generador de documentos, verificador de trazabilidad, mutación |
+| `src/` | código gobernado por la especificación (`auth_lockout`, SPEC-AUT-03) |
 | `benchmarks/` | resultados y log de las ejecuciones del benchmark |
 | `evidence/` | salidas crudas, capturas y grabaciones que respaldan las métricas |
 

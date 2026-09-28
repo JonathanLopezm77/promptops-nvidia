@@ -1,0 +1,6 @@
+R1: Módulo de Python 3.12 que usa solo la biblioteca estándar; lo invoca el backend FastAPI existente de la tienda en cada intento de inicio de sesión (no se crea un servicio aparte).
+R2: El tiempo se recibe como parámetro en cada operación (instante actual como datetime con zona horaria UTC); el módulo nunca lee el reloj del sistema, para que su comportamiento sea determinista y verificable con pruebas.
+R3: El estado de intentos fallidos y bloqueos se guarda detrás de una interfaz de repositorio. En esta versión se entrega una implementación en memoria; la implementación sobre la base de datos PostgreSQL existente es una fase posterior y debe poder reemplazarla sin cambiar la lógica.
+R4: El módulo no verifica contraseñas ni gestiona sesiones: recibe el identificador de la cuenta y si la contraseña fue correcta o incorrecta, y decide si el inicio de sesión se permite o se rechaza por bloqueo.
+R5: Los parámetros de la política (número de intentos, periodo de observación y duración del bloqueo) son valores de configuración con los valores del requisito como predeterminados; no se repiten como constantes sueltas en la lógica.
+R6: No se agregan servicios de terceros, colas ni bases de datos nuevas.

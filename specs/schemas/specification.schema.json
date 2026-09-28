@@ -1,0 +1,332 @@
+{
+  "$defs": {
+    "Alerta": {
+      "additionalProperties": false,
+      "properties": {
+        "tipo": {
+          "enum": [
+            "legal",
+            "fuera_de_alcance"
+          ],
+          "title": "Tipo",
+          "type": "string"
+        },
+        "descripcion": {
+          "title": "Descripcion",
+          "type": "string"
+        },
+        "tratamiento": {
+          "title": "Tratamiento",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tipo",
+        "descripcion",
+        "tratamiento"
+      ],
+      "title": "Alerta",
+      "type": "object"
+    },
+    "Campo": {
+      "additionalProperties": false,
+      "properties": {
+        "nombre": {
+          "title": "Nombre",
+          "type": "string"
+        },
+        "tipo": {
+          "title": "Tipo",
+          "type": "string"
+        },
+        "validaciones": {
+          "default": "",
+          "title": "Validaciones",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nombre",
+        "tipo"
+      ],
+      "title": "Campo",
+      "type": "object"
+    },
+    "CriterioAceptacion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "origen": {
+          "description": "De dónde sale: criterio del requisito o fase de especificación",
+          "minLength": 1,
+          "title": "Origen",
+          "type": "string"
+        },
+        "gherkin": {
+          "$ref": "#/$defs/Gherkin"
+        },
+        "reglas": {
+          "description": "RB-x que verifica",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Reglas",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "origen",
+        "gherkin",
+        "reglas"
+      ],
+      "title": "CriterioAceptacion",
+      "type": "object"
+    },
+    "Decision": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^D-\\d{2}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "tema": {
+          "title": "Tema",
+          "type": "string"
+        },
+        "supuesto_del_modelo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supuesto Del Modelo"
+        },
+        "decision": {
+          "minLength": 1,
+          "title": "Decision",
+          "type": "string"
+        },
+        "fundamento": {
+          "minLength": 1,
+          "title": "Fundamento",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "tema",
+        "decision",
+        "fundamento"
+      ],
+      "title": "Decision",
+      "type": "object"
+    },
+    "Gherkin": {
+      "additionalProperties": false,
+      "properties": {
+        "dado": {
+          "minLength": 1,
+          "title": "Dado",
+          "type": "string"
+        },
+        "cuando": {
+          "minLength": 1,
+          "title": "Cuando",
+          "type": "string"
+        },
+        "entonces": {
+          "minLength": 1,
+          "title": "Entonces",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dado",
+        "cuando",
+        "entonces"
+      ],
+      "title": "Gherkin",
+      "type": "object"
+    },
+    "Parametros": {
+      "additionalProperties": false,
+      "description": "Valores de la política, tomados literalmente del requisito validado.",
+      "properties": {
+        "max_intentos_fallidos": {
+          "minimum": 1,
+          "title": "Max Intentos Fallidos",
+          "type": "integer"
+        },
+        "ventana_minutos": {
+          "minimum": 1,
+          "title": "Ventana Minutos",
+          "type": "integer"
+        },
+        "bloqueo_minutos": {
+          "minimum": 1,
+          "title": "Bloqueo Minutos",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_intentos_fallidos",
+        "ventana_minutos",
+        "bloqueo_minutos"
+      ],
+      "title": "Parametros",
+      "type": "object"
+    },
+    "Regla": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^RB-\\d+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "texto": {
+          "minLength": 1,
+          "title": "Texto",
+          "type": "string"
+        },
+        "origen": {
+          "description": "Fase de especificación (modelo) o revisión humana (decisión D-xx)",
+          "minLength": 1,
+          "title": "Origen",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "texto",
+        "origen"
+      ],
+      "title": "Regla",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^SPEC-[A-Z]+-\\d{2}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "title": "Version",
+      "type": "string"
+    },
+    "estado": {
+      "enum": [
+        "borrador",
+        "aprobada"
+      ],
+      "title": "Estado",
+      "type": "string"
+    },
+    "necesidad": {
+      "title": "Necesidad",
+      "type": "string"
+    },
+    "requisito_origen": {
+      "pattern": "^REQ-[A-Z]+-\\d{2}$",
+      "title": "Requisito Origen",
+      "type": "string"
+    },
+    "generada_por": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Generada Por",
+      "type": "object"
+    },
+    "descripcion": {
+      "minLength": 1,
+      "title": "Descripcion",
+      "type": "string"
+    },
+    "alcance": {
+      "title": "Alcance",
+      "type": "string"
+    },
+    "parametros": {
+      "$ref": "#/$defs/Parametros"
+    },
+    "entradas": {
+      "items": {
+        "$ref": "#/$defs/Campo"
+      },
+      "minItems": 1,
+      "title": "Entradas",
+      "type": "array"
+    },
+    "salidas": {
+      "items": {
+        "$ref": "#/$defs/Campo"
+      },
+      "minItems": 1,
+      "title": "Salidas",
+      "type": "array"
+    },
+    "reglas_negocio": {
+      "items": {
+        "$ref": "#/$defs/Regla"
+      },
+      "minItems": 1,
+      "title": "Reglas Negocio",
+      "type": "array"
+    },
+    "criterios_aceptacion": {
+      "items": {
+        "$ref": "#/$defs/CriterioAceptacion"
+      },
+      "minItems": 2,
+      "title": "Criterios Aceptacion",
+      "type": "array"
+    },
+    "decisiones": {
+      "items": {
+        "$ref": "#/$defs/Decision"
+      },
+      "title": "Decisiones",
+      "type": "array"
+    },
+    "alertas": {
+      "items": {
+        "$ref": "#/$defs/Alerta"
+      },
+      "title": "Alertas",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "estado",
+    "necesidad",
+    "requisito_origen",
+    "generada_por",
+    "descripcion",
+    "alcance",
+    "parametros",
+    "entradas",
+    "salidas",
+    "reglas_negocio",
+    "criterios_aceptacion",
+    "decisiones",
+    "alertas"
+  ],
+  "title": "Especificacion",
+  "type": "object"
+}
