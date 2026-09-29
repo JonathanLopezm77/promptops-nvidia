@@ -44,20 +44,24 @@ motor, voz, idioma, local/remota y fecha.
 
 ## 4. Caso D (requisito por voz)
 
-- Probado por el usuario con micrófono real en la app desplegada en Render
-  (dictado, validación, mejora y lectura en voz alta). Análisis
-  `c3ba46b4-f217-4ca4-bc01-5fbd04618cf1`.
-- **Pendiente:** exportar esa evidencia al repositorio. Requiere la URL de la
-  app en Render (no quedó registrada):
+**Cumple (1/1).** Dictado por el usuario con micrófono real en la app
+desplegada en Render (`https://promptops-nvidia.onrender.com`), análisis
+`c3ba46b4-f217-4ca4-bc01-5fbd04618cf1`:
 
-  ```bash
-  python scripts/casos_requisitos.py --base-url https://<app>.onrender.com voz --id c3ba46b4-f217-4ca4-bc01-5fbd04618cf1
-  ```
+| Paso | Resultado |
+|---|---|
+| Transcribe | "Oye necesito que me des un login": Chrome 153, Google (remoto), confianza 0.915, 3.4 s de dictado, 103 ms de transcripción |
+| Valida | 17/100, con 3 preguntas de aclaración |
+| Mejora y reevalúa | 60/100 (+43), sin inventar: lo que falta queda como `[POR DEFINIR]` |
+| Responde hablando | Voz "Microsoft Helena - Spanish (Spain)", local |
 
-  El comando guarda el análisis completo (transcripción, `stt_metadata`,
-  evaluaciones, mejora y `tts_log`) en `evidence/punto3_casos/corridas/D_1.json`;
-  después `python scripts/casos_requisitos.py informe` verifica el caso D y
-  actualiza `RESULTADOS.md`.
+Evidencia: `evidence/punto3_casos/corridas/D_1.json`, `RESULTADOS.md` y
+`REVISION_MANUAL.md` (ahí se aclara que en Render el evaluador era
+nemotron-3.5-lightning, no el mismo de los casos A-C). Se exportó con:
+
+```bash
+python scripts/casos_requisitos.py --base-url https://promptops-nvidia.onrender.com voz --id c3ba46b4-f217-4ca4-bc01-5fbd04618cf1
+```
 
 ## 5. Opción B (pendiente, opcional)
 

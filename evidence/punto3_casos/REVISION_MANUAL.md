@@ -100,7 +100,30 @@ ambiguos, aunque sí lo trató (REQ-4 y su pregunta de aclaración).
 - **Latencia:** A ≈ 18 s (una sola evaluación); B ≈ 170 s y C ≈ 129 s
   (evaluación + mejora + reevaluación), más ≈ 1.5-4 min por aclaración.
 
-## Pendiente
+## Caso D — Requisito por voz (1/1 cumple)
 
-- **Caso D (voz):** requiere dictar con micrófono desde la interfaz. Se
-  exporta con `python scripts/casos_requisitos.py voz --id <uuid>`.
+Dictado por el usuario con micrófono real en la app desplegada en Render
+(`https://promptops-nvidia.onrender.com`) el 2026-09-27; exportado con
+`python scripts/casos_requisitos.py --base-url https://promptops-nvidia.onrender.com voz --id c3ba46b4-f217-4ca4-bc01-5fbd04618cf1`.
+
+- **Transcribe:** "Oye necesito que me des un login", con la Web Speech API
+  de Chrome (servicio **remoto** de Google, declarado en `stt_metadata`),
+  confianza 0.915, 3.4 s de dictado y 103 ms de transcripción. El usuario no
+  corrigió la transcripción.
+- **Valida:** 17/100, el puntaje más bajo de todos los casos, coherente con
+  un pedido de cinco palabras sin actor, condición ni criterio de éxito.
+  Hace 3 preguntas de aclaración pertinentes (flujo, usuarios, qué pasa tras
+  el acceso o ante un error).
+- **Mejora sin inventar:** 60/100 (+43). Usa el contexto que dio el usuario
+  ("login simple de una página de ropa") y marca con `[POR DEFINIR]` lo que
+  no se sabe (tipo de credenciales, destino tras el acceso, límite de
+  intentos) en vez de rellenarlo. No llega a alta calidad, que es lo esperado
+  sin las respuestas del usuario.
+- **Retroalimentación hablada:** leída con la voz "Microsoft Helena - Spanish
+  (Spain)", **local** del sistema, registrada en `tts_log`.
+
+**Diferencia con A, B y C:** en Render el evaluador era
+`nvidia/nemotron-3.5-lightning-30b-a3b` (configuración de la app desplegada),
+no `nemotron-3-super` como en las corridas locales. El caso D demuestra el
+flujo de voz; sus puntajes no son comparables con los de A-C. El informe
+(`RESULTADOS.md`) lista ambos evaluadores.

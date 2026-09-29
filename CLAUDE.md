@@ -242,3 +242,39 @@ no puede quedarse congelado esperando.
       esquema de BD y API. requirements.txt verificado desde cero: venv
       nuevo + pip install -r requirements.txt + 58 tests en verde, sin
       depender del intérprete global.
+
+## Parcial 1 — progreso
+
+Enunciado: `Parcial_Laboratorio_1_Ingenieria_Software_Aumentada_IA_Actualizado.docx`
+(fuera del repo). Estado resumido en la tabla del `README.md`; reglas para
+agentes en `AGENTS.md`. Push a `main` despliega en Render
+(`https://promptops-nvidia.onrender.com`, cuenta de un compañero).
+
+- [x] 0 Preparación: `AGENTS.md`, `/prompts /context /specs /benchmarks /evidence /requirements_engine`.
+- [x] 1 Motor de requisitos: `requirements_evaluator/improver/workflow.py`, `schemas/requirements.py`,
+      `routes/requirements.py`, `frontend/requisitos.*`. Índice en `requirements_engine/README.md`.
+      Local: evaluador nemotron-3-super (modo JSON), mejorador kimi-k3 con respaldo nemotron.
+- [x] 2 Voz opción A (Web Speech API remota + speechSynthesis): `frontend/voz.js`,
+      documentada en `requirements_engine/VOZ.md`. Opción B (faster-whisper) pendiente, opcional.
+- [x] 3 Casos 10/10 (`evidence/punto3_casos/`): A, B, C con 3 corridas locales; D por voz en Render
+      (allí el evaluador era nemotron-3.5-lightning: sus puntajes no se comparan con A-C).
+- [x] 4 Siete prompts validados y aprobados (`prompts/`, `validation_metrics.csv`).
+      Defectos conocidos que NO se cambian (el benchmark usó estas versiones): el 1 numera
+      RF/RNF en vez de REQ y el 3 pide afirmar el uso de un linter.
+- [x] 5 Ollama qwen2.5-coder:7b + kimi-k3 + nemotron-3-super: `benchmarks/proveedores.py`.
+- [x] 6 Benchmark 27/27: `scripts/benchmark.py`, `benchmarks/DISENO.md`, `evidence/punto6_benchmark/`.
+- [x] 7 Selección por fase: `benchmarks/seleccion.py`, `benchmarks/seleccion_por_fase.json`,
+      `evidence/punto7_seleccion/SELECCION.md`.
+- [x] 8 SDD: `specs/specification.json` es la fuente de verdad; `python -m sdd.render`,
+      `python -m sdd.trazabilidad` (corre dentro de pytest). No editar `src/auth_lockout/`
+      sin cambiar antes la especificación; el sello `# Spec:` solo lo emite `--sellar`.
+- [ ] 9 Mapa mental · 10 Informe · 11 Video · 12 Ensayo individual.
+
+Reglas aprendidas en el parcial:
+- `tests/conftest.py` fija configuración neutra y desactiva la recuperación de arranque:
+  un test llegó a cerrar un run real del usuario. Las transiciones se validan contra la BD.
+- No inventar métricas ni afirmar estados sin verificarlos: todo número de los documentos
+  se comprobó contra los datos.
+- No crear análisis en la app de Render sin permiso: usa la base de datos y el crédito del compañero.
+- En PowerShell 5.1, commits con `git commit -F <archivo>` (las comillas se rompen).
+- La clave de NVIDIA vive solo en `.env` (no versionado); nunca imprimirla ni subirla.

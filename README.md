@@ -25,7 +25,7 @@ entrega, con su evidencia:
 | 0 | Preparación del repositorio | `AGENTS.md`, estructura de carpetas | ✅ |
 | 1 | Motor de requisitos (10 criterios ISO/IEC/IEEE 29148, mejora y reevaluación) | [`requirements_engine/`](requirements_engine/README.md), pantalla `/requisitos.html` | ✅ |
 | 2 | Voz: STT y TTS | [`requirements_engine/VOZ.md`](requirements_engine/VOZ.md) | ✅ opción A (navegador); opción B local pendiente (opcional) |
-| 3 | Casos mínimos A-D | [`evidence/punto3_casos/`](evidence/punto3_casos/RESULTADOS.md) | ✅ A, B, C (9/9); D probado en Render, falta exportar la evidencia |
+| 3 | Casos mínimos A-D | [`evidence/punto3_casos/`](evidence/punto3_casos/RESULTADOS.md) | ✅ 10/10: A, B y C (3 corridas cada uno) y D por voz en Render |
 | 4 | 7 prompts del SDLC validados en la plataforma | [`prompts/`](prompts/README.md), `prompts/validation_metrics.csv` | ✅ |
 | 5 | Modelo local (Ollama) y cloud, medición | [`evidence/punto5_proveedores/`](evidence/punto5_proveedores/README.md) | ✅ |
 | 6 | Benchmark 3 modelos × 3 fases × 3 corridas | [`benchmarks/`](benchmarks/DISENO.md), [`evidence/punto6_benchmark/`](evidence/punto6_benchmark/RESULTADOS.md) | ✅ 27/27 |

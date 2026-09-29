@@ -9,6 +9,7 @@
 - Commit: `a7a1ded67c` (con cambios sin commit)
 - Repeticiones por caso (A, B, C): 3
 - Evaluador: `nvidia/nemotron-3-super-120b-a12b` · Mejorador: `moonshotai/kimi-k3`
+- Evaluador: `nvidia/nemotron-3.5-lightning-30b-a3b` · Mejorador: `moonshotai/kimi-k3`
 - NVIDIA_BASE_URL: `https://integrate.api.nvidia.com/v1`
 - LLM_TIMEOUT_SECONDS: `180`
 - LLM_MAX_RETRIES: `2`
@@ -22,7 +23,7 @@
 | A | Requisito claro | **3/3** | 97.3 ± 4.6 | — | — | 18.4 ± 9.6 |
 | B | Requisito ambiguo | **3/3** | 52.3 ± 1.2 | 66.7 ± 6.1 | 14.3 ± 7.0 | 169.9 ± 25.8 |
 | C | Requisito contradictorio o incompleto | **3/3** | 30.7 ± 1.5 | 48.0 ± 9.5 | 17.3 ± 8.5 | 128.7 ± 46.5 |
-| D | Requisito ingresado por voz | sin ejecutar | — | — | — | — |
+| D | Requisito ingresado por voz | **1/1** | 17.0 | 60.0 | 43.0 | 207.3 |
 
 Valores: media ± desviación estándar entre corridas.
 
@@ -426,5 +427,64 @@ REQ-3: El reporte de ventas deberá incluir [POR DEFINIR: lista específica de d
 - Dado que el sistema de ventas está en operación, cuando se cumpla [POR DEFINIR: condición de generación: automática diaria o solicitud manual del gerente], entonces el sistema genera el reporte de ventas.
 - Dado un gerente autenticado en la aplicación web, cuando accede a la sección de reportes, entonces puede consultar el reporte de ventas generado.
 - Dado un reporte de ventas generado, cuando el gerente lo abre, entonces el reporte contiene [POR DEFINIR: lista específica de datos del reporte].
+
+</details>
+
+## Caso D — Requisito ingresado por voz
+
+**Esperado (enunciado):** Debe transcribir, validar, mejorar y devolver retroalimentación hablada.
+
+| Verificación | Corrida 1 |
+|---|---|
+| **G1** El análisis terminó sin error | ✅ COMPLETED |
+| **G2** La evaluación del original es válida (10 criterios) | ✅ |
+| **D1** Entrada por voz con metadata de STT (motor, proveedor, local/remoto, idioma) | ✅ Web Speech API (SpeechRecognition) · Google (servicio en la nube de Chrome) · remote |
+| **D2** Valida y mejora (o reconoce alta calidad) | ✅ |
+| **D3** Devuelve retroalimentación hablada registrada (TTS) | ✅ 1 lecturas · Microsoft Helena - Spanish (Spain) (local) |
+| **D4** (informativa) Transcripción usada sin corregir a mano | ✅ sin cambios |
+
+<details><summary>Corrida 1 — análisis <code>c3ba46b4-f217-4ca4-bc01-5fbd04618cf1</code></summary>
+
+**Transcripción:** Oye necesito que me des un login
+
+**Diagnóstico:** El requisito 'un login' es una solicitud incompleta y poco clara que requiere definición total del flujo, actores, credenciales y criterios de aceptación antes de poder ser desarrollado o evaluado técnicamente.
+
+| Criterio | Original | Mejorado | Hallazgo (original) |
+|---|---|---|---|
+| claridad | 2 | 6 | El requisito 'un login' es extremadamente vago; no define qué se entiende por login (página, proceso, flujo) ni quién es el actor. |
+| especificidad | 1 | 6 | No se expresa comportamiento, condición o resultado con precisión alguna. No hay acciones ni resultados descritos. |
+| atomicidad | 1 | 8 | La frase 'un login' podría considerarse un único elemento, pero al no expresar una acción o comportamiento independiente, no cumple la atomicidad de un requisito de software. |
+| completitud | 1 | 4 | Falta información esencial: actor(es), pasos del flujo, credenciales necesarias, acciones post-login, manejo de errores. No hay nada para desarrollar. |
+| consistencia | 5 | 8 | No hay otros requisitos ni reglas de proyecto contradictorias porque el requisito está incompleto, no porque sea coherente. |
+| factibilidad | 3 | 8 | Conceptualmente factible, pero sin definir el alcance no se puede evaluar si la implementación es razonable dentro de los recursos del proyecto. |
+| verificabilidad | 1 | 4 | No es verificable porque no hay criterios de éxito, condiciones de entrada ni resultados esperados definidos. No se puede probar qué es un 'login'. |
+| trazabilidad | 1 | 7 | No hay identificador único ni declaración de necesidad/origen que permita relacionarlo con diseño, código o pruebas. |
+| ausencia_ambiguedad | 1 | 5 | El término 'login' es ambiguo y subjetivo; no define si es UI, flujo backend, autenticación multifactor, etc. |
+| criterios_aceptacion | 1 | 4 | No hay criterios de aceptación explícitos ni condiciones medibles. El puntaje máximo posible para este criterio es 4 según la regla 4, pero al no haber texto que los contenga, el score es 1. |
+
+**Preguntas:**
+
+- ¿Cuál es el flujo exacto que se desea: pantalla de login, autenticación mediante terceros, recuperación de clave?
+- ¿Quiénes son los usuarios que deben acceder (clientes, administradores, todos)?
+- ¿Qué debe ocurrir después de un login exitoso y cuál es el mensaje de error ante un fallo?
+
+**Requisito mejorado:**
+
+```text
+REQ-1: El sistema de la página web de ropa deberá mostrar una pantalla de acceso (login) donde el usuario ingrese sus credenciales [POR DEFINIR: tipo de credenciales, p. ej. correo electrónico y contraseña, o redes sociales].
+REQ-2: El sistema deberá validar las credenciales ingresadas y, si son correctas, conceder acceso al usuario y redirigirlo a [POR DEFINIR: destino tras el acceso, p. ej. catálogo o página principal].
+REQ-3: Si las credenciales son incorrectas, el sistema deberá mostrar un mensaje de error y no conceder acceso [POR DEFINIR: comportamiento adicional ante fallos repetidos, p. ej. número máximo de intentos o bloqueo].
+```
+
+**Criterios de aceptación:**
+
+- Dado un usuario en la página de ropa, cuando accede a la pantalla de login, entonces ve los campos para ingresar sus credenciales [POR DEFINIR: tipo de credenciales].
+- Dado un usuario con credenciales válidas, cuando las ingresa y confirma, entonces el sistema le concede acceso y lo dirige a [POR DEFINIR: destino tras el acceso].
+- Dado un usuario con credenciales inválidas, cuando las ingresa y confirma, entonces el sistema muestra un mensaje de error y no le concede acceso.
+- Dado un usuario que falla al ingresar [POR DEFINIR: número de intentos] veces consecutivas, cuando lo intenta de nuevo, entonces ocurre [POR DEFINIR: comportamiento ante fallos repetidos].
+
+**Lecturas en voz alta registradas:**
+
+- 2026-09-27T16:58:22.380180+00:00 · Microsoft Helena - Spanish (Spain) (es-ES) · local
 
 </details>

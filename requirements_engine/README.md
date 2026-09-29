@@ -44,5 +44,5 @@ decisiones y experimentos en `evidence/punto3_casos_exploratorio/`.
 ## Evidencia
 
 - Casos A, B, C (3 corridas cada uno, 9/9 cumplen): `evidence/punto3_casos/`.
-- Caso D (voz): ver [`VOZ.md`](VOZ.md) §4.
+- Caso D (voz, 1/1 cumple): ver [`VOZ.md`](VOZ.md) §4.
 - Pruebas: `tests/test_requirements.py`, `tests/test_requirements_api.py`, `tests/test_casos_requisitos.py`.

@@ -1,0 +1,338 @@
+{
+  "id": "c3ba46b4-f217-4ca4-bc01-5fbd04618cf1",
+  "parent_id": null,
+  "status": "COMPLETED",
+  "created_at": "2026-09-27T16:54:51.508430Z",
+  "finished_at": "2026-09-27T16:58:20.454397Z",
+  "input_mode": "voice",
+  "original_requirement": "Oye necesito que me des un login",
+  "evaluator_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "improver_model": "moonshotai/kimi-k3",
+  "error_message": null,
+  "stt_metadata": {
+    "edited": false,
+    "engine": "Web Speech API (SpeechRecognition)",
+    "browser": "Chrome 153.0.0.0",
+    "language": "es-CO",
+    "provider": "Google (servicio en la nube de Chrome)",
+    "confidence": 0.915,
+    "processing": "remote",
+    "recorded_at": "2026-09-27T16:54:40.512Z",
+    "recording_ms": 3364,
+    "transcription_ms": 103,
+    "original_transcript": "Oye necesito que me des un login"
+  },
+  "project_context": "login simple de una pagina de ropa",
+  "clarifications": null,
+  "improvement_skipped": false,
+  "improved_requirement": "REQ-1: El sistema de la página web de ropa deberá mostrar una pantalla de acceso (login) donde el usuario ingrese sus credenciales [POR DEFINIR: tipo de credenciales, p. ej. correo electrónico y contraseña, o redes sociales].\nREQ-2: El sistema deberá validar las credenciales ingresadas y, si son correctas, conceder acceso al usuario y redirigirlo a [POR DEFINIR: destino tras el acceso, p. ej. catálogo o página principal].\nREQ-3: Si las credenciales son incorrectas, el sistema deberá mostrar un mensaje de error y no conceder acceso [POR DEFINIR: comportamiento adicional ante fallos repetidos, p. ej. número máximo de intentos o bloqueo].",
+  "improvement": {
+    "changes": [
+      "Se transformó la petición informal 'dame un login' en tres requisitos atómicos (pantalla, validación, error), respondiendo a los hallazgos de atomicidad, especificidad y claridad.",
+      "Se especificó el actor (usuario de la página de ropa) según el contexto del proyecto, sin agregar actores nuevos.",
+      "Se delimitó el alcance a un login simple de página web, como indica el contexto, sin asumir autenticación multifactor ni métodos de login que no se mencionaron.",
+      "Se agregaron criterios de aceptación en formato Dado/Cuando/Entonces para atender la falta de verificabilidad.",
+      "Se numeraron los requisitos (REQ-1, REQ-2, REQ-3) para habilitar trazabilidad."
+    ],
+    "fallback": null,
+    "pending_items": [
+      "Tipo de credenciales de acceso (correo y contraseña, redes sociales, etc.)",
+      "Destino al que se redirige al usuario tras un login exitoso",
+      "Comportamiento ante intentos fallidos repetidos (límite de intentos, bloqueo, recuperación de contraseña)"
+    ],
+    "unsupported_retry": false,
+    "unsupported_values": [],
+    "acceptance_criteria": [
+      "Dado un usuario en la página de ropa, cuando accede a la pantalla de login, entonces ve los campos para ingresar sus credenciales [POR DEFINIR: tipo de credenciales].",
+      "Dado un usuario con credenciales válidas, cuando las ingresa y confirma, entonces el sistema le concede acceso y lo dirige a [POR DEFINIR: destino tras el acceso].",
+      "Dado un usuario con credenciales inválidas, cuando las ingresa y confirma, entonces el sistema muestra un mensaje de error y no le concede acceso.",
+      "Dado un usuario que falla al ingresar [POR DEFINIR: número de intentos] veces consecutivas, cuando lo intenta de nuevo, entonces ocurre [POR DEFINIR: comportamiento ante fallos repetidos]."
+    ],
+    "intent_preservation": "La intención original era contar con un login simple para la página de ropa; la versión mejorada formaliza ese acceso de usuarios con pantalla, validación y manejo de errores, sin agregar funcionalidades no solicitadas."
+  },
+  "improvement_raw": {
+    "id": "chatcmpl-e721ad5e-eef5-46f3-bc8e-789117d8c774",
+    "model": "moonshotai/kimi-k3",
+    "usage": {
+      "total_tokens": 2992,
+      "prompt_tokens": 2196,
+      "completion_tokens": 796,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 16
+      }
+    },
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"improved_requirement\": \"REQ-1: El sistema de la página web de ropa deberá mostrar una pantalla de acceso (login) donde el usuario ingrese sus credenciales [POR DEFINIR: tipo de credenciales, p. ej. correo electrónico y contraseña, o redes sociales].\\nREQ-2: El sistema deberá validar las credenciales ingresadas y, si son correctas, conceder acceso al usuario y redirigirlo a [POR DEFINIR: destino tras el acceso, p. ej. catálogo o página principal].\\nREQ-3: Si las credenciales son incorrectas, el sistema deberá mostrar un mensaje de error y no conceder acceso [POR DEFINIR: comportamiento adicional ante fallos repetidos, p. ej. número máximo de intentos o bloqueo].\",\n  \"acceptance_criteria\": [\n    \"Dado un usuario en la página de ropa, cuando accede a la pantalla de login, entonces ve los campos para ingresar sus credenciales [POR DEFINIR: tipo de credenciales].\",\n    \"Dado un usuario con credenciales válidas, cuando las ingresa y confirma, entonces el sistema le concede acceso y lo dirige a [POR DEFINIR: destino tras el acceso].\",\n    \"Dado un usuario con credenciales inválidas, cuando las ingresa y confirma, entonces el sistema muestra un mensaje de error y no le concede acceso.\",\n    \"Dado un usuario que falla al ingresar [POR DEFINIR: número de intentos] veces consecutivas, cuando lo intenta de nuevo, entonces ocurre [POR DEFINIR: comportamiento ante fallos repetidos].\"\n  ],\n  \"changes\": [\n    \"Se transformó la petición informal 'dame un login' en tres requisitos atómicos (pantalla, validación, error), respondiendo a los hallazgos de atomicidad, especificidad y claridad.\",\n    \"Se especificó el actor (usuario de la página de ropa) según el contexto del proyecto, sin agregar actores nuevos.\",\n    \"Se delimitó el alcance a un login simple de página web, como indica el contexto, sin asumir autenticación multifactor ni métodos de login que no se mencionaron.\",\n    \"Se agregaron criterios de aceptación en formato Dado/Cuando/Entonces para atender la falta de verificabilidad.\",\n    \"Se numeraron los requisitos (REQ-1, REQ-2, REQ-3) para habilitar trazabilidad.\"\n  ],\n  \"pending_items\": [\n    \"Tipo de credenciales de acceso (correo y contraseña, redes sociales, etc.)\",\n    \"Destino al que se redirige al usuario tras un login exitoso\",\n    \"Comportamiento ante intentos fallidos repetidos (límite de intentos, bloqueo, recuperación de contraseña)\"\n  ],\n  \"intent_preservation\": \"La intención original era contar con un login simple para la página de ropa; la versión mejorada formaliza ese acceso de usuarios con pantalla, validación y manejo de errores, sin agregar funcionalidades no solicitadas.\"\n}",
+          "refusal": null,
+          "reasoning_content": "Rewrite with markers; context says clothing page, simple login."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "created": 1790528157
+  },
+  "improvement_tokens": 2992,
+  "improvement_latency_ms": 55138,
+  "tts_log": [
+    {
+      "voice": "Microsoft Helena - Spanish (Spain)",
+      "engine": "speechSynthesis (navegador)",
+      "script": "Análisis completado. El requisito original obtuvo 17 de 100 puntos.\nLa versión mejorada obtuvo 60 de 100, una diferencia de 43 puntos.\nSe recomienda usar la versión mejorada.\nLos criterios más débiles son:\nEspecificidad, con 1 de 10. No se expresa comportamiento, condición o resultado con precisión alguna. No hay acciones ni resultados descritos.\nAtomicidad, con 1 de 10. La frase 'un login' podría considerarse un único elemento, pero al no expresar una acción o comportamiento independiente, no cumple la atomicidad de un requisito de software.\nCompletitud, con 1 de 10. Falta información esencial: actor(es), pasos del flujo, credenciales necesarias, acciones post-login, manejo de errores. No hay nada para desarrollar.\nTérminos ambiguos: login.\nTengo 3 preguntas de aclaración.\nPregunta 1: ¿Cuál es el flujo exacto que se desea: pantalla de login, autenticación mediante terceros, recuperación de clave?\nPregunta 2: ¿Quiénes son los usuarios que deben acceder (clientes, administradores, todos)?\nPregunta 3: ¿Qué debe ocurrir después de un login exitoso y cuál es el mensaje de error ante un fallo?\nRequisito mejorado: REQ-1: El sistema de la página web de ropa deberá mostrar una pantalla de acceso (login) donde el usuario ingrese sus credenciales (por definir: tipo de credenciales, p. ej. correo electrónico y contraseña, o redes sociales) . REQ-2: El sistema deberá validar las credenciales ingresadas y, si son correctas, conceder acceso al usuario y redirigirlo a (por definir: destino tras el acceso, p. ej. catálogo o página principal) . REQ-3: Si las credenciales son incorrectas, el sistema deberá mostrar un mensaje de error y no conceder acceso (por definir: comportamiento adicional ante fallos repetidos, p. ej. número máximo de intentos o bloqueo) .",
+      "language": "es-ES",
+      "played_at": "2026-09-27T16:58:22.380180+00:00",
+      "processing": "local"
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "0bffb44b-4d11-4f38-b0b4-63ef6d609051",
+      "stage": "original",
+      "evaluated_text": "Oye necesito que me des un login",
+      "parse_ok": true,
+      "global_score": 17,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 2,
+          "finding": "El requisito 'un login' es extremadamente vago; no define qué se entiende por login (página, proceso, flujo) ni quién es el actor.",
+          "criterion": "claridad",
+          "recommendation": "Definir el alcance exacto: ¿es una pantalla de acceso, un flujo de autenticación o ambos?"
+        },
+        {
+          "score": 1,
+          "finding": "No se expresa comportamiento, condición o resultado con precisión alguna. No hay acciones ni resultados descritos.",
+          "criterion": "especificidad",
+          "recommendation": "Especificar el flujo: qué hace el usuario, qué sucede tras ingresar credenciales y qué ocurre si falla."
+        },
+        {
+          "score": 1,
+          "finding": "La frase 'un login' podría considerarse un único elemento, pero al no expresar una acción o comportamiento independiente, no cumple la atomicidad de un requisito de software.",
+          "criterion": "atomicidad",
+          "recommendation": "Descomponer en requisitos atómicos: pantalla de acceso, validación de credenciales, manejo de sesión, etc."
+        },
+        {
+          "score": 1,
+          "finding": "Falta información esencial: actor(es), pasos del flujo, credenciales necesarias, acciones post-login, manejo de errores. No hay nada para desarrollar.",
+          "criterion": "completitud",
+          "recommendation": "Detallar todos los elementos necesarios: quién se loguea, qué datos se piden, qué pasa después."
+        },
+        {
+          "score": 5,
+          "finding": "No hay otros requisitos ni reglas de proyecto contradictorias porque el requisito está incompleto, no porque sea coherente.",
+          "criterion": "consistencia",
+          "recommendation": "Ninguna inconsistencia detectable en el texto actual."
+        },
+        {
+          "score": 3,
+          "finding": "Conceptualmente factible, pero sin definir el alcance no se puede evaluar si la implementación es razonable dentro de los recursos del proyecto.",
+          "criterion": "factibilidad",
+          "recommendation": "Definir el alcance antes de evaluar factibilidad técnica."
+        },
+        {
+          "score": 1,
+          "finding": "No es verificable porque no hay criterios de éxito, condiciones de entrada ni resultados esperados definidos. No se puede probar qué es un 'login'.",
+          "criterion": "verificabilidad",
+          "recommendation": "Establecer criterios de aceptación medibles (ej. 'el usuario accede a la página principal')."
+        },
+        {
+          "score": 1,
+          "finding": "No hay identificador único ni declaración de necesidad/origen que permita relacionarlo con diseño, código o pruebas.",
+          "criterion": "trazabilidad",
+          "recommendation": "Asignar un identificador (REQ-...) y describir la necesidad o usuario origen."
+        },
+        {
+          "score": 1,
+          "finding": "El término 'login' es ambiguo y subjetivo; no define si es UI, flujo backend, autenticación multifactor, etc.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Especificar el tipo de login y evitar términos no definidos."
+        },
+        {
+          "score": 1,
+          "finding": "No hay criterios de aceptación explícitos ni condiciones medibles. El puntaje máximo posible para este criterio es 4 según la regla 4, pero al no haber texto que los contenga, el score es 1.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Definir criterios de aceptación claros y verificables (Dado/Cuando/Entonces)."
+        }
+      ],
+      "ambiguous_terms": [
+        {
+          "term": "login",
+          "reason": "No define si es pantalla, flujo, autenticación ni qué credenciales se requieren"
+        }
+      ],
+      "clarification_questions": [
+        "¿Cuál es el flujo exacto que se desea: pantalla de login, autenticación mediante terceros, recuperación de clave?",
+        "¿Quiénes son los usuarios que deben acceder (clientes, administradores, todos)?",
+        "¿Qué debe ocurrir después de un login exitoso y cuál es el mensaje de error ante un fallo?"
+      ],
+      "missing_information": [
+        "Tipo de login (pantalla, flujo, API)",
+        "Actor/usuario que se loguea",
+        "Credenciales necesarias (usuario/clave, redes sociales, etc.)",
+        "Flujo post-autenticación (redirección, dashboard, etc.)",
+        "Manejo de errores o bloqueos",
+        "Identificador único para el requisito"
+      ],
+      "is_compound": false,
+      "summary": "El requisito 'un login' es una solicitud incompleta y poco clara que requiere definición total del flujo, actores, credenciales y criterios de aceptación antes de poder ser desarrollado o evaluado técnicamente.",
+      "raw_response": {
+        "id": "chatcmpl-c9810ef0-3fd3-4c66-a2a9-a8a69496029f",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 3382,
+          "prompt_tokens": 2220,
+          "completion_tokens": 1162
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 2,\n      \"finding\": \"El requisito 'un login' es extremadamente vago; no define qué se entiende por login (página, proceso, flujo) ni quién es el actor.\",\n      \"recommendation\": \"Definir el alcance exacto: ¿es una pantalla de acceso, un flujo de autenticación o ambos?\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 1,\n      \"finding\": \"No se expresa comportamiento, condición o resultado con precisión alguna. No hay acciones ni resultados descritos.\",\n      \"recommendation\": \"Especificar el flujo: qué hace el usuario, qué sucede tras ingresar credenciales y qué ocurre si falla.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 1,\n      \"finding\": \"La frase 'un login' podría considerarse un único elemento, pero al no expresar una acción o comportamiento independiente, no cumple la atomicidad de un requisito de software.\",\n      \"recommendation\": \"Descomponer en requisitos atómicos: pantalla de acceso, validación de credenciales, manejo de sesión, etc.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 1,\n      \"finding\": \"Falta información esencial: actor(es), pasos del flujo, credenciales necesarias, acciones post-login, manejo de errores. No hay nada para desarrollar.\",\n      \"recommendation\": \"Detallar todos los elementos necesarios: quién se loguea, qué datos se piden, qué pasa después.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 5,\n      \"finding\": \"No hay otros requisitos ni reglas de proyecto contradictorias porque el requisito está incompleto, no porque sea coherente.\",\n      \"recommendation\": \"Ninguna inconsistencia detectable en el texto actual.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 3,\n      \"finding\": \"Conceptualmente factible, pero sin definir el alcance no se puede evaluar si la implementación es razonable dentro de los recursos del proyecto.\",\n      \"recommendation\": \"Definir el alcance antes de evaluar factibilidad técnica.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 1,\n      \"finding\": \"No es verificable porque no hay criterios de éxito, condiciones de entrada ni resultados esperados definidos. No se puede probar qué es un 'login'.\",\n      \"recommendation\": \"Establecer criterios de aceptación medibles (ej. 'el usuario accede a la página principal').\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 1,\n      \"finding\": \"No hay identificador único ni declaración de necesidad/origen que permita relacionarlo con diseño, código o pruebas.\",\n      \"recommendation\": \"Asignar un identificador (REQ-...) y describir la necesidad o usuario origen.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 1,\n      \"finding\": \"El término 'login' es ambiguo y subjetivo; no define si es UI, flujo backend, autenticación multifactor, etc.\",\n      \"recommendation\": \"Especificar el tipo de login y evitar términos no definidos.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 1,\n      \"finding\": \"No hay criterios de aceptación explícitos ni condiciones medibles. El puntaje máximo posible para este criterio es 4 según la regla 4, pero al no haber texto que los contenga, el score es 1.\",\n      \"recommendation\": \"Definir criterios de aceptación claros y verificables (Dado/Cuando/Entonces).\"\n    }\n  ],\n  \"ambiguous_terms\": [\n    {\n      \"term\": \"login\",\n      \"reason\": \"No define si es pantalla, flujo, autenticación ni qué credenciales se requieren\"\n    }\n  ],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"Tipo de login (pantalla, flujo, API)\",\n    \"Actor/usuario que se loguea\",\n    \"Credenciales necesarias (usuario/clave, redes sociales, etc.)\",\n    \"Flujo post-autenticación (redirección, dashboard, etc.)\",\n    \"Manejo de errores o bloqueos\",\n    \"Identificador único para el requisito\"\n  ],\n  \"clarification_questions\": [\n    \"¿Cuál es el flujo exacto que se desea: pantalla de login, autenticación mediante terceros, recuperación de clave?\",\n    \"¿Quiénes son los usuarios que deben acceder (clientes, administradores, todos)?\",\n    \"¿Qué debe ocurrir después de un login exitoso y cuál es el mensaje de error ante un fallo?\"\n  ],\n  \"summary\": \"El requisito 'un login' es una solicitud incompleta y poco clara que requiere definición total del flujo, actores, credenciales y criterios de aceptación antes de poder ser desarrollado o evaluado técnicamente.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790528093,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2220,
+      "completion_tokens": 1162,
+      "latency_ms": 41873,
+      "created_at": "2026-09-27T16:55:34.179433Z"
+    },
+    {
+      "id": "82983baf-e7d4-4000-84ed-a4da695a7b0a",
+      "stage": "improved",
+      "evaluated_text": "REQ-1: El sistema de la página web de ropa deberá mostrar una pantalla de acceso (login) donde el usuario ingrese sus credenciales [POR DEFINIR: tipo de credenciales, p. ej. correo electrónico y contraseña, o redes sociales].\nREQ-2: El sistema deberá validar las credenciales ingresadas y, si son correctas, conceder acceso al usuario y redirigirlo a [POR DEFINIR: destino tras el acceso, p. ej. catálogo o página principal].\nREQ-3: Si las credenciales son incorrectas, el sistema deberá mostrar un mensaje de error y no conceder acceso [POR DEFINIR: comportamiento adicional ante fallos repetidos, p. ej. número máximo de intentos o bloqueo].\n\nCriterios de aceptación:\n- Dado un usuario en la página de ropa, cuando accede a la pantalla de login, entonces ve los campos para ingresar sus credenciales [POR DEFINIR: tipo de credenciales].\n- Dado un usuario con credenciales válidas, cuando las ingresa y confirma, entonces el sistema le concede acceso y lo dirige a [POR DEFINIR: destino tras el acceso].\n- Dado un usuario con credenciales inválidas, cuando las ingresa y confirma, entonces el sistema muestra un mensaje de error y no le concede acceso.\n- Dado un usuario que falla al ingresar [POR DEFINIR: número de intentos] veces consecutivas, cuando lo intenta de nuevo, entonces ocurre [POR DEFINIR: comportamiento ante fallos repetidos].",
+      "parse_ok": true,
+      "global_score": 60,
+      "is_high_quality": false,
+      "criteria": [
+        {
+          "score": 6,
+          "finding": "El requisito REQ-1 define el contexto (página web de ropa) y el objetivo (pantalla de login), pero contiene un marcador [POR DEFINIR: tipo de credenciales] que deja abierta la interpretación sobre qué credenciales se deben ingresar (correo/contraseña vs redes sociales).",
+          "criterion": "claridad",
+          "recommendation": "Definir el tipo exacto de credenciales (p. ej. correo electrónico y contraseña) para evitar ambigüedades."
+        },
+        {
+          "score": 6,
+          "finding": "REQ-1 y REQ-2 describen la acción de ingreso y validación, pero dependen de marcadores [POR DEFINIR] para ser completamente especificado. La validación de credenciales se menciona sin detallar el mecanismo o reglas de negocio.",
+          "criterion": "especificidad",
+          "recommendation": "Especificar el flujo de validación y las reglas de qué se considera una credencial correcta."
+        },
+        {
+          "score": 8,
+          "finding": "Cada requisito (REQ-1, REQ-2, REQ-3) expresa un comportamiento independiente y no mezclarían varios requisitos en una sola oración. Sin embargo, cada uno contiene marcadores [POR DEFINIR] que podrían fragmentarse si no se definen los sub-elementos.",
+          "criterion": "atomicidad",
+          "recommendation": "Mantener la estructura actual; asegurar que, al definir los marcadores, cada sub-req siga siendo atómico."
+        },
+        {
+          "score": 4,
+          "finding": "Los requisitos están incompletos debido a la presencia de marcadores [POR DEFINIR] para tipo de credenciales, destino tras el acceso y comportamiento ante fallos repetidos. Faltan datos esenciales para desarrollar y probar las pantallas.",
+          "criterion": "completitud",
+          "recommendation": "Proporcionar los valores por definir: tipo de credenciales, destino tras el acceso y número de intentos / bloqueo."
+        },
+        {
+          "score": 8,
+          "finding": "No hay contradicciones internas entre REQ-1, REQ-2 y REQ-3. Son coherentes entre sí: login exitoso concede acceso, fallo muestra error. La consistencia con el contexto 'login simple de una página de ropa' es adecuada.",
+          "criterion": "consistencia",
+          "recommendation": "Ninguna. Los requisitos son internamente consistentes."
+        },
+        {
+          "score": 8,
+          "finding": "Los requisitos son técnicamente factibles para un sistema de login estándar. Los marcadores [POR DEFINIR] no impiden la factibilidad, ya que cualquier tipo de credencial y destino pueden implementarse con esfuerzo razonable.",
+          "criterion": "factibilidad",
+          "recommendation": "Ninguna. La factibilidad no está comprometida por la falta de detalles definidos."
+        },
+        {
+          "score": 4,
+          "finding": "La verificabilidad está limitada porque los criterios de aceptación contienen marcadores [POR DEFINIR: tipo de credenciales, destino, número de intentos]. Sin valores concretos, no se pueden definir pruebas objetivas automatizadas para esos puntos.",
+          "criterion": "verificabilidad",
+          "recommendation": "Definir los valores por definir para poder diseñar casos de prueba verificables."
+        },
+        {
+          "score": 7,
+          "finding": "Los requisitos llevan identificadores únicos (REQ-1, REQ-2, REQ-3) que permiten su relación con diseño, implementación y prueba. No declaran explícitamente el actor/necesidad de origen más allá del contexto 'página web de ropa', pero el identificador es suficiente para trazabilidad.",
+          "criterion": "trazabilidad",
+          "recommendation": "Ninguna. Los identificadores REQ-1/2/3 son únicos y suficientes para trazabilidad."
+        },
+        {
+          "score": 5,
+          "finding": "No hay términos subjetivos o vagos no declarados. Los únicos posibles ambiguedades son los propios marcadores [POR DEFINIR], los cuales no se consideran términos vagos no marcados según la regla 12, sino huecos por definir.",
+          "criterion": "ausencia_ambiguedad",
+          "recommendation": "Ninguna. Los marcadores [POR DEFINIR] son huecos declarados, no términos ambiguos no intencionales."
+        },
+        {
+          "score": 4,
+          "finding": "Los criterios de aceptación están incompletos al contener múltiples marcadores [POR DEFINIR: tipo de credenciales, destino tras el acceso, número de intentos, comportamiento ante fallos repetidos]. Sin estos valores, no se pueden determinar condiciones verificables de satisfacción.",
+          "criterion": "criterios_aceptacion",
+          "recommendation": "Sustituir los marcadores [POR DEFINIR] por valores concretos para completar los criterios de aceptación."
+        }
+      ],
+      "ambiguous_terms": [],
+      "clarification_questions": [
+        "¿Qué tipo de credenciales se deben ingresar en la pantalla de login: correo electrónico y contraseña, o credenciales de redes sociales?",
+        "¿A qué pantalla o página debe redirigirse el usuario después de un login exitoso: catálogo de productos o página principal?",
+        "¿Cuál es el número máximo de intentos consecutivos fallidos antes de activar bloqueo o mensaje adicional?"
+      ],
+      "missing_information": [
+        "tipo de credenciales (correo/contraseña o redes sociales)",
+        "destino tras el acceso (catálogo o página principal)",
+        "número de intentos consecutivos antes de bloqueo o acción asociada",
+        "comportamiento específico ante fallos repetidos (bloqueo, mensaje, etc.)"
+      ],
+      "is_compound": false,
+      "summary": "Los requisitos REQ-1 a REQ-3 definen una estructura de login básica para una página web de ropa, pero contienen marcadores [POR DEFINIR] que dejan abierta la interpretación sobre el tipo de credenciales, el destino post-login y el manejo de fallos repetidos. Los identificadores REQ-1/2/3 son claros y los requisitos son internamente consistentes. Es necesario completar los datos por definir para alcanzar alta especificidad, completitud y verificabilidad.",
+      "raw_response": {
+        "id": "chatcmpl-62cdd9a2-4c8a-4857-b7da-47ac8bdc28a8",
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "usage": {
+          "total_tokens": 4181,
+          "prompt_tokens": 2695,
+          "completion_tokens": 1486,
+          "prompt_tokens_details": {
+            "audio_tokens": null,
+            "cached_tokens": 2176
+          }
+        },
+        "object": "chat.completion",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\n  \"criteria\": [\n    {\n      \"criterion\": \"claridad\",\n      \"score\": 6,\n      \"finding\": \"El requisito REQ-1 define el contexto (página web de ropa) y el objetivo (pantalla de login), pero contiene un marcador [POR DEFINIR: tipo de credenciales] que deja abierta la interpretación sobre qué credenciales se deben ingresar (correo/contraseña vs redes sociales).\",\n      \"recommendation\": \"Definir el tipo exacto de credenciales (p. ej. correo electrónico y contraseña) para evitar ambigüedades.\"\n    },\n    {\n      \"criterion\": \"especificidad\",\n      \"score\": 6,\n      \"finding\": \"REQ-1 y REQ-2 describen la acción de ingreso y validación, pero dependen de marcadores [POR DEFINIR] para ser completamente especificado. La validación de credenciales se menciona sin detallar el mecanismo o reglas de negocio.\",\n      \"recommendation\": \"Especificar el flujo de validación y las reglas de qué se considera una credencial correcta.\"\n    },\n    {\n      \"criterion\": \"atomicidad\",\n      \"score\": 8,\n      \"finding\": \"Cada requisito (REQ-1, REQ-2, REQ-3) expresa un comportamiento independiente y no mezclarían varios requisitos en una sola oración. Sin embargo, cada uno contiene marcadores [POR DEFINIR] que podrían fragmentarse si no se definen los sub-elementos.\",\n      \"recommendation\": \"Mantener la estructura actual; asegurar que, al definir los marcadores, cada sub-req siga siendo atómico.\"\n    },\n    {\n      \"criterion\": \"completitud\",\n      \"score\": 4,\n      \"finding\": \"Los requisitos están incompletos debido a la presencia de marcadores [POR DEFINIR] para tipo de credenciales, destino tras el acceso y comportamiento ante fallos repetidos. Faltan datos esenciales para desarrollar y probar las pantallas.\",\n      \"recommendation\": \"Proporcionar los valores por definir: tipo de credenciales, destino tras el acceso y número de intentos / bloqueo.\"\n    },\n    {\n      \"criterion\": \"consistencia\",\n      \"score\": 8,\n      \"finding\": \"No hay contradicciones internas entre REQ-1, REQ-2 y REQ-3. Son coherentes entre sí: login exitoso concede acceso, fallo muestra error. La consistencia con el contexto 'login simple de una página de ropa' es adecuada.\",\n      \"recommendation\": \"Ninguna. Los requisitos son internamente consistentes.\"\n    },\n    {\n      \"criterion\": \"factibilidad\",\n      \"score\": 8,\n      \"finding\": \"Los requisitos son técnicamente factibles para un sistema de login estándar. Los marcadores [POR DEFINIR] no impiden la factibilidad, ya que cualquier tipo de credencial y destino pueden implementarse con esfuerzo razonable.\",\n      \"recommendation\": \"Ninguna. La factibilidad no está comprometida por la falta de detalles definidos.\"\n    },\n    {\n      \"criterion\": \"verificabilidad\",\n      \"score\": 4,\n      \"finding\": \"La verificabilidad está limitada porque los criterios de aceptación contienen marcadores [POR DEFINIR: tipo de credenciales, destino, número de intentos]. Sin valores concretos, no se pueden definir pruebas objetivas automatizadas para esos puntos.\",\n      \"recommendation\": \"Definir los valores por definir para poder diseñar casos de prueba verificables.\"\n    },\n    {\n      \"criterion\": \"trazabilidad\",\n      \"score\": 7,\n      \"finding\": \"Los requisitos llevan identificadores únicos (REQ-1, REQ-2, REQ-3) que permiten su relación con diseño, implementación y prueba. No declaran explícitamente el actor/necesidad de origen más allá del contexto 'página web de ropa', pero el identificador es suficiente para trazabilidad.\",\n      \"recommendation\": \"Ninguna. Los identificadores REQ-1/2/3 son únicos y suficientes para trazabilidad.\"\n    },\n    {\n      \"criterion\": \"ausencia_ambiguedad\",\n      \"score\": 5,\n      \"finding\": \"No hay términos subjetivos o vagos no declarados. Los únicos posibles ambiguedades son los propios marcadores [POR DEFINIR], los cuales no se consideran términos vagos no marcados según la regla 12, sino huecos por definir.\",\n      \"recommendation\": \"Ninguna. Los marcadores [POR DEFINIR] son huecos declarados, no términos ambiguos no intencionales.\"\n    },\n    {\n      \"criterion\": \"criterios_aceptacion\",\n      \"score\": 4,\n      \"finding\": \"Los criterios de aceptación están incompletos al contener múltiples marcadores [POR DEFINIR: tipo de credenciales, destino tras el acceso, número de intentos, comportamiento ante fallos repetidos]. Sin estos valores, no se pueden determinar condiciones verificables de satisfacción.\",\n      \"recommendation\": \"Sustituir los marcadores [POR DEFINIR] por valores concretos para completar los criterios de aceptación.\"\n    }\n  ],\n  \"ambiguous_terms\": [],\n  \"is_compound\": false,\n  \"missing_information\": [\n    \"tipo de credenciales (correo/contraseña o redes sociales)\",\n    \"destino tras el acceso (catálogo o página principal)\",\n    \"número de intentos consecutivos antes de bloqueo o acción asociada\",\n    \"comportamiento específico ante fallos repetidos (bloqueo, mensaje, etc.)\"\n  ],\n  \"clarification_questions\": [\n    \"¿Qué tipo de credenciales se deben ingresar en la pantalla de login: correo electrónico y contraseña, o credenciales de redes sociales?\",\n    \"¿A qué pantalla o página debe redirigirse el usuario después de un login exitoso: catálogo de productos o página principal?\",\n    \"¿Cuál es el número máximo de intentos consecutivos fallidos antes de activar bloqueo o mensaje adicional?\"\n  ],\n  \"summary\": \"Los requisitos REQ-1 a REQ-3 definen una estructura de login básica para una página web de ropa, pero contienen marcadores [POR DEFINIR] que dejan abierta la interpretación sobre el tipo de credenciales, el destino post-login y el manejo de fallos repetidos. Los identificadores REQ-1/2/3 son claros y los requisitos son internamente consistentes. Es necesario completar los datos por definir para alcanzar alta especificidad, completitud y verificabilidad.\"\n}",
+              "reasoning_content": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "created": 1790528251,
+        "service_tier": null,
+        "system_fingerprint": null
+      },
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "prompt_tokens": 2695,
+      "completion_tokens": 1486,
+      "latency_ms": 110272,
+      "created_at": "2026-09-27T16:58:20.256574Z"
+    }
+  ],
+  "score_delta": 43,
+  "recommended_version": "improved"
+}
