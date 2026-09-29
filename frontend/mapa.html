@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Mapa interactivo del Parcial 1: del Prompt Engineering al SDD en 5 capas.">
+<title>Del Prompt al SDD</title>
+<style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --ground: #EDF0F4;
+  --surface: #FFFFFF;
+  --surface-2: #F6F8FA;
+  --ink: #141C26;
+  --ink-2: #3E4A58;
+  --muted: #677585;
+  --line: #D5DCE4;
+  --edge: #B7C1CD;
+  --c1: #B45309; --c1-soft: #FEF3E2;
+  --c2: #1D4ED8; --c2-soft: #E8EFFE;
+  --c3: #6D28D9; --c3-soft: #F1EBFE;
+  --c4: #047857; --c4-soft: #E3F6EE;
+  --c5: #BE123C; --c5-soft: #FDE8EC;
+  --ok: #047857; --warn: #B45309; --ctrl: #1D4ED8;
+  --shadow: 0 1px 2px rgba(20, 28, 38, .06), 0 8px 24px rgba(20, 28, 38, .06);
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0D131A; --surface: #151D27; --surface-2: #1B2531;
+    --ink: #E7EDF4; --ink-2: #B8C4D1; --muted: #8A98A8; --line: #293545; --edge: #3A4859;
+    --c1: #F2A541; --c1-soft: #2A2012;
+    --c2: #7AA7FF; --c2-soft: #14213A;
+    --c3: #B69CFF; --c3-soft: #221A38;
+    --c4: #4FD1A1; --c4-soft: #10291F;
+    --c5: #FF7A93; --c5-soft: #33161D;
+    --ok: #4FD1A1; --warn: #F2A541; --ctrl: #7AA7FF;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0D131A; --surface: #151D27; --surface-2: #1B2531;
+  --ink: #E7EDF4; --ink-2: #B8C4D1; --muted: #8A98A8; --line: #293545; --edge: #3A4859;
+  --c1: #F2A541; --c1-soft: #2A2012;
+  --c2: #7AA7FF; --c2-soft: #14213A;
+  --c3: #B69CFF; --c3-soft: #221A38;
+  --c4: #4FD1A1; --c4-soft: #10291F;
+  --c5: #FF7A93; --c5-soft: #33161D;
+  --ok: #4FD1A1; --warn: #F2A541; --ctrl: #7AA7FF;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+  padding: 0 20px;
+}
+.wrap { max-width: 1280px; margin: 0 auto; padding-block: 28px 56px; display: grid; gap: 22px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+.mono { font-family: var(--mono); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--c2); outline-offset: 2px; border-radius: 6px; }
+
+/* Encabezado */
+header.top { display: grid; gap: 14px; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: clamp(34px, 5.2vw, 60px); font-weight: 800; line-height: 1.02; }
+h1 .arrow { color: var(--muted); font-weight: 500; }
+.thesis { display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center; font-family: var(--mono); font-size: 13px; }
+.thesis span.q { padding: 3px 9px; border-radius: 999px; border: 1px solid currentColor; background: var(--surface); }
+.thesis span.sep { color: var(--muted); }
+.lede { max-width: 70ch; color: var(--ink-2); margin: 0; }
+
+/* Pestañas */
+nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+nav.tabs button {
+  background: none; border: 0; padding: 10px 14px 12px; cursor: pointer; color: var(--muted);
+  font-weight: 600; border-bottom: 2px solid transparent; margin-bottom: -1px; display: flex; gap: 8px; align-items: baseline;
+}
+nav.tabs button .n { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+nav.tabs button:hover { color: var(--ink); }
+
+/* Vista de conceptos */
+.concepts { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.toolbar p { margin: 0; color: var(--muted); font-size: 13px; }
+.btn {
+  border: 1px solid var(--ink); background: var(--ink); color: var(--surface); border-radius: 8px;
+  padding: 8px 14px; cursor: pointer; font-weight: 600; display: inline-flex; gap: 8px; align-items: center;
+}
+.btn.playing { background: var(--surface); color: var(--ink); }
+.stack { position: relative; display: grid; gap: 10px; }
+svg.links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 2; }
+.layer {
+  position: relative; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+  transition: box-shadow .25s, border-color .25s;
+}
+.layer::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 3px; background: var(--lc); }
+.layer.on { border-color: var(--lc); box-shadow: 0 0 0 3px var(--lsoft); }
+.layer .meta { display: grid; gap: 2px; align-content: start; padding-left: 6px; }
+.layer .meta .num { font-family: var(--mono); font-size: 11px; color: var(--lc); letter-spacing: .06em; }
+.layer .meta h3 { font-size: 18px; font-weight: 700; color: var(--lc); }
+.layer .meta .ask { font-size: 13px; color: var(--muted); }
+.nodes { display: flex; flex-wrap: wrap; gap: 8px; align-content: center; position: relative; z-index: 3; }
+.node {
+  border: 1.5px solid var(--lc); background: var(--lsoft); color: var(--ink); border-radius: 8px;
+  padding: 7px 11px; cursor: pointer; font-weight: 600; font-size: 14px; line-height: 1.2;
+  transition: transform .15s, background .15s, color .15s, opacity .2s;
+}
+.node:hover { transform: translateY(-1px); }
+.node.sel { background: var(--lc); color: var(--surface); }
+.stack.focus .node:not(.sel):not(.rel) { opacity: .45; }
+.link { fill: none; stroke: var(--edge); stroke-width: 1.2; opacity: .55; transition: opacity .2s, stroke .2s, stroke-width .2s; }
+.link.hot { stroke: var(--ink-2); stroke-width: 2.2; opacity: 1; }
+.link-label { font-family: var(--mono); font-size: 11.5px; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.caption {
+  margin-top: 12px; min-height: 48px; display: flex; gap: 12px; align-items: center;
+  font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--ink);
+}
+.caption .step { font-family: var(--mono); font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+
+/* Ficha */
+aside.card {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.card-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--line); background: var(--lsoft); display: grid; gap: 4px; }
+.card-head .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--lc); }
+.card-head h2 { font-size: 26px; font-weight: 800; }
+.card-head p { margin: 0; color: var(--ink-2); font-size: 14px; }
+.card-body { padding: 14px 20px 18px; display: grid; gap: 12px; }
+.field { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+.field .ic { font-family: var(--mono); font-weight: 600; font-size: 13px; line-height: 1.6; text-align: center; }
+.field .k { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.field .v { font-size: 14px; }
+.ic.p { color: var(--muted); } .ic.b { color: var(--ok); } .ic.r { color: var(--warn); } .ic.c { color: var(--ctrl); }
+.example { border-top: 1px dashed var(--line); padding-top: 12px; font-size: 13.5px; color: var(--ink-2); }
+.example b { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); font-weight: 500; display: block; margin-bottom: 2px; }
+.rels { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 6px; }
+.rels .k { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.rel-item { display: block; font-size: 13.5px; }
+.rel-item button { border: 0; background: none; padding: 0; cursor: pointer; font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.rel-item .verb { color: var(--muted); }
+
+/* Metodologías */
+.timeline { display: grid; gap: 16px; }
+.role {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.role .bar { height: 8px; border-radius: 8px; background: linear-gradient(90deg, var(--muted), var(--c1), var(--c2), var(--c3), var(--c4), var(--c5)); opacity: .85; }
+.steps { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+.stepcard {
+  background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--lc);
+  border-radius: 10px; padding: 12px; display: grid; gap: 6px; align-content: start;
+}
+.stepcard .i { font-family: var(--mono); font-size: 12px; color: var(--lc); font-weight: 500; }
+.stepcard h3 { font-size: 16px; font-weight: 700; line-height: 1.15; }
+.stepcard p { margin: 0; font-size: 13px; color: var(--ink-2); }
+.stepcard .risk { font-size: 12.5px; color: var(--warn); }
+.stepcard .lay { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* Herramientas */
+.toolgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.toolcol { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; align-content: start; }
+.toolcol header { padding: 12px 14px; background: var(--lsoft); border-bottom: 1px solid var(--line); }
+.toolcol header .num { font-family: var(--mono); font-size: 11px; color: var(--lc); }
+.toolcol header h3 { font-size: 17px; color: var(--lc); }
+.tool { padding: 10px 14px; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.tool:last-child { border-bottom: 0; }
+.tool .name { font-weight: 600; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.tool .use { font-size: 13px; color: var(--ink-2); }
+.chip { font-family: var(--mono); font-size: 10.5px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.chip.yes { border-color: var(--ok); color: var(--ok); }
+
+/* Beneficios y riesgos */
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.filters button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; font-weight: 500; }
+.filters button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--surface); }
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--surface-2); position: sticky; top: 0; }
+tbody tr:last-child td { border-bottom: 0; }
+td.concept { font-weight: 600; white-space: nowrap; }
+td.concept .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--lc); margin-right: 8px; }
+td.b { color: var(--ink); } td.r { color: var(--ink); }
+th.b { color: var(--ok); } th.r { color: var(--warn); } th.c { color: var(--ctrl); }
+
+footer { color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+/* Capas */
+.L1 { --lc: var(--c1); --lsoft: var(--c1-soft); }
+.L2 { --lc: var(--c2); --lsoft: var(--c2-soft); }
+.L3 { --lc: var(--c3); --lsoft: var(--c3-soft); }
+.L4 { --lc: var(--c4); --lsoft: var(--c4-soft); }
+.L5 { --lc: var(--c5); --lsoft: var(--c5-soft); }
+
+@media (max-width: 1100px) {
+  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  .concepts { grid-template-columns: 1fr; }
+  aside.card { position: static; }
+}
+@media (max-width: 720px) {
+  body { padding: 0 16px; }
+  svg.links { display: none; }
+  .layer { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .caption { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Parcial 1 · Ingeniería de Software Aumentada con IA · Componente 2</div>
+    <h1>Del Prompt <span class="arrow">→</span> al SDD</h1>
+    <div class="thesis" aria-label="Las cinco preguntas de la cadena">
+      <span class="q L1" style="color:var(--c1)">qué pedimos</span><span class="sep">→</span>
+      <span class="q L2" style="color:var(--c2)">qué sabe el modelo</span><span class="sep">→</span>
+      <span class="q L3" style="color:var(--c3)">cómo actúa</span><span class="sep">→</span>
+      <span class="q L4" style="color:var(--c4)">qué se construye</span><span class="sep">→</span>
+      <span class="q L5" style="color:var(--c5)">cómo se controla</span>
+    </div>
+    <p class="lede">Cada capa resuelve un problema que la anterior deja abierto. Elige un concepto para ver qué problema resuelve, qué aporta, qué riesgo introduce y qué sigue controlando el ingeniero, con ejemplos reales del proyecto.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Ramas del mapa">
+    <button role="tab" id="tab-conceptos" aria-selected="true" aria-controls="v-conceptos"><span class="n">01</span>Conceptos</button>
+    <button role="tab" id="tab-metodologias" aria-selected="false" aria-controls="v-metodologias"><span class="n">02</span>Metodologías</button>
+    <button role="tab" id="tab-herramientas" aria-selected="false" aria-controls="v-herramientas"><span class="n">03</span>Herramientas</button>
+    <button role="tab" id="tab-riesgos" aria-selected="false" aria-controls="v-riesgos"><span class="n">04</span>Beneficios y riesgos</button>
+  </nav>
+
+  <section id="v-conceptos" role="tabpanel" aria-labelledby="tab-conceptos">
+    <div class="concepts">
+      <div>
+        <div class="toolbar">
+          <p>18 conceptos en 5 capas. Las líneas muestran de qué depende cada uno.</p>
+          <button class="btn" id="tour" type="button">▶ Recorrer la cadena</button>
+        </div>
+        <div class="stack" id="stack">
+          <svg class="links" id="links" aria-hidden="true"></svg>
+        </div>
+        <div class="caption" id="caption" aria-live="polite"></div>
+      </div>
+      <aside class="card" id="card" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section id="v-metodologias" role="tabpanel" aria-labelledby="tab-metodologias" hidden>
+    <div class="timeline">
+      <div class="role"><span>el ingeniero escribe código</span><div class="bar"></div><span>especifica, verifica y gobierna</span></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </section>
+
+  <section id="v-herramientas" role="tabpanel" aria-labelledby="tab-herramientas" hidden>
+    <div class="toolgrid" id="tools"></div>
+  </section>
+
+  <section id="v-riesgos" role="tabpanel" aria-labelledby="tab-riesgos" hidden>
+    <div class="filters" id="filters"></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Concepto</th><th>Problema que resuelve</th><th class="b">Beneficio</th><th class="r">Riesgo</th><th class="c">Qué sigue controlando el ingeniero</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    <span>Ejemplos tomados de la evidencia del repositorio promptops-nvidia (puntos 3 a 8).</span>
+    <span>Mapa construido con código: HTML, CSS y JavaScript.</span>
+  </footer>
+</div>
+
+<script>
+const LAYERS = [
+  { n: 1, name: "Prompt", ask: "qué pedimos" },
+  { n: 2, name: "Context", ask: "qué sabe el modelo" },
+  { n: 3, name: "Harness", ask: "cómo actúa" },
+  { n: 4, name: "Specification", ask: "qué se construye" },
+  { n: 5, name: "Governance", ask: "cómo se controla" },
+];
+
+const C = {
+  prompt: { l: 1, name: "Prompt Engineering", def: "Diseñar la instrucción: rol, tarea, formato y restricciones.",
+    p: "Pedidos vagos dan respuestas vagas o distintas cada vez.",
+    b: "Salidas más precisas y en el formato esperado.",
+    r: "Frágil: un cambio pequeño altera la respuesta y no escala a un sistema.",
+    c: "Validar el prompt contra criterios antes de usarlo y versionarlo.",
+    ex: "Los 7 prompts del SDLC pasaron por 4 Quality Gates. El de Requisitos subió de 76 a 86." },
+  llm: { l: 2, name: "LLM", def: "Modelo de lenguaje grande que razona y genera texto o código.",
+    p: "Tareas abiertas que piden conocimiento amplio y razonamiento.",
+    b: "Alta capacidad en tareas complejas.",
+    r: "Costo, latencia, datos fuera de la organización y alucinaciones.",
+    c: "Elegir el modelo de cada fase con métricas, no por fama.",
+    ex: "Kimi K3 implementó el módulo del benchmark y pasó las 34 pruebas ocultas en 3 de 3 corridas." },
+  slm: { l: 2, name: "SLM", def: "Modelo pequeño que corre en hardware propio.",
+    p: "Privacidad, costo por token y dependencia de la nube.",
+    b: "Los datos no salen del equipo, no hay costo por token y responde al instante.",
+    r: "Menor calidad: inventa datos y falla en tareas complejas.",
+    c: "Usarlo solo donde las puertas verifican su salida, como cambios pequeños.",
+    ex: "qwen2.5-coder 7B dio el primer token en cerca de 1 s, pero cumplió 0 de 3 en requisitos e implementación." },
+  context: { l: 2, name: "Context Engineering", def: "Decidir qué información recibe el modelo en cada paso.",
+    p: "El modelo no conoce el proyecto y rellena con supuestos.",
+    b: "Respuestas ancladas en datos y decisiones reales.",
+    r: "Contexto de más, desactualizado o contradictorio.",
+    c: "Curar el contexto: solo lo aprobado y necesario para esa fase.",
+    ex: "Cada fase de la cadena SDD lee el artefacto aprobado en /specs, no la conversación anterior." },
+  harness: { l: 3, name: "Harness", def: "El entorno del modelo: herramientas, permisos, estado y límites.",
+    p: "Un modelo solo produce texto: no ejecuta ni comprueba nada.",
+    b: "Convierte al modelo en un sistema que actúa y se puede auditar.",
+    r: "Más capacidad de acción también es más daño posible si falla.",
+    c: "Diseñar qué puede hacer, con qué permisos y qué queda registrado.",
+    ex: "La plataforma encadena Optimizer, Auditor, decisión humana y Executor con una máquina de estados." },
+  agente: { l: 3, name: "Agente", def: "Un modelo que decide pasos y usa herramientas para cumplir un objetivo.",
+    p: "Tareas de varios pasos que un solo prompt no resuelve.",
+    b: "Automatiza trabajo largo: leer, cambiar y probar.",
+    r: "Actúa de más o afirma cosas que no hizo.",
+    c: "Verificar sus afirmaciones con evidencia, no con su palabra.",
+    ex: "En el benchmark, las 6 salidas cloud de arquitectura afirmaron haber usado un linter que no tenían." },
+  subagente: { l: 3, name: "Subagente", def: "Agente especializado al que otro agente delega una parte.",
+    p: "Un solo agente con todo el contexto se satura.",
+    b: "Contexto limpio y un rol claro por tarea.",
+    r: "Se pierde información en el traspaso.",
+    c: "Definir las entradas y salidas de cada rol.",
+    ex: "El Evaluador y el Mejorador de requisitos son roles separados, cada uno con su propio prompt." },
+  loop: { l: 3, name: "Agentic loop", def: "Ciclo planear → actuar → observar → corregir hasta cumplir.",
+    p: "Una sola respuesta no alcanza la calidad pedida.",
+    b: "Mejora iterativa con retroalimentación real.",
+    r: "Bucles sin fin, costo creciente o desvío del objetivo.",
+    c: "Límite de iteraciones y un criterio de salida explícito.",
+    ex: "Auditoría, retroalimentación y nueva iteración del prompt hasta pasar los 4 Gates." },
+  guardrails: { l: 3, name: "Guardrails", def: "Límites que el agente no puede cruzar.",
+    p: "Un agente sin límites puede hacer daño o salirse del alcance.",
+    b: "Acota el riesgo sin frenar el trabajo permitido.",
+    r: "Límites mal puestos bloquean lo útil o dejan pasar lo peligroso.",
+    c: "Revisar los límites como cualquier otro requisito.",
+    ex: "El código generado en el benchmark solo se ejecutaba si no importaba módulos de red, disco o procesos." },
+  mcp: { l: 3, name: "MCP", def: "Protocolo estándar para conectar agentes con herramientas y datos.",
+    p: "Cada integración con una herramienta se hacía a medida.",
+    b: "Se conecta una herramienta una vez y la usa cualquier agente.",
+    r: "Un servidor inseguro abre acceso a datos o acciones sensibles.",
+    c: "Aprobar qué servidores y permisos usa cada agente.",
+    ex: "No se usó en este proyecto." },
+  skills: { l: 3, name: "Skills", def: "Paquetes de instrucciones que un agente carga cuando la tarea lo pide.",
+    p: "Repetir las mismas instrucciones en cada tarea.",
+    b: "Conocimiento reutilizable y consistente.",
+    r: "Una instrucción desactualizada se aplica en todas partes.",
+    c: "Versionar y revisar los skills como código.",
+    ex: "Esta página se diseñó con un skill de diseño cargado en el asistente de código." },
+  multi: { l: 3, name: "Sistemas multiagente", def: "Varios agentes con roles distintos que colaboran.",
+    p: "Una IA que se evalúa a sí misma no es confiable.",
+    b: "Roles especializados y control cruzado.",
+    r: "Coordinación compleja y errores que pasan de un agente a otro.",
+    c: "Separar quién produce de quién evalúa, y registrarlo todo.",
+    ex: "Kimi mejora y Nemotron evalúa. En el benchmark, el juez principal (gpt-oss) no competía." },
+  spec: { l: 4, name: "Specification", def: "Contrato verificable de lo que debe hacer el sistema.",
+    p: "Los requisitos en prosa se interpretan distinto en cada paso.",
+    b: "Un solo contrato para diseño, código y pruebas.",
+    r: "Si la especificación está mal, todo lo derivado también.",
+    c: "Validar la especificación antes de construir.",
+    ex: "specification.json de SPEC-AUT-03: 8 reglas, 7 criterios Gherkin y 10 decisiones, validado con JSON Schema." },
+  sdd: { l: 4, name: "SDD", def: "La especificación es la fuente de verdad: código y pruebas se derivan de ella.",
+    p: "Las instrucciones temporales se pierden y el código se aleja de lo acordado.",
+    b: "Cambios trazables: se cambia la especificación y el sistema señala qué ajustar.",
+    r: "Burocracia si la especificación es pesada, y falsa confianza si nadie la revisa.",
+    c: "Cambiar primero la especificación y aprobar cada artefacto derivado.",
+    ex: "Bloqueo de 15 a 30 minutos: el cambio directo al código fue rechazado; por la especificación se propagó y quedó conforme." },
+  hitl: { l: 5, name: "Human-in-the-loop", def: "Una persona aprueba o devuelve en los puntos críticos.",
+    p: "La IA no responde por lo que se aprueba.",
+    b: "Criterio humano y responsabilidad clara.",
+    r: "Aprobar sin revisar, o volverse un cuello de botella.",
+    c: "Registrar cada decisión con su motivo, solo donde importa.",
+    ex: "Ningún prompt se ejecuta sin una decisión humana registrada en la base de datos." },
+  qg: { l: 5, name: "Quality Gate", def: "Criterio objetivo que decide si un artefacto pasa a la fase siguiente.",
+    p: "Sin un criterio, lo defectuoso avanza.",
+    b: "Frena errores temprano, de forma automática y repetible.",
+    r: "Una puerta mal diseñada da falsa seguridad.",
+    c: "Probar las propias puertas, por ejemplo con errores sembrados.",
+    ex: "Las 34 pruebas ocultas detectan 12 de 12 errores sembrados; en la cadena SDD, 17 de 17." },
+  obs: { l: 5, name: "Observabilidad", def: "Registrar qué hizo cada modelo: entradas, salidas, tiempos y costo.",
+    p: "Sin registro no se puede auditar ni reproducir nada.",
+    b: "Auditoría, depuración y métricas reales.",
+    r: "Datos sensibles en los registros y demasiado volumen para revisar.",
+    c: "Decidir qué se registra y proteger lo sensible.",
+    ex: "Cada una de las 27 ejecuciones del benchmark guarda el prompt, la salida cruda, los tokens y el tiempo al primer token." },
+  gov: { l: 5, name: "Gobernanza", def: "Reglas de quién decide, con qué evidencia y cómo se controla el cambio.",
+    p: "Con IA, cualquiera puede cambiar cualquier cosa sin dejar rastro.",
+    b: "Confianza, cumplimiento y responsabilidad.",
+    r: "Burocracia que frena, o reglas que nadie aplica.",
+    c: "Reglas que verifica una herramienta, no solo un documento.",
+    ex: "Un modelo reescribió su propio sello de aprobación y el verificador lo detectó." },
+};
+const ORDER = ["prompt", "llm", "slm", "context", "harness", "agente", "subagente", "loop", "guardrails", "mcp", "skills", "multi", "spec", "sdd", "qg", "hitl", "obs", "gov"];
+
+const EDGES = [
+  ["prompt", "context", "un prompt solo no basta: falta contexto"],
+  ["context", "llm", "alimenta"],
+  ["context", "slm", "alimenta"],
+  ["llm", "agente", "razona dentro del"],
+  ["harness", "agente", "ejecuta y limita al"],
+  ["agente", "loop", "trabaja en un"],
+  ["agente", "subagente", "delega en"],
+  ["subagente", "multi", "se coordinan en"],
+  ["mcp", "agente", "le da herramientas al"],
+  ["skills", "agente", "le da procedimientos al"],
+  ["guardrails", "agente", "limitan al"],
+  ["harness", "spec", "actuar sin contrato produce deriva"],
+  ["spec", "sdd", "es la base del"],
+  ["sdd", "context", "se vuelve el contexto de la fase siguiente"],
+  ["spec", "qg", "define qué verifica la"],
+  ["qg", "hitl", "decide si avanza con"],
+  ["hitl", "spec", "los cambios entran por la"],
+  ["obs", "agente", "registra lo que hace el"],
+  ["gov", "qg", "define la"],
+  ["gov", "hitl", "asigna quién aprueba en"],
+  ["gov", "obs", "exige"],
+];
+
+const TOUR = [
+  { l: 1, id: "prompt", text: "Todo empieza con un pedido. Pero un prompt solo no basta: el modelo necesita contexto." },
+  { l: 2, id: "context", text: "Con el contexto correcto, el modelo sabe del proyecto y puede empezar a actuar." },
+  { l: 3, id: "agente", text: "El harness le da herramientas y límites. Pero actuar sin contrato produce deriva." },
+  { l: 4, id: "sdd", text: "La especificación fija qué se construye; código y pruebas se derivan de ella." },
+  { l: 5, id: "qg", text: "Las puertas y las personas verifican. Los cambios vuelven a entrar por la especificación." },
+];
+
+const METODOS = [
+  { i: 1, l: 0, name: "Desarrollo tradicional", what: "El ingeniero escribe y revisa todo el código.", risk: "Lento frente a lo que ya automatiza la IA." },
+  { i: 2, l: 1, name: "AI-assisted development", what: "La IA sugiere líneas; el ingeniero decide cada una.", risk: "Aceptar sugerencias por costumbre." },
+  { i: 3, l: 1, name: "Vibe coding", what: "Se describe lo que se quiere y se acepta lo generado casi sin revisar.", risk: "Código que nadie entiende ni mantiene." },
+  { i: 4, l: 1, name: "Prompt-driven development", what: "El prompt es la unidad de trabajo; cada pedido empieza de cero.", risk: "Las decisiones se pierden entre pedidos." },
+  { i: 5, l: 2, name: "Context Engineering", what: "Se diseña qué sabe el modelo en cada paso.", risk: "Contexto desactualizado o de más." },
+  { i: 6, l: 3, name: "Agentic development", what: "Un agente planea y ejecuta varios pasos con herramientas.", risk: "Acciones sin control o sin evidencia." },
+  { i: 7, l: 4, name: "SDD", what: "La especificación gobierna; código y pruebas se derivan y se verifican.", risk: "Burocracia si la especificación pesa más que el cambio." },
+  { i: 8, l: 5, name: "Desarrollo multiagente", what: "Varios agentes especializados, coordinados por puertas y personas.", risk: "Errores que pasan de un agente a otro." },
+];
+
+const TOOLS = [
+  { l: 1, items: [
+    ["Plataforma de validación de prompts", "Optimizer, Auditor y 4 Quality Gates antes de usar un prompt.", true] ] },
+  { l: 2, items: [
+    ["Ollama", "Sirvió el modelo local qwen2.5-coder 7B con contexto de 16 384 tokens.", true],
+    ["LM Studio", "Alternativa local; no se usó como proveedor del benchmark.", false],
+    ["Modelos cloud (API de NVIDIA)", "Kimi K3, Nemotron 3 Super y gpt-oss-20b como juez.", true] ] },
+  { l: 3, items: [
+    ["Asistentes y agentes de código", "Un agente de código acompañó el desarrollo, con revisión humana.", true],
+    ["AGENTS.md", "Reglas del repositorio para cualquier agente, incluida la regla SDD.", true],
+    ["MCP", "No se usó en este proyecto.", false],
+    ["Skills", "Un skill de diseño guió esta página.", true] ] },
+  { l: 4, items: [
+    ["JSON Schema", "Esquema de la especificación en specs/schemas/.", true],
+    ["OpenAPI", "FastAPI publica el contrato de la API en /openapi.json.", true],
+    ["Gherkin", "Criterios de aceptación en specs/acceptance/REQ-AUT-03.feature.", true],
+    ["Mermaid / PlantUML", "Diagramas de arquitectura en Mermaid dentro del contrato.", true] ] },
+  { l: 5, items: [
+    ["Tests", "268 pruebas con pytest; una cadena SDD rota hace fallar la suite.", true],
+    ["Linters", "ruff en el código propio y en el generado por los modelos.", true],
+    ["Análisis estático", "Revisión del código generado antes de ejecutarlo.", true],
+    ["CI/CD", "Despliegue continuo en Render desde la rama main.", true],
+    ["Quality Gates", "Puertas por prompt, por fase del benchmark y por eslabón SDD.", true] ] },
+];
+
+/* ---------- utilidades ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+let selected = "sdd";
+
+/* ---------- capas y nodos ---------- */
+const stack = $("#stack");
+LAYERS.forEach((L) => {
+  const row = document.createElement("div");
+  row.className = `layer L${L.n}`;
+  row.dataset.layer = L.n;
+  row.innerHTML = `<div class="meta"><span class="num">CAPA ${L.n}</span><h3>${L.name}</h3><span class="ask">${L.ask}</span></div><div class="nodes"></div>`;
+  ORDER.filter((id) => C[id].l === L.n).forEach((id) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "node";
+    b.dataset.id = id;
+    b.textContent = C[id].name;
+    b.addEventListener("click", () => { stopTour(); select(id); });
+    b.addEventListener("mouseenter", () => highlight(id));
+    b.addEventListener("mouseleave", () => highlight(selected));
+    $(".nodes", row).appendChild(b);
+  });
+  stack.appendChild(row);
+});
+
+/* ---------- líneas ---------- */
+const svg = $("#links");
+const NS = "http://www.w3.org/2000/svg";
+function center(id) {
+  const el = stack.querySelector(`.node[data-id="${id}"]`);
+  const r = el.getBoundingClientRect(), s = stack.getBoundingClientRect();
+  return { x: r.left - s.left + r.width / 2, top: r.top - s.top, bottom: r.bottom - s.top, y: r.top - s.top + r.height / 2, h: r.height };
+}
+function draw() {
+  const s = stack.getBoundingClientRect();
+  svg.setAttribute("viewBox", `0 0 ${s.width} ${s.height}`);
+  svg.innerHTML = "";
+  EDGES.forEach(([a, b], i) => {
+    const A = center(a), B = center(b);
+    let d;
+    if (Math.abs(A.y - B.y) < 4) {
+      const lift = 26;
+      d = `M ${A.x} ${A.top} C ${A.x} ${A.top - lift}, ${B.x} ${B.top - lift}, ${B.x} ${B.top}`;
+    } else {
+      const down = B.y > A.y;
+      const y1 = down ? A.bottom : A.top, y2 = down ? B.top : B.bottom;
+      const k = Math.max(30, Math.abs(y2 - y1) * 0.45) * (down ? 1 : -1);
+      d = `M ${A.x} ${y1} C ${A.x} ${y1 + k}, ${B.x} ${y2 - k}, ${B.x} ${y2}`;
+    }
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d);
+    p.setAttribute("class", "link");
+    p.dataset.a = a; p.dataset.b = b; p.dataset.i = i;
+    svg.appendChild(p);
+  });
+  highlight(selected);
+}
+function highlight(id) {
+  svg.querySelectorAll(".link-label").forEach((t) => t.remove());
+  const rel = new Set();
+  svg.querySelectorAll(".link").forEach((p) => {
+    const on = p.dataset.a === id || p.dataset.b === id;
+    p.classList.toggle("hot", on);
+    if (on) {
+      rel.add(p.dataset.a); rel.add(p.dataset.b);
+      const len = p.getTotalLength();
+      const pt = p.getPointAtLength(len / 2);
+      const t = document.createElementNS(NS, "text");
+      t.setAttribute("class", "link-label");
+      t.setAttribute("x", pt.x); t.setAttribute("y", pt.y + 4);
+      t.setAttribute("text-anchor", "middle");
+      t.textContent = EDGES[p.dataset.i][2];
+      svg.appendChild(t);
+    }
+  });
+  svg.querySelectorAll(".link.hot").forEach((p) => svg.insertBefore(p, svg.querySelector(".link-label")));
+  stack.classList.add("focus");
+  stack.querySelectorAll(".node").forEach((n) => {
+    n.classList.toggle("sel", n.dataset.id === selected);
+    n.classList.toggle("rel", rel.has(n.dataset.id));
+  });
+}
+
+/* ---------- ficha ---------- */
+function select(id) {
+  selected = id;
+  const c = C[id], L = LAYERS[c.l - 1];
+  const card = $("#card");
+  card.className = `card L${c.l}`;
+  const out = EDGES.filter((e) => e[0] === id), inc = EDGES.filter((e) => e[1] === id);
+  const rel = [
+    ...out.map(([, b, v]) => `<div class="rel-item"><span class="verb">${esc(c.name)} ${esc(v)} →</span> <button type="button" data-go="${b}">${esc(C[b].name)}</button></div>`),
+    ...inc.map(([a, , v]) => `<div class="rel-item"><button type="button" data-go="${a}">${esc(C[a].name)}</button> <span class="verb">${esc(v)} ${esc(c.name)}</span></div>`),
+  ].join("");
+  card.innerHTML = `
+    <div class="card-head"><span class="tag">Capa ${L.n} · ${L.name} · ${L.ask}</span><h2>${esc(c.name)}</h2><p>${esc(c.def)}</p></div>
+    <div class="card-body">
+      <div class="field"><span class="ic p">?</span><div><div class="k">Problema que resuelve</div><div class="v">${esc(c.p)}</div></div></div>
+      <div class="field"><span class="ic b">+</span><div><div class="k">Beneficio</div><div class="v">${esc(c.b)}</div></div></div>
+      <div class="field"><span class="ic r">!</span><div><div class="k">Riesgo</div><div class="v">${esc(c.r)}</div></div></div>
+      <div class="field"><span class="ic c">⌂</span><div><div class="k">Lo sigue controlando el ingeniero</div><div class="v">${esc(c.c)}</div></div></div>
+      <div class="example"><b>En este proyecto</b>${esc(c.ex)}</div>
+      <div class="rels"><span class="k">Relaciones</span>${rel}</div>
+    </div>`;
+  card.querySelectorAll("[data-go]").forEach((b) => b.addEventListener("click", () => { stopTour(); select(b.dataset.go); }));
+  highlight(id);
+}
+
+/* ---------- recorrido ---------- */
+let tourTimer = null, tourStep = 0;
+const tourBtn = $("#tour"), caption = $("#caption");
+function showStep(i) {
+  const s = TOUR[i];
+  stack.querySelectorAll(".layer").forEach((row) => row.classList.toggle("on", Number(row.dataset.layer) === s.l));
+  select(s.id);
+  caption.innerHTML = `<span class="step">${s.l} / 5</span><span>${esc(s.text)}</span>`;
+}
+function stopTour() {
+  if (!tourTimer) return;
+  clearInterval(tourTimer); tourTimer = null;
+  tourBtn.classList.remove("playing"); tourBtn.textContent = "▶ Recorrer la cadena";
+  stack.querySelectorAll(".layer").forEach((row) => row.classList.remove("on"));
+}
+tourBtn.addEventListener("click", () => {
+  if (tourTimer) { stopTour(); return; }
+  tourStep = 0; showStep(0);
+  tourBtn.classList.add("playing"); tourBtn.textContent = "■ Detener";
+  tourTimer = setInterval(() => {
+    tourStep += 1;
+    if (tourStep >= TOUR.length) { stopTour(); caption.innerHTML = `<span class="step">5 / 5</span><span>${esc(TOUR[4].text)}</span>`; return; }
+    showStep(tourStep);
+  }, 3200);
+});
+
+/* ---------- metodologías ---------- */
+$("#steps").innerHTML = METODOS.map((m) => {
+  const cls = m.l ? `L${m.l}` : "";
+  const lay = m.l ? `capa ${m.l} · ${LAYERS[m.l - 1].name}` : "antes de la IA";
+  return `<article class="stepcard ${cls}" style="${m.l ? "" : "--lc: var(--muted)"}">
+    <span class="i">${String(m.i).padStart(2, "0")}</span><h3>${esc(m.name)}</h3>
+    <p>${esc(m.what)}</p><span class="risk">Riesgo: ${esc(m.risk)}</span><span class="lay">${lay}</span></article>`;
+}).join("");
+
+/* ---------- herramientas ---------- */
+$("#tools").innerHTML = TOOLS.map((g) => {
+  const L = LAYERS[g.l - 1];
+  return `<section class="toolcol L${g.l}"><header><span class="num">CAPA ${L.n} · ${L.ask}</span><h3>${L.name}</h3></header>
+    ${g.items.map(([n, u, used]) => `<div class="tool"><span class="name">${esc(n)}<span class="chip ${used ? "yes" : ""}">${used ? "usada" : "no usada"}</span></span><span class="use">${esc(u)}</span></div>`).join("")}</section>`;
+}).join("");
+
+/* ---------- beneficios y riesgos ---------- */
+let filtro = 0;
+function renderRows() {
+  $("#rows").innerHTML = ORDER.filter((id) => !filtro || C[id].l === filtro).map((id) => {
+    const c = C[id];
+    return `<tr class="L${c.l}"><td class="concept"><span class="dot"></span>${esc(c.name)}</td><td>${esc(c.p)}</td><td class="b">${esc(c.b)}</td><td class="r">${esc(c.r)}</td><td>${esc(c.c)}</td></tr>`;
+  }).join("");
+  $("#filters").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.l) === filtro)));
+}
+$("#filters").innerHTML = `<button type="button" data-l="0">Todos (18)</button>` +
+  LAYERS.map((L) => `<button type="button" data-l="${L.n}">${L.name} (${ORDER.filter((id) => C[id].l === L.n).length})</button>`).join("");
+$("#filters").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; filtro = Number(b.dataset.l); renderRows(); });
+renderRows();
+
+/* ---------- pestañas ---------- */
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function openTab(tab) {
+  tabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute("aria-selected", String(on));
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  });
+  if (tab.id === "tab-conceptos") requestAnimationFrame(draw); else stopTour();
+  try { localStorage.setItem("mapa-tab", tab.id); } catch (e) {}
+}
+tabs.forEach((t) => t.addEventListener("click", () => openTab(t)));
+try { const saved = localStorage.getItem("mapa-tab"); const t = saved && document.getElementById(saved); if (t) openTab(t); } catch (e) {}
+
+/* ---------- arranque ---------- */
+caption.innerHTML = `<span class="step">Recorrido</span><span>Pulsa «Recorrer la cadena» para ver la historia completa, capa por capa.</span>`;
+select(selected);
+draw();
+new ResizeObserver(() => { if (!$("#v-conceptos").hidden) draw(); }).observe(stack);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+</script>
+</body>
+</html>

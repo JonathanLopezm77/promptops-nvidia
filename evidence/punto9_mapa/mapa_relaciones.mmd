@@ -1,0 +1,66 @@
+%%{init: {"theme": "base", "flowchart": {"curve": "basis", "nodeSpacing": 35, "rankSpacing": 60, "padding": 16}, "themeVariables": {"fontSize": "15px", "lineColor": "#475569", "edgeLabelBackground": "#FFFFFF"}}}%%
+flowchart TB
+    subgraph P["① PROMPT — qué pedimos"]
+        direction LR
+        PE["🗣️ <b>Prompt Engineering</b><br/>rol, tarea, formato"] -->|"sin estructura se vuelve"| VC["Vibe coding · prompt-driven<br/>rápido, pero no escala"]
+        EXP["📌 En el proyecto: 7 prompts<br/>validados con 4 Quality Gates"]
+    end
+
+    subgraph C["② CONTEXT — qué sabe el modelo"]
+        direction LR
+        CE["🧩 <b>Context Engineering</b><br/>datos, reglas, salida de la fase anterior"] -->|"alimenta a"| LLM["🧠 LLM · SLM<br/>local u on-premise · cloud"]
+        EXC["📌 Cada fase lee lo aprobado<br/>en /specs, no una conversación"]
+    end
+
+    subgraph H["③ HARNESS — cómo actúa"]
+        direction LR
+        HA["🤖 <b>Harness</b><br/>el entorno donde actúa el agente"] -->|"ejecuta al"| AG["🔁 <b>Agente</b> · agentic loop<br/>planea → actúa → observa"]
+        GR["🚧 Guardrails<br/>permisos y límites"] -->|"limitan al"| AG
+        AG -->|"delega en"| MA["👥 Subagentes<br/>sistemas multiagente"]
+        AG -->|"usa"| TO["🔌 MCP · Skills<br/>AGENTS.md"]
+    end
+
+    subgraph S["④ SPECIFICATION — qué se construye"]
+        direction LR
+        SP["📐 <b>Specification</b><br/>JSON Schema · OpenAPI · Gherkin<br/><i>y contexto de la fase siguiente</i>"] -->|"es la base del"| SDD["📘 <b>SDD</b><br/>la especificación es la fuente de verdad"]
+        EXS["📌 specification.json → código y pruebas<br/>con trazabilidad REQ → TEST"]
+    end
+
+    subgraph G["⑤ GOVERNANCE — cómo se controla"]
+        direction LR
+        GOV["🛡️ <b>Gobernanza</b><br/>quién decide y con qué evidencia"] --> QG["✅ <b>Quality Gates</b><br/>tests · linters · análisis estático · CI/CD"]
+        QG -->|"decide si avanza"| HITL["👤 <b>Human-in-the-loop</b><br/>aprueba o devuelve"]
+        GOV --> OBS["📈 Observabilidad<br/>registra qué hizo cada agente"]
+        EXG["📌 Un modelo reescribió su sello de<br/>aprobación: el verificador lo detectó"]
+    end
+
+    P ==>|"un prompt solo no basta: el modelo necesita contexto"| C
+    C ==>|"con contexto, el modelo ya puede actuar"| H
+    H ==>|"actuar sin contrato produce deriva"| S
+    S <==>|"se verifica si se cumple ⇄ los cambios aprobados vuelven por la especificación"| G
+    VC ~~~ EXP
+    LLM ~~~ EXC
+    SDD ~~~ EXS
+    HITL ~~~ EXG
+
+    classDef prompt fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#1F2937
+    classDef context fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#1F2937
+    classDef harness fill:#EDE9FE,stroke:#7C3AED,stroke-width:2px,color:#1F2937
+    classDef spec fill:#D1FAE5,stroke:#059669,stroke-width:2px,color:#1F2937
+    classDef gov fill:#FFE4E6,stroke:#E11D48,stroke-width:2px,color:#1F2937
+    classDef ejemplo fill:#FFFFFF,stroke:#94A3B8,stroke-width:1px,stroke-dasharray:5 4,color:#334155
+
+    class PE,VC prompt
+    class CE,LLM context
+    class HA,AG,MA,TO,GR harness
+    class SP,SDD spec
+    class QG,HITL,OBS,GOV gov
+    class EXP,EXC,EXS,EXG ejemplo
+
+    style P fill:#FFFBEB,stroke:#D97706,stroke-width:2px,color:#92400E
+    style C fill:#EFF6FF,stroke:#2563EB,stroke-width:2px,color:#1E40AF
+    style H fill:#F5F3FF,stroke:#7C3AED,stroke-width:2px,color:#5B21B6
+    style S fill:#ECFDF5,stroke:#059669,stroke-width:2px,color:#065F46
+    style G fill:#FFF1F2,stroke:#E11D48,stroke-width:2px,color:#9F1239
+
+    linkStyle 10,11,12,13 stroke:#0F172A,stroke-width:3.5px

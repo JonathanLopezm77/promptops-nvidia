@@ -268,7 +268,8 @@ agentes en `AGENTS.md`. Push a `main` despliega en Render
 - [x] 8 SDD: `specs/specification.json` es la fuente de verdad; `python -m sdd.render`,
       `python -m sdd.trazabilidad` (corre dentro de pytest). No editar `src/auth_lockout/`
       sin cambiar antes la especificación; el sello `# Spec:` solo lo emite `--sellar`.
-- [ ] 9 Mapa mental · 10 Informe · 11 Video · 12 Ensayo individual.
+- [x] 9 Mapa mental: `frontend/mapa.html` (público en Render /mapa.html) y `evidence/punto9_mapa/`.
+- [ ] 10 Informe · 11 Video · 12 Ensayo individual.
 
 Reglas aprendidas en el parcial:
 - `tests/conftest.py` fija configuración neutra y desactiva la recuperación de arranque:

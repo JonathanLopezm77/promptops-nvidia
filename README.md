@@ -31,7 +31,8 @@ entrega, con su evidencia:
 | 6 | Benchmark 3 modelos × 3 fases × 3 corridas | [`benchmarks/`](benchmarks/DISENO.md), [`evidence/punto6_benchmark/`](evidence/punto6_benchmark/RESULTADOS.md) | ✅ 27/27 |
 | 7 | Selección de modelo por fase (función objetivo) | [`evidence/punto7_seleccion/`](evidence/punto7_seleccion/SELECCION.md) | ✅ |
 | 8 | SDD: REQ → SPEC → ARCH → CODE → TEST | [`specs/`](specs/README.md), `src/`, `tests/sdd/`, [`evidence/punto8_sdd/`](evidence/punto8_sdd/README.md) | ✅ cadena CONFORME |
-| 9-12 | Mapa mental, informe, video, ensayo individual | — | Pendientes |
+| 9 | Mapa mental del Prompt al SDD | [`evidence/punto9_mapa/`](evidence/punto9_mapa/README.md), [mapa interactivo](https://promptops-nvidia.onrender.com/mapa.html) | ✅ |
+| 10-12 | Informe, video, ensayo individual | — | Pendientes |
 
 ---
 
